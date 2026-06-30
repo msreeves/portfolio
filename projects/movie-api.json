@@ -1,0 +1,10 @@
+{
+    "slug": "movie-api",
+    "title": "Movie Searcher",
+    "stack": "HTML5, CSS, JavaScript, REST API",
+    "summary": "Movie lookup app powered by TMDB REST endpoints with server-side proxying.",
+    "thumb": ".\/media\/images\/portfolio\/moviedata.png",
+    "view_url": ".\/projects\/movie-api\/",
+    "code_url": "https://github.com/msreeves87/movie-search/",
+    "order": 10
+}

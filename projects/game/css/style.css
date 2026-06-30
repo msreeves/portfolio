@@ -1,0 +1,120 @@
+body {
+  background-image: url(../img/background.png);
+  font-family: 'Luckiest Guy', cursive;
+  color:#fff;
+  text-align: center;
+  background-size: cover;
+  letter-spacing: 3px;
+}
+
+canvas{
+  background-color:#000;
+  margin-bottom: 30px;
+  padding: 20px;
+}
+
+#categoryName {
+    margin-top: 30px;
+}
+
+h1 {
+    font-size: 32px;
+    text-transform: uppercase;
+}
+
+.intro {
+  margin-bottom: 40px;
+}
+
+a, a:hover {
+  color: #000;
+}
+
+p {
+    font-size: 24px; 
+}
+
+.fa, .fas {
+  color: #fff;
+}
+
+.icon-btn {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  color: inherit;
+  cursor: pointer;
+}
+
+.icon-btn:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 4px;
+}
+
+#alphabet li {
+  font-size: 32px;
+  float: left;
+  margin: 0 20px 10px 10px;
+  list-style: none;
+  padding: 20px;
+  color: #fff;
+  cursor: pointer;
+  border: solid 1px #fff;
+  background: #000;
+}
+
+#my-word li {
+  position: relative;
+  list-style: none;
+  margin: 0;
+  display: inline-block;
+  padding: 20px;
+  font-size: 32px;
+  color: #fff;
+  background: #000;
+}
+
+.img__wrap {
+  display: inline-block;
+  padding: 20px;
+  cursor: pointer;
+}
+
+.img__description {
+  background-color: #000;
+  color: #fff;
+  visibility: hidden;
+  opacity: 0;  
+  padding: 5px;
+  display: inline-block;  
+}
+      
+.img__wrap:hover .img__description {
+  visibility: visible;
+  opacity: 1;
+}
+
+#buttons .active {
+  cursor:pointer;
+    background: #8a0303;  
+}
+
+#my-word {
+  padding: 0;
+}
+
+#mylives{
+  text-align: center;
+  display: block;
+}
+
+@media (max-width: 767px) {
+  #alphabet {
+  padding:0 0 0 15px;
+}
+  }
+
+  @media (max-width: 480px) {
+  #alphabet {
+  padding:0 0 0 25px;
+}

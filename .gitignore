@@ -1,0 +1,9 @@
+.DS_Store
+*.log
+.vscode/
+
+# Local secrets and runtime state (examples in .private/ stay tracked)
+.private/*
+!.private/.htaccess
+!.private/github_remote.example
+!.private/cms-overrides.example.php

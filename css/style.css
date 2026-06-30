@@ -1,0 +1,1406 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+ul {
+  list-style-type: none;
+}
+
+h7,
+.portfolio-highlight {
+  font-size: 24px;
+  font-weight: 800;
+  padding: 0 0.5rem;
+}
+
+span.portfolio-highlight {
+  display: inline-block;
+}
+
+#intro > .row {
+  margin-left: 0;
+  margin-right: 0;
+  max-width: 100%;
+}
+
+.intro-tagline {
+  font-size: inherit;
+  font-weight: inherit;
+  margin-bottom: 0;
+  line-height: 1.45;
+}
+
+.intro-hero-ctas {
+  margin-top: 1rem;
+  margin-bottom: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.intro-hero {
+  margin-top: 70px;
+  background: #111;
+}
+
+.intro-hero-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  min-height: calc(100vh - 70px);
+  max-height: 920px;
+}
+
+.intro-hero-media {
+  position: relative;
+  min-height: 100%;
+  overflow: hidden;
+}
+
+.intro-hero-photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
+  object-fit: cover;
+  object-position: center top;
+  border: none;
+  border-radius: 0;
+}
+
+.intro-hero-panel {
+  display: flex;
+  align-items: center;
+  background: #111;
+  padding: clamp(1.5rem, 4vw, 3.5rem);
+}
+
+.intro-hero-copy {
+  color: #fff;
+  width: 100%;
+  max-width: 34rem;
+}
+
+.intro-hero-title {
+  font-size: clamp(1.85rem, 4vw, 2.85rem);
+  line-height: 1.12;
+  margin-bottom: 0.85rem;
+}
+
+.intro-hero-tagline {
+  font-size: clamp(1rem, 2.2vw, 1.2rem);
+  max-width: 32rem;
+  color: #e8e8e8;
+  line-height: 1.5;
+}
+
+.msr-fade-in {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+
+.msr-fade-in.is-visible,
+.intro-hero .msr-fade-in {
+  opacity: 1;
+  transform: none;
+}
+
+.msr-programme-grid {
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Adaptive section grids — column count follows content width and item count */
+.portfolio-content-grid {
+  display: grid;
+  gap: 1.25rem;
+  width: 100%;
+  align-items: stretch;
+}
+
+.portfolio-content-grid--panels {
+  /* Text-heavy CMS panels — always stack full-width rows */
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.portfolio-content-grid--stacked {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.portfolio-content-grid--cards {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+}
+
+.portfolio-content-grid--projects {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+  gap: 1.5rem;
+}
+
+.portfolio-project-grid {
+  margin-top: 0.25rem;
+}
+
+.portfolio-project-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border: 2px solid #1a1a1a;
+  border-top: 4px solid #b22222;
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.portfolio-project-card:hover {
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.14);
+  transform: translateY(-2px);
+}
+
+.portfolio-project-card-media {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-bottom: 3px solid #1a1a1a;
+  background: #111;
+}
+
+.portfolio-project-card-thumb {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.35s ease, opacity 0.35s ease;
+}
+
+.portfolio-project-card:hover .portfolio-project-card-thumb {
+  transform: scale(1.03);
+  opacity: 0.92;
+}
+
+.portfolio-project-card-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  gap: 0.5rem;
+  padding: 1.15rem 1.2rem 1.3rem;
+}
+
+.portfolio-project-card-title {
+  margin: 0;
+  font-weight: 700;
+}
+
+.portfolio-project-card-stack {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.portfolio-project-card-summary {
+  margin: 0;
+  line-height: 1.55;
+  flex: 1 1 auto;
+}
+
+.portfolio-project-card-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.65rem;
+  margin: 0.35rem 0 0;
+  align-items: center;
+}
+
+.portfolio-grid-cell > .portfolio-project-card,
+.portfolio-grid-cell > .msr-programme-card {
+  flex: 1 1 auto;
+  height: 100%;
+}
+
+.portfolio-content-grid--logos {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 8.5rem), 1fr));
+  gap: 1.25rem;
+  justify-items: center;
+  align-items: center;
+}
+
+.portfolio-content-grid--skills-icons {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 6.75rem), 1fr));
+  gap: 0.75rem;
+}
+
+.portfolio-content-grid--solo {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.portfolio-grid-cell {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.portfolio-content-grid--duo {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+}
+
+.portfolio-grid-cell > .portfolio-panel,
+.portfolio-grid-cell > .online {
+  flex: 0 1 auto;
+  height: auto;
+}
+
+.portfolio-main .container > .row + .portfolio-content-grid,
+.portfolio-content-grid + .portfolio-content-grid,
+.portfolio-content-grid + .employer-logo-grid,
+.portfolio-main .container > .row + .employer-logo-grid {
+  margin-top: 1.25rem;
+}
+
+#skills .skills-section-layout {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+}
+
+#skills .skills-courses-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.msr-programme-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid #1a1a1a;
+  border-top: 4px solid #b22222;
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.msr-programme-card-body {
+  padding: 1.15rem 1.2rem 1.3rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+}
+
+.msr-programme-card-title {
+  margin-bottom: 0.35rem;
+}
+
+.msr-programme-card-stack {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.msr-programme-card-summary {
+  margin-bottom: 1rem;
+  line-height: 1.5;
+  flex: 1 1 auto;
+}
+
+.msr-programme-card-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-bottom: 0;
+}
+
+.msr-programme-card-ctas .portfolio-chip {
+  font-size: 1rem;
+  min-height: 2.5rem;
+  padding: 0.5rem 0.9rem;
+}
+
+#skills .online .inner-content a[href] {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0.35rem 0.5rem;
+  margin: 0.15rem 0;
+}
+
+.about-bsi-summary {
+  border-left: 4px solid #b22222;
+  padding-left: 1rem;
+}
+
+.about-bsi-dates {
+  margin-bottom: 0.75rem;
+}
+
+.about-bsi-bullets,
+.msr-case-study-bullets {
+  margin-bottom: 1rem;
+  padding-left: 1.25rem;
+}
+
+.about-bsi-bullets li,
+.msr-case-study-bullets li {
+  margin-bottom: 0.35rem;
+}
+
+.msr-case-study-card {
+  border: 2px solid #000;
+  padding: 1.25rem;
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.msr-case-study-thumb {
+  border: 1px solid #000;
+  width: 100%;
+  height: auto;
+}
+
+.msr-case-study-role {
+  font-size: 1.05rem;
+}
+
+.msr-case-study-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 0;
+}
+
+.contact-band {
+  background: #1a1a1a;
+  color: #fff;
+  padding: 2rem 0;
+  margin-top: 1rem;
+}
+
+.contact-band-heading {
+  margin-bottom: 0.75rem;
+  color: #fff;
+}
+
+.contact-band-intent,
+.contact-band-email {
+  margin-bottom: 0.75rem;
+}
+
+.contact-band-email a {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.contact-band-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: flex-start;
+}
+
+@media (min-width: 992px) {
+  .contact-band-actions {
+    justify-content: flex-end;
+  }
+}
+
+/* Legacy markup utilities used across CMS HTML blocks */
+.p-t-3 {
+  padding-top: 1rem;
+}
+
+.m-b-2 {
+  margin-bottom: 1rem;
+}
+
+.m-y-3 {
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.portfolio-main .name-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+  margin: 0;
+  padding: 0.75rem 1rem;
+  width: 100%;
+}
+
+.main_about_area {
+  margin-bottom: 0;
+  height: 100%;
+}
+
+.portfolio-panel {
+  height: 100%;
+}
+
+.portfolio-main .container > .row + .row {
+  margin-top: 0.25rem;
+}
+
+#introduction .skills-gallery {
+  margin-top: 0.25rem;
+}
+
+.main_home p.block,
+.main_home > p,
+.online p.block,
+.online > p {
+  margin-bottom: 1rem;
+  line-height: 1.55;
+}
+
+.main_home p.block:last-child,
+.main_home > p:last-child,
+.online p.block:last-child,
+.online > p:last-child {
+  margin-bottom: 0;
+}
+
+.main_home h3.title {
+  margin-bottom: 1rem;
+}
+
+#recent-portfolio .main_about_area:last-child {
+  margin-bottom: 0;
+}
+
+.msr-featured-ctas {
+  line-height: 2.4;
+}
+
+.navbar-toggler-icon i {
+  color: #fff;
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+/* Hamburger: bars when closed, X when Bootstrap sets aria-expanded="true" */
+.navbar-toggler .nav-toggler-close {
+  display: none;
+}
+
+.navbar-toggler[aria-expanded="true"] .nav-toggler-bars {
+  display: none;
+}
+
+.navbar-toggler[aria-expanded="true"] .nav-toggler-close {
+  display: inline-block;
+}
+
+body.msr-portfolio {
+  color: #000;
+  font-size: 16px;
+  font-family: "Kodchasan", sans-serif;
+  overflow-x: clip;
+  max-width: 100%;
+  background-color: #1a1a1a;
+  background-image: url(../media/images/background.jpg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  background-attachment: scroll;
+}
+
+/* Font Awesome 6 all.min.css sets `a { font-family: "Font Awesome 6 Free"; font-weight: 900 }` on every anchor.
+   That makes normal link text (nav, paragraphs) render as icon-font glyphs — “all links look the same” / wrong shapes.
+   Icons on <i class="fa…"> keep their own .fa/.fab rules. Anchors with FA classes still match those rules. */
+a {
+  font-family: inherit;
+  font-weight: inherit;
+  color: #000;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+section {
+  padding-top: 100px;
+  padding-bottom: 50px;
+}
+
+/* NAVBAR { */
+
+.navbar {
+  overflow-x: visible;
+  overflow-y: visible;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1030;
+  background: url(../media/images/tobiasbg.png);
+  border-bottom: 2px solid #fff;
+}
+
+/* Many nav labels: allow wrapping on large screens so links are not clipped */
+@media (min-width: 992px) {
+  .navbar-expand-lg .navbar-nav {
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 0.25rem;
+  }
+}
+
+/* Higher specificity than Bootstrap 5 `.navbar-nav .nav-link` (which was winning over lone `.nav-link`) */
+.navbar .navbar-nav .nav-link {
+  color: #fff;
+  font-size: 16px;
+  margin-right: 10px;
+  border-bottom: 5px solid transparent;
+  text-align: center;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+.navbar .navbar-nav .nav-link:hover,
+.navbar .navbar-nav .nav-link:focus-visible {
+  color: #b22222;
+  border-bottom: 5px solid #b22222;
+}
+
+.navbar-toggler {
+  border: 2px solid #fff;
+  padding: 10px;
+}
+
+/* Bootstrap 5 default toggler uses an SVG background; we use Font Awesome instead */
+.navbar .navbar-toggler .navbar-toggler-icon {
+  background-image: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  height: auto;
+}
+
+#intro {
+  background: #111;
+  margin-top: 0;
+}
+
+#intro.intro-hero .container {
+  max-width: none;
+}
+
+#intro .col-sm-12 {
+  padding: 0;
+}
+
+video {
+  max-width: 50%;
+}
+
+button {
+  border: none;
+  background: none;
+}
+
+/* Portfolio action chips — single red system with clear hover states */
+a.portfolio-chip,
+button a.portfolio-chip,
+.hovereffect .overlay a.portfolio-chip {
+  background-color: #b22222;
+  border: 2px solid #b22222;
+  color: #fff;
+  padding: 10px 14px;
+  min-height: 2.75rem;
+  min-width: 2.75rem;
+  box-sizing: border-box;
+  font-size: 1.125rem;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  line-height: 1.2;
+  vertical-align: middle;
+  margin: 0.2rem 0.25rem 0.35rem 0;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+a.portfolio-chip.portfolio-chip--primary,
+button a.portfolio-chip.portfolio-chip--primary,
+.hovereffect .overlay a.portfolio-chip.portfolio-chip--primary {
+  background-color: #b22222;
+  border-color: #b22222;
+  color: #fff;
+}
+
+a.portfolio-chip.portfolio-chip--primary:hover,
+a.portfolio-chip.portfolio-chip--primary:focus-visible,
+button a.portfolio-chip.portfolio-chip--primary:hover,
+.hovereffect .overlay a.portfolio-chip.portfolio-chip--primary:hover,
+.hovereffect .overlay a.portfolio-chip.portfolio-chip--primary:focus-visible {
+  background-color: #8b1a1a;
+  border-color: #8b1a1a;
+  color: #fff;
+}
+
+a.portfolio-chip.portfolio-chip--secondary,
+button a.portfolio-chip.portfolio-chip--secondary,
+.hovereffect .overlay a.portfolio-chip.portfolio-chip--secondary {
+  background-color: #fff;
+  border-color: #b22222;
+  color: #b22222;
+}
+
+a.portfolio-chip.portfolio-chip--secondary:hover,
+a.portfolio-chip.portfolio-chip--secondary:focus-visible,
+button a.portfolio-chip.portfolio-chip--secondary:hover,
+.hovereffect .overlay a.portfolio-chip.portfolio-chip--secondary:hover,
+.hovereffect .overlay a.portfolio-chip.portfolio-chip--secondary:focus-visible {
+  background-color: #b22222;
+  border-color: #b22222;
+  color: #fff;
+}
+
+.intro-hero-panel a.portfolio-chip.portfolio-chip--secondary {
+  background-color: transparent;
+  border-color: #fff;
+  color: #fff;
+}
+
+.intro-hero-panel a.portfolio-chip.portfolio-chip--secondary:hover,
+.intro-hero-panel a.portfolio-chip.portfolio-chip--secondary:focus-visible {
+  background-color: #fff;
+  border-color: #fff;
+  color: #111;
+}
+
+.contact-band a.portfolio-chip.portfolio-chip--secondary {
+  background-color: transparent;
+  border-color: #fff;
+  color: #fff;
+}
+
+.contact-band a.portfolio-chip.portfolio-chip--secondary:hover,
+.contact-band a.portfolio-chip.portfolio-chip--secondary:focus-visible {
+  background-color: #fff;
+  border-color: #fff;
+  color: #111;
+}
+
+a.portfolio-chip:not(.portfolio-chip--secondary):hover,
+a.portfolio-chip:not(.portfolio-chip--secondary):focus-visible,
+button a:not(.portfolio-chip--secondary):hover,
+.hovereffect .overlay a.portfolio-chip:not(.portfolio-chip--secondary):hover,
+.hovereffect .overlay a.portfolio-chip:not(.portfolio-chip--secondary):focus-visible {
+  background-color: #8b1a1a;
+  border-color: #8b1a1a;
+  color: #fff;
+}
+
+button a,
+.hovereffect button a,
+.hovereffect .overlay button a {
+  background-color: #b22222;
+  border: 2px solid #b22222;
+  color: #fff;
+  padding: 10px 14px;
+  min-height: 2.75rem;
+  min-width: 2.75rem;
+  box-sizing: border-box;
+  font-size: 1.125rem;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  line-height: 1.2;
+  border-radius: 0;
+  vertical-align: middle;
+  margin: 0.2rem 0.25rem 0.35rem 0;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+button a:hover,
+.hovereffect button a:hover,
+.hovereffect .overlay button a:hover {
+  background-color: #8b1a1a;
+  border-color: #8b1a1a;
+  color: #fff;
+}
+
+/* Legacy CMS markup: chip spacing inside button wrappers */
+.main_home button,
+.online button,
+#recent-portfolio .main_home button {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0.2rem 0.25rem 0.35rem 0;
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+/* Skills icon grid — Bootstrap columns (see index.php) */
+.skills-icon-grid .skills-item {
+  width: 100%;
+  max-width: none;
+}
+
+.portfolio-content-grid > .portfolio-grid-cell .skills-item {
+  flex: 1 1 auto;
+}
+
+.fullscreen-bg__video {
+  top: 0;
+  left: 0;
+  filter: grayscale(100%);
+}
+
+.msr-portfolio-section,
+.name-panel {
+    width: 100%;
+}
+
+.intro-content {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  color: #000;
+  border: 5px solid #000;
+  background: url(../media/images/panel.jpeg);
+  width: 100%;
+}
+
+.intro-content::before,
+.intro-content::after {
+  content: "";
+  width: 100%;
+  top: 60%;
+  height: 5px;
+  background: #000;
+  bottom: 0;
+  left: 30%;
+  -webkit-transition: -webkit-transform 0.5s;
+  transition: transform 0.5s;
+  -webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+  transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+.intro-content::after {
+  background: #b22222;
+  -webkit-transform: translate3d(-300%, 0, 0) scale3d(0, 1, 1);
+  transform: translate3d(-300%, 0, 0) scale3d(0, 1, 1);
+}
+
+.intro-content .intro-content:hover::before {
+  -webkit-transform: translate3d(300%, 0, 0) scale3d(0, 1, 1);
+  transform: translate3d(300%, 0, 0) scale3d(0, 1, 1);
+}
+
+.intro-content:hover::after {
+  -webkit-transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
+  transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
+}
+
+.intro-content:hover {
+  background: #000;
+  border: 5px solid #fff;
+}
+
+.intro-content:hover :is(h1, h2, h3, h4, h5, h6, .name-title) {
+  color: #fff;
+}
+
+.top-intro-content {
+  background-color: #FBF0F4;
+  border: 5px solid #000;
+  padding: 10px;
+}
+
+.intro-content h1,
+.top-intro-content h1 {
+  padding: 10px;
+  color: #000;
+  font-size: 24px;
+  text-align: center;
+}
+
+.intro-content .intro-position,
+.top-intro-content .intro-position {
+  font-size: 24px;
+  padding: 10px;
+}
+.intro-content .intro-position span {
+  color: #fff;
+}
+
+/* GALLERY */
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.item {
+  margin: 5px;
+}
+
+.hovereffect {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  float: left;
+  overflow: hidden;
+  position: relative;
+  cursor: default;
+}
+
+.hovereffect .overlay {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  padding: 40px;
+}
+
+.hovereffect img {
+  display: block;
+  position: relative;
+  max-width: 100%;
+  width: 100%;
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.hovereffect:hover img {
+  opacity: 0.2;
+  filter: alpha(opacity=40);
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+
+.hovereffect h1,
+.hovereffect h2 {
+  text-transform: uppercase;
+  color: #fff;
+  opacity: 0;
+  position: relative;
+  font-size: 32px;
+  overflow: hidden;
+  padding: 0.5em 0;
+  background-color: transparent;
+}
+
+.hovereffect h1:after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #fff;
+  content: "";
+  -webkit-transition: -webkit-transform 0.35s;
+  transition: transform 0.35s;
+  -webkit-transform: translate3d(-100%, 0, 0);
+  transform: translate3d(-100%, 0, 0);
+}
+
+.hovereffect:hover h2:after {
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+
+.hovereffect a,
+.hovereffect p {
+  color: #fff;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s;
+  -webkit-transform: translate3d(100%, 0, 0);
+  transform: translate3d(100%, 0, 0);
+  font-size: 18px;
+}
+
+.hovereffect:hover h1, 
+.hovereffect:hover a,
+.hovereffect:hover p {
+  opacity: 1;
+  filter: alpha(opacity=100);
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+
+.hovereffect h7 {
+  font-size:24px;
+}
+
+/* HOME SECTION */
+
+.main_home {
+  padding: 10px 20px;
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.92);
+  background-image: url(../media/images/wallpaper-background.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  border: 5px solid #000;
+  width: 100%;
+}
+.main_home h1 {
+  width: 100%;
+  margin: auto;
+}
+.main_home ul li a {
+  color: #fff;
+}
+.main_home ul {
+  margin-top: 5%;
+}
+
+/* Games / online list (not Swiper) */
+.online {
+  border: 5px solid #000;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.92);
+  background-image: url(../media/images/wallpaper-background.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: auto;
+}
+
+/* ========== Swiper carousels (testimonials + timeline) ========== */
+#timeline .timeline-swiper {
+  --swiper-navigation-size: 1.25rem;
+  --swiper-nav-inset: 0.35rem;
+  position: relative;
+  margin: 0 auto;
+  max-width: 100%;
+  padding: 0 3rem;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 28px rgba(0, 0, 0, 0.07);
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(10px);
+}
+
+#testimonials .testimonial-accordion {
+  max-width: 100%;
+  margin: 0 auto;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 28px rgba(0, 0, 0, 0.07);
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(10px);
+}
+#testimonials .testimonial-accordion .accordion-item {
+  border-color: rgba(0, 0, 0, 0.08);
+  background: transparent;
+}
+#testimonials .testimonial-accordion .accordion-button {
+  font-family: inherit;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.75);
+}
+#testimonials .testimonial-accordion .accordion-button:not(.collapsed) {
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: none;
+}
+#testimonials .testimonial-accordion .accordion-body {
+  padding: 0;
+}
+
+#testimonials .testimonials {
+  background: rgba(255, 255, 255, 0.95);
+    box-shadow: none;
+    padding: 10px;
+}
+
+#timeline .timeline-swiper .swiper-slide {
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+#timeline .timeline-swiper .swiper-slide .timeline {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  width: 100%;
+}
+
+#timeline .timeline-swiper .swiper-slide .timeline-content {
+  height: auto;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+#timeline .timeline-swiper .timeline-content {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  background: url(../media/images/wallpaper-background.jpg) center / cover;
+  background-color: #f8f6f4;
+  min-height: 0;
+}
+
+#timeline .timeline-swiper .timeline-icon {
+  float: none;
+}
+
+#timeline .timeline-swiper .timeline-icon img {
+  max-width: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  border: 3px solid rgba(0, 0, 0, 0.12);
+  border-radius: 12px;
+  margin-bottom: 0.25rem;
+}
+
+#timeline .timeline-swiper .timeline-content:hover {
+  color: #000;
+  text-decoration: none;
+}
+
+#timeline .timeline-swiper .swiper-button-prev,
+#timeline .timeline-swiper .swiper-button-next {
+  top: 50%;
+  bottom: auto;
+  margin-top: 0;
+  transform: translateY(-50%);
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  color: #111;
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.1);
+  z-index: 5;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+#timeline .timeline-swiper .swiper-button-prev:hover,
+#timeline .timeline-swiper .swiper-button-next:hover {
+  transform: translateY(-50%) scale(1.06);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  background: #fff;
+}
+
+#timeline .timeline-swiper .swiper-button-prev {
+  left: var(--swiper-nav-inset);
+}
+
+#timeline .timeline-swiper .swiper-button-next {
+  right: var(--swiper-nav-inset);
+}
+
+#timeline .timeline-swiper .swiper-button-prev::after,
+#timeline .timeline-swiper .swiper-button-next::after {
+  font-family: swiper-icons;
+  font-size: var(--swiper-navigation-size, 44px);
+  font-weight: 400;
+  font-style: normal;
+  text-transform: none !important;
+  letter-spacing: 0;
+  font-variant: initial;
+  line-height: 1;
+  color: #111;
+}
+
+#timeline .timeline-swiper .swiper-button-prev::after {
+  content: 'prev';
+}
+
+#timeline .timeline-swiper .swiper-button-next::after {
+  content: 'next';
+}
+
+.title {
+  font-weight: 600;
+  margin: 0 0 5px 0;
+  text-align: center;
+}
+
+.description {
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+#websites img {
+  border: 5px solid #000;
+}
+
+/* Intro employer logos only (#intro uses .container; #skills uses .row) */
+.skills-gallery > .container img {
+  border: 10px solid #000;
+  max-width: 200px;
+  background-color: #fff;
+}
+
+.website-gallery img {
+  border: 10px solid #000;
+  max-width: 200px;
+  background-color: #fff;
+}
+
+/* Employer logo grid (About section) — auto-fit to logo count */
+.employer-logo-grid-inner {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 8.5rem), 1fr));
+  gap: 1.25rem;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  justify-items: center;
+  align-items: center;
+}
+
+.employer-logo-grid-inner img.item,
+.employer-logo-grid-inner a {
+  margin: 0;
+}
+
+.employer-logo-grid-inner a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+
+.employer-logo-grid-inner .item {
+  border: 10px solid #000;
+  max-width: min(200px, 100%);
+  width: auto;
+  height: auto;
+  background-color: #fff;
+}
+
+/* #skills: Font Awesome tiles (replaces PNG icons) */
+.skills-gallery .skills-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: min(200px, 100%);
+  aspect-ratio: 1;
+  margin: 0;
+  border-radius: 12px;
+  border: 3px solid #000;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28);
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.skills-gallery .skills-item i {
+  font-size: clamp(2.25rem, 14vw, 5.75rem);
+  line-height: 1;
+  color: #fff;
+  font-style: normal;
+  font-family: "Font Awesome 6 Brands", "Font Awesome 6 Free", sans-serif;
+  font-weight: 400;
+}
+
+.skills-gallery .skills-item i.fas {
+  font-family: "Font Awesome 6 Free", sans-serif;
+  font-weight: 900;
+}
+
+.skills-gallery .skills-item.skill-js i {
+  color: #1a1a1a;
+}
+
+.skills-gallery .skills-item .skills-item-logo {
+  max-width: 78%;
+  max-height: 78%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  border: none;
+  background: transparent;
+  padding: 0;
+}
+
+.skills-gallery .skills-item.skill-php {
+  background: linear-gradient(145deg, #8892bf, #4f5b93);
+}
+
+/* Logo tiles: light cards so PNG marks read clearly (FA brand glyph + thin grip icon were hard to see) */
+.skills-gallery .skills-item.skill-canva {
+  background: linear-gradient(180deg, #ffffff 0%, #e8fbfc 100%);
+  border: 3px solid #00b4bc;
+  box-shadow: 0 4px 14px rgba(0, 180, 188, 0.35);
+  padding: 0.75rem;
+}
+
+.skills-gallery .skills-item.skill-hubspot {
+  background: linear-gradient(145deg, #ff7a59, #e44c29);
+}
+
+.skills-gallery .skills-item.skill-grip {
+  background: linear-gradient(180deg, #ffffff 0%, #eef2f7 100%);
+  border: 3px solid #475569;
+  box-shadow: 0 4px 14px rgba(71, 85, 105, 0.3);
+  padding: 0.75rem;
+}
+.skills-gallery .skills-item.skill-photoshop {
+  background: linear-gradient(145deg, #31a8ff, #0d5e9b);
+}
+.skills-gallery .skills-item.skill-indesign {
+  background: linear-gradient(145deg, #e6498f, #9d174d);
+}
+.skills-gallery .skills-item.skill-illustrator {
+  background: linear-gradient(145deg, #ff9a00, #c76a00);
+}
+.skills-gallery .skills-item.skill-wordpress {
+  background: linear-gradient(145deg, #21759b, #135076);
+}
+.skills-gallery .skills-item.skill-bootstrap {
+  background: linear-gradient(145deg, #7952b3, #4a2d7a);
+}
+.skills-gallery .skills-item.skill-css {
+  background: linear-gradient(145deg, #264de4, #1a3a9e);
+}
+.skills-gallery .skills-item.skill-html {
+  background: linear-gradient(145deg, #e34f26, #9a3412);
+}
+.skills-gallery .skills-item.skill-js {
+  background: linear-gradient(145deg, #f7df1e, #e5c200);
+}
+
+section#portfolio {
+  background: url(../media/images/tobiasbg.png);
+}
+
+.portfolio-main .container > .row + .portfolio-project-grid {
+  margin-top: 1.25rem;
+}
+
+/* ALIGNMENT */
+
+.col-lg-8.altered-8 {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 calc(100% - 330px);
+  flex: 0 0 calc(100% - 330px);
+  max-width: calc(100% - 330px);
+}
+
+.col-lg-4.altered-4 {
+  -ms-flex: 0 0 330px;
+  flex: 0 0 330px;
+  max-width: 330px;
+}
+
+#portfolio .col-lg-8.altered-8,
+#my-skills .col-lg-8.altered-8 {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 calc 66.6666%;
+  flex: 0 0 66.6666%;
+  max-width: 66.6666%;
+}
+
+#portfolio .col-lg-4.altered-4,
+#my-skills .col-lg-4.altered-4 {
+  -ms-flex: 0 0 33.3333%;
+  flex: 0 0 33.3333%;
+  max-width: 33.3333%;
+}
+
+/* FOOTER */
+
+footer {
+  background: url(../media/images/tobiasbg.png);
+  width: 100%;
+}
+
+footer img {
+  padding: 20px;
+}
+
+footer .footer-logo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Font Awesome replaces cv/mail/linkedin PNGs — similar footprint to img-fluid + 20px padding */
+.footer-contact-icons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25rem;
+  margin-top: 0.5rem;
+}
+
+.footer-icon-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: content-box;
+  width: 4.5rem;
+  height: 4.5rem;
+  padding: 20px;
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.footer-icon-link:hover,
+.footer-icon-link:focus-visible {
+  color: #b22222;
+  transform: scale(1.06);
+}
+
+.footer-icon-link i {
+  font-size: 4.5rem;
+  line-height: 1;
+  font-style: normal;
+  display: inline-block;
+}
+
+.footer-icon-link i.fas,
+.footer-icon-link i.fa-solid {
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+}
+
+.footer-icon-link i.fab {
+  font-family: "Font Awesome 6 Brands";
+  font-weight: 400;
+}
+
+footer h1,
+footer h5,
+footer p {
+  color: #fff;
+  text-align: center;
+}
+
+/* Was position:absolute without a relative parent on desktop — icons/block could sit off-canvas */
+footer.footer_area .container > .row {
+  align-items: center;
+}
+
+.footer-details {
+  position: relative;
+  width: 100%;
+  transform: none;
+  top: auto;
+  text-align: center;
+  padding: 20px;
+}

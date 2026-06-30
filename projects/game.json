@@ -1,0 +1,10 @@
+{
+    "slug": "game",
+    "title": "Let's Play Hangman!",
+    "stack": "HTML5, CSS, JavaScript",
+    "summary": "A Hangman game where you have 10 lives or you are dead!",
+    "thumb": ".\/media\/images\/portfolio\/hangmanicon.png",
+    "view_url": ".\/projects\/game\/",
+    "code_url": "https://github.com/msreeves87/hangman-game",
+    "order": 20
+}

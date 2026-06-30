@@ -1,0 +1,11 @@
+{
+    "slug": "hairdressing",
+    "title": "Hairdressing Client Site",
+    "stack": "HTML5, CSS, Vanilla JavaScript, JSON content model",
+    "summary": "Modernized client hairdressing site with CMS-style JSON content mapping and external placeholders.",
+    "thumb": ".\/media\/images\/portfolio\/wigportfolio.png",
+    "view_url": ".\/projects\/hairdressing\/",
+    "admin_url": ".\/projects\/hairdressing\/admin\/",
+    "code_url": "https://github.com/msreeves87/hk-portfolio/",
+    "order": 30
+}

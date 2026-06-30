@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1"
+    />
+    <link rel="icon" href="../Movie-API/img/popcorn.png" />
+    <link rel="shortcut icon" href="../Movie-API/img/popcorn.png" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Permanent+Marker"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Special+Elite&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://use.fontawesome.com/releases/v5.0.8/css/all.css"
+      rel="stylesheet"
+    />
+    <link href="css/normalizer.css" rel="stylesheet" type="text/css" />
+    <link href="css/stylesheet.css" rel="stylesheet" type="text/css" />
+    <link href="css/responsive.css" rel="stylesheet" type="text/css" />
+    <title>Movie Search Database</title>
+  </head>
+  <body background="img/popcorn.png" align="center">
+    <header></header>
+    <div class="container">
+      <div class="details-panel">
+        <h1>Movie Search Database</h1>
+        <div class="search-bar">
+          <label for="theMovie" class="visually-hidden">Movie title</label>
+          <input
+            id="theMovie"
+            type="text"
+            name="movieQuery"
+            placeholder="Search for a movie"
+            autocomplete="off"
+            aria-label="Search for a movie"
+          />
+          <button id="searchButton" type="button" aria-label="Search movies">Search</button>
+        </div>
+        <p id="statusMessage" class="status-message" aria-live="polite"></p>
+        <div class="row">
+          <div class="details-body">
+            <div class="poster">
+              <h2>Movie Poster:</h2>
+              <img id="imageMovie" alt="Movie poster" />
+            </div>
+            <div class="details-info">
+              <div class="title">
+                <h2>Title:</h2>
+                <p id="title"></p>
+              </div>
+
+              <div class="releaseDate">
+                <h2>Release Date:</h2>
+                <p id="releaseDate"></p>
+              </div>
+
+              <div class="rating">
+                <h2>Rating:</h2>
+                <p id="rating"></p>
+              </div>
+
+              <div class="overview">
+                <h2>Overview:</h2>
+                <p id="overview"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pagination-controls">
+          <button id="prevPageButton" type="button" class="page-btn" disabled>Previous</button>
+          <span id="pageInfo">Page 1</span>
+          <button id="nextPageButton" type="button" class="page-btn" disabled>Next</button>
+        </div>
+      </div>
+    </div>
+    <script src="js/myscript.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

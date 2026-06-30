@@ -1,0 +1,28 @@
+RewriteEngine On
+
+# ─── Canonical home redirects ─────────────────────────────────────────────────
+RewriteRule ^home$           ./          [R=301,L]
+RewriteRule ^index$          ./          [R=301,L]
+RewriteRule ^index\.html$    ./          [R=301,L]
+RewriteRule ^index\.php$     ./          [R=301,L]
+
+# ─── Legacy extensionless to .php redirects ───────────────────────────────────
+RewriteRule ^experience\.html$  ./experience  [R=301,L]
+
+# ─── Serve extensionless URLs as .php ────────────────────────────────────────
+# Skip if the request is an actual file or directory
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^([^/]+)$ $1.php [L]
+
+# ─── 404 handler ──────────────────────────────────────────────────────────────
+ErrorDocument 404 /sites/portfolio/projects/hairdressing/404.php
+
+# ─── Security headers ─────────────────────────────────────────────────────────
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+

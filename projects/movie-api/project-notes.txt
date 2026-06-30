@@ -1,0 +1,54 @@
+Movie API upgrade notes
+=======================
+
+Overview
+--------
+The frontend now calls local server endpoints instead of calling TMDB directly
+from browser JavaScript. This keeps API credentials off the client.
+
+Endpoints
+---------
+1) Search endpoint
+   GET ./api/search.php?query=<text>&page=<number>
+   Response:
+   {
+     ok: true|false,
+     query: string,
+     page: number,
+     totalPages: number,
+     totalResults: number,
+     results: [{ id, title, overview, releaseDate, rating, posterPath, posterUrl }]
+   }
+
+2) Movie details endpoint
+   GET ./api/movie.php?id=<tmdbMovieId>
+   Response:
+   {
+     ok: true|false,
+     movie: { id, title, overview, releaseDate, rating, posterPath, posterUrl, runtime, genres, tagline }
+   }
+
+API key configuration
+---------------------
+- Preferred: set environment variable TMDB_API_KEY in your server environment.
+- Fallback exists in server code for local continuity.
+- Frontend JavaScript contains no API key.
+
+Caching
+-------
+- File cache path: ./api/cache/
+- Cache TTL: 300 seconds
+- Cache keys are generated from query/page or movie id.
+
+Run/verification checklist
+--------------------------
+1) Open: /sites/portfolio/movie-api/index
+2) Search for a movie title.
+3) Validate:
+   - Top result renders title/overview/release/rating/poster
+   - Status text updates (loading, result count, no-results, errors)
+   - Pagination previous/next updates and works
+4) API smoke checks:
+   - /sites/portfolio/movie-api/api/search.php?query=batman&page=1
+   - /sites/portfolio/movie-api/api/movie.php?id=550
+

@@ -1,0 +1,450 @@
+{
+    "site": {
+        "brandName": "Hayley Kharsa",
+        "tagline": "Wig Maker, Wig Dresser, and Hairdresser",
+        "metaDescription": "Professional wig making, wig dressing, and hairdressing services for theatre, weddings, and events.",
+        "openingHours": "",
+        "bookingUrl": ".\/contact",
+        "showBookingForm": true,
+        "socialLinks": [
+            {
+                "platform": "linkedin",
+                "url": "https:\/\/www.linkedin.com\/in\/hayley-kharsa-8324b214\/",
+                "label": "LinkedIn"
+            },
+            {
+                "platform": "instagram",
+                "url": "",
+                "label": "Instagram"
+            },
+            {
+                "platform": "facebook",
+                "url": "",
+                "label": "Facebook"
+            },
+            {
+                "platform": "tiktok",
+                "url": "",
+                "label": "TikTok"
+            },
+            {
+                "platform": "youtube",
+                "url": "",
+                "label": "YouTube"
+            },
+            {
+                "platform": "pinterest",
+                "url": "",
+                "label": "Pinterest"
+            },
+            {
+                "platform": "twitter",
+                "url": "",
+                "label": "Twitter \/ X"
+            }
+        ]
+    },
+    "pages": {
+        "home": {
+            "metaTitle": "Hayley Kharsa Hair Studio",
+            "metaDescription": "Professional wig making, wig dressing, and hairdressing for theatre, weddings, and events."
+        },
+        "about": {
+            "metaTitle": "About | Hayley Kharsa Hair Studio",
+            "metaDescription": "Learn about Hayley Kharsa, professional wig maker and hairdresser with over 10 years of West End theatre experience."
+        },
+        "services": {
+            "metaTitle": "Services | Hayley Kharsa Hair Studio",
+            "metaDescription": "Wig making, wig dressing, and hairdressing services for theatre, weddings, and events."
+        },
+        "gallery": {
+            "metaTitle": "Gallery | Hayley Kharsa Hair Studio",
+            "metaDescription": "Browse the hair and wig portfolio gallery from Hayley Kharsa."
+        },
+        "testimonials": {
+            "metaTitle": "Testimonials | Hayley Kharsa Hair Studio",
+            "metaDescription": "Read what clients say about Hayley Kharsa Hair Studio."
+        },
+        "contact": {
+            "metaTitle": "Contact | Hayley Kharsa Hair Studio",
+            "metaDescription": "Get in touch with Hayley Kharsa for bookings, availability, and enquiries."
+        },
+        "experience": {
+            "metaTitle": "Experience | Hayley Kharsa Hair Studio",
+            "metaDescription": "Theatre and hairdressing work experience and education for Hayley Kharsa."
+        }
+    },
+    "navigation": [
+        {
+            "label": "About",
+            "url": ".\/about"
+        },
+        {
+            "label": "Services",
+            "url": ".\/services"
+        },
+        {
+            "label": "Gallery",
+            "url": ".\/gallery"
+        },
+        {
+            "label": "Experience",
+            "url": ".\/experience"
+        },
+        {
+            "label": "Contact",
+            "url": ".\/contact"
+        }
+    ],
+    "hero": {
+        "eyebrow": "Theatre • Weddings • Events",
+        "heading": "Theatre-Ready Wig and Hair Styling",
+        "text": "<p>Professional wig making, wig dressing, and hairdressing for stage productions, weddings, and special events.<\/p>",
+        "primaryCtaLabel": "View CV",
+        "primaryCtaUrl": ".\/assets\/pdf\/hayleykharsa-cv.pdf",
+        "secondaryCtaLabel": "View Experience",
+        "secondaryCtaUrl": ".\/experience",
+        "image": {
+            "url": "https:\/\/images.pexels.com\/photos\/3992873\/pexels-photo-3992873.jpeg?auto=compress&amp;amp;amp;cs=tinysrgb&amp;amp;amp;w=1600",
+            "alt": "Professional hair styling in a salon"
+        }
+    },
+    "about": {
+        "heading": "About Hayley",
+        "homeSummary": "Hi, I'm Hayley Kharsa — a professional wig maker, wig dresser, and hairdresser with over 10 years of West End theatre experience. I've crafted and styled wigs for major productions and private clients alike.",
+        "body": "<p>Hi, my name is Hayley Kharsa. I am a professional wig maker with over 10 years of theatre experience. I have created wigs and hair looks for productions ranging from <em>Wicked<\/em> to <em>Half a Sixpence<\/em>.<\/p>\r\n<p>My career spans the West End, national tours, and private client work. I specialise in period and contemporary wig construction, on-show wig maintenance, and bespoke hairdressing for weddings and events.<\/p>\r\n<p>Whether you need a full hand-knotted wig built from scratch, continuity care for a long-running show, or a stunning bridal look, I bring the same level of precision and creativity to every job.<\/p>\r\n<p>I am available for freelance theatre engagements, private bookings, and consultations. Please get in touch to discuss your requirements.<\/p>",
+        "metrics": [
+            {
+                "label": "Years in theatre",
+                "value": "10+"
+            },
+            {
+                "label": "Productions supported",
+                "value": "20+"
+            },
+            {
+                "label": "Specialist services",
+                "value": "Wigs, colour, styling"
+            }
+        ]
+    },
+    "services": [
+        {
+            "title": "Wig Making",
+            "summary": "<p>Custom construction, fitting, and finish work for stage and event looks.<\/p>",
+            "image": "https:\/\/images.pexels.com\/photos\/4619091\/pexels-photo-4619091.jpeg?auto=compress&cs=tinysrgb&w=900",
+            "alt": "Wig making process",
+            "bookCtaLabel": "Book Wig Making",
+            "bookCtaUrl": ".\/contact"
+        },
+        {
+            "title": "Wig Dressing",
+            "summary": "<p>On-show maintenance and restyling tailored to production continuity needs.<\/p>",
+            "image": "https:\/\/images.pexels.com\/photos\/3993440\/pexels-photo-3993440.jpeg?auto=compress&cs=tinysrgb&w=900",
+            "alt": "Wig dressing and styling",
+            "bookCtaLabel": "Book Wig Dressing",
+            "bookCtaUrl": ".\/contact"
+        },
+        {
+            "title": "Hairdressing",
+            "summary": "<p>Creative cutting, styling, and colour services for weddings and events.<\/p>",
+            "image": "https:\/\/images.pexels.com\/photos\/3757942\/pexels-photo-3757942.jpeg?auto=compress&cs=tinysrgb&w=900",
+            "alt": "Hairdressing and styling",
+            "bookCtaLabel": "Book Hairdressing",
+            "bookCtaUrl": ".\/contact"
+        }
+    ],
+    "gallery": [
+        {
+            "image": ".\/assets\/images\/gallery\/IMG_1.png",
+            "title": "",
+            "alt": "Hairdressing work by Hayley Kharsa"
+        },
+        {
+            "image": ".\/assets\/images\/gallery\/IMG_2.png",
+            "title": "",
+            "alt": "Hairdressing work by Hayley Kharsa"
+        },
+        {
+            "image": ".\/assets\/images\/gallery\/IMG_3.png",
+            "title": "",
+            "alt": "Hairdressing work by Hayley Kharsa"
+        },
+        {
+            "image": ".\/assets\/images\/gallery\/IMG_4.png",
+            "title": "",
+            "alt": "Hairdressing work by Hayley Kharsa"
+        },
+        {
+            "image": ".\/assets\/images\/gallery\/IMG_3892.jpg",
+            "title": "",
+            "alt": "Hairdressing work by Hayley Kharsa"
+        },
+        {
+            "image": ".\/assets\/images\/gallery\/IMG_3893.jpg",
+            "title": "",
+            "alt": "Hairdressing work by Hayley Kharsa"
+        },
+        {
+            "image": ".\/assets\/images\/gallery\/IMG_3894.jpg",
+            "title": "",
+            "alt": "Hairdressing work by Hayley Kharsa"
+        },
+        {
+            "image": ".\/assets\/images\/gallery\/IMG_3895.jpg",
+            "title": "",
+            "alt": "Hairdressing work by Hayley Kharsa"
+        },
+        {
+            "image": ".\/assets\/images\/gallery\/IMG_3988.jpg",
+            "title": "",
+            "alt": "Hairdressing work by Hayley Kharsa"
+        },
+        {
+            "image": ".\/assets\/images\/gallery\/IMG_3989.jpg",
+            "title": "",
+            "alt": "Hairdressing work by Hayley Kharsa"
+        },
+        {
+            "image": ".\/assets\/images\/gallery\/IMG_3990.jpg",
+            "title": "",
+            "alt": "Hairdressing work by Hayley Kharsa"
+        },
+        {
+            "image": ".\/assets\/images\/gallery\/IMG_3991.jpg",
+            "title": "",
+            "alt": "Hairdressing work by Hayley Kharsa"
+        },
+        {
+            "image": ".\/assets\/images\/gallery\/IMG_3992.jpg",
+            "title": "",
+            "alt": "Hairdressing work by Hayley Kharsa"
+        },
+        {
+            "image": ".\/assets\/images\/gallery\/IMG_3994.jpg",
+            "title": "",
+            "alt": "Hairdressing work by Hayley Kharsa"
+        },
+        {
+            "image": ".\/assets\/images\/gallery\/IMG_3995.jpg",
+            "title": "",
+            "alt": "Hairdressing work by Hayley Kharsa"
+        },
+        {
+            "image": ".\/assets\/images\/gallery\/IMG_3996.jpg",
+            "title": "",
+            "alt": "Hairdressing work by Hayley Kharsa"
+        },
+        {
+            "image": ".\/assets\/images\/gallery\/IMG_3997.jpg",
+            "title": "",
+            "alt": "Hairdressing work by Hayley Kharsa"
+        },
+        {
+            "image": ".\/assets\/images\/gallery\/IMG_4006.jpg",
+            "title": "",
+            "alt": "Hairdressing work by Hayley Kharsa"
+        },
+        {
+            "image": ".\/assets\/images\/gallery\/IMG_4008.jpg",
+            "title": "",
+            "alt": "Hairdressing work by Hayley Kharsa"
+        },
+        {
+            "image": ".\/assets\/images\/gallery\/IMG_4092.jpg",
+            "title": "",
+            "alt": "Hairdressing work by Hayley Kharsa"
+        },
+        {
+            "image": ".\/assets\/images\/gallery\/IMG_4093.jpg",
+            "title": "",
+            "alt": "Hairdressing work by Hayley Kharsa"
+        },
+        {
+            "image": ".\/assets\/images\/gallery\/IMG_4094.jpg",
+            "title": "",
+            "alt": "Hairdressing work by Hayley Kharsa"
+        },
+        {
+            "image": ".\/assets\/images\/gallery\/IMG_4095.jpg",
+            "title": "",
+            "alt": "Hairdressing work by Hayley Kharsa"
+        },
+        {
+            "image": ".\/assets\/images\/gallery\/IMG_4096.jpg",
+            "title": "",
+            "alt": "Hairdressing work by Hayley Kharsa"
+        },
+        {
+            "image": ".\/assets\/images\/gallery\/IMG_4097.jpg",
+            "title": "",
+            "alt": "Hairdressing work by Hayley Kharsa"
+        },
+        {
+            "image": ".\/assets\/images\/gallery\/IMG_4098.jpg",
+            "title": "",
+            "alt": "Hairdressing work by Hayley Kharsa"
+        },
+        {
+            "image": ".\/assets\/images\/gallery\/IMG_4099.jpg",
+            "title": "",
+            "alt": "Hairdressing work by Hayley Kharsa"
+        },
+        {
+            "image": ".\/assets\/images\/gallery\/IMG_4100.jpg",
+            "title": "",
+            "alt": "Hairdressing work by Hayley Kharsa"
+        },
+        {
+            "image": ".\/assets\/images\/gallery\/IMG_4101.jpg",
+            "title": "",
+            "alt": "Hairdressing work by Hayley Kharsa"
+        },
+        {
+            "image": ".\/assets\/images\/gallery\/IMG_4102.jpg",
+            "title": "",
+            "alt": "Hairdressing work by Hayley Kharsa"
+        },
+        {
+            "image": ".\/assets\/images\/gallery\/IMG_4103.jpg",
+            "title": "",
+            "alt": "Hairdressing work by Hayley Kharsa"
+        },
+        {
+            "image": ".\/assets\/images\/gallery\/IMG_4104.jpg",
+            "title": "",
+            "alt": "Hairdressing work by Hayley Kharsa"
+        },
+        {
+            "image": ".\/assets\/images\/gallery\/IMG_4105.jpg",
+            "title": "",
+            "alt": "Hairdressing work by Hayley Kharsa"
+        },
+        {
+            "image": ".\/assets\/images\/gallery\/IMG_4106.jpg",
+            "title": "",
+            "alt": "Hairdressing work by Hayley Kharsa"
+        },
+        {
+            "image": ".\/assets\/images\/gallery\/IMG_4107.jpg",
+            "title": "",
+            "alt": "Hairdressing work by Hayley Kharsa"
+        },
+        {
+            "image": ".\/assets\/images\/gallery\/IMG_4108.jpg",
+            "title": "",
+            "alt": "Hairdressing work by Hayley Kharsa"
+        },
+        {
+            "image": ".\/assets\/images\/gallery\/IMG_4109.jpg",
+            "title": "",
+            "alt": "Hairdressing work by Hayley Kharsa"
+        },
+        {
+            "image": ".\/assets\/images\/gallery\/wedding.png",
+            "title": "Wedding",
+            "alt": "Bridal hair by Hayley Kharsa"
+        },
+        {
+            "image": ".\/assets\/images\/gallery\/wedding4.png",
+            "title": "Wedding",
+            "alt": "Bridal hair by Hayley Kharsa"
+        },
+        {
+            "image": ".\/assets\/images\/gallery\/wedding5.png",
+            "title": "Wedding",
+            "alt": "Bridal hair by Hayley Kharsa"
+        },
+        {
+            "image": ".\/assets\/images\/gallery\/wedding7.png",
+            "title": "Wedding",
+            "alt": "Bridal hair by Hayley Kharsa"
+        },
+        {
+            "image": ".\/assets\/images\/gallery\/wedding8.png",
+            "title": "Wedding",
+            "alt": "Bridal hair by Hayley Kharsa"
+        },
+        {
+            "image": ".\/assets\/images\/gallery\/wedding9.png",
+            "title": "Wedding",
+            "alt": "Bridal hair by Hayley Kharsa"
+        },
+        {
+            "image": ".\/assets\/images\/gallery\/wedding10.png",
+            "title": "Wedding",
+            "alt": "Bridal hair by Hayley Kharsa"
+        },
+        {
+            "image": ".\/assets\/images\/gallery\/wedding12.png",
+            "title": "Wedding",
+            "alt": "Bridal hair by Hayley Kharsa"
+        },
+        {
+            "image": ".\/assets\/images\/gallery\/wedding13.jpeg",
+            "title": "Wedding",
+            "alt": "Bridal hair by Hayley Kharsa"
+        }
+    ],
+    "testimonials": [],
+    "contact": {
+        "heading": "Get in Touch",
+        "body": "If you have questions about availability, theatre bookings, or bridal styling, please get in touch.",
+        "phoneLabel": "Phone",
+        "phone": "07786824854",
+        "emailLabel": "Email",
+        "email": "hcr37@hotmail.co.uk",
+        "mapEmbedUrl": "",
+        "copyright": "2026 Hayley Kharsa. All rights reserved."
+    },
+    "experiencePage": {
+        "heroHeading": "Education and Experience",
+        "heroText": "Please take a look at my work experience and educational background.",
+        "jobs": [
+            {
+                "period": "Oct 2016 – Present",
+                "role": "Wig Deputy Manager",
+                "show": "Half a Sixpence",
+                "company": "Cameron Mackintosh",
+                "venue": "Noel Coward Theatre",
+                "placeQuery": "",
+                "image": ""
+            },
+            {
+                "period": "Dec 2015 – Oct 2016",
+                "role": "Wig Assistant Manager",
+                "show": "Wicked",
+                "company": "Playful Productions",
+                "venue": "Apollo Theatre",
+                "placeQuery": "",
+                "image": ""
+            },
+            {
+                "period": "Jul 2015 – Dec 2015",
+                "role": "Wig Deputy Manager",
+                "show": "Priscilla Queen of the Desert",
+                "company": "David Ian Productions",
+                "venue": "UK Tour",
+                "placeQuery": "",
+                "image": ""
+            }
+        ],
+        "education": [
+            {
+                "period": "2008 – 2009",
+                "school": "Worcester College of Arts and Technology",
+                "qualification": "NVQ Level 2 in Hairdressing"
+            },
+            {
+                "period": "2005 – 2006",
+                "school": "Somerset Arts and Technology, Taunton",
+                "qualification": "Theatrical Media and Make-up Foundation Degree"
+            },
+            {
+                "period": "2002 – 2004",
+                "school": "Crosskeys College, South Wales",
+                "qualification": "National Diploma in Theatrical Media and Make-up"
+            }
+        ]
+    }
+}

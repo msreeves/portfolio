@@ -1,0 +1,140 @@
+body {
+  font-family: "Special Elite", cursive;
+  text-align: center;
+  color: #fff;
+  letter-spacing: 3px;
+}
+
+h1 {
+  font-size: 24px;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 auto 12px auto;
+  max-width: 700px;
+}
+
+.search-bar input {
+  flex: 1;
+}
+
+.search-bar button {
+  border: 1px solid #fff;
+  background: #111;
+  color: #fff;
+  letter-spacing: 2px;
+  padding: 8px 14px;
+  text-transform: uppercase;
+}
+
+.search-bar button:disabled {
+  opacity: 0.6;
+}
+
+h2 {
+  font-size: 16px;
+}
+
+p {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+a,
+a:hover {
+  color: #fff;
+}
+
+input {
+  margin: auto;
+  width: 80%;
+  text-align: center;
+  color: #fff;
+  background: #000;
+  letter-spacing: 3px;
+}
+
+.status-message {
+  min-height: 22px;
+  margin: 8px auto 0 auto;
+  max-width: 700px;
+}
+
+.status-error {
+  color: #ff7b7b;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.title,
+.releaseDate,
+.rating {
+  padding: 10px;
+}
+
+.details-panel {
+  background: rgba(0, 0, 0, 0.9);
+  padding: 20px;
+  position: relative;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  position: absolute;
+}
+
+.details-body {
+  padding: 20px 20px 0 20px;
+  width: 100%;
+}
+
+.details-info {
+  float: right;
+  width: calc(100% - 350px);
+}
+
+.overview {
+  padding: 10px;
+}
+
+.poster {
+  float: left;
+  width: 350px;
+}
+
+#imageMovie {
+  width: 250px;
+  border: 1px solid #fff;
+}
+
+.pagination-controls {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  margin: 16px auto 0 auto;
+}
+
+.page-btn {
+  border: 1px solid #fff;
+  background: transparent;
+  color: #fff;
+  padding: 6px 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.page-btn:disabled {
+  opacity: 0.5;
+}

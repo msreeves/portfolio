@@ -1,0 +1,41 @@
+@media (max-width: 1200px) {
+  .details-panel {
+    position: relative;
+    transform: translate(-50%, 0);
+  }
+}
+
+@media (max-width: 768px) {
+  .search-bar {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .search-bar button {
+    width: 100%;
+  }
+  .poster {
+    float: none;
+    width: 100%;
+  }
+  .details-info {
+    float: none;
+    width: 100%;
+    padding: 10px 0;
+  }
+
+  input {
+    width: 100%;
+    letter-spacing: 1px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 425px) {
+  .pagination-controls {
+    flex-direction: column;
+  }
+  input {
+    font-size: 12px;
+    letter-spacing: 0;
+  }
+}
