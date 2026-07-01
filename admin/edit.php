@@ -9,16 +9,22 @@ require __DIR__ . '/../includes/site-bootstrap.php';
 require __DIR__ . '/includes/cms-nav.php';
 
 $labels = [
-    'intro_name' => 'Intro — name (line 1)',
-    'intro_tagline' => 'Intro — roles (line 2)',
+    'intro_name' => 'Intro — name (H1)',
+    'intro_tagline' => 'Intro — roles line (legacy; hidden when short tagline is set)',
+    'intro_tagline_short' => 'Intro — hero tagline (shown under name)',
+    'cv_cms_label' => 'CV — CMS download label',
+    'cv_web_label' => 'CV — developer download label',
+    'cv_cms_pdf' => 'CV — CMS PDF file',
+    'cv_web_pdf' => 'CV — developer PDF file',
     'about_heading' => 'About — section heading',
-    'heading_recent_portfolio' => 'Heading: Recent portfolio',
-    'heading_work_for' => 'Heading: Previous work experience',
-    'heading_skills' => 'Heading: My skills',
-    'heading_testimonials' => 'Heading: Testimonials',
-    'heading_portfolio' => 'Heading: Past portfolio work',
-    'heading_game_test' => 'Heading: Games tested',
-    'heading_timeline' => 'Heading: Timeline',
+    'heading_recent_portfolio' => 'Heading — featured case studies',
+    'heading_work_for' => 'Heading — experience',
+    'heading_skills' => 'Heading — skills',
+    'heading_testimonials' => 'Heading — testimonials',
+    'heading_portfolio' => 'Heading — archive projects',
+    'contact_band_heading' => 'Contact band — heading',
+    'contact_band_intent' => 'Contact band — intent line',
+    'contact_band_email' => 'Contact band — email',
     'footer_contact_heading' => 'Footer — contact heading',
     'footer_copyright' => 'Footer — copyright line',
 ];
@@ -30,37 +36,35 @@ $portfolioItemsLabel = 'Portfolio — thumbnails (items 1-' . max(1, $portfolioJ
 
 $wizardSteps = [
     [
-        'title' => 'Intro & about',
-        'section_name' => 'Homepage top — name, roles line, about heading, and intro photo',
-        'hint' => 'Short text shown at the top of the homepage. Nested groups follow the order of sections on the page. Use Browse on the intro photo to pick a file under media/.',
+        'title' => 'Hero',
+        'section_name' => 'Top of page — name, tagline, CV links, intro photo',
+        'hint' => 'The short tagline appears under your name. CV chips use the labels below and PDF files chosen with Browse PDF (hero, contact band, and footer).',
         'groups' => [
-            ['label' => 'Intro — name & tagline', 'keys' => ['intro_name', 'intro_tagline']],
-            ['label' => 'About — section heading', 'keys' => ['about_heading']],
-            ['label' => 'Intro — main photo (left column)', 'layout' => 'grid', 'keys' => ['img_intro_logo']],
+            ['label' => 'Name & taglines', 'keys' => ['intro_name', 'intro_tagline_short', 'intro_tagline']],
+            ['label' => 'CV downloads', 'keys' => ['cv_cms_label', 'cv_web_label', 'cv_cms_pdf', 'cv_web_pdf']],
+            ['label' => 'Intro photo', 'layout' => 'grid', 'keys' => ['img_intro_logo']],
         ],
     ],
     [
-        'title' => 'Header navigation',
-        'section_name' => 'Top menu links, footer text, and footer logo',
-        'hint' => 'Top menu on the homepage: use Add link / Remove on each row; choose a section to scroll to or a custom URL (https://, mailto:, ./path, or #anchor). Up to 15 links; order is left to right. Save in the sidebar updates the site. Below that, set the footer contact heading and copyright line, then the footer logo image under media/.',
-        'groups' => [
-            ['label' => 'Navbar links', 'keys' => ['__nav_block__']],
-            ['label' => 'Footer text', 'keys' => ['footer_contact_heading', 'footer_copyright']],
-            ['label' => 'Footer — logo', 'layout' => 'grid', 'keys' => ['img_footer_logo']],
-        ],
-    ],
-    [
-        'title' => 'Introduction & recent portfolio',
-        'section_name' => 'Intro paragraphs, employer logos, section heading, and recent work strip',
-        'hint' => 'Rich text editors (toolbar) for these blocks—same styling as the live site after save. The heading below is the on-page title above the recent portfolio block. Employer logos appear in the About strip; pick images under media/.',
+        'title' => 'Work',
+        'section_name' => 'Featured case studies — nav “Work” (#recent-portfolio)',
+        'hint' => 'Section heading and intro panels above the MSR programme grid. Programme cards (Atlas Briefing, hub, awards, etc.) are code-owned — see docs/WORKSPACE_CLEANUP_INVENTORY.md § Portfolio site.json key map.',
         'groups' => [
             ['label' => '', 'keys' => ['heading_recent_portfolio']],
-            ['label' => 'Introduction — item 1', 'keys' => ['html_introduction_1']],
-            ['label' => 'Introduction — item 2', 'keys' => ['html_introduction_2']],
-            ['label' => 'Recent portfolio — item 1', 'keys' => ['html_recent_portfolio_1']],
-            ['label' => 'Recent portfolio — item 2', 'keys' => ['html_recent_portfolio_2']],
+            ['label' => 'Intro strip — panel 1', 'keys' => ['html_recent_portfolio_1']],
+            ['label' => 'Intro strip — panel 2', 'keys' => ['html_recent_portfolio_2']],
+        ],
+    ],
+    [
+        'title' => 'About',
+        'section_name' => 'About section — copy and employer logos (#introduction)',
+        'hint' => 'Introduction panels and logo strip. Role tracks (“CMS & publishing” / “Front-end & WordPress”) are code-owned in includes/cms-render.php → cms_about_role_tracks().',
+        'groups' => [
+            ['label' => '', 'keys' => ['about_heading']],
+            ['label' => 'Introduction — panel 1 (e.g. BSI)', 'keys' => ['html_introduction_1']],
+            ['label' => 'Introduction — panel 2', 'keys' => ['html_introduction_2']],
             [
-                'label' => 'About — employer logos (items 1–8)',
+                'label' => 'Employer logos (items 1–8)',
                 'layout' => 'grid',
                 'grid_preset' => 'gallery',
                 'keys' => [
@@ -77,47 +81,55 @@ $wizardSteps = [
         ],
     ],
     [
-        'title' => 'Work experience',
-        'section_name' => 'Previous jobs — section heading plus each role block',
-        'hint' => 'Employer or project name, then a rich-text description (toolbar under the editor). Each block matches one job/role on the page.',
+        'title' => 'Experience',
+        'section_name' => 'Work history — nav “Experience” (#work-for)',
+        'hint' => 'Primary roles (Nexus, Mark Allen) show first; RUSI and Indigo appear in the collapsed “Earlier roles” band on the homepage.',
         'groups' => [
             ['label' => '', 'keys' => ['heading_work_for']],
-            ['label' => 'Work — item 1 (Nexus)', 'keys' => ['html_work_nexus']],
-            ['label' => 'Work — item 2 (Mark Allen Group)', 'keys' => ['html_work_markallen']],
-            ['label' => 'Work — item 3 (Gaming intro)', 'keys' => ['html_work_gaming_intro']],
-            ['label' => 'Work — item 4 (Indigo)', 'keys' => ['html_work_indigo']],
+            ['label' => 'Role — Nexus', 'keys' => ['html_work_nexus']],
+            ['label' => 'Role — Mark Allen Group', 'keys' => ['html_work_markallen']],
+            ['label' => 'Earlier role — RUSI', 'keys' => ['html_work_rusi']],
+            ['label' => 'Earlier role — Indigo', 'keys' => ['html_work_indigo']],
         ],
     ],
     [
         'title' => 'Skills & testimonials',
-        'section_name' => 'Skills tiles, course list, and three-slide testimonials carousel',
-        'hint' => 'Skills: heading plus course links — use Add course / Remove on each row (course tiles use the same grid rhythm as the skill icons on the site). Click Save in the sidebar to publish. Set the Canva and Grip tile images below. Testimonials: three slides for the homepage carousel (swipe / arrows). Each slide: name line + rich-text quote; the large quote icon is added on save.',
+        'section_name' => 'Skills band and testimonials (#skills, #testimonials)',
+        'hint' => 'Skill tag chips (WordPress, EpiServer, etc.) are code-owned in cms_skill_tag_items(). Courses, icon tiles, and testimonial slides are editable here.',
         'groups' => [
             ['label' => '', 'keys' => ['heading_skills', 'heading_testimonials']],
             ['label' => 'Skills — online courses & list', 'keys' => ['html_skills_courses']],
             ['label' => 'Skills — tile images', 'layout' => 'grid', 'keys' => ['img_skill_canva', 'img_skill_grip']],
-            ['label' => 'Testimonials — slide 1', 'keys' => ['html_testimonial_1']],
-            ['label' => 'Testimonials — slide 2', 'keys' => ['html_testimonial_2']],
-            ['label' => 'Testimonials — slide 3', 'keys' => ['html_testimonial_3']],
+            ['label' => 'Testimonials — featured (slide 1)', 'keys' => ['html_testimonial_1']],
+            ['label' => 'Testimonials — accordion slide 2', 'keys' => ['html_testimonial_2']],
+            ['label' => 'Testimonials — accordion slide 3', 'keys' => ['html_testimonial_3']],
         ],
     ],
     [
-        'title' => 'Portfolio overlays',
-        'section_name' => 'Past work grid — thumbnails, section title, and each tile’s overlay',
-        'hint' => 'Set the section title, then each thumbnail for the six homepage tiles, then use Prev/Next in the overlay editor to edit each tile’s lightbox (title, subtitle, description, and link buttons). Files under media/. Click Save in the sidebar to publish.',
+        'title' => 'Archive projects',
+        'section_name' => 'Collapsed archive grid — student and side projects',
+        'hint' => 'Section heading plus card copy in projects/*.json. Thumbnails and outbound links live in each project JSON file on disk.',
         'groups' => [
             ['label' => '', 'keys' => ['heading_portfolio']],
             ['label' => $portfolioItemsLabel, 'keys' => ['__portfolio_json_block__']],
         ],
     ],
     [
-        'title' => 'Games & timeline',
-        'section_name' => 'Games tested list & timeline carousel slides',
-        'hint' => 'Games: use Add game / Remove on each row (only filled titles show on the site); Save publishes. Timeline: carousel slides for the homepage (swipe / arrows). Use Add slide / Remove slide and Prev/Next; Save publishes.',
+        'title' => 'Contact band',
+        'section_name' => 'Get in touch strip above the footer (#contact-band)',
+        'hint' => 'Heading, intent line, and email in the contact band. CV download chips beside LinkedIn use the CV paths from the Hero step.',
         'groups' => [
-            ['label' => '', 'keys' => ['heading_game_test', 'heading_timeline']],
-            ['label' => 'Games tested', 'keys' => ['html_games_tested']],
-            ['label' => 'Timeline carousel (all slides)', 'keys' => ['__timeline_block__']],
+            ['label' => 'Contact band copy', 'keys' => ['contact_band_heading', 'contact_band_intent', 'contact_band_email']],
+        ],
+    ],
+    [
+        'title' => 'Navigation & footer',
+        'section_name' => 'Top menu, footer text, and footer logo',
+        'hint' => 'Nav order should match the recruiter path: Work → About → Experience → Contact. Footer PDF icons use the same CV paths as the Hero step.',
+        'groups' => [
+            ['label' => 'Navbar links', 'keys' => ['__nav_block__']],
+            ['label' => 'Footer text', 'keys' => ['footer_contact_heading', 'footer_copyright']],
+            ['label' => 'Footer logo', 'layout' => 'grid', 'keys' => ['img_footer_logo']],
         ],
     ],
 ];
@@ -278,6 +290,25 @@ function cms_edit_image_field(string $key, string $value, string $label, bool $g
         echo '</div>';
         echo '<p class="form-text small mb-0 mt-1">Pick a file under <code>media/</code> with Browse.</p>';
     }
+    echo '</div></div>';
+}
+
+function cms_edit_pdf_field(string $key, string $value, string $label): void
+{
+    $defaults = cms_heading_defaults();
+    $display = trim($value) !== '' ? trim($value) : ($defaults[$key] ?? '');
+
+    echo '<div class="cms-pdf-field mb-3 pb-3 border-bottom border-light-subtle">';
+    echo '<label class="form-label" for="' . esc($key) . '">' . esc($label) . '</label>';
+    echo '<div class="cms-media-picker" data-mode="pdf">';
+    echo '<input type="hidden" class="cms-media-picker-input" name="' . esc($key) . '" id="' . esc($key) . '" value="' . esc($display) . '" />';
+    echo '<div class="d-flex flex-wrap align-items-center gap-3">';
+    echo '<div class="cms-media-picker-preview cms-media-picker-preview--pdf rounded border p-2 bg-body-secondary flex-shrink-0" style="min-width:180px;min-height:56px">';
+    echo '<span class="text-muted small">No PDF selected</span>';
+    echo '</div>';
+    echo '<button type="button" class="btn btn-outline-secondary cms-media-picker-open">Browse PDF…</button>';
+    echo '</div>';
+    echo '<p class="form-text small mb-0 mt-1">Pick or upload a PDF under <code>media/</code> (same picker as course links).</p>';
     echo '</div></div>';
 }
 
@@ -462,7 +493,7 @@ function cms_edit_split_fragment_fields(string $k, string $html, array $fragment
 
     $bodyHint = esc(cms_wysiwyg_format_help_short());
 
-    if (in_array($k, ['html_work_nexus', 'html_work_markallen', 'html_work_indigo'], true)) {
+    if (in_array($k, ['html_work_nexus', 'html_work_markallen', 'html_work_rusi', 'html_work_indigo'], true)) {
         $tid = $k . '__title';
         $bid = $k . '__body';
         echo '<div class="mb-3"><label class="form-label" for="' . esc($tid) . '">Employer or project name</label>';
@@ -711,6 +742,13 @@ if ($k === '__portfolio_block__') {
         $imgLabels = cms_image_labels();
         $imgLabel = $labels[$k] ?? ($imgLabels[$k] ?? $k);
         cms_edit_image_field($k, $current[$k] ?? '', $imgLabel, !empty($opts['grid_cell']));
+
+        return;
+    }
+
+    if (in_array($k, cms_cv_pdf_field_keys(), true)) {
+        $labelText = $labels[$k] ?? $k;
+        cms_edit_pdf_field($k, $current[$k] ?? '', $labelText);
 
         return;
     }

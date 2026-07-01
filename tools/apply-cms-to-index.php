@@ -17,6 +17,7 @@ $map = [
     'work_nexus.html' => 'html_work_nexus',
     'work_markallen.html' => 'html_work_markallen',
     'work_gaming_intro.html' => 'html_work_gaming_intro',
+    'work_rusi.html' => 'html_work_rusi',
     'work_indigo.html' => 'html_work_indigo',
     'skills_courses.html' => 'html_skills_courses',
     'testimonial_1.html' => 'html_testimonial_1',

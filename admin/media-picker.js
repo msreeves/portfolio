@@ -72,7 +72,7 @@
       return;
     }
     var url = pathToPreviewUrl(v);
-    if (mode === 'course') {
+    if (mode === 'course' || mode === 'pdf') {
       if (/\.pdf$/i.test(v)) {
         box.innerHTML =
           '<div class="cms-media-picker-pdf d-flex align-items-center gap-2 p-2 border rounded" style="background:var(--cms-input-bg,#fff);color:var(--cms-input-text,#1f2329)">' +
@@ -82,11 +82,13 @@
           '">' +
           escHtml(fileName(v)) +
           '</span></div>';
-      } else {
+      } else if (mode === 'course') {
         box.innerHTML =
           '<img class="img-fluid rounded mw-100" alt="" src="' +
           escAttr(url) +
           '" style="max-height:96px;max-width:100%;object-fit:contain" loading="lazy" />';
+      } else {
+        box.innerHTML = '<span class="text-muted small">No PDF selected</span>';
       }
     } else {
       var imgStyle = wrap.closest('.cms-img-field--grid')
