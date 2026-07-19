@@ -9,10 +9,20 @@ $projects = cms_load_portfolio_projects();
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Michael Reeves portfolio: CMS specialist and front-end WordPress developer — enterprise publishing, EpiServer, WordPress themes, MSR programme demos, and digital content." />
-    <meta name="keywords" content="Michael Reeves, portfolio, front-end developer, WordPress developer, CMS web editor, digital content, web design, marketing, HTML, CSS, JavaScript, PHP, Bootstrap" />
+    <meta name="description" content="Michael Reeves — CMS specialist, front-end WordPress developer, and marketing/campaign design. Enterprise publishing, programme demos, and a downloadable marketing portfolio." />
+    <meta name="keywords" content="Michael Reeves, portfolio, front-end developer, WordPress developer, CMS web editor, digital content, marketing design, Canva, campaign design, EpiServer, HTML, CSS, JavaScript, PHP" />
     <meta name="author" content="Michael Reeves">
     <title>Michael Reeves — Portfolio</title>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Michael Reeves — Portfolio" />
+    <meta property="og:description" content="CMS specialist, front-end WordPress developer, and marketing/campaign design — live case studies and dual CVs." />
+    <meta property="og:url" content="https://www.msreeves.co.uk/" />
+    <meta property="og:image" content="https://www.msreeves.co.uk/media/images/case-studies/atlas-ops.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Michael Reeves — Portfolio" />
+    <meta name="twitter:description" content="CMS specialist, front-end WordPress developer, and marketing/campaign design." />
+    <meta name="twitter:image" content="https://www.msreeves.co.uk/media/images/case-studies/atlas-ops.png" />
+    <link rel="canonical" href="https://www.msreeves.co.uk/" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Kodchasan:wght@400;700&display=swap" rel="stylesheet" />
@@ -84,7 +94,7 @@ $projects = cms_load_portfolio_projects();
         <div class="container">
 <?php cms_render_section_heading((string) $content['heading_recent_portfolio']); ?>
 
-<?php cms_render_panel_grid($content, ['html_recent_portfolio_1', 'html_recent_portfolio_2']); ?>
+<?php cms_render_panel_grid($content, ['html_recent_portfolio_1']); ?>
 
 <?php cms_render_msr_case_study_grid(); ?>
         </div>
@@ -96,10 +106,25 @@ $projects = cms_load_portfolio_projects();
 <?php cms_render_panel_grid($content, ['html_introduction_1', 'html_introduction_2']); ?>
 <?php cms_render_about_role_tracks(); ?>
                 <div class="employer-logo-grid">
-                    <div class="employer-logo-grid-inner">
-<?php foreach (cms_employer_logo_items() as $logo) { ?>
-                        <a href="<?= esc($logo['href']) ?>" target="_blank" rel="noopener noreferrer" aria-label="<?= esc($logo['label']) ?>">
-                            <img class="item" src="<?= esc(cms_img_src($content, $logo['img'])) ?>" alt="<?= esc(cms_img_alt_for_key($logo['img'])) ?>">
+                    <p class="employer-logo-grid-caption">Websites I worked on — brand and publishing sites from current and agency roles</p>
+                    <div class="employer-logo-grid-inner employer-brand-grid">
+<?php foreach (cms_employer_logo_items() as $logo) {
+    $logoLabel = (string) ($logo['label'] ?? '');
+    $logoHref = (string) ($logo['href'] ?? '');
+    $isExternal = preg_match('#^https?://#i', $logoHref) === 1;
+    ?>
+                        <a href="<?= esc($logoHref) ?>"<?= $isExternal ? ' target="_blank" rel="noopener noreferrer"' : '' ?> class="employer-logo-link employer-brand-card" aria-label="<?= esc($logoLabel . ($isExternal ? ' (opens in a new tab)' : '')) ?>">
+                            <span class="employer-brand-card__mark">
+                                <img src="<?= esc(cms_img_src($content, $logo['img'])) ?>" alt="" loading="lazy" decoding="async">
+                            </span>
+                            <span class="employer-brand-card__label">
+                                <?= esc($logoLabel) ?>
+<?php if ($isExternal) { ?>
+                                <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+<?php } else { ?>
+                                <i class="fas fa-file-pdf" aria-hidden="true"></i>
+<?php } ?>
+                            </span>
                         </a>
 <?php } ?>
                     </div>
@@ -191,17 +216,10 @@ if ($featuredBody === '' && cms_html_has_content($content, 'html_testimonial_1')
 
 <section id="contact-band" class="contact-band">
     <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-8">
+        <div class="row">
+            <div class="col-12">
                 <h2 class="contact-band-heading h4"><?= esc($content['contact_band_heading']) ?></h2>
                 <p class="contact-band-intent"><?= esc($content['contact_band_intent']) ?></p>
-                <p class="contact-band-email">
-                    <a href="mailto:<?= esc($content['contact_band_email']) ?>"><?= esc($content['contact_band_email']) ?></a>
-                </p>
-            </div>
-            <div class="col-lg-4 contact-band-actions">
-                <?php cms_render_cv_download_chips($content, ['wrap_class' => '']); ?>
-                <a class="portfolio-chip portfolio-chip--secondary" href="https://www.linkedin.com/in/michael-reeves-394467117/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
             </div>
         </div>
     </div>
@@ -216,14 +234,24 @@ if ($featuredBody === '' && cms_html_has_content($content, 'html_testimonial_1')
             <div class="col-lg-6 col-md-6 position-relative">
                 <div class="footer-details">
                 <h2 class="h4"><?= esc($content['footer_contact_heading']) ?></h2>
-                <div class="footer-contact-icons">
-                  <?php cms_render_footer_cv_pdf_links($content); ?>
-                  <a href="mailto:reevesy87@hotmail.co.uk" class="footer-icon-link" aria-label="Email Michael Reeves">
-                    <i class="fas fa-envelope" aria-hidden="true"></i>
-                  </a>
-                  <a href="https://www.linkedin.com/in/michael-reeves-394467117/" class="footer-icon-link" target="_blank" rel="noopener noreferrer" aria-label="Michael Reeves on LinkedIn">
-                    <i class="fab fa-linkedin-in" aria-hidden="true"></i>
-                  </a>
+                <div class="footer-contact-groups">
+                  <div class="footer-contact-group footer-contact-group--pdfs">
+                    <p class="footer-contact-group-label">Downloads</p>
+                    <div class="footer-contact-icons footer-contact-icons--pdfs">
+                      <?php cms_render_footer_cv_pdf_links($content); ?>
+                    </div>
+                  </div>
+                  <div class="footer-contact-group footer-contact-group--social" aria-label="Social and email">
+                    <p class="footer-contact-group-label">Connect</p>
+                    <div class="footer-contact-icons footer-contact-icons--social">
+                      <a href="mailto:<?= esc((string) ($content['contact_band_email'] ?? 'reevesy87@hotmail.co.uk')) ?>" class="footer-icon-link footer-icon-link--social" aria-label="Email Michael Reeves">
+                        <i class="fas fa-envelope" aria-hidden="true"></i>
+                      </a>
+                      <a href="https://www.linkedin.com/in/michael-reeves-394467117/" class="footer-icon-link footer-icon-link--social" target="_blank" rel="noopener noreferrer" aria-label="Michael Reeves on LinkedIn">
+                        <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+                      </a>
+                    </div>
+                  </div>
                 </div>
                     <div class="copywright">
                             <h5><?= esc($content['footer_copyright']) ?></h5>

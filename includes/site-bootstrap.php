@@ -19,6 +19,7 @@ function cms_fragment_map(): array
         'html_introduction_2' => 'introduction_2.html',
         'html_recent_portfolio_1' => 'recent_portfolio_1.html',
         'html_recent_portfolio_2' => 'recent_portfolio_2.html',
+        'html_work_bsi' => 'work_bsi.html',
         'html_work_nexus' => 'work_nexus.html',
         'html_work_markallen' => 'work_markallen.html',
         'html_work_rusi' => 'work_rusi.html',
@@ -63,15 +64,16 @@ function cms_fragment_labels(): array
         'html_introduction_2' => 'Introduction — block 2',
         'html_recent_portfolio_1' => 'Recent portfolio — item 1',
         'html_recent_portfolio_2' => 'Recent portfolio — item 2',
+        'html_work_bsi' => 'Work experience — BSI Group',
         'html_work_nexus' => 'Work experience — Nexus',
         'html_work_markallen' => 'Work experience — Mark Allen Group',
         'html_work_rusi' => 'Work experience — RUSI',
         'html_work_gaming_intro' => 'Work experience — gaming / intro',
         'html_work_indigo' => 'Work experience — Indigo Pearl',
         'html_skills_courses' => 'Skills — online courses & list',
-        'html_testimonial_1' => 'Testimonials accordion — panel 1 (name + quote)',
-        'html_testimonial_2' => 'Testimonials accordion — panel 2 (name + quote)',
-        'html_testimonial_3' => 'Testimonials accordion — panel 3 (name + quote)',
+        'html_testimonial_1' => 'Testimonials — featured (name + quote)',
+        'html_testimonial_2' => 'Testimonials — more item 2 (name + quote)',
+        'html_testimonial_3' => 'Testimonials — more item 3 (name + quote)',
         'html_portfolio_1' => 'Portfolio overlay — piece 1',
         'html_portfolio_2' => 'Portfolio overlay — piece 2',
         'html_portfolio_3' => 'Portfolio overlay — piece 3',
@@ -103,12 +105,16 @@ function cms_heading_defaults(): array
         'footer_contact_heading' => 'Contact Me',
         'footer_copyright' => '© Copyright 2026 Michael Reeves | All rights reserved',
         'contact_band_heading' => 'Get in touch',
-        'contact_band_intent' => 'Open to CMS/content and front-end WordPress roles — permanent, contract, or hybrid/remote. Download the CV that matches your brief.',
+        'contact_band_intent' => 'Open to CMS/content, front-end WordPress, and marketing/campaign design roles — permanent, contract, or hybrid/remote. CVs and the marketing portfolio are in the hero and footer.',
         'contact_band_email' => 'reevesy87@hotmail.co.uk',
         'cv_cms_pdf' => './media/pdf/michael-reeves-cms-cv.pdf',
         'cv_web_pdf' => './media/pdf/michael-reeves-web-developer-cv.pdf',
+        'cv_combined_pdf' => './media/pdf/michael-reeves-cv.pdf',
+        'cv_marketing_pdf' => './media/pdf/marketing-portfolio.pdf',
         'cv_cms_label' => 'CMS CV',
         'cv_web_label' => 'Developer CV',
+        'cv_combined_label' => 'Full CV',
+        'cv_marketing_label' => 'Marketing portfolio',
     ];
 }
 
@@ -116,7 +122,7 @@ function cms_heading_defaults(): array
 
 function cms_cv_pdf_field_keys(): array
 {
-    return ['cv_cms_pdf', 'cv_web_pdf'];
+    return ['cv_cms_pdf', 'cv_web_pdf', 'cv_combined_pdf', 'cv_marketing_pdf'];
 }
 
 /** Image paths (relative to site root, ./media/...). Editable in admin. */
@@ -127,14 +133,19 @@ function cms_image_paths_defaults(): array
     $base = [
         'img_intro_logo' => './media/images/icons/LOGO.jpg',
         'img_footer_logo' => './media/images/icons/LOGO.png',
-        'img_gallery_1' => './media/images/icons/ei-logo.png',
-        'img_gallery_2' => './media/images/icons/hi-logo.png',
-        'img_gallery_3' => './media/images/icons/ct-logo.png',
-        'img_gallery_4' => './media/images/icons/ct-oc.png',
-        'img_gallery_5' => './media/images/icons/nmt-logo.png',
-        'img_gallery_6' => './media/images/icons/nmt-oc-logo.png',
+        'img_gallery_bsi' => './media/images/icons/bsi-logo.png',
+        'img_gallery_1' => './media/images/icons/ei-logo.svg',
+        'img_gallery_2' => './media/images/icons/hi-logo.svg',
+        'img_gallery_3' => './media/images/icons/ct-logo.svg',
+        'img_gallery_4' => './media/images/icons/ct-oc.svg',
+        'img_gallery_5' => './media/images/icons/nmt-magazine-logo.png',
+        'img_gallery_6' => './media/images/icons/nmt-owners-club-logo.png',
         'img_gallery_7' => './media/images/icons/bwie-logo.png',
-        'img_gallery_8' => './media/images/icons/ism.png',
+        'img_gallery_8' => './media/images/icons/ism-logo.png',
+        'img_gallery_9' => './media/images/icons/nursery-world-logo.png',
+        'img_gallery_10' => './media/images/icons/cyp-now-logo.png',
+        'img_gallery_11' => './media/images/icons/rusi-logo.png',
+        'img_gallery_12' => './media/images/icons/gramophone-logo.svg',
         'img_skill_canva' => './media/images/icons/canva.png',
         'img_skill_grip' => './media/images/icons/grip.png',
         'img_portfolio_1' => './media/images/portfolio/sample-article.png',
@@ -165,6 +176,7 @@ function cms_image_labels(): array
     return [
         'img_intro_logo' => 'Intro — main photo (left column)',
         'img_footer_logo' => 'Footer — logo',
+        'img_gallery_bsi' => 'About — BSI Group logo',
         'img_gallery_1' => 'About — Education Investor logo',
         'img_gallery_2' => 'About — Health Investor logo',
         'img_gallery_3' => 'About — Caring Times logo',
@@ -173,6 +185,10 @@ function cms_image_labels(): array
         'img_gallery_6' => 'About — NMT Owners Club logo',
         'img_gallery_7' => 'About — BWIE logo',
         'img_gallery_8' => 'About — ISM logo',
+        'img_gallery_9' => 'About — Nursery World logo',
+        'img_gallery_10' => 'About — CYP Now logo',
+        'img_gallery_11' => 'About — RUSI logo',
+        'img_gallery_12' => 'About — Gramophone logo',
         'img_skill_canva' => 'Skills — Canva tile image',
         'img_skill_grip' => 'Skills — Grip tile image',
         'img_portfolio_1' => 'Portfolio — thumbnail 1 (Sample Articles)',
@@ -232,6 +248,7 @@ function cms_site_nav_default_items(): array
         ['label' => 'Work', 'type' => 'scroll', 'target' => 'recent-portfolio'],
         ['label' => 'About', 'type' => 'scroll', 'target' => 'introduction'],
         ['label' => 'Experience', 'type' => 'scroll', 'target' => 'work-for'],
+        ['label' => 'Archive', 'type' => 'scroll', 'target' => 'portfolio'],
         ['label' => 'Contact', 'type' => 'scroll', 'target' => 'contact-band'],
     ];
 }
@@ -562,6 +579,12 @@ function cms_load_portfolio_projects(): array
 
     $projects = [];
     foreach ($projectFiles as $file) {
+        $base = basename($file);
+        // Skip templates / private drafts (e.g. _project.card.example.json).
+        if (str_starts_with($base, '_')) {
+            continue;
+        }
+
         $raw = @file_get_contents($file);
         if ($raw === false) continue;
 
@@ -571,6 +594,12 @@ function cms_load_portfolio_projects(): array
         if (array_key_exists('active', $data)) {
             $isActive = filter_var($data['active'], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
             if ($isActive === false) continue;
+        }
+
+        // Featured case studies may keep a hub card but opt out of the archive accordion.
+        if (array_key_exists('archive', $data)) {
+            $inArchive = filter_var($data['archive'], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+            if ($inArchive === false) continue;
         }
 
         $title = trim((string)($data['title'] ?? ''));
@@ -603,12 +632,26 @@ function cms_msr_case_study_cards(): array
     return [
         [
             'featured' => true,
+            'title' => 'Atlas Ops',
+            'stack' => 'React · TypeScript · Vite · TanStack Query · Zustand',
+            'bullets' => [
+                ['icon' => 'fas fa-table-columns', 'text' => 'Project CRUD with list and drag-and-drop kanban'],
+                ['icon' => 'fas fa-users', 'text' => 'Team roles, permissions, and activity feeds'],
+                ['icon' => 'fas fa-chart-line', 'text' => 'Analytics charts, theme/settings, and production polish (a11y, ErrorBoundary, lazy routes)'],
+            ],
+            'thumb' => './media/images/case-studies/atlas-ops.png',
+            'thumb_alt' => 'Atlas Ops delivery workspace dashboard screenshot',
+            'view_url' => './projects/atlas-ops/',
+            'code_url' => 'https://github.com/msreeves/atlas-ops',
+        ],
+        [
+            'featured' => false,
             'title' => 'Atlas Briefing',
             'stack' => 'B2B digital publisher · gated resources',
             'bullets' => [
-                'Resource library with formats, topics, and subscribe flows',
-                'Vite-built theme with machine-checkable acceptance gates',
-                'Lead proof point for CMS editorial and product IA',
+                ['icon' => 'fas fa-book-open', 'text' => 'Resource library with formats, topics, and subscribe flows'],
+                ['icon' => 'fas fa-shield-halved', 'text' => 'Vite-built theme with machine-checkable acceptance gates'],
+                ['icon' => 'fas fa-sitemap', 'text' => 'Proof point for CMS editorial and product IA'],
             ],
             'thumb' => './media/images/case-studies/atlas-briefing.jpg',
             'thumb_alt' => 'Atlas Briefing publishing demo homepage screenshot',
@@ -620,9 +663,9 @@ function cms_msr_case_study_cards(): array
             'title' => 'MSR Events hub',
             'stack' => 'WordPress multisite · programme lifecycle',
             'bullets' => [
-                'Lifecycle bands and editorial refresh on programme home',
-                'Taxonomy-first IA with legacy path redirects',
-                'Hub acceptance and Playwright regression coverage',
+                ['icon' => 'fas fa-calendar-days', 'text' => 'Lifecycle bands and editorial refresh on programme home'],
+                ['icon' => 'fas fa-folder-tree', 'text' => 'Taxonomy-first IA with legacy path redirects'],
+                ['icon' => 'fas fa-vial', 'text' => 'Hub acceptance and Playwright regression coverage'],
             ],
             'thumb' => './media/images/case-studies/msr-events-hub.jpg',
             'thumb_alt' => 'MSR Events hub homepage screenshot',
@@ -634,9 +677,9 @@ function cms_msr_case_study_cards(): array
             'title' => 'MSR Awards',
             'stack' => 'Dark prestige theme · nominees & judging',
             'bullets' => [
-                'Nominee archive, judging narrative, and ceremony content',
-                'Featured nominees band and portfolio-ready demo seed',
-                'Vite theme with ACF JSON sync in repo',
+                ['icon' => 'fas fa-trophy', 'text' => 'Nominee archive, judging narrative, and ceremony content'],
+                ['icon' => 'fas fa-star', 'text' => 'Featured nominees band and portfolio-ready demo seed'],
+                ['icon' => 'fas fa-code-branch', 'text' => 'Vite theme with ACF JSON sync in repo'],
             ],
             'thumb' => './media/images/case-studies/msr-awards.jpg',
             'thumb_alt' => 'MSR Awards programme homepage screenshot',
@@ -648,9 +691,9 @@ function cms_msr_case_study_cards(): array
             'title' => 'MSR Seminars',
             'stack' => 'Agenda · panelists · delegate programme',
             'bullets' => [
-                'Agenda-led sessions with speakers and sponsors',
-                'BEM nav, filter tabs, and programme editorial polish',
-                'Shared motion and Fancybox patterns with hub/awards',
+                ['icon' => 'fas fa-microphone-lines', 'text' => 'Agenda-led sessions with speakers and sponsors'],
+                ['icon' => 'fas fa-filter', 'text' => 'BEM nav, filter tabs, and programme editorial polish'],
+                ['icon' => 'fas fa-images', 'text' => 'Shared motion and Fancybox patterns with hub/awards'],
             ],
             'thumb' => './media/images/case-studies/msr-seminars.jpg',
             'thumb_alt' => 'MSR Seminars programme homepage screenshot',
@@ -662,9 +705,9 @@ function cms_msr_case_study_cards(): array
             'title' => 'MSR Products',
             'stack' => 'WooCommerce showcase',
             'bullets' => [
-                'Shop catalogue with structured product highlights',
-                'Vite 5 theme build in verify manifest',
-                'Smoke-tested home, shop, and product routes',
+                ['icon' => 'fas fa-cart-shopping', 'text' => 'Shop catalogue with structured product highlights'],
+                ['icon' => 'fas fa-bolt', 'text' => 'Vite 5 theme build in verify manifest'],
+                ['icon' => 'fas fa-route', 'text' => 'Smoke-tested home, shop, and product routes'],
             ],
             'thumb' => './media/images/case-studies/msr-products.jpg',
             'thumb_alt' => 'MSR Products WooCommerce demo homepage screenshot',
@@ -692,7 +735,7 @@ function cms_build_defaults(): array
         [
             'intro_name' => 'Michael Reeves',
             'intro_tagline' => 'Marketing & Digital Content Executive | Front-end Web/Wordpress Developer | Designer | Games Tester',
-            'intro_tagline_short' => 'CMS specialist & digital publishing · Front-end WordPress developer · enterprise sites & QA gates',
+            'intro_tagline_short' => 'CMS specialist & digital publishing · Front-end WordPress · Marketing & campaign design',
             'about_heading' => 'About',
             'site_nav_json' => cms_site_nav_default_json(),
             'timeline_count' => 0,

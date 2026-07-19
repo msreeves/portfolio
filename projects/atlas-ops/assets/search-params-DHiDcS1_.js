@@ -1,0 +1,1 @@
+function s(r,n,e="all"){return r&&n.includes(r)?r:e}function c(r,n=1){return Math.max(1,Number(r??String(n))||n)}function i(r,n){const e=new URLSearchParams(r);return Object.entries(n).forEach(([a,t])=>{t===null||t===""||t==="all"?e.delete(a):e.set(a,t)}),e}export{s as a,i as b,c as p};

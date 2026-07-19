@@ -1,0 +1,14 @@
+{
+  "_comment": "Copy to <slug>.json and fill fields. Files starting with _ are ignored by hub/archive loaders.",
+  "slug": "my-demo",
+  "title": "My Demo Title",
+  "stack": "React, TypeScript, …",
+  "summary": "One or two sentences for the archive card / hub meta context.",
+  "thumb": "./media/images/portfolio/my-demo.png",
+  "view_url": "./projects/my-demo/",
+  "code_url": "https://github.com/msreeves/my-demo",
+  "order": 50,
+  "hub": true,
+  "archive": true,
+  "active": true
+}

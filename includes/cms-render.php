@@ -165,9 +165,10 @@ function cms_render_msr_case_study_grid(): void
         return;
     }
 
+    $count = count($cards);
     echo '<div class="portfolio-content-grid portfolio-content-grid--cards msr-programme-grid msr-programme-grid--proof';
-    echo esc(cms_portfolio_grid_modifiers(count($cards)));
-    echo '">';
+    echo esc(cms_portfolio_case_study_grid_modifiers($cards));
+    echo '" data-card-count="' . (int) $count . '">';
 
     foreach ($cards as $card) {
         $featured = !empty($card['featured']);
@@ -199,27 +200,73 @@ function cms_render_msr_case_study_grid(): void
         echo '<p class="msr-programme-card-stack">' . esc((string) ($card['stack'] ?? '')) . '</p>';
 
         if ($bullets !== []) {
-            echo '<ul class="msr-case-study-bullets">';
-            foreach ($bullets as $bullet) {
-                $bullet = trim((string) $bullet);
-                if ($bullet === '') {
-                    continue;
-                }
-                echo '<li>' . esc($bullet) . '</li>';
-            }
-            echo '</ul>';
+            cms_render_icon_bullet_list($bullets, 'msr-case-study-bullets');
         } elseif (trim((string) ($card['summary'] ?? '')) !== '') {
             echo '<p class="msr-programme-card-summary">' . esc((string) $card['summary']) . '</p>';
         }
 
         echo '<p class="msr-programme-card-ctas">';
-        echo '<a class="portfolio-chip portfolio-chip--primary" href="' . esc((string) ($card['view_url'] ?? '')) . '" target="_blank" rel="noopener noreferrer">View live</a>';
-        echo '<a class="portfolio-chip portfolio-chip--secondary" href="' . esc((string) ($card['code_url'] ?? '')) . '" target="_blank" rel="noopener noreferrer">GitHub</a>';
+        echo '<a class="portfolio-chip portfolio-chip--primary" href="' . esc((string) ($card['view_url'] ?? '')) . '" target="_blank" rel="noopener noreferrer"><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i><span>View live</span></a>';
+        echo '<a class="portfolio-chip portfolio-chip--secondary" href="' . esc((string) ($card['code_url'] ?? '')) . '" target="_blank" rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i><span>GitHub</span></a>';
         echo '</p>';
         echo '</div></article></div>';
     }
 
     echo '</div>';
+}
+
+
+/**
+ * Normalise a bullet to text + Font Awesome class (string bullets stay valid).
+ *
+ * @return array{text: string, icon: string}
+ */
+function cms_normalize_icon_bullet(mixed $item, string $fallbackIcon = 'fas fa-check'): array
+{
+    if (is_array($item)) {
+        $text = trim((string) ($item['text'] ?? $item['label'] ?? ''));
+        $icon = trim((string) ($item['icon'] ?? $fallbackIcon));
+
+        return [
+            'text' => $text,
+            'icon' => $icon !== '' ? $icon : $fallbackIcon,
+        ];
+    }
+
+    return [
+        'text' => trim((string) $item),
+        'icon' => $fallbackIcon,
+    ];
+}
+
+
+/**
+ * Echo an icon + text bullet list (case studies, role tracks, etc.).
+ *
+ * @param list<mixed> $items
+ */
+function cms_render_icon_bullet_list(array $items, string $ulClass, string $fallbackIcon = 'fas fa-check'): void
+{
+    $normalized = [];
+    foreach ($items as $item) {
+        $bullet = cms_normalize_icon_bullet($item, $fallbackIcon);
+        if ($bullet['text'] === '') {
+            continue;
+        }
+        $normalized[] = $bullet;
+    }
+    if ($normalized === []) {
+        return;
+    }
+
+    echo '<ul class="' . esc(trim($ulClass . ' portfolio-icon-list')) . '">';
+    foreach ($normalized as $bullet) {
+        echo '<li>';
+        echo '<i class="' . esc($bullet['icon']) . '" aria-hidden="true"></i>';
+        echo '<span>' . esc($bullet['text']) . '</span>';
+        echo '</li>';
+    }
+    echo '</ul>';
 }
 
 
@@ -274,13 +321,23 @@ function cms_render_skill_tags(): void
         return;
     }
 
-    echo '<ul class="portfolio-skill-tags msr-fade-in" aria-label="Core skills">';
+    echo '<ul class="portfolio-skill-tags" aria-label="Core skills">';
     foreach ($tags as $tag) {
-        $tag = trim((string) $tag);
-        if ($tag === '') {
+        if (is_array($tag)) {
+            $label = trim((string) ($tag['label'] ?? ''));
+            $icon = trim((string) ($tag['icon'] ?? ''));
+        } else {
+            $label = trim((string) $tag);
+            $icon = '';
+        }
+        if ($label === '') {
             continue;
         }
-        echo '<li><span class="portfolio-skill-tag">' . esc($tag) . '</span></li>';
+        echo '<li><span class="portfolio-skill-tag">';
+        if ($icon !== '') {
+            echo '<i class="' . esc($icon) . '" aria-hidden="true"></i>';
+        }
+        echo '<span>' . esc($label) . '</span></span></li>';
     }
     echo '</ul>';
 }
@@ -289,43 +346,6 @@ function cms_render_skill_tags(): void
 function cms_render_skills_section(array $content): void
 {
     cms_render_skill_tags();
-
-    $hasCourses = cms_html_has_content($content, 'html_skills_courses');
-    $icons = cms_skill_icon_items();
-
-    if (!$hasCourses && $icons === []) {
-        return;
-    }
-
-    echo '<details class="portfolio-disclosure skills-disclosure msr-fade-in">';
-    echo '<summary class="portfolio-disclosure-summary">Training &amp; tool icons</summary>';
-    echo '<div class="portfolio-disclosure-body skills-disclosure-body">';
-
-    if ($hasCourses) {
-        echo '<div class="online portfolio-panel skills-courses-panel">';
-        echo '<div class="inner-content">';
-        content_html($content, 'html_skills_courses');
-        echo '</div></div>';
-    }
-
-    if ($icons !== []) {
-        echo '<div class="skills-gallery skills-gallery--secondary">';
-        echo '<div class="portfolio-content-grid portfolio-content-grid--skills-icons skills-icon-grid">';
-        foreach ($icons as $skill) {
-            echo '<div class="portfolio-grid-cell">';
-            echo '<div class="skills-item ' . esc((string) ($skill['class'] ?? '')) . '" title="' . esc((string) ($skill['title'] ?? '')) . '">';
-            if (($skill['kind'] ?? '') === 'image') {
-                echo '<img class="skills-item-logo" src="' . esc(cms_img_src($content, (string) ($skill['img'] ?? ''))) . '" width="120" height="120" alt="' . esc(cms_img_alt_for_key((string) ($skill['img'] ?? ''))) . '" />';
-            } else {
-                echo '<i class="' . esc((string) ($skill['icon'] ?? '')) . '" aria-hidden="true"></i>';
-            }
-            echo '<span class="visually-hidden">' . esc((string) ($skill['label'] ?? '')) . '</span>';
-            echo '</div></div>';
-        }
-        echo '</div></div>';
-    }
-
-    echo '</div></details>';
 }
 
 
@@ -339,20 +359,20 @@ function cms_render_archive_projects_section(array $content, array $projects): v
     }
 
     $heading = (string) ($content['heading_portfolio'] ?? 'Archive projects');
-    $projectGridMods = cms_portfolio_grid_modifiers(count($projects));
+    $count = count($projects);
+    $projectGridMods = cms_portfolio_grid_modifiers($count, 3);
+    $countLabel = $count === 1 ? '1 project' : $count . ' projects';
 
-    echo '<section id="portfolio" class="portfolio-archive-section">';
+    echo '<section id="portfolio" class="portfolio-archive-section" aria-labelledby="archive-projects-heading">';
     echo '<div class="container">';
-    echo '<div class="accordion portfolio-archive-accordion" id="archiveProjectsAccordion">';
-    echo '<div class="accordion-item">';
-    echo '<h2 class="accordion-header" id="archiveProjectsHeading">';
-    echo '<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#archiveProjectsCollapse" aria-expanded="false" aria-controls="archiveProjectsCollapse">';
-    echo esc($heading);
-    echo '</button></h2>';
-    echo '<div id="archiveProjectsCollapse" class="accordion-collapse collapse" aria-labelledby="archiveProjectsHeading" data-bs-parent="#archiveProjectsAccordion">';
-    echo '<div class="accordion-body">';
-    echo '<p class="portfolio-archive-intro">Student and side projects — expand for thumbnails and GitHub links.</p>';
-    echo '<div class="portfolio-content-grid portfolio-content-grid--projects portfolio-project-grid' . esc($projectGridMods) . '">';
+    echo '<div class="portfolio-section-heading portfolio-archive-heading">';
+    echo '<h2 id="archive-projects-heading" class="portfolio-section-title">' . esc($heading) . '</h2>';
+    echo '<p class="portfolio-archive-count" aria-label="' . esc($countLabel) . '">' . esc($countLabel) . '</p>';
+    echo '</div>';
+
+    echo '<p class="portfolio-archive-intro">Student and side projects with live demos and GitHub links.</p>';
+
+    echo '<div class="portfolio-content-grid portfolio-content-grid--projects portfolio-project-grid' . esc($projectGridMods) . '" data-project-count="' . (int) $count . '">';
 
     foreach ($projects as $project) {
         echo '<div class="portfolio-grid-cell">';
@@ -369,47 +389,102 @@ function cms_render_archive_projects_section(array $content, array $projects): v
         }
         echo '<p class="portfolio-project-card-ctas">';
         if (trim((string) ($project['view_url'] ?? '')) !== '') {
-            echo '<a class="portfolio-chip portfolio-chip--primary" href="' . esc((string) $project['view_url']) . '" target="_blank" rel="noopener noreferrer">VIEW</a>';
+            echo '<a class="portfolio-chip portfolio-chip--primary" href="' . esc((string) $project['view_url']) . '" target="_blank" rel="noopener noreferrer"><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i><span>View live</span></a>';
         }
         if (trim((string) ($project['code_url'] ?? '')) !== '') {
-            echo '<a class="portfolio-chip portfolio-chip--secondary" href="' . esc((string) $project['code_url']) . '" target="_blank" rel="noopener noreferrer">SEE CODE</a>';
+            echo '<a class="portfolio-chip portfolio-chip--secondary" href="' . esc((string) $project['code_url']) . '" target="_blank" rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i><span>GitHub</span></a>';
         }
         echo '</p></div></article></div>';
     }
 
-    echo '</div></div></div></div></div></div></section>';
+    echo '</div></div></section>';
 }
 
 
-/** Optional count-based grid modifiers (e.g. single full-width panel). */
-
-
-function cms_portfolio_grid_modifiers(int $itemCount): string
+/**
+ * Prefer the largest column count ≤ $maxCols that divides $itemCount evenly.
+ * Falls back to 2 (caller may add --fill-orphan for a leftover last row).
+ */
+function cms_portfolio_balanced_column_count(int $itemCount, int $maxCols = 3): int
 {
     if ($itemCount <= 1) {
-        return ' portfolio-content-grid--solo';
-    }
-    if ($itemCount === 2) {
-        return ' portfolio-content-grid--duo';
+        return 1;
     }
 
-    return '';
+    $max = min(max(1, $maxCols), $itemCount);
+    for ($cols = $max; $cols >= 2; --$cols) {
+        if ($itemCount % $cols === 0) {
+            return $cols;
+        }
+    }
+
+    return min(2, $itemCount);
 }
 
-/** Employer logo tiles for the About section (href, image key, accessible name). */
+
+/**
+ * Count-based grid modifiers: even columns, solo/duo helpers, orphan fill when needed.
+ */
+function cms_portfolio_grid_modifiers(int $itemCount, int $maxCols = 3): string
+{
+    if ($itemCount <= 0) {
+        return '';
+    }
+
+    $cols = cms_portfolio_balanced_column_count($itemCount, $maxCols);
+    $mods = ' portfolio-content-grid--cols-' . $cols;
+
+    if ($itemCount <= 1) {
+        $mods .= ' portfolio-content-grid--solo';
+    } elseif ($itemCount === 2) {
+        $mods .= ' portfolio-content-grid--duo';
+    }
+
+    if ($cols > 1 && $itemCount % $cols !== 0) {
+        $mods .= ' portfolio-content-grid--fill-orphan';
+    }
+
+    return $mods;
+}
 
 
+/**
+ * Featured case studies: prefer 3 columns when the count divides evenly (6, 9…),
+ * otherwise 2 with orphan fill. CSS steps 3 → 2 → 1 by breakpoint.
+ *
+ * @param list<array<string, mixed>> $cards
+ */
+function cms_portfolio_case_study_grid_modifiers(array $cards): string
+{
+    $count = count($cards);
+    if ($count <= 0) {
+        return '';
+    }
+
+    return cms_portfolio_grid_modifiers($count, 3) . ' portfolio-content-grid--fluid-proof';
+}
+
+/**
+ * Employer logo tiles for the About section.
+ *
+ * @return list<array{href: string, img: string, label: string}>
+ */
 function cms_employer_logo_items(): array
 {
     return [
-        ['href' => 'https://www.educationinvestor.co.uk', 'img' => 'img_gallery_1', 'label' => 'Education Investor'],
-        ['href' => 'https://www.healthinvestor.co.uk', 'img' => 'img_gallery_2', 'label' => 'Health Investor UK'],
-        ['href' => 'https://www.caring-times.co.uk', 'img' => 'img_gallery_3', 'label' => 'Caring Times'],
-        ['href' => 'https://www.ctownersclub.com', 'img' => 'img_gallery_4', 'label' => 'Caring Times Owners Club'],
-        ['href' => 'https://www.nmt-magazine.co.uk', 'img' => 'img_gallery_5', 'label' => 'NMT Magazine'],
-        ['href' => 'https://www.nmtownersclub.com', 'img' => 'img_gallery_6', 'label' => 'NMT Owners Club'],
-        ['href' => './media/pdf/bwie.pdf', 'img' => 'img_gallery_7', 'label' => 'BWIE PDF'],
-        ['href' => 'https://independentschoolmanagement.co.uk/', 'img' => 'img_gallery_8', 'label' => 'Independent School Management'],
+        ['href' => 'https://www.bsigroup.com/', 'img' => 'img_gallery_bsi', 'label' => 'BSI Group'],
+        ['href' => 'https://www.educationinvestor.co.uk/', 'img' => 'img_gallery_1', 'label' => 'Education Investor'],
+        ['href' => 'https://www.healthinvestor.co.uk/', 'img' => 'img_gallery_2', 'label' => 'Health Investor'],
+        ['href' => 'https://www.caring-times.co.uk/', 'img' => 'img_gallery_3', 'label' => 'Caring Times'],
+        ['href' => 'https://www.ctownersclub.com/', 'img' => 'img_gallery_4', 'label' => 'CT Owners Club'],
+        ['href' => 'https://www.nmt-magazine.co.uk/', 'img' => 'img_gallery_5', 'label' => 'NMT Magazine'],
+        ['href' => 'https://www.nmtownersclub.com/', 'img' => 'img_gallery_6', 'label' => 'NMT Owners Club'],
+        ['href' => 'https://www.nurseryworld.co.uk/', 'img' => 'img_gallery_9', 'label' => 'Nursery World'],
+        ['href' => 'https://www.cypnow.co.uk/', 'img' => 'img_gallery_10', 'label' => 'CYP Now'],
+        ['href' => 'https://www.rusi.org/', 'img' => 'img_gallery_11', 'label' => 'RUSI'],
+        ['href' => 'https://www.gramophone.co.uk/', 'img' => 'img_gallery_12', 'label' => 'Gramophone'],
+        ['href' => './media/pdf/bwie.pdf', 'img' => 'img_gallery_7', 'label' => 'BWIE'],
+        ['href' => 'https://independentschoolmanagement.co.uk/', 'img' => 'img_gallery_8', 'label' => 'ISM'],
     ];
 }
 
@@ -419,8 +494,8 @@ function cms_employer_logo_items(): array
 function cms_work_experience_primary_keys(): array
 {
     return [
+        'html_work_bsi',
         'html_work_nexus',
-        'html_work_markallen',
     ];
 }
 
@@ -431,6 +506,22 @@ function cms_work_experience_primary_keys(): array
 function cms_work_experience_earlier_keys(): array
 {
     return [
+        'html_work_markallen',
+        'html_work_rusi',
+        'html_work_indigo',
+    ];
+}
+
+
+/** Employer work panels edited as title + body in the CMS admin. */
+
+
+function cms_work_experience_employer_keys(): array
+{
+    return [
+        'html_work_bsi',
+        'html_work_nexus',
+        'html_work_markallen',
         'html_work_rusi',
         'html_work_indigo',
     ];
@@ -450,26 +541,45 @@ function cms_work_experience_panel_keys(): array
 
 function cms_skill_tag_items(): array
 {
+    // Single full-width Skills band — estate-aligned stack (case studies + employer tools).
     return [
-        'WordPress',
-        'EpiServer',
-        'Drupal',
-        'Umbraco',
-        'PHP',
-        'JavaScript',
-        'HTML5',
-        'CSS / SCSS',
-        'ACF',
-        'HubSpot',
-        'Workfront',
-        'Bootstrap',
-        'Vite',
-        'Playwright QA',
-        'Accessibility',
+        ['label' => 'WordPress', 'icon' => 'fab fa-wordpress'],
+        ['label' => 'WordPress Multisite', 'icon' => 'fas fa-sitemap'],
+        ['label' => 'WooCommerce', 'icon' => 'fas fa-cart-shopping'],
+        ['label' => 'Ecommerce', 'icon' => 'fas fa-store'],
+        ['label' => 'EpiServer', 'icon' => 'fas fa-globe'],
+        ['label' => 'Drupal', 'icon' => 'fab fa-drupal'],
+        ['label' => 'Umbraco', 'icon' => 'fas fa-cube'],
+        ['label' => 'ACF', 'icon' => 'fas fa-puzzle-piece'],
+        ['label' => 'PHP', 'icon' => 'fab fa-php'],
+        ['label' => 'HTML5', 'icon' => 'fab fa-html5'],
+        ['label' => 'CSS / SCSS', 'icon' => 'fab fa-sass'],
+        ['label' => 'JavaScript', 'icon' => 'fab fa-js'],
+        ['label' => 'TypeScript', 'icon' => 'fas fa-code'],
+        ['label' => 'React', 'icon' => 'fab fa-react'],
+        ['label' => 'Bootstrap', 'icon' => 'fab fa-bootstrap'],
+        ['label' => 'Tailwind', 'icon' => 'fas fa-wind'],
+        ['label' => 'Vite', 'icon' => 'fas fa-bolt'],
+        ['label' => 'Node.js', 'icon' => 'fab fa-node-js'],
+        ['label' => 'TanStack Query', 'icon' => 'fas fa-database'],
+        ['label' => 'Zustand', 'icon' => 'fas fa-layer-group'],
+        ['label' => 'Zod', 'icon' => 'fas fa-check-double'],
+        ['label' => 'Git', 'icon' => 'fab fa-git-alt'],
+        ['label' => 'Playwright QA', 'icon' => 'fas fa-flask'],
+        ['label' => 'Accessibility', 'icon' => 'fas fa-universal-access'],
+        ['label' => 'Lighthouse', 'icon' => 'fas fa-gauge-high'],
+        ['label' => 'HubSpot', 'icon' => 'fab fa-hubspot'],
+        ['label' => 'Canva', 'icon' => 'fas fa-palette'],
+        ['label' => 'Photoshop', 'icon' => 'fas fa-image'],
+        ['label' => 'Illustrator', 'icon' => 'fas fa-pen-nib'],
+        ['label' => 'InDesign', 'icon' => 'fas fa-file-lines'],
+        ['label' => 'Campaign design', 'icon' => 'fas fa-bullhorn'],
+        ['label' => 'Grip', 'icon' => 'fas fa-handshake'],
+        ['label' => 'Workfront', 'icon' => 'fas fa-diagram-project'],
     ];
 }
 
-/** Tailored CV downloads (CMS specialist vs front-end developer). */
+/** Tailored downloads: role CVs, combined Full CV (subtle), marketing portfolio. */
 
 function cms_cv_download_items(array $content): array
 {
@@ -480,6 +590,7 @@ function cms_cv_download_items(array $content): array
             'href' => trim((string) ($content['cv_cms_pdf'] ?? '')) ?: './media/pdf/michael-reeves-cms-cv.pdf',
             'aria' => 'Download CMS specialist CV (PDF)',
             'icon' => 'fa-newspaper',
+            'variant' => 'primary',
             'chip_class' => 'portfolio-chip--cv-cms',
             'footer_class' => 'footer-icon-link--cv-cms',
         ],
@@ -489,13 +600,34 @@ function cms_cv_download_items(array $content): array
             'href' => trim((string) ($content['cv_web_pdf'] ?? '')) ?: './media/pdf/michael-reeves-web-developer-cv.pdf',
             'aria' => 'Download front-end web developer CV (PDF)',
             'icon' => 'fa-code',
+            'variant' => 'primary',
             'chip_class' => 'portfolio-chip--cv-web',
             'footer_class' => 'footer-icon-link--cv-web',
+        ],
+        [
+            'id' => 'combined',
+            'label' => trim((string) ($content['cv_combined_label'] ?? '')) ?: 'Full CV',
+            'href' => trim((string) ($content['cv_combined_pdf'] ?? '')) ?: './media/pdf/michael-reeves-cv.pdf',
+            'aria' => 'Download full CV combining CMS and developer experience (PDF)',
+            'icon' => 'fa-file-lines',
+            'variant' => 'subtle',
+            'chip_class' => 'portfolio-chip--cv-combined',
+            'footer_class' => 'footer-icon-link--cv-combined',
+        ],
+        [
+            'id' => 'marketing',
+            'label' => trim((string) ($content['cv_marketing_label'] ?? '')) ?: 'Marketing portfolio',
+            'href' => trim((string) ($content['cv_marketing_pdf'] ?? '')) ?: './media/pdf/marketing-portfolio.pdf',
+            'aria' => 'Download marketing and campaign design portfolio (PDF)',
+            'icon' => 'fa-palette',
+            'variant' => 'secondary',
+            'chip_class' => 'portfolio-chip--cv-marketing',
+            'footer_class' => 'footer-icon-link--cv-marketing',
         ],
     ];
 }
 
-/** Render labelled CV download chips (hero, contact band, etc.). */
+/** Render labelled CV / portfolio download chips (hero, contact band, etc.). */
 
 function cms_render_cv_download_chips(array $content, array $options = []): void
 {
@@ -507,7 +639,15 @@ function cms_render_cv_download_chips(array $content, array $options = []): void
 
     $render = static function () use ($items, $extraLinks): void {
         foreach ($items as $item) {
-            $chipClass = 'portfolio-chip portfolio-chip--primary portfolio-chip--cv ' . (string) ($item['chip_class'] ?? '');
+            $variant = (string) ($item['variant'] ?? 'primary');
+            if ($variant === 'subtle') {
+                $tone = 'portfolio-chip--subtle';
+            } elseif ($variant === 'secondary') {
+                $tone = 'portfolio-chip--secondary';
+            } else {
+                $tone = 'portfolio-chip--primary';
+            }
+            $chipClass = 'portfolio-chip ' . $tone . ' portfolio-chip--cv ' . (string) ($item['chip_class'] ?? '');
             $icon = (string) ($item['icon'] ?? 'fa-file-pdf');
             ?>
         <a class="<?= esc(trim($chipClass)) ?>" href="<?= esc($item['href']) ?>" target="_blank" rel="noopener noreferrer" title="<?= esc($item['aria']) ?>">
@@ -546,35 +686,52 @@ function cms_render_footer_cv_pdf_links(array $content): void
 {
     foreach (cms_cv_download_items($content) as $item) {
         $icon = (string) ($item['icon'] ?? 'fa-file-pdf');
-        $footerClass = 'footer-icon-link footer-icon-link--cv ' . (string) ($item['footer_class'] ?? '');
+        $variant = (string) ($item['variant'] ?? 'primary');
+        $footerClass = 'footer-cv-chip footer-cv-chip--' . $variant . ' ' . (string) ($item['footer_class'] ?? '');
         ?>
         <a href="<?= esc($item['href']) ?>" class="<?= esc(trim($footerClass)) ?>" aria-label="<?= esc($item['aria']) ?>" title="<?= esc($item['label']) ?>" target="_blank" rel="noopener noreferrer">
             <i class="fas <?= esc($icon) ?>" aria-hidden="true"></i>
-            <span class="footer-cv-link-label"><?= esc($item['label']) ?></span>
+            <span class="footer-cv-chip-label"><?= esc($item['label']) ?></span>
         </a>
         <?php
     }
 }
 
-/** Dual job-type value props (CMS publishing vs front-end WordPress). */
+/** Role tracks: CMS publishing, front-end WordPress, and marketing design. */
 
 function cms_about_role_tracks(): array
 {
     return [
         [
             'title' => 'CMS & publishing',
+            'icon' => 'fas fa-newspaper',
             'bullets' => [
-                'Enterprise content operations across 40+ international BSI websites in EpiServer',
-                'Multi-format publishing — blogs, webinars, white papers, and certification assets',
-                'Workflow coordination with Workfront, HubSpot campaigns, and stakeholder teams',
+                ['icon' => 'fas fa-globe', 'text' => 'Enterprise content operations across 40+ international BSI websites in EpiServer'],
+                ['icon' => 'fas fa-file-lines', 'text' => 'Multi-format publishing — blogs, webinars, white papers, and certification assets'],
+                ['icon' => 'fas fa-people-group', 'text' => 'Workflow coordination with Workfront, HubSpot campaigns, and stakeholder teams'],
             ],
         ],
         [
             'title' => 'Front-end & WordPress',
+            'icon' => 'fab fa-wordpress',
             'bullets' => [
-                'Responsive WordPress themes, ACF-driven content, and Vite-built programme sites',
-                'MSR portfolio demos with machine-checkable acceptance and Playwright QA gates',
-                'AI-assisted delivery (Cursor) for faster troubleshooting, refactors, and prototyping',
+                ['icon' => 'fas fa-paintbrush', 'text' => 'Responsive WordPress themes, ACF-driven content, and Vite-built programme sites'],
+                ['icon' => 'fas fa-shield-halved', 'text' => 'MSR portfolio demos with machine-checkable acceptance and Playwright QA gates'],
+                ['icon' => 'fas fa-robot', 'text' => 'AI-assisted delivery (Cursor) for faster troubleshooting, refactors, and prototyping'],
+            ],
+        ],
+        [
+            'title' => 'Marketing & campaign design',
+            'icon' => 'fas fa-palette',
+            'bullets' => [
+                ['icon' => 'fas fa-envelope-open-text', 'text' => 'HubSpot email campaigns and landing pages for event registration and audience engagement'],
+                ['icon' => 'fas fa-share-nodes', 'text' => 'Canva social and event assets for awards, power lists, and sector conferences'],
+                ['icon' => 'fas fa-file-pdf', 'text' => 'Agency marketing samples collected in a downloadable portfolio PDF'],
+            ],
+            'cta' => [
+                'href' => './media/pdf/marketing-portfolio.pdf',
+                'label' => 'Marketing portfolio (PDF)',
+                'icon' => 'fas fa-file-pdf',
             ],
         ],
     ];
@@ -586,17 +743,30 @@ function cms_render_about_role_tracks(): void
     if ($tracks === []) {
         return;
     }
+    $trackMods = cms_portfolio_grid_modifiers(count($tracks), 3);
     ?>
-    <div class="portfolio-role-tracks msr-fade-in" aria-label="What I offer by role">
-    <?php foreach ($tracks as $track) { ?>
-        <div class="portfolio-role-track portfolio-panel main_home">
-            <h3 class="title portfolio-role-track-title"><?= esc((string) $track['title']) ?></h3>
-            <ul class="portfolio-role-track-bullets">
-            <?php foreach ($track['bullets'] as $bullet) { ?>
-                <li><?= esc((string) $bullet) ?></li>
+    <div class="portfolio-role-tracks portfolio-content-grid<?= esc($trackMods) ?> msr-fade-in" aria-label="What I offer by role">
+    <?php foreach ($tracks as $track) {
+        $titleIcon = trim((string) ($track['icon'] ?? 'fas fa-circle-check'));
+        $cta = is_array($track['cta'] ?? null) ? $track['cta'] : null;
+        ?>
+        <div class="portfolio-grid-cell"><div class="portfolio-role-track portfolio-panel main_home">
+            <h3 class="title portfolio-role-track-title">
+                <i class="<?= esc($titleIcon) ?>" aria-hidden="true"></i>
+                <span><?= esc((string) $track['title']) ?></span>
+            </h3>
+            <?php cms_render_icon_bullet_list($track['bullets'] ?? [], 'portfolio-role-track-bullets', 'fas fa-check'); ?>
+            <?php if ($cta !== null && trim((string) ($cta['href'] ?? '')) !== '' && trim((string) ($cta['label'] ?? '')) !== '') { ?>
+            <p class="portfolio-role-track-cta">
+                <a class="portfolio-chip portfolio-chip--secondary" href="<?= esc((string) $cta['href']) ?>" target="_blank" rel="noopener noreferrer">
+                    <?php if (trim((string) ($cta['icon'] ?? '')) !== '') { ?>
+                    <i class="<?= esc((string) $cta['icon']) ?>" aria-hidden="true"></i>
+                    <?php } ?>
+                    <span><?= esc((string) $cta['label']) ?></span>
+                </a>
+            </p>
             <?php } ?>
-            </ul>
-        </div>
+        </div></div>
     <?php } ?>
     </div>
     <?php
@@ -606,27 +776,6 @@ function cms_render_about_role_tracks(): void
 /** Skill icon tiles for the skills gallery (static set; grid adapts to count). */
 
 
-function cms_skill_icon_items(): array
-{
-    return [
-        ['class' => 'skill-php', 'title' => 'PHP', 'kind' => 'icon', 'icon' => 'fab fa-php', 'label' => 'PHP'],
-        ['class' => 'skill-canva', 'title' => 'Canva', 'kind' => 'image', 'img' => 'img_skill_canva', 'label' => 'Canva'],
-        ['class' => 'skill-hubspot', 'title' => 'HubSpot', 'kind' => 'icon', 'icon' => 'fab fa-hubspot', 'label' => 'HubSpot'],
-        ['class' => 'skill-grip', 'title' => 'Grip', 'kind' => 'image', 'img' => 'img_skill_grip', 'label' => 'Grip'],
-        ['class' => 'skill-photoshop', 'title' => 'Adobe Photoshop', 'kind' => 'icon', 'icon' => 'fas fa-wand-magic-sparkles', 'label' => 'Adobe Photoshop'],
-        ['class' => 'skill-indesign', 'title' => 'Adobe InDesign', 'kind' => 'icon', 'icon' => 'fas fa-file-lines', 'label' => 'Adobe InDesign'],
-        ['class' => 'skill-illustrator', 'title' => 'Adobe Illustrator', 'kind' => 'icon', 'icon' => 'fas fa-pen-nib', 'label' => 'Adobe Illustrator'],
-        ['class' => 'skill-wordpress', 'title' => 'WordPress', 'kind' => 'icon', 'icon' => 'fab fa-wordpress', 'label' => 'WordPress'],
-        ['class' => 'skill-bootstrap', 'title' => 'Bootstrap', 'kind' => 'icon', 'icon' => 'fab fa-bootstrap', 'label' => 'Bootstrap'],
-        ['class' => 'skill-css', 'title' => 'CSS3', 'kind' => 'icon', 'icon' => 'fab fa-css3-alt', 'label' => 'CSS3'],
-        ['class' => 'skill-html', 'title' => 'HTML5', 'kind' => 'icon', 'icon' => 'fab fa-html5', 'label' => 'HTML5'],
-        ['class' => 'skill-js', 'title' => 'JavaScript', 'kind' => 'icon', 'icon' => 'fab fa-js', 'label' => 'JavaScript'],
-    ];
-}
-
-/**
- * Light cleanup for trusted admin HTML (preserves link href/target — strip_tags does not).
- */
 
 
 function cms_html_fragment_uses_wysiwyg(string $key): bool
@@ -1165,7 +1314,7 @@ function cms_html_extract_first_h1(string $html): array
 function cms_html_split_fragment_keys(): array
 {
     return array_merge(
-        ['html_work_nexus', 'html_work_markallen', 'html_work_rusi', 'html_work_indigo'],
+        cms_work_experience_employer_keys(),
         ['html_testimonial_1', 'html_testimonial_2', 'html_testimonial_3'],
         ['html_skills_courses'],
         ['html_games_tested'],
@@ -1186,7 +1335,7 @@ function cms_html_is_split_fragment(string $key): bool
 
 function cms_html_parse_split_parts(string $key, string $html): ?array
 {
-    if (in_array($key, ['html_work_nexus', 'html_work_markallen', 'html_work_rusi', 'html_work_indigo'], true)) {
+    if (in_array($key, cms_work_experience_employer_keys(), true)) {
         [$t, $b] = cms_html_extract_first_h3($html);
 
         return ['__title' => $t, '__body' => trim($b)];
@@ -1353,7 +1502,7 @@ function cms_html_assemble_split_fragment(string $key, array $post): string
         return (string) ($post[$key . $suffix] ?? '');
     };
 
-    if (in_array($key, ['html_work_nexus', 'html_work_markallen', 'html_work_rusi', 'html_work_indigo'], true)) {
+    if (in_array($key, cms_work_experience_employer_keys(), true)) {
         $body = cms_wysiwyg_apply_paragraph_mode(cms_sanitize_rich_html($g('__body')), 'work');
 
         return cms_sanitize_html(cms_html_join_work_employer(trim($g('__title')), $body));

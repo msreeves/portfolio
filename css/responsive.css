@@ -88,11 +88,6 @@
     padding: 20px;
   }
 
-  .employer-logo-grid-inner {
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 7.5rem), 1fr));
-    gap: 1rem;
-  }
-  
   button {
       margin: 10px 0;
   }

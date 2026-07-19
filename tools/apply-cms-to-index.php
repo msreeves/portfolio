@@ -14,6 +14,7 @@ $map = [
     'introduction_2.html' => 'html_introduction_2',
     'recent_portfolio_1.html' => 'html_recent_portfolio_1',
     'recent_portfolio_2.html' => 'html_recent_portfolio_2',
+    'work_bsi.html' => 'html_work_bsi',
     'work_nexus.html' => 'html_work_nexus',
     'work_markallen.html' => 'html_work_markallen',
     'work_gaming_intro.html' => 'html_work_gaming_intro',

@@ -1,0 +1,13 @@
+{
+  "slug": "atlas-ops",
+  "title": "Atlas Ops",
+  "stack": "React, TypeScript, Vite, Tailwind, TanStack Query, Zustand",
+  "summary": "Ops dashboard for AI delivery teams — projects, kanban, team permissions, and run analytics — built as a production-minded React SPA.",
+  "thumb": "./media/images/case-studies/atlas-ops.png",
+  "view_url": "./projects/atlas-ops/",
+  "code_url": "https://github.com/msreeves/atlas-ops",
+  "order": 5,
+  "hub": true,
+  "archive": false,
+  "active": true
+}

@@ -10,12 +10,16 @@ require __DIR__ . '/includes/cms-nav.php';
 
 $labels = [
     'intro_name' => 'Intro — name (H1)',
-    'intro_tagline' => 'Intro — roles line (legacy; hidden when short tagline is set)',
+    'intro_tagline' => 'Intro — fallback roles line (only if short tagline is empty)',
     'intro_tagline_short' => 'Intro — hero tagline (shown under name)',
     'cv_cms_label' => 'CV — CMS download label',
     'cv_web_label' => 'CV — developer download label',
+    'cv_combined_label' => 'CV — full/combined download label',
+    'cv_marketing_label' => 'CV — marketing portfolio label',
     'cv_cms_pdf' => 'CV — CMS PDF file',
     'cv_web_pdf' => 'CV — developer PDF file',
+    'cv_combined_pdf' => 'CV — full/combined PDF file',
+    'cv_marketing_pdf' => 'CV — marketing portfolio PDF',
     'about_heading' => 'About — section heading',
     'heading_recent_portfolio' => 'Heading — featured case studies',
     'heading_work_for' => 'Heading — experience',
@@ -24,7 +28,7 @@ $labels = [
     'heading_portfolio' => 'Heading — archive projects',
     'contact_band_heading' => 'Contact band — heading',
     'contact_band_intent' => 'Contact band — intent line',
-    'contact_band_email' => 'Contact band — email',
+    'contact_band_email' => 'Footer — email address',
     'footer_contact_heading' => 'Footer — contact heading',
     'footer_copyright' => 'Footer — copyright line',
 ];
@@ -38,42 +42,47 @@ $wizardSteps = [
     [
         'title' => 'Hero',
         'section_name' => 'Top of page — name, tagline, CV links, intro photo',
-        'hint' => 'The short tagline appears under your name. CV chips use the labels below and PDF files chosen with Browse PDF (hero, contact band, and footer).',
+        'hint' => 'The short tagline appears under your name. CV chips use the labels below and PDF files chosen with Browse PDF (hero and footer Downloads). Legacy “roles line” is only used if the short tagline is empty.',
         'groups' => [
-            ['label' => 'Name & taglines', 'keys' => ['intro_name', 'intro_tagline_short', 'intro_tagline']],
-            ['label' => 'CV downloads', 'keys' => ['cv_cms_label', 'cv_web_label', 'cv_cms_pdf', 'cv_web_pdf']],
+            ['label' => 'Name & tagline', 'keys' => ['intro_name', 'intro_tagline_short']],
+            ['label' => 'Fallback roles line (optional)', 'keys' => ['intro_tagline']],
+            ['label' => 'CV downloads', 'keys' => ['cv_cms_label', 'cv_web_label', 'cv_combined_label', 'cv_marketing_label', 'cv_cms_pdf', 'cv_web_pdf', 'cv_combined_pdf', 'cv_marketing_pdf']],
             ['label' => 'Intro photo', 'layout' => 'grid', 'keys' => ['img_intro_logo']],
         ],
     ],
     [
         'title' => 'Work',
         'section_name' => 'Featured case studies — nav “Work” (#recent-portfolio)',
-        'hint' => 'Section heading and intro panels above the MSR programme grid. Programme cards (Atlas Briefing, hub, awards, etc.) are code-owned — see docs/WORKSPACE_CLEANUP_INVENTORY.md § Portfolio site.json key map.',
+        'hint' => 'Section heading and intro panel above the MSR programme grid. Programme cards are code-owned. Marketing PDF lives under About role tracks and the download chips — not in this strip.',
         'groups' => [
             ['label' => '', 'keys' => ['heading_recent_portfolio']],
-            ['label' => 'Intro strip — panel 1', 'keys' => ['html_recent_portfolio_1']],
-            ['label' => 'Intro strip — panel 2', 'keys' => ['html_recent_portfolio_2']],
+            ['label' => 'Intro strip', 'keys' => ['html_recent_portfolio_1']],
         ],
     ],
     [
         'title' => 'About',
         'section_name' => 'About section — copy and employer logos (#introduction)',
-        'hint' => 'Introduction panels and logo strip. Role tracks (“CMS & publishing” / “Front-end & WordPress”) are code-owned in includes/cms-render.php → cms_about_role_tracks().',
+        'hint' => 'Introduction panels and logo strip. Role tracks (CMS, WordPress, Marketing) are code-owned in cms_about_role_tracks(). Logo order/hrefs are code-owned in cms_employer_logo_items(); paths below are editable.',
         'groups' => [
             ['label' => '', 'keys' => ['about_heading']],
-            ['label' => 'Introduction — panel 1 (e.g. BSI)', 'keys' => ['html_introduction_1']],
+            ['label' => 'Introduction — panel 1 (Profile pitch)', 'keys' => ['html_introduction_1']],
             ['label' => 'Introduction — panel 2', 'keys' => ['html_introduction_2']],
             [
-                'label' => 'Employer logos (items 1–8)',
+                'label' => 'Employer logos (websites worked on)',
                 'layout' => 'grid',
                 'grid_preset' => 'gallery',
                 'keys' => [
+                    'img_gallery_bsi',
                     'img_gallery_1',
                     'img_gallery_2',
                     'img_gallery_3',
                     'img_gallery_4',
                     'img_gallery_5',
                     'img_gallery_6',
+                    'img_gallery_9',
+                    'img_gallery_10',
+                    'img_gallery_11',
+                    'img_gallery_12',
                     'img_gallery_7',
                     'img_gallery_8',
                 ],
@@ -83,32 +92,31 @@ $wizardSteps = [
     [
         'title' => 'Experience',
         'section_name' => 'Work history — nav “Experience” (#work-for)',
-        'hint' => 'Primary roles (Nexus, Mark Allen) show first; RUSI and Indigo appear in the collapsed “Earlier roles” band on the homepage.',
+        'hint' => 'Primary roles (BSI, Nexus) show first; Mark Allen, RUSI, and Indigo appear in the collapsed “Earlier roles” band on the homepage.',
         'groups' => [
             ['label' => '', 'keys' => ['heading_work_for']],
+            ['label' => 'Role — BSI Group (current)', 'keys' => ['html_work_bsi']],
             ['label' => 'Role — Nexus', 'keys' => ['html_work_nexus']],
-            ['label' => 'Role — Mark Allen Group', 'keys' => ['html_work_markallen']],
+            ['label' => 'Earlier role — Mark Allen Group', 'keys' => ['html_work_markallen']],
             ['label' => 'Earlier role — RUSI', 'keys' => ['html_work_rusi']],
             ['label' => 'Earlier role — Indigo', 'keys' => ['html_work_indigo']],
         ],
     ],
     [
         'title' => 'Skills & testimonials',
-        'section_name' => 'Skills band and testimonials (#skills, #testimonials)',
-        'hint' => 'Skill tag chips (WordPress, EpiServer, etc.) are code-owned in cms_skill_tag_items(). Courses, icon tiles, and testimonial slides are editable here.',
+        'section_name' => 'Skills chip row and testimonials (#skills, #testimonials)',
+        'hint' => 'Homepage Skills is one chip row from cms_skill_tag_items() (code-owned). Edit the section headings and testimonials here.',
         'groups' => [
             ['label' => '', 'keys' => ['heading_skills', 'heading_testimonials']],
-            ['label' => 'Skills — online courses & list', 'keys' => ['html_skills_courses']],
-            ['label' => 'Skills — tile images', 'layout' => 'grid', 'keys' => ['img_skill_canva', 'img_skill_grip']],
-            ['label' => 'Testimonials — featured (slide 1)', 'keys' => ['html_testimonial_1']],
-            ['label' => 'Testimonials — accordion slide 2', 'keys' => ['html_testimonial_2']],
-            ['label' => 'Testimonials — accordion slide 3', 'keys' => ['html_testimonial_3']],
+            ['label' => 'Testimonials — featured', 'keys' => ['html_testimonial_1']],
+            ['label' => 'Testimonials — more (item 2)', 'keys' => ['html_testimonial_2']],
+            ['label' => 'Testimonials — more (item 3)', 'keys' => ['html_testimonial_3']],
         ],
     ],
     [
         'title' => 'Archive projects',
-        'section_name' => 'Collapsed archive grid — student and side projects',
-        'hint' => 'Section heading plus card copy in projects/*.json. Thumbnails and outbound links live in each project JSON file on disk.',
+        'section_name' => 'Archive projects grid — student and side projects (#portfolio)',
+        'hint' => 'Section heading plus card copy in projects/*.json. Thumbnails and outbound links live in each project JSON file on disk. Archive is always visible on the homepage.',
         'groups' => [
             ['label' => '', 'keys' => ['heading_portfolio']],
             ['label' => $portfolioItemsLabel, 'keys' => ['__portfolio_json_block__']],
@@ -117,18 +125,18 @@ $wizardSteps = [
     [
         'title' => 'Contact band',
         'section_name' => 'Get in touch strip above the footer (#contact-band)',
-        'hint' => 'Heading, intent line, and email in the contact band. CV download chips beside LinkedIn use the CV paths from the Hero step.',
+        'hint' => 'Heading and intent only. Email and CV/portfolio downloads live in the hero and footer Connect / Downloads groups.',
         'groups' => [
-            ['label' => 'Contact band copy', 'keys' => ['contact_band_heading', 'contact_band_intent', 'contact_band_email']],
+            ['label' => 'Contact band copy', 'keys' => ['contact_band_heading', 'contact_band_intent']],
         ],
     ],
     [
         'title' => 'Navigation & footer',
-        'section_name' => 'Top menu, footer text, and footer logo',
-        'hint' => 'Nav order should match the recruiter path: Work → About → Experience → Contact. Footer PDF icons use the same CV paths as the Hero step.',
+        'section_name' => 'Top menu, footer text, email, and footer logo',
+        'hint' => 'Nav order should match the recruiter path: Work → About → Experience → Contact. Footer PDF icons use the same CV paths as the Hero step. Email appears in footer Connect.',
         'groups' => [
             ['label' => 'Navbar links', 'keys' => ['__nav_block__']],
-            ['label' => 'Footer text', 'keys' => ['footer_contact_heading', 'footer_copyright']],
+            ['label' => 'Footer text & email', 'keys' => ['footer_contact_heading', 'footer_copyright', 'contact_band_email']],
             ['label' => 'Footer logo', 'layout' => 'grid', 'keys' => ['img_footer_logo']],
         ],
     ],
@@ -493,7 +501,7 @@ function cms_edit_split_fragment_fields(string $k, string $html, array $fragment
 
     $bodyHint = esc(cms_wysiwyg_format_help_short());
 
-    if (in_array($k, ['html_work_nexus', 'html_work_markallen', 'html_work_rusi', 'html_work_indigo'], true)) {
+    if (in_array($k, cms_work_experience_employer_keys(), true)) {
         $tid = $k . '__title';
         $bid = $k . '__body';
         echo '<div class="mb-3"><label class="form-label" for="' . esc($tid) . '">Employer or project name</label>';

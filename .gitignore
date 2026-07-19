@@ -2,6 +2,11 @@
 *.log
 .vscode/
 
+# Atlas Ops app deps / intermediate build (shipped copy is projects/atlas-ops/)
+apps/*/node_modules/
+apps/*/dist/
+apps/*/*.tsbuildinfo
+
 # Local secrets and runtime state (examples in .private/ stay tracked)
 .private/*
 !.private/.htaccess
