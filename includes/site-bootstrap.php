@@ -105,15 +105,13 @@ function cms_heading_defaults(): array
         'footer_contact_heading' => 'Contact Me',
         'footer_copyright' => '© Copyright 2026 Michael Reeves | All rights reserved',
         'contact_band_heading' => 'Get in touch',
-        'contact_band_intent' => 'Open to CMS/content, front-end WordPress, and marketing/campaign design roles — permanent, contract, or hybrid/remote. CVs and the marketing portfolio are in the hero and footer.',
+        'contact_band_intent' => 'Open to CMS/content, front-end WordPress, and marketing/campaign design roles — permanent, contract, or hybrid/remote. The CV and marketing portfolio are in the hero and footer.',
         'contact_band_email' => 'reevesy87@hotmail.co.uk',
-        'cv_cms_pdf' => './media/pdf/michael-reeves-cms-cv.pdf',
-        'cv_web_pdf' => './media/pdf/michael-reeves-web-developer-cv.pdf',
+        'cv_pdf' => './media/pdf/michael-reeves-cv.pdf',
         'cv_combined_pdf' => './media/pdf/michael-reeves-cv.pdf',
         'cv_marketing_pdf' => './media/pdf/marketing-portfolio.pdf',
-        'cv_cms_label' => 'CMS CV',
-        'cv_web_label' => 'Developer CV',
-        'cv_combined_label' => 'Full CV',
+        'cv_label' => 'CV',
+        'cv_combined_label' => 'CV',
         'cv_marketing_label' => 'Marketing portfolio',
     ];
 }
@@ -122,7 +120,7 @@ function cms_heading_defaults(): array
 
 function cms_cv_pdf_field_keys(): array
 {
-    return ['cv_cms_pdf', 'cv_web_pdf', 'cv_combined_pdf', 'cv_marketing_pdf'];
+    return ['cv_pdf', 'cv_combined_pdf', 'cv_marketing_pdf'];
 }
 
 /** Image paths (relative to site root, ./media/...). Editable in admin. */

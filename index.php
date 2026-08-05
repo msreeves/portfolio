@@ -15,7 +15,7 @@ $projects = cms_load_portfolio_projects();
     <title>Michael Reeves — Portfolio</title>
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Michael Reeves — Portfolio" />
-    <meta property="og:description" content="CMS specialist, front-end WordPress developer, and marketing/campaign design — live case studies and dual CVs." />
+    <meta property="og:description" content="CMS specialist, front-end WordPress developer, and marketing/campaign design — live case studies and a downloadable CV." />
     <meta property="og:url" content="https://www.msreeves.co.uk/" />
     <meta property="og:image" content="https://www.msreeves.co.uk/media/images/case-studies/atlas-ops.png" />
     <meta name="twitter:card" content="summary_large_image" />
@@ -89,9 +89,9 @@ $projects = cms_load_portfolio_projects();
             </div>
         </header>
 
-    <main id="site-content" class="portfolio-main">
+    <main id="site-content" class="portfolio-main portfolio-flow">
     <section id="recent-portfolio">
-        <div class="container">
+        <div class="container portfolio-shell">
 <?php cms_render_section_heading((string) $content['heading_recent_portfolio']); ?>
 
 <?php cms_render_panel_grid($content, ['html_recent_portfolio_1']); ?>
@@ -101,7 +101,7 @@ $projects = cms_load_portfolio_projects();
     </section>
     <section>
         <div id="introduction">
-            <div class="container">
+            <div class="container portfolio-shell">
 <?php cms_render_section_heading((string) $content['about_heading']); ?>
 <?php cms_render_panel_grid($content, ['html_introduction_1', 'html_introduction_2']); ?>
 <?php cms_render_about_role_tracks(); ?>
@@ -133,13 +133,13 @@ $projects = cms_load_portfolio_projects();
         </div>
     </section>
     <section id="work-for">
-        <div class="container">
+        <div class="container portfolio-shell">
 <?php cms_render_section_heading((string) $content['heading_work_for']); ?>
 <?php cms_render_work_experience_section($content); ?>
         </div>
     </section>
     <section id="skills">
-        <div class="container">
+        <div class="container portfolio-shell">
             <div class="skills-section-layout skills-section-layout--tags">
 <?php cms_render_section_heading((string) $content['heading_skills']); ?>
 <?php cms_render_skills_section($content); ?>
@@ -147,7 +147,7 @@ $projects = cms_load_portfolio_projects();
         </div>
     </section>
     <section id="testimonials">
-        <div class="container">
+        <div class="container portfolio-shell">
 <?php cms_render_section_heading((string) $content['heading_testimonials']); ?>
 <?php
 $featuredParts = cms_html_parse_split_parts('html_testimonial_1', (string) ($content['html_testimonial_1'] ?? ''));
@@ -169,7 +169,7 @@ if ($featuredBody === '' && cms_html_has_content($content, 'html_testimonial_1')
                 <figcaption class="testimonial-featured-cite"><?= esc($featuredTitle) ?></figcaption>
 <?php } ?>
             </figure>
-            <div class="accordion testimonial-accordion testimonial-accordion--more" id="testimonialsAccordion">
+            <div class="testimonial-disclosure-list">
 <?php for ($ti = 2; $ti <= 3; $ti++) {
     $tKey = 'html_testimonial_' . $ti;
     if (!cms_html_has_content($content, $tKey)) {
@@ -184,17 +184,14 @@ if ($featuredBody === '' && cms_html_has_content($content, 'html_testimonial_1')
     $hId = 'testimonialHeading' . $ti;
     $cId = 'testimonialCollapse' . $ti;
     ?>
-                        <div class="accordion-item">
-                            <h3 class="accordion-header" id="<?= esc($hId) ?>">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#<?= esc($cId) ?>" aria-expanded="false" aria-controls="<?= esc($cId) ?>">
-                                    <?= esc($btnLabel) ?>
-                                </button>
-                            </h3>
-                            <div id="<?= esc($cId) ?>" class="accordion-collapse collapse" aria-labelledby="<?= esc($hId) ?>" data-bs-parent="#testimonialsAccordion">
-                                <div class="accordion-body">
-                                    <div class="testimonials">
-                                        <div class="msr-fade-in inner-content">
-                                            <i class="fas fa-quote-left" aria-hidden="true"></i>
+            <details class="portfolio-disclosure testimonial-disclosure msr-fade-in">
+                <summary class="portfolio-disclosure-summary" id="<?= esc($hId) ?>">
+                    <?= esc($btnLabel) ?>
+                </summary>
+                <div class="portfolio-disclosure-body" id="<?= esc($cId) ?>" aria-labelledby="<?= esc($hId) ?>">
+                    <div class="testimonials">
+                        <div class="msr-fade-in inner-content">
+                            <i class="fas fa-quote-left" aria-hidden="true"></i>
 <?php
     if (is_array($tParts) && trim((string) ($tParts['__body'] ?? '')) !== '') {
         echo (string) $tParts['__body'];
@@ -202,11 +199,10 @@ if ($featuredBody === '' && cms_html_has_content($content, 'html_testimonial_1')
         content_html($content, $tKey);
     }
 ?>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
+                    </div>
+                </div>
+            </details>
 <?php } ?>
             </div>
         </div>
@@ -215,7 +211,7 @@ if ($featuredBody === '' && cms_html_has_content($content, 'html_testimonial_1')
     </main>
 
 <section id="contact-band" class="contact-band">
-    <div class="container">
+    <div class="container portfolio-shell">
         <div class="row">
             <div class="col-12">
                 <h2 class="contact-band-heading h4"><?= esc($content['contact_band_heading']) ?></h2>
@@ -226,7 +222,7 @@ if ($featuredBody === '' && cms_html_has_content($content, 'html_testimonial_1')
 </section>
 
 <footer id="contact" class="footer_area">
-    <div class="container">
+    <div class="container portfolio-shell">
         <div class="row">
             <div class="col-lg-6 col-md-6">
                 <img class="img-fluid footer-logo" src="<?= esc(cms_img_src($content, 'img_footer_logo')) ?>" alt="Michael Reeves logo" loading="lazy" />

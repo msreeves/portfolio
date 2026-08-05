@@ -165,54 +165,82 @@ function cms_render_msr_case_study_grid(): void
         return;
     }
 
-    $count = count($cards);
+    $visibleCards = array_slice($cards, 0, min(3, count($cards)));
+    $remainingCards = array_slice($cards, count($visibleCards));
+
     echo '<div class="portfolio-content-grid portfolio-content-grid--cards msr-programme-grid msr-programme-grid--proof';
-    echo esc(cms_portfolio_case_study_grid_modifiers($cards));
-    echo '" data-card-count="' . (int) $count . '">';
+    echo esc(cms_portfolio_case_study_grid_modifiers($visibleCards));
+    echo '" data-card-count="' . (int) count($visibleCards) . '">';
+    foreach ($visibleCards as $card) {
+        cms_render_msr_case_study_card($card);
+    }
+    echo '</div>';
 
-    foreach ($cards as $card) {
-        $featured = !empty($card['featured']);
-        $thumb = cms_msr_case_study_thumb_src((string) ($card['thumb'] ?? ''));
-        $thumbAlt = trim((string) ($card['thumb_alt'] ?? $card['title'] ?? 'Case study screenshot'));
-        $bullets = $card['bullets'] ?? [];
-        if (!is_array($bullets)) {
-            $bullets = [];
-        }
-
-        echo '<div class="portfolio-grid-cell">';
-        echo '<article class="msr-programme-card msr-fade-in';
-        if ($featured) {
-            echo ' msr-programme-card--lead';
-        }
-        echo '">';
-
-        if ($thumb !== '') {
-            echo '<div class="msr-programme-card-media">';
-            echo '<img class="msr-programme-card-thumb" src="' . esc($thumb) . '" alt="' . esc($thumbAlt) . '" width="960" height="600" loading="lazy" decoding="async" />';
-            echo '</div>';
-        }
-
-        echo '<div class="msr-programme-card-body">';
-        if ($featured) {
-            echo '<p class="msr-programme-card-eyebrow">Lead case study</p>';
-        }
-        echo '<h3 class="h5 msr-programme-card-title">' . esc((string) ($card['title'] ?? '')) . '</h3>';
-        echo '<p class="msr-programme-card-stack">' . esc((string) ($card['stack'] ?? '')) . '</p>';
-
-        if ($bullets !== []) {
-            cms_render_icon_bullet_list($bullets, 'msr-case-study-bullets');
-        } elseif (trim((string) ($card['summary'] ?? '')) !== '') {
-            echo '<p class="msr-programme-card-summary">' . esc((string) $card['summary']) . '</p>';
-        }
-
-        echo '<p class="msr-programme-card-ctas">';
-        echo '<a class="portfolio-chip portfolio-chip--primary" href="' . esc((string) ($card['view_url'] ?? '')) . '" target="_blank" rel="noopener noreferrer"><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i><span>View live</span></a>';
-        echo '<a class="portfolio-chip portfolio-chip--secondary" href="' . esc((string) ($card['code_url'] ?? '')) . '" target="_blank" rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i><span>GitHub</span></a>';
-        echo '</p>';
-        echo '</div></article></div>';
+    if ($remainingCards === []) {
+        return;
     }
 
-    echo '</div>';
+    $remainingCount = count($remainingCards);
+    $summaryLabel = $remainingCount === 1
+        ? 'More programme case study'
+        : 'More programme case studies (' . $remainingCount . ')';
+
+    echo '<details class="portfolio-disclosure portfolio-case-study-disclosure msr-fade-in">';
+    echo '<summary class="portfolio-disclosure-summary">' . esc($summaryLabel) . '</summary>';
+    echo '<div class="portfolio-disclosure-body">';
+    echo '<div class="portfolio-content-grid portfolio-content-grid--cards msr-programme-grid msr-programme-grid--proof';
+    echo esc(cms_portfolio_case_study_grid_modifiers($remainingCards));
+    echo '" data-card-count="' . (int) $remainingCount . '">';
+    foreach ($remainingCards as $card) {
+        cms_render_msr_case_study_card($card);
+    }
+    echo '</div></div></details>';
+}
+
+/**
+ * @param array<string, mixed> $card
+ */
+function cms_render_msr_case_study_card(array $card): void
+{
+    $featured = !empty($card['featured']);
+    $thumb = cms_msr_case_study_thumb_src((string) ($card['thumb'] ?? ''));
+    $thumbAlt = trim((string) ($card['thumb_alt'] ?? $card['title'] ?? 'Case study screenshot'));
+    $bullets = $card['bullets'] ?? [];
+    if (!is_array($bullets)) {
+        $bullets = [];
+    }
+
+    echo '<div class="portfolio-grid-cell">';
+    echo '<article class="msr-programme-card msr-fade-in';
+    if ($featured) {
+        echo ' msr-programme-card--lead';
+    }
+    echo '">';
+
+    if ($thumb !== '') {
+        echo '<div class="msr-programme-card-media">';
+        echo '<img class="msr-programme-card-thumb" src="' . esc($thumb) . '" alt="' . esc($thumbAlt) . '" width="960" height="600" loading="lazy" decoding="async" />';
+        echo '</div>';
+    }
+
+    echo '<div class="msr-programme-card-body">';
+    if ($featured) {
+        echo '<p class="msr-programme-card-eyebrow">Lead case study</p>';
+    }
+    echo '<h3 class="h5 msr-programme-card-title">' . esc((string) ($card['title'] ?? '')) . '</h3>';
+    echo '<p class="msr-programme-card-stack">' . esc((string) ($card['stack'] ?? '')) . '</p>';
+
+    if ($bullets !== []) {
+        cms_render_icon_bullet_list($bullets, 'msr-case-study-bullets');
+    } elseif (trim((string) ($card['summary'] ?? '')) !== '') {
+        echo '<p class="msr-programme-card-summary">' . esc((string) $card['summary']) . '</p>';
+    }
+
+    echo '<p class="msr-programme-card-ctas">';
+    echo '<a class="portfolio-chip portfolio-chip--primary" href="' . esc((string) ($card['view_url'] ?? '')) . '" target="_blank" rel="noopener noreferrer"><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i><span>View live</span></a>';
+    echo '<a class="portfolio-chip portfolio-chip--secondary" href="' . esc((string) ($card['code_url'] ?? '')) . '" target="_blank" rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i><span>GitHub</span></a>';
+    echo '</p>';
+    echo '</div></article></div>';
 }
 
 
@@ -364,7 +392,7 @@ function cms_render_archive_projects_section(array $content, array $projects): v
     $countLabel = $count === 1 ? '1 project' : $count . ' projects';
 
     echo '<section id="portfolio" class="portfolio-archive-section" aria-labelledby="archive-projects-heading">';
-    echo '<div class="container">';
+    echo '<div class="container portfolio-shell">';
     echo '<div class="portfolio-section-heading portfolio-archive-heading">';
     echo '<h2 id="archive-projects-heading" class="portfolio-section-title">' . esc($heading) . '</h2>';
     echo '<p class="portfolio-archive-count" aria-label="' . esc($countLabel) . '">' . esc($countLabel) . '</p>';
@@ -579,40 +607,33 @@ function cms_skill_tag_items(): array
     ];
 }
 
-/** Tailored downloads: role CVs, combined Full CV (subtle), marketing portfolio. */
+/** Download chips: one canonical CV plus marketing portfolio. */
 
 function cms_cv_download_items(array $content): array
 {
+    $cvLabel = trim((string) ($content['cv_label'] ?? ''));
+    if ($cvLabel === '') {
+        $cvLabel = trim((string) ($content['cv_combined_label'] ?? '')) ?: 'CV';
+    }
+
+    $cvHref = trim((string) ($content['cv_pdf'] ?? ''));
+    if ($cvHref === '') {
+        $cvHref = trim((string) ($content['cv_combined_pdf'] ?? ''))
+            ?: trim((string) ($content['cv_cms_pdf'] ?? ''))
+            ?: trim((string) ($content['cv_web_pdf'] ?? ''))
+            ?: './media/pdf/michael-reeves-cv.pdf';
+    }
+
     return [
         [
-            'id' => 'cms',
-            'label' => trim((string) ($content['cv_cms_label'] ?? '')) ?: 'CMS CV',
-            'href' => trim((string) ($content['cv_cms_pdf'] ?? '')) ?: './media/pdf/michael-reeves-cms-cv.pdf',
-            'aria' => 'Download CMS specialist CV (PDF)',
-            'icon' => 'fa-newspaper',
-            'variant' => 'primary',
-            'chip_class' => 'portfolio-chip--cv-cms',
-            'footer_class' => 'footer-icon-link--cv-cms',
-        ],
-        [
-            'id' => 'web',
-            'label' => trim((string) ($content['cv_web_label'] ?? '')) ?: 'Developer CV',
-            'href' => trim((string) ($content['cv_web_pdf'] ?? '')) ?: './media/pdf/michael-reeves-web-developer-cv.pdf',
-            'aria' => 'Download front-end web developer CV (PDF)',
-            'icon' => 'fa-code',
-            'variant' => 'primary',
-            'chip_class' => 'portfolio-chip--cv-web',
-            'footer_class' => 'footer-icon-link--cv-web',
-        ],
-        [
-            'id' => 'combined',
-            'label' => trim((string) ($content['cv_combined_label'] ?? '')) ?: 'Full CV',
-            'href' => trim((string) ($content['cv_combined_pdf'] ?? '')) ?: './media/pdf/michael-reeves-cv.pdf',
-            'aria' => 'Download full CV combining CMS and developer experience (PDF)',
+            'id' => 'cv',
+            'label' => $cvLabel,
+            'href' => $cvHref,
+            'aria' => 'Download CV (PDF)',
             'icon' => 'fa-file-lines',
-            'variant' => 'subtle',
-            'chip_class' => 'portfolio-chip--cv-combined',
-            'footer_class' => 'footer-icon-link--cv-combined',
+            'variant' => 'primary',
+            'chip_class' => 'portfolio-chip--cv-main',
+            'footer_class' => 'footer-icon-link--cv-main',
         ],
         [
             'id' => 'marketing',
@@ -680,7 +701,7 @@ function cms_render_cv_download_chips(array $content, array $options = []): void
     echo '</span>';
 }
 
-/** Footer PDF icon links — one per tailored CV. */
+/** Footer PDF icon links. */
 
 function cms_render_footer_cv_pdf_links(array $content): void
 {
@@ -1165,11 +1186,6 @@ function cms_portfolio_extract_text_and_buttons(string $html): array
         'buttons' => $buttons,
     ];
 }
-
-/**
- * @param list<array{label: string, url: string}> $buttons
- */
-
 
 function cms_plain_games_to_html(string $plain): string
 {

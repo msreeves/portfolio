@@ -19,12 +19,66 @@
     padding: 1.5rem 1.25rem 2rem;
   }
 
-  .intro-content-2 {
-    position: relative;
+  .intro-hero-copy {
+    margin-inline: auto;
   }
 
-  section {
-      padding: 20px 0;
+  .portfolio-content-grid {
+    gap: 1rem;
+  }
+
+  .portfolio-shell {
+    gap: 1rem;
+  }
+
+  .portfolio-content-grid--projects {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .msr-programme-grid--proof.portfolio-content-grid--fluid-proof {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .portfolio-content-grid--solo .msr-programme-card--lead,
+  .portfolio-content-grid--has-lead .msr-programme-card--lead {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .portfolio-content-grid--solo .msr-programme-card--lead .msr-programme-card-media,
+  .portfolio-content-grid--has-lead .msr-programme-card--lead .msr-programme-card-media {
+    aspect-ratio: 16 / 10;
+    min-height: 0;
+    border-right: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  .employer-brand-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.9rem 0.75rem;
+  }
+
+  .main_home,
+  .online,
+  .portfolio-role-track,
+  .testimonial-featured,
+  .msr-programme-card-body,
+  .portfolio-project-card-body {
+    padding: 1.1rem 1.1rem 1.2rem;
+  }
+
+  .msr-programme-card-title {
+    font-size: 1.1rem;
+  }
+
+  .msr-programme-card-summary,
+  .msr-programme-card .msr-case-study-bullets li {
+    font-size: 0.96rem;
+    line-height: 1.5;
+  }
+
+  .intro-content-2 {
+    position: relative;
   }
 
   .col-lg-8.altered-8 {
@@ -58,11 +112,6 @@
     top: 0;
   }
 
-  body {
-    margin-left: auto;
-    margin-right: auto;
-  }
-
 .item {
     margin: 5px auto;
 }
@@ -74,7 +123,42 @@
   }
 }
 
+@media screen and (max-width: 900px) {
+  .portfolio-content-grid--projects,
+  .msr-programme-grid--proof.portfolio-content-grid--fluid-proof {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 @media screen and (max-width: 768px) {
+  .portfolio-content-grid,
+  .portfolio-content-grid--projects,
+  .msr-programme-grid--proof.portfolio-content-grid--fluid-proof {
+    gap: 1rem;
+  }
+
+  .portfolio-content-grid--cols-2,
+  .portfolio-content-grid--cols-3,
+  .portfolio-content-grid--cols-4,
+  .portfolio-content-grid--projects,
+  .msr-programme-grid--proof.portfolio-content-grid--fluid-proof {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .employer-brand-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.85rem 0.7rem;
+  }
+
+  .employer-brand-card__mark {
+    height: 4rem;
+    padding: 0.65rem 0.75rem;
+  }
+
+  .employer-brand-card__label {
+    font-size: 0.74rem;
+  }
+
   #timeline .timeline-swiper .timeline-content {
     height: auto;
     min-height: 0;
@@ -88,18 +172,56 @@
     padding: 20px;
   }
 
-  button {
-      margin: 10px 0;
+  .portfolio-cv-chips,
+  .intro-hero-ctas,
+  .msr-programme-card-ctas,
+  .portfolio-project-card-ctas,
+  .footer-contact-icons--pdfs {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .intro-hero-ctas {
+    display: flex;
+  }
+
+  .portfolio-cv-chips .portfolio-chip,
+  .intro-hero-ctas .portfolio-chip,
+  .msr-programme-card-ctas .portfolio-chip,
+  .portfolio-project-card-ctas .portfolio-chip,
+  .footer-cv-chip {
+    width: 100%;
+    justify-content: center;
+    margin-right: 0;
   }
 }
 
 @media screen and (max-width: 576px) {
-    section {
-        padding: 1.5rem 0;
-    }
     .description {
       padding: 0;
     }
+
+    .portfolio-skill-tags {
+      gap: 0.5rem 0.55rem;
+    }
+
+    .portfolio-skill-tag {
+      width: 100%;
+      justify-content: center;
+      padding: 0.5rem 0.85rem;
+      font-size: 0.92rem;
+    }
+
+    .portfolio-archive-index {
+      gap: 0.4rem 0.45rem;
+      margin-bottom: 1rem;
+    }
+
+    .portfolio-archive-index__item {
+      font-size: 0.82rem;
+      padding: 0.32rem 0.58rem;
+    }
+
     h7 {
     font-size: 16px;
     }
