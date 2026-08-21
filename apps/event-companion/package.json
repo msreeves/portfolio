@@ -1,0 +1,31 @@
+{
+  "name": "event-companion",
+  "private": true,
+  "version": "0.1.0",
+  "description": "MSR Event Companion — day-of schedule demo (React, TypeScript, Vite, Tailwind, Zod)",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "typecheck": "tsc -b --pretty false",
+    "preview": "vite preview",
+    "ship:portfolio": "npm run build && node scripts/ship-portfolio.mjs",
+    "ship:portfolio:local": "EVENT_COMPANION_BASE=/sites/portfolio/projects/event-companion/ npm run build && EVENT_COMPANION_BASE=/sites/portfolio/projects/event-companion/ node scripts/ship-portfolio.mjs"
+  },
+  "dependencies": {
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.1",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.20",
+    "tailwindcss": "^3.4.19",
+    "typescript": "^5.5.3",
+    "vite": "^5.4.1"
+  }
+}

@@ -1,0 +1,10 @@
+RewriteEngine On
+RewriteBase /projects/event-companion/
+
+# Serve existing files as-is (assets, favicon, data JSON).
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# SPA fallback: client routes → index.html
+RewriteRule ^ index.html [L]

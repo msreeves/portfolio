@@ -49,6 +49,7 @@ Use a card JSON with `"archive": false` when the demo is featured there, so it s
 | JSON | Hub | Archive |
 |------|-----|---------|
 | `atlas-ops.json` | yes | no (featured case study) |
+| `event-companion.json` | no | yes (archive only) |
 | `movie-api.json` | yes | yes |
 | `game.json` | yes | yes |
 | `hairdressing.json` | yes | yes |

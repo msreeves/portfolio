@@ -691,12 +691,14 @@ function cms_msr_case_study_cards(): array
             'bullets' => [
                 ['icon' => 'fas fa-microphone-lines', 'text' => 'Agenda-led sessions with speakers and sponsors'],
                 ['icon' => 'fas fa-filter', 'text' => 'BEM nav, filter tabs, and programme editorial polish'],
-                ['icon' => 'fas fa-images', 'text' => 'Shared motion and Fancybox patterns with hub/awards'],
+                ['icon' => 'fas fa-mobile-screen', 'text' => 'Linked Event Companion schedule demo (React SPA)'],
             ],
             'thumb' => './media/images/case-studies/msr-seminars.jpg',
             'thumb_alt' => 'MSR Seminars programme homepage screenshot',
             'view_url' => 'https://www.msreeves.co.uk/events/msrseminars/',
             'code_url' => 'https://github.com/msreeves/msrseminars',
+            'companion_url' => './projects/event-companion/?event=msrseminars',
+            'companion_label' => 'Companion demo',
         ],
         [
             'featured' => false,

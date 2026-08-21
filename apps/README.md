@@ -17,3 +17,13 @@ npm run ship:portfolio   # build → sites/portfolio/projects/atlas-ops/
 ```
 
 Decisions: `apps/atlas-ops/PORTFOLIO_SHIP.md`
+
+## Event Companion
+
+```bash
+cd sites/portfolio/apps/event-companion
+npm run dev              # after A2 scaffold
+npm run ship:portfolio   # after B1 → sites/portfolio/projects/event-companion/
+```
+
+Decisions: `apps/event-companion/PORTFOLIO_SHIP.md` · playbook `docs/plans/msr-event-companion-playbook.md`

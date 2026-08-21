@@ -1,0 +1,13 @@
+{
+  "slug": "event-companion",
+  "title": "Event Companion",
+  "stack": "React, TypeScript, Vite, Tailwind, Zod",
+  "summary": "Day-of schedule companion for MSR Seminars — today / on-now, saved sessions, and Register handoff to the same booking URL as WordPress.",
+  "thumb": "./media/images/case-studies/msr-seminars.jpg",
+  "view_url": "./projects/event-companion/?event=msrseminars",
+  "code_url": "https://github.com/msreeves/event-companion",
+  "order": 40,
+  "hub": false,
+  "archive": true,
+  "active": true
+}

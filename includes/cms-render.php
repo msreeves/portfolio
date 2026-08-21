@@ -239,6 +239,11 @@ function cms_render_msr_case_study_card(array $card): void
     echo '<p class="msr-programme-card-ctas">';
     echo '<a class="portfolio-chip portfolio-chip--primary" href="' . esc((string) ($card['view_url'] ?? '')) . '" target="_blank" rel="noopener noreferrer"><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i><span>View live</span></a>';
     echo '<a class="portfolio-chip portfolio-chip--secondary" href="' . esc((string) ($card['code_url'] ?? '')) . '" target="_blank" rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i><span>GitHub</span></a>';
+    $companionUrl = trim((string) ($card['companion_url'] ?? ''));
+    if ($companionUrl !== '') {
+        $companionLabel = trim((string) ($card['companion_label'] ?? 'Companion demo'));
+        echo '<a class="portfolio-chip portfolio-chip--secondary" href="' . esc($companionUrl) . '" target="_blank" rel="noopener noreferrer"><i class="fas fa-mobile-screen" aria-hidden="true"></i><span>' . esc($companionLabel) . '</span></a>';
+    }
     echo '</p>';
     echo '</div></article></div>';
 }
