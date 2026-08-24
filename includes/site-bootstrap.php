@@ -653,7 +653,7 @@ function cms_msr_case_study_cards(): array
             ],
             'thumb' => './media/images/case-studies/atlas-briefing.jpg',
             'thumb_alt' => 'Atlas Briefing publishing demo homepage screenshot',
-            'view_url' => 'https://www.msreeves.co.uk/msrpublishing/',
+            'view_url' => 'https://www.msreeves.co.uk/msrsandbox/',
             'code_url' => 'https://github.com/msreeves/msrpublishing',
         ],
         [

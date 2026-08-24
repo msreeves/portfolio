@@ -385,6 +385,23 @@ export default function App() {
       </main>
 
       <footer className="mx-auto max-w-3xl px-4 pb-10 sm:px-6">
+        <div className="mb-4 flex flex-wrap items-center gap-3 rounded-2xl border border-ink/10 bg-paper-card px-4 py-3">
+          <a
+            href={feed.site_url}
+            className="inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold text-teal-dark hover:underline"
+          >
+            <span aria-hidden="true">←</span>
+            Back to website
+          </a>
+          {feed.event_page_url ? (
+            <a
+              href={feed.event_page_url}
+              className="text-sm font-medium text-ink-muted hover:text-teal-dark hover:underline"
+            >
+              Hub event page
+            </a>
+          ) : null}
+        </div>
         <p className="rounded-2xl border border-ink/10 bg-ink/[0.03] px-4 py-3 text-xs leading-relaxed text-ink-muted">
           {feed.disclaimer}
         </p>

@@ -1,5 +1,5 @@
 RewriteEngine On
-RewriteBase /projects/event-companion/
+RewriteBase /sites/portfolio/projects/event-companion/
 
 # Serve existing files as-is (assets, favicon, data JSON).
 RewriteCond %{REQUEST_FILENAME} -f [OR]

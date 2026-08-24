@@ -1,0 +1,8 @@
+# Portfolio docroot (ships to domain public_html).
+# Live publishing is /msrsandbox/ — local folder is sites/wp/msrpublishing/.
+# Alias so /msrpublishing bookmarks and old portfolio links do not 404.
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	RewriteRule ^msrpublishing/?$ /msrsandbox/ [R=301,L]
+	RewriteRule ^msrpublishing/(.*)$ /msrsandbox/$1 [R=301,L]
+</IfModule>

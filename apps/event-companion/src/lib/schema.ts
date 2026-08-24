@@ -29,6 +29,10 @@ export const EventCompanionFeedSchema = z.object({
   booking_url: z.string().min(1),
   disclaimer: z.string().min(1),
   demo_dates: z.array(z.string()).min(1),
+  /** Programme home — primary exit from the SPA (C0). */
+  site_url: z.string().url(),
+  /** Hub event single — secondary exit (C0). */
+  event_page_url: z.string().url().optional(),
   agenda_url: z.string().optional(),
   tracks: z.array(TrackSchema).min(1),
   sessions: z.array(SessionSchema).min(1),
@@ -46,3 +50,7 @@ export type KnownEvent = (typeof KNOWN_EVENTS)[number]
 export function isKnownEvent(value: string): value is KnownEvent {
   return (KNOWN_EVENTS as readonly string[]).includes(value)
 }
+
+/** Fallbacks when feed unknown / missing (local MAMP). */
+export const HUB_EVENTS_URL = 'http://msrevents.local:8888/our-events/'
+export const SEMINARS_HOME_URL = 'http://msrevents.local:8888/msrseminars/'

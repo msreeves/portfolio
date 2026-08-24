@@ -20,10 +20,30 @@ export function CompanionShell({
 }: Props) {
   const phase: DelegatePhase = feed.delegate_phase
   const showRegister = phase === 'registration' || phase === 'during'
+  const siteExit = feed.site_url
+  const eventExit = feed.event_page_url
 
   return (
-    <header className="animate-rise border-b border-ink/10 bg-paper-card/90 backdrop-blur">
+    <header className="sticky top-0 z-30 animate-rise border-b border-ink/10 bg-paper-card/95 backdrop-blur">
       <div className="mx-auto flex max-w-3xl flex-col gap-4 px-4 py-5 sm:px-6">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <a
+            href={siteExit}
+            className="inline-flex min-h-11 items-center gap-1.5 rounded-xl border border-ink/15 bg-paper px-3 py-2 text-sm font-semibold text-ink transition hover:border-teal/40 hover:text-teal-dark"
+          >
+            <span aria-hidden="true">←</span>
+            Back to website
+          </a>
+          {eventExit ? (
+            <a
+              href={eventExit}
+              className="text-sm font-medium text-ink-muted underline-offset-2 hover:text-teal-dark hover:underline"
+            >
+              Hub event page
+            </a>
+          ) : null}
+        </div>
+
         <div
           className="rounded-xl border border-teal/25 bg-teal-soft/60 px-3 py-2.5 text-sm text-ink"
           role="note"

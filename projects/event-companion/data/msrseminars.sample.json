@@ -7,7 +7,10 @@
   "companion_demo_url": "http://127.0.0.1:8888/sites/portfolio/projects/event-companion/?event=msrseminars",
   "booking_url": "mailto:hello@example.com?subject=MSR%20Seminars%20registration%20(demo)",
   "disclaimer": "Portfolio companion demo — not an App Store product. Registration opens the same booking URL as the website.",
-  "demo_dates": ["2026-06-18", "2026-06-19"],
+  "demo_dates": [
+    "2026-06-18",
+    "2026-06-19"
+  ],
   "tracks": [
     {
       "id": "training",
@@ -85,5 +88,8 @@
       "ends_at": "2026-06-19T14:15:00+01:00",
       "summary": "Synthesis of themes from both days—leadership, digital, and people priorities."
     }
-  ]
+  ],
+  "site_url": "http://msrevents.local:8888/msrseminars/",
+  "event_page_url": "http://msrevents.local:8888/event/msrseminars/",
+  "agenda_url": "http://msrevents.local:8888/msrseminars/agenda/"
 }

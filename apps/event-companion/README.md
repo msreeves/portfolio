@@ -25,8 +25,19 @@ Open `http://127.0.0.1:5173/?event=msrseminars` (or the URL Vite prints).
 npm run build && npm run preview
 ```
 
-Unknown programmes: `?event=msrawards` shows a friendly error with a link to Seminars.  
+Unknown programmes: `?event=msrawards` shows a friendly error with **Back to website**, hub events, and Seminars.  
 Demo clock: outside programme dates, pins to Day 1 mid-morning (`?now=` override).
+
+**Exit chrome (C0)**
+- Sticky header + footer: **Back to website** → `site_url` (programme home)
+- Optional **Hub event page** → `event_page_url`
+- Feed fields (local MAMP):
+
+| Field | Local | Production (Owner B5 / Hostinger) |
+|-------|-------|-----------------------------------|
+| `site_url` | `http://msrevents.local:8888/msrseminars/` | `https://www.msreeves.co.uk/events/msrseminars/` |
+| `event_page_url` | `http://msrevents.local:8888/event/msrseminars/` | hub event URL on live Events |
+| Unknown exit | hub `/our-events/` + Seminars home | same paths on live |
 
 **Features**
 - Today / on-now / My agenda / All
@@ -34,6 +45,7 @@ Demo clock: outside programme dates, pins to Day 1 mid-morning (`?now=` override
 - Save sessions (localStorage)
 - Add to calendar (.ics) + export My agenda
 - Register → shared `booking_url`
+- **Back to website** (site exit — not only agenda)
 - Disclaimer + unknown `?event=`
 
 ## Structure
