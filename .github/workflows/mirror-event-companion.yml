@@ -1,0 +1,56 @@
+# Mirror apps/event-companion → public msreeves/event-companion (source only).
+# Does NOT deploy Hostinger. Does NOT auto-commit from local.
+#
+# Owner (once): portfolio repo → Settings → Secrets and variables → Actions
+#   Name: EVENT_COMPANION_PUSH_TOKEN
+#   Value: PAT with Contents: read/write on msreeves/event-companion
+name: Mirror Event Companion
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "apps/event-companion/**"
+      - ".github/workflows/mirror-event-companion.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require mirror token
+        id: token
+        env:
+          TOKEN: ${{ secrets.EVENT_COMPANION_PUSH_TOKEN }}
+        run: |
+          if [ -z "$TOKEN" ]; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            echo "::notice::Add Actions secret EVENT_COMPANION_PUSH_TOKEN on msreeves/portfolio (PAT write to event-companion) to enable mirror."
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout portfolio
+        if: steps.token.outputs.skip != 'true'
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Publish apps/event-companion to msreeves/event-companion
+        if: steps.token.outputs.skip != 'true'
+        uses: cpina/github-action-push-to-another-repository@v1.7.2
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.EVENT_COMPANION_PUSH_TOKEN }}
+        with:
+          source-directory: apps/event-companion
+          destination-github-username: msreeves
+          destination-repository-name: event-companion
+          user-email: 41898282+github-actions[bot]@users.noreply.github.com
+          user-name: github-actions[bot]
+          target-branch: main
+          commit-message: "chore: mirror Event Companion from portfolio"
+          # Exclude heavy/local-only paths if present under apps/
+          target-directory: ""

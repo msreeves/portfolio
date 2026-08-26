@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useId, useMemo, useState, type KeyboardEvent } from 'react'
 
 import { CompanionShell } from '@/components/CompanionShell'
+import { ProgrammePickerView } from '@/components/ProgrammePickerView'
 import { SessionCard } from '@/components/SessionCard'
+import { StubProgrammeView } from '@/components/StubProgrammeView'
 import { Toast } from '@/components/Toast'
 import { UnknownEventView } from '@/components/UnknownEventView'
 import {
@@ -23,6 +25,7 @@ import {
   upcomingSessions,
   ymdInLondon,
 } from '@/lib/time'
+import { applyProgrammeTheme } from '@/lib/theme'
 
 type Tab = 'day' | 'on-now' | 'saved' | 'all'
 
@@ -43,6 +46,15 @@ function isLocalishHost(url: string): boolean {
 
 export default function App() {
   const eventParam = readEventParam()
+
+  if (eventParam === null) {
+    return <ProgrammePickerView />
+  }
+
+  return <EventScheduleApp eventParam={eventParam} />
+}
+
+function EventScheduleApp({ eventParam }: { eventParam: string }) {
   const tablistId = useId()
   const panelId = 'schedule-panel'
   const [feed, setFeed] = useState<EventCompanionFeed | null>(null)
@@ -82,6 +94,10 @@ export default function App() {
     }
   }, [eventParam])
 
+  useEffect(() => {
+    applyProgrammeTheme(feed?.event ?? eventParam)
+  }, [feed?.event, eventParam])
+
   const now = useMemo(() => (feed ? resolveNow(feed) : new Date()), [feed])
   const usingDemoClock = useMemo(() => {
     if (!feed) return false
@@ -115,8 +131,18 @@ export default function App() {
         <p className="mt-2 text-sm text-ink-muted">
           {error instanceof FeedLoadError ? error.message : 'Unexpected error.'}
         </p>
+        <a
+          href="./"
+          className="mt-6 inline-flex min-h-11 items-center rounded-sm border border-ink/15 bg-paper-card px-4 py-2.5 text-sm font-semibold text-ink"
+        >
+          Choose a programme
+        </a>
       </main>
     )
+  }
+
+  if (feed.mode === 'stub') {
+    return <StubProgrammeView feed={feed} />
   }
 
   const dayYmd = selectedDay || ymdInLondon(now)
@@ -190,16 +216,17 @@ export default function App() {
     }
   }
 
-  const chipSelected =
-    'bg-ink text-white'
-  const chipIdle =
-    'bg-paper-card text-ink shadow-soft hover:bg-white'
+  // R5 chips: hug content + wrap (not full-width stacked buttons)
+  const chipSelected = 'bg-accent text-on-accent'
+  const chipIdle = 'bg-paper-card text-ink shadow-soft hover:bg-paper-mid'
+  const chipRow =
+    'flex flex-wrap items-center gap-[var(--msr-stack-gap-tight)]'
 
   return (
     <div className="min-h-screen pb-20">
       <a
         href={`#${panelId}`}
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-ink focus:px-3 focus:py-2 focus:text-sm focus:text-white"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-chrome focus:px-3 focus:py-2 focus:text-sm focus:text-paper"
       >
         Skip to schedule
       </a>
@@ -213,13 +240,13 @@ export default function App() {
         agendaIsLocalHost={agendaIsLocalHost}
       />
 
-      <div className="sticky top-0 z-40 border-b border-ink/10 bg-paper/95 backdrop-blur">
-        <div className="mx-auto max-w-3xl px-4 py-3 sm:px-6">
-          <div
-            role="group"
-            aria-label="Programme day"
-            className="mb-3 flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-          >
+      {/* Sticky chrome: day chips (R5) + view tabs — sticky under shell, not a second hero */}
+      <div
+        className="sticky top-0 z-40 border-b border-ink/10 bg-paper-card/95 backdrop-blur"
+        data-msr-section="S-spa-chips"
+      >
+        <div className="mx-auto flex max-w-3xl flex-col gap-[var(--msr-stack-gap-tight)] px-4 py-3 sm:px-6">
+          <div role="group" aria-label="Programme day" className={chipRow}>
             {feed.demo_dates.map((ymd, i) => (
               <button
                 key={ymd}
@@ -229,7 +256,7 @@ export default function App() {
                   setSelectedDay(ymd)
                   setTab('day')
                 }}
-                className={`min-h-10 shrink-0 rounded-xl px-3 py-2 text-sm font-semibold transition ${
+                className={`min-h-10 shrink-0 rounded-sm px-3 py-2 text-sm font-semibold transition ${
                   dayYmd === ymd ? chipSelected : chipIdle
                 }`}
               >
@@ -238,11 +265,7 @@ export default function App() {
             ))}
           </div>
 
-          <div
-            role="tablist"
-            aria-label="Schedule views"
-            className="flex flex-wrap gap-2"
-          >
+          <div role="tablist" aria-label="Schedule views" className={chipRow}>
             {tabs.map((t) => (
               <button
                 key={t.id}
@@ -254,7 +277,7 @@ export default function App() {
                 tabIndex={tab === t.id ? 0 : -1}
                 onClick={() => setTab(t.id)}
                 onKeyDown={(e) => onTabKeyDown(e, t.id)}
-                className={`min-h-11 rounded-xl px-3 py-2 text-sm font-semibold transition ${
+                className={`min-h-11 rounded-sm px-3 py-2 text-sm font-semibold transition ${
                   tab === t.id ? chipSelected : chipIdle
                 }`}
               >
@@ -267,7 +290,7 @@ export default function App() {
 
       <main className="animate-rise-delay mx-auto max-w-3xl px-4 py-6 sm:px-6">
         {feed.delegate_phase === 'replay' ? (
-          <p className="mb-6 rounded-2xl border border-ink/10 bg-paper-card p-4 text-sm text-ink-muted">
+          <p className="mb-6 rounded-sm border border-ink/10 bg-paper-card p-4 text-sm text-ink-muted">
             Replay phase — registration CTAs are quiet. Browse saved sessions or the web agenda for
             resources.
           </p>
@@ -279,18 +302,14 @@ export default function App() {
           </p>
         ) : null}
 
-        <div
-          className="mb-4 flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-          role="group"
-          aria-label="Filter by track"
-        >
+        <div className={`mb-4 ${chipRow}`} role="group" aria-label="Filter by track">
           <button
             type="button"
             aria-pressed={trackFilter === 'all'}
             onClick={() => setTrackFilter('all')}
-            className={`min-h-10 shrink-0 rounded-lg border px-3 py-1.5 text-xs font-semibold transition ${
+            className={`min-h-10 shrink-0 rounded-sm border px-3 py-1.5 text-xs font-semibold transition ${
               trackFilter === 'all'
-                ? 'border-ink bg-ink text-white'
+                ? 'border-accent bg-accent text-on-accent'
                 : 'border-ink/10 bg-paper-card text-ink-muted hover:text-ink'
             }`}
           >
@@ -302,9 +321,9 @@ export default function App() {
               type="button"
               aria-pressed={trackFilter === t.id}
               onClick={() => setTrackFilter(t.id)}
-              className={`min-h-10 shrink-0 rounded-lg border px-3 py-1.5 text-xs font-semibold transition ${
+              className={`min-h-10 shrink-0 rounded-sm border px-3 py-1.5 text-xs font-semibold transition ${
                 trackFilter === t.id
-                  ? 'border-ink bg-ink text-white'
+                  ? 'border-accent bg-accent text-on-accent'
                   : 'border-ink/10 bg-paper-card text-ink-muted hover:text-ink'
               }`}
             >
@@ -319,7 +338,7 @@ export default function App() {
               <button
                 type="button"
                 onClick={exportSaved}
-                className="min-h-11 rounded-xl bg-ink px-4 py-2 text-sm font-semibold text-white hover:bg-ink/90"
+                className="min-h-11 rounded-sm bg-chrome px-4 py-2 text-sm font-semibold text-paper hover:opacity-90"
               >
                 Export my agenda (.ics)
               </button>
@@ -327,7 +346,7 @@ export default function App() {
               <button
                 type="button"
                 onClick={() => setTab('saved')}
-                className="text-sm font-medium text-teal-dark underline-offset-2 hover:underline"
+                className="text-sm font-medium text-accent-light underline-offset-2 hover:underline"
               >
                 {saved.length} saved — open My agenda to export
               </button>
@@ -337,7 +356,7 @@ export default function App() {
 
         <div id={panelId} role="tabpanel" aria-labelledby={`${tablistId}-${tab}`}>
           {list.length === 0 ? (
-            <div className="rounded-2xl border border-dashed border-ink/20 bg-paper-card/60 p-8 text-center text-ink-muted">
+            <div className="rounded-sm border border-dashed border-ink/20 bg-paper-card/60 p-8 text-center text-ink-muted">
               <p>
                 {tab === 'saved'
                   ? 'No saved sessions yet. Save from Day schedule or All.'
@@ -348,7 +367,7 @@ export default function App() {
               {trackFilter !== 'all' ? (
                 <button
                   type="button"
-                  className="mt-4 min-h-11 rounded-xl bg-ink px-4 py-2 text-sm font-semibold text-white"
+                  className="mt-4 min-h-11 rounded-sm bg-chrome px-4 py-2 text-sm font-semibold text-paper"
                   onClick={() => setTrackFilter('all')}
                 >
                   Clear track filter
@@ -357,7 +376,7 @@ export default function App() {
               {tab === 'day' && trackFilter === 'all' && daySessions.length === 0 ? (
                 <button
                   type="button"
-                  className="mt-4 min-h-11 rounded-xl border border-ink/20 px-4 py-2 text-sm font-semibold text-ink"
+                  className="mt-4 min-h-11 rounded-sm border border-ink/20 px-4 py-2 text-sm font-semibold text-ink"
                   onClick={() => setTab('all')}
                 >
                   Browse all sessions
@@ -385,10 +404,10 @@ export default function App() {
       </main>
 
       <footer className="mx-auto max-w-3xl px-4 pb-10 sm:px-6">
-        <div className="mb-4 flex flex-wrap items-center gap-3 rounded-2xl border border-ink/10 bg-paper-card px-4 py-3">
+        <div className="mb-4 flex flex-wrap items-center gap-3 rounded-sm border border-ink/10 bg-paper-card px-4 py-3">
           <a
             href={feed.site_url}
-            className="inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold text-teal-dark hover:underline"
+            className="inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold text-accent-light hover:underline"
           >
             <span aria-hidden="true">←</span>
             Back to website
@@ -396,13 +415,19 @@ export default function App() {
           {feed.event_page_url ? (
             <a
               href={feed.event_page_url}
-              className="text-sm font-medium text-ink-muted hover:text-teal-dark hover:underline"
+              className="text-sm font-medium text-ink-muted hover:text-accent-light hover:underline"
             >
               Hub event page
             </a>
           ) : null}
+          <a
+            href="./"
+            className="text-sm font-medium text-ink-muted hover:text-accent-light hover:underline"
+          >
+            All programmes
+          </a>
         </div>
-        <p className="rounded-2xl border border-ink/10 bg-ink/[0.03] px-4 py-3 text-xs leading-relaxed text-ink-muted">
+        <p className="rounded-sm border border-ink/10 bg-paper-mid/60 px-4 py-3 text-xs leading-relaxed text-ink-muted">
           {feed.disclaimer}
         </p>
       </footer>

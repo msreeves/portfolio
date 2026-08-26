@@ -1,0 +1,30 @@
+{
+  "title": "MSR Event Companion",
+  "hub_events_url": "http://msrevents.local:8888/our-events/",
+  "programmes": [
+    {
+      "id": "msrseminars",
+      "title": "MSR Seminars",
+      "blurb": "Day-of schedule \u2014 training, academic, leadership, technology, and social tracks.",
+      "status": "ready",
+      "site_url": "http://msrevents.local:8888/msrseminars/",
+      "event_page_url": "http://msrevents.local:8888/event/msrseminars/"
+    },
+    {
+      "id": "msrawards",
+      "title": "MSR Awards",
+      "blurb": "Website-led programme \u2014 categories, nominees, and season timeline. Companion uses stub mode (no agenda CPT).",
+      "status": "stub",
+      "site_url": "http://msrevents.local:8888/msrawards/",
+      "event_page_url": "http://msrevents.local:8888/event/msrawards/"
+    },
+    {
+      "id": "msrevents",
+      "title": "MSR Events hub",
+      "blurb": "Hub website for all programmes \u2014 open Awards or Seminars below for the companion, or browse events on the website. This picker is the shared companion entry.",
+      "status": "coming_soon",
+      "site_url": "http://msrevents.local:8888/",
+      "event_page_url": "http://msrevents.local:8888/our-events/"
+    }
+  ]
+}

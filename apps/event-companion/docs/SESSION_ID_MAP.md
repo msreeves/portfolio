@@ -43,3 +43,7 @@ curl -sS "http://msrevents.local:8888/msrseminars/agenda/" \
 ## A3b gate
 
 Add-to-calendar / deep links are **blocked** until every shipped `sessions[].id` matches a live agenda anchor (A1 map above is the gate for the current feed subset).
+
+## Awards (C1b) — no session ids
+
+MSR Awards has **no agenda CPT**. `msrawards.json` uses `mode: "stub"` with empty `tracks` / `sessions`. Do **not** invent ceremony run-of-show ids. If Awards later grows an agenda, add a map here in the same slice as the schedule feed.

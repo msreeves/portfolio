@@ -662,13 +662,15 @@ function cms_msr_case_study_cards(): array
             'stack' => 'WordPress multisite · programme lifecycle',
             'bullets' => [
                 ['icon' => 'fas fa-calendar-days', 'text' => 'Lifecycle bands and editorial refresh on programme home'],
-                ['icon' => 'fas fa-folder-tree', 'text' => 'Taxonomy-first IA with legacy path redirects'],
+                ['icon' => 'fas fa-mobile-screen', 'text' => 'Event Companion demo — one SPA for hub, Awards, and Seminars'],
                 ['icon' => 'fas fa-vial', 'text' => 'Hub acceptance and Playwright regression coverage'],
             ],
             'thumb' => './media/images/case-studies/msr-events-hub.jpg',
             'thumb_alt' => 'MSR Events hub homepage screenshot',
             'view_url' => 'https://www.msreeves.co.uk/events/',
             'code_url' => 'https://github.com/msreeves/msrevents',
+            'companion_url' => './projects/event-companion/',
+            'companion_label' => 'Companion demo',
         ],
         [
             'featured' => false,
@@ -677,12 +679,14 @@ function cms_msr_case_study_cards(): array
             'bullets' => [
                 ['icon' => 'fas fa-trophy', 'text' => 'Nominee archive, judging narrative, and ceremony content'],
                 ['icon' => 'fas fa-star', 'text' => 'Featured nominees band and portfolio-ready demo seed'],
-                ['icon' => 'fas fa-code-branch', 'text' => 'Vite theme with ACF JSON sync in repo'],
+                ['icon' => 'fas fa-mobile-screen', 'text' => 'Companion stub demo — website-led Awards in the same SPA'],
             ],
             'thumb' => './media/images/case-studies/msr-awards.jpg',
             'thumb_alt' => 'MSR Awards programme homepage screenshot',
             'view_url' => 'https://www.msreeves.co.uk/events/msrawards/',
             'code_url' => 'https://github.com/msreeves/msrawards',
+            'companion_url' => './projects/event-companion/?event=msrawards',
+            'companion_label' => 'Companion demo',
         ],
         [
             'featured' => false,
@@ -691,7 +695,7 @@ function cms_msr_case_study_cards(): array
             'bullets' => [
                 ['icon' => 'fas fa-microphone-lines', 'text' => 'Agenda-led sessions with speakers and sponsors'],
                 ['icon' => 'fas fa-filter', 'text' => 'BEM nav, filter tabs, and programme editorial polish'],
-                ['icon' => 'fas fa-mobile-screen', 'text' => 'Linked Event Companion schedule demo (React SPA)'],
+                ['icon' => 'fas fa-mobile-screen', 'text' => 'Day-of schedule companion for MSR Seminars (React SPA)'],
             ],
             'thumb' => './media/images/case-studies/msr-seminars.jpg',
             'thumb_alt' => 'MSR Seminars programme homepage screenshot',

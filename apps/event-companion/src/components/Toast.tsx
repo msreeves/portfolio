@@ -19,7 +19,7 @@ export function Toast({ message, onDismiss }: Props) {
     <div
       role="status"
       aria-live="polite"
-      className="fixed bottom-4 left-1/2 z-50 max-w-[min(92vw,24rem)] -translate-x-1/2 rounded-xl bg-ink px-4 py-3 text-center text-sm font-medium text-white shadow-soft"
+      className="fixed bottom-4 left-1/2 z-50 max-w-[min(92vw,24rem)] -translate-x-1/2 rounded-sm bg-chrome px-4 py-3 text-center text-sm font-medium text-paper shadow-soft"
     >
       {message}
     </div>

@@ -1,0 +1,16 @@
+{
+  "event": "msrawards",
+  "title": "MSR Awards",
+  "mode": "stub",
+  "timezone": "Europe/London",
+  "delegate_phase": "registration",
+  "companion_demo_url": "http://127.0.0.1:8888/sites/portfolio/projects/event-companion/?event=msrawards",
+  "booking_url": "mailto:hello@example.com?subject=MSR%20Awards%20(demo)",
+  "disclaimer": "Portfolio companion demo — not an App Store product. Awards has no session agenda; categories, nominees, and season timeline live on the programme website.",
+  "stub_reason": "Awards has no agenda CPT. Categories, nominees, judging, and the season timeline live on the programme website — this companion stays one SPA in stub mode until a ceremony run-of-show exists.",
+  "demo_dates": [],
+  "tracks": [],
+  "sessions": [],
+  "site_url": "http://msrevents.local:8888/msrawards/",
+  "event_page_url": "http://msrevents.local:8888/event/msrawards/"
+}

@@ -1,6 +1,8 @@
 import {
+  CompanionCatalogSchema,
   EventCompanionFeedSchema,
   isKnownEvent,
+  type CompanionCatalog,
   type EventCompanionFeed,
   type KnownEvent,
 } from './schema'
@@ -21,10 +23,12 @@ export class FeedLoadError extends Error {
   }
 }
 
-export function readEventParam(search = window.location.search): string {
+/** `null` when `?event=` is missing/empty → show programme picker (C1a). */
+export function readEventParam(search = window.location.search): string | null {
   const raw = new URLSearchParams(search).get('event')
-  const event = (raw || 'msrseminars').trim().toLowerCase()
-  return event || 'msrseminars'
+  if (raw === null) return null
+  const event = raw.trim().toLowerCase()
+  return event || null
 }
 
 export function assertKnownEvent(event: string): KnownEvent {
@@ -49,6 +53,25 @@ export async function loadFeed(event: KnownEvent): Promise<EventCompanionFeed> {
   const parsed = EventCompanionFeedSchema.safeParse(json)
   if (!parsed.success) {
     throw new FeedLoadError(`Invalid feed shape: ${parsed.error.message}`)
+  }
+  return parsed.data
+}
+
+export async function loadCatalog(): Promise<CompanionCatalog> {
+  const url = `${import.meta.env.BASE_URL}data/catalog.json`
+  let res: Response
+  try {
+    res = await fetch(url)
+  } catch (cause) {
+    throw new FeedLoadError(`Could not fetch ${url}`, { cause })
+  }
+  if (!res.ok) {
+    throw new FeedLoadError(`Catalog HTTP ${res.status} for ${url}`)
+  }
+  const json: unknown = await res.json()
+  const parsed = CompanionCatalogSchema.safeParse(json)
+  if (!parsed.success) {
+    throw new FeedLoadError(`Invalid catalog shape: ${parsed.error.message}`)
   }
   return parsed.data
 }

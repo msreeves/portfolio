@@ -2,8 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  color-scheme: light;
+/*
+ * Dark prestige shell (WP programmes) + per-programme accent.
+ * Default / picker = hub blue; msrseminars = teal; msrawards = gold.
+ */
+:root,
+[data-programme='hub'] {
+  color-scheme: dark;
+  --msr-accent: #0e4c92;
+  --msr-accent-dark: #0a3a6e;
+  --msr-accent-light: #6082b6;
+  --msr-accent-soft: rgba(14, 76, 146, 0.22);
+  --msr-on-accent: #ffffff;
+  /* Composition kit Pilot B — SPA denser related/group (mirror hub/portfolio) */
+  --msr-stack-gap: clamp(0.85rem, 2vw, 1.25rem);
+  --msr-stack-gap-tight: clamp(0.5rem, 1.5vw, 0.75rem);
+  --msr-grid-gap: var(--msr-stack-gap);
+}
+
+[data-programme='msrseminars'] {
+  --msr-accent: #2aaa8a;
+  --msr-accent-dark: #1e7d66;
+  --msr-accent-light: #3ec4a0;
+  --msr-accent-soft: rgba(42, 170, 138, 0.22);
+  --msr-on-accent: #ffffff;
+}
+
+[data-programme='msrawards'] {
+  --msr-accent: #c9a84c;
+  --msr-accent-dark: #a07830;
+  --msr-accent-light: #e8c97b;
+  --msr-accent-soft: rgba(201, 168, 76, 0.2);
+  --msr-on-accent: #0f0f0f;
 }
 
 html,
@@ -16,10 +46,10 @@ body {
   margin: 0;
   font-family: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
   background:
-    radial-gradient(1200px 600px at 10% -10%, #d8f3ea 0%, transparent 55%),
-    radial-gradient(900px 500px at 100% 0%, #e8eef2 0%, transparent 50%),
-    #f4f7f5;
-  color: #14201c;
+    radial-gradient(1100px 560px at 8% -12%, var(--msr-accent-soft) 0%, transparent 55%),
+    radial-gradient(900px 480px at 100% 0%, rgba(37, 37, 37, 0.9) 0%, transparent 50%),
+    #0f0f0f;
+  color: #f5f0ea;
 }
 
 @keyframes rise-in {

@@ -2,6 +2,7 @@
   "$schema_comment": "A0 sample only — A1 replaces with msrseminars.json using live agenda post IDs. See docs/SESSION_ID_MAP.md.",
   "event": "msrseminars",
   "title": "MSR Seminars",
+  "mode": "schedule",
   "timezone": "Europe/London",
   "delegate_phase": "registration",
   "companion_demo_url": "http://127.0.0.1:8888/sites/portfolio/projects/event-companion/?event=msrseminars",

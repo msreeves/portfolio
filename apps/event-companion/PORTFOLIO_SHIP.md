@@ -1,6 +1,6 @@
 # Portfolio ship — MSR Event Companion (Phase A0 locked)
 
-**Status:** A0–B4 + A3b/A4 complete · open **B5** (Owner) · **Track C** queued (C0 back-to-site, C1 multi-programme) · optional **A5**
+**Status:** A0–B4 + A3b/A4 complete · open **B5** (Owner) · **Track C** C0–C1d done · **UI** dark-prestige multi-programme theme · optional **A5**
 **Playbook:** [`docs/plans/msr-event-companion-playbook.md`](../../../../docs/plans/msr-event-companion-playbook.md)  
 **STATUS:** [`docs/plan-status.md`](../../../../docs/plan-status.md) § MSR Event Companion
 
@@ -22,7 +22,7 @@ Companion **React demo** extends MSR Events programme sites — **does not repla
 | **Copy register** | Always **companion demo** — never “Download now” / App Store badges |
 | **App model** | **One SPA**; v1 **Seminars first**; **Track C1** = multi-programme same app |
 | **Exit chrome** | **Track C0** — persistent Back to website (`site_url` / `event_page_url`); not Register/agenda alone |
-| **Portfolio placement** | Programme suite **Companion demo** CTA + archive mini-site (`hub: false`, `archive: true`). **Atlas Ops stays featured lead.** |
+| **Portfolio placement** | Programme suite **Companion demo** CTAs on **Events hub** (picker) + Awards + Seminars — not Archive. Card JSON `hub: false`, `archive: false`. **Atlas Ops stays featured lead.** |
 | **Slug** | `event-companion` |
 | **Stack** | React, TypeScript, Vite, Tailwind, **Zod**; TanStack Query + Zustand optional |
 | **`companion_demo_url` (local)** | `http://127.0.0.1:8888/sites/portfolio/projects/event-companion/?event=msrseminars` |
@@ -46,6 +46,24 @@ Companion **React demo** extends MSR Events programme sites — **does not repla
 | **CTA label (WP + portfolio)** | Open companion demo / Companion demo |
 
 ---
+
+
+## Visual system (estate aligned)
+
+| Surface | Treatment |
+|---------|-----------|
+| Shell | Dark prestige (`#0f0f0f` / `#1a1a1a`) — matches hub / Awards / Seminars WP themes |
+| Display type | Playfair Display + DM Sans |
+| Accents | Hub picker **blue** `#0E4C92` · Seminars **teal** `#2AAA8A` · Awards **gold** `#c9a84c` via `data-programme` |
+| Meta | `msr-companion-theme=dark-prestige` |
+
+## Hostinger ship (B5)
+
+1. From `apps/event-companion`: `npm run ship:portfolio` — Vite `base` `/projects/event-companion/` **and** rewrites `data/*.json` via `config/programme-urls.json` (blocks leftover `127.0.0.1` / `.local`).
+2. Root: `npm run ship -- portfolio`.
+3. On Events Hostinger: set ACF / options `companion_demo_url` to prod locks (`optionLocks.companionSeminars` / `companionAwards` / `companionPicker`) — local seed URLs must not stay live.
+4. Confirm `npm run url:lock:live` companion targets + picker/schedule/stub 200.
+5. Restore local MAMP demo: `npm run ship:portfolio:local`.
 
 ## Paths & naming
 
@@ -99,6 +117,8 @@ Seminars options may **override** only if documented in the A3-seminars seed REA
 | [`msreeves/msr-workspace`](https://github.com/msreeves/msr-workspace) (umbrella) | Playbook, STATUS, seeds, acceptance configs, theme bridge scripts |
 | Optional [`msreeves/event-companion`](https://github.com/msreeves/event-companion) | Public mirror of app source (B4) — packaging only, not a second product |
 
+**Mirror automation:** portfolio workflow `.github/workflows/mirror-event-companion.yml` copies `apps/event-companion/` → `msreeves/event-companion` on push to `main`. Secret: `EVENT_COMPANION_PUSH_TOKEN`. Local: `npm run github:hooks:install` + commit/push portfolio.
+
 Ship scripts write into `sites/portfolio/projects/` (portfolio tree). Theme ACF/seeds live in Events multisite remotes / umbrella scripts — see [`docs/repos.md`](../../../../docs/repos.md).
 
 ---
@@ -129,12 +149,14 @@ One **Companion demo** subsite link on the existing **MSR Events** row (`localho
 - [x] **B2** — `event-companion.json` + Sites Events row + Seminars programme Companion demo CTA
 - [x] **B3** — Portfolio acceptance v15 · **`review:site -- portfolio` Owner if hook blocked**
 - [x] **B4** — Public [`msreeves/event-companion`](https://github.com/msreeves/event-companion)
-- [ ] **B5** — Owner prod URLs / Hostinger (live 404 until shipped)
+- [x] **B5** — Owner Hostinger portfolio ship + prod feeds/CTAs (**PASS 2026-08-26**)
 
-### Track C (queued)
+### Track C (C0–C1b done)
 
-- [ ] **C0** — Back to website chrome + feed URLs
-- [ ] **C1a–d** — Picker → Awards feed → WP ads → hub all-events (Owner unlock C1)
+- [x] **C0** — Back to website chrome + feed URLs
+- [x] **C1a** — Programme picker
+- [x] **C1b** — Awards stub feed (`mode: stub`; no agenda CPT)
+- [ ] **C1c–d** — WP ads → hub all-events
 
 ---
 
