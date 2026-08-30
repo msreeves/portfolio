@@ -1,6 +1,6 @@
 # Portfolio ship — MSR Event Companion (Phase A0 locked)
 
-**Status:** A0–B4 + A3b/A4 complete · open **B5** (Owner) · **Track C** C0–C1d done · **UI** dark-prestige multi-programme theme · optional **A5**
+**Status:** A0–B5 + A3b/A4 + Track C C0–C1d complete · **UI** dark-prestige multi-programme theme · optional **A5**
 **Playbook:** [`docs/plans/msr-event-companion-playbook.md`](../../../../docs/plans/msr-event-companion-playbook.md)  
 **STATUS:** [`docs/plan-status.md`](../../../../docs/plan-status.md) § MSR Event Companion
 
