@@ -1,0 +1,23 @@
+/**
+ * WCAG contrast overrides for Event Companion demo SPA (portfolio review:site a11y).
+ * Loaded after Vite bundle — minimal fixes only; rebuild from source when companion app updates.
+ */
+.bg-accent-soft.text-accent-light,
+.bg-accent-soft .text-accent-light,
+span.bg-accent-soft {
+	background-color: var(--msr-accent, #0e4c92) !important;
+	color: #ffffff !important;
+}
+
+a.text-accent-light {
+	color: #9ec5f0 !important;
+}
+
+html[data-programme='msrseminars'] a.bg-accent,
+html[data-programme='msrseminars'] button.bg-accent,
+html[data-programme='msrseminars'] .bg-accent-soft.text-accent-light,
+html[data-programme='msrseminars'] span.bg-accent-soft {
+	background-color: #1a7560 !important;
+	border-color: #1a7560 !important;
+	color: #ffffff !important;
+}
