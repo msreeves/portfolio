@@ -47,10 +47,15 @@
 
   .portfolio-content-grid--solo .msr-programme-card--lead .msr-programme-card-media,
   .portfolio-content-grid--has-lead .msr-programme-card--lead .msr-programme-card-media {
-    aspect-ratio: 16 / 10;
+    aspect-ratio: auto;
+    max-height: 16rem;
     min-height: 0;
     border-right: none;
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  .msr-programme-card--lead .msr-programme-card-thumb {
+    max-height: 14rem;
   }
 
   .employer-brand-grid {

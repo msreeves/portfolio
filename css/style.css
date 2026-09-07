@@ -449,12 +449,17 @@ video {
     0 0 40px rgba(43, 127, 255, 0.1);
 }
 
+.portfolio-lead-case-study {
+  margin-bottom: var(--msr-stack-gap, 1.5rem);
+}
+
 /* Wide lead layout only when the card is alone / full-bleed (not in a 2–3 col grid) */
 @media (min-width: 768px) {
   .portfolio-content-grid--solo .msr-programme-card--lead,
   .portfolio-content-grid--has-lead .msr-programme-card--lead {
     display: grid;
-    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    /* Narrow cover column — portrait comic cover, not a wide hero */
+    grid-template-columns: minmax(9.5rem, 12.5rem) minmax(0, 1fr);
     align-items: stretch;
   }
 
@@ -477,9 +482,15 @@ video {
 .portfolio-content-grid--solo .msr-programme-card--lead .msr-programme-card-media,
 .portfolio-content-grid--has-lead .msr-programme-card--lead .msr-programme-card-media {
   aspect-ratio: auto;
-  min-height: 100%;
+  min-height: 0;
+  max-height: 22rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem;
   border-bottom: none;
   border-right: 1px solid rgba(0, 0, 0, 0.08);
+  background: #0a0a12;
 }
 
 .msr-programme-card-thumb {
@@ -493,7 +504,11 @@ video {
 }
 
 .msr-programme-card--lead .msr-programme-card-thumb {
-  min-height: 100%;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 20rem;
+  min-height: 0;
 }
 
 .msr-programme-card:hover .msr-programme-card-thumb {
@@ -507,6 +522,23 @@ video {
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--msr-magenta, #c040d8);
+}
+
+.msr-programme-card-badge {
+  margin: 0 0 0.15rem;
+}
+
+.msr-programme-card-badge-pill {
+  display: inline-block;
+  padding: 0.2rem 0.55rem;
+  border-radius: 0.25rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #1a1a24;
+  background: rgba(192, 64, 216, 0.16);
+  border: 1px solid rgba(192, 64, 216, 0.35);
 }
 
 .msr-programme-card-body {
@@ -557,8 +589,8 @@ video {
 
 .msr-programme-card-ctas .portfolio-chip {
   font-size: 1rem;
-  min-height: 2.5rem;
-  padding: 0.5rem 0.9rem;
+  min-height: 2.75rem; /* ≥44px tap target */
+  padding: 0.55rem 0.9rem;
 }
 
 #skills .online .inner-content a[href] {
@@ -2024,9 +2056,9 @@ footer .footer-logo {
   align-items: center;
   justify-content: center;
   gap: 0.4rem;
-  min-height: 2.6rem;
+  min-height: 2.75rem; /* ≥44px tap target */
   min-width: 9.5rem;
-  padding: 0.5rem 1rem;
+  padding: 0.55rem 1rem;
   border-radius: 999px;
   border: 1.5px solid rgba(255, 255, 255, 0.55);
   background: rgba(255, 255, 255, 0.06);

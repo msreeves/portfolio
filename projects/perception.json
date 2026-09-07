@@ -1,0 +1,13 @@
+{
+  "slug": "perception",
+  "title": "Perception — comic production workspace (in progress)",
+  "stack": "PHP, Node, MAMP, Cover · Book · Ship, Sites/Projects/Preview",
+  "summary": "Vegas noir graphic novel (WIP) plus the Cover · Book · Ship production workspace that makes it — process case study, not a finished comic product.",
+  "thumb": "./media/images/case-studies/perception.jpg",
+  "view_url": "./projects/perception/",
+  "code_url": "",
+  "order": 1,
+  "hub": true,
+  "archive": false,
+  "active": true
+}

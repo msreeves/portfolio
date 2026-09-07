@@ -165,8 +165,32 @@ function cms_render_msr_case_study_grid(): void
         return;
     }
 
-    $visibleCards = array_slice($cards, 0, min(3, count($cards)));
-    $remainingCards = array_slice($cards, count($visibleCards));
+    $leadCards = [];
+    $programmeCards = [];
+    foreach ($cards as $card) {
+        if (!empty($card['featured'])) {
+            $leadCards[] = $card;
+        } else {
+            $programmeCards[] = $card;
+        }
+    }
+
+    // Lead case study(s) get a dedicated full-width row — not mixed into the 3-up grid.
+    if ($leadCards !== []) {
+        echo '<div class="portfolio-lead-case-study msr-fade-in">';
+        echo '<div class="portfolio-content-grid portfolio-content-grid--cards msr-programme-grid msr-programme-grid--proof portfolio-content-grid--solo portfolio-content-grid--has-lead portfolio-content-grid--fluid-proof" data-card-count="' . (int) count($leadCards) . '">';
+        foreach ($leadCards as $card) {
+            cms_render_msr_case_study_card($card);
+        }
+        echo '</div></div>';
+    }
+
+    if ($programmeCards === []) {
+        return;
+    }
+
+    $visibleCards = array_slice($programmeCards, 0, min(3, count($programmeCards)));
+    $remainingCards = array_slice($programmeCards, count($visibleCards));
 
     echo '<div class="portfolio-content-grid portfolio-content-grid--cards msr-programme-grid msr-programme-grid--proof';
     echo esc(cms_portfolio_case_study_grid_modifiers($visibleCards));
@@ -205,6 +229,12 @@ function cms_render_msr_case_study_card(array $card): void
     $featured = !empty($card['featured']);
     $thumb = cms_msr_case_study_thumb_src((string) ($card['thumb'] ?? ''));
     $thumbAlt = trim((string) ($card['thumb_alt'] ?? $card['title'] ?? 'Case study screenshot'));
+    $badge = trim((string) ($card['badge'] ?? ''));
+    $viewLabel = trim((string) ($card['view_label'] ?? ''));
+    if ($viewLabel === '') {
+        $viewLabel = 'View live';
+    }
+    $codeUrl = trim((string) ($card['code_url'] ?? ''));
     $bullets = $card['bullets'] ?? [];
     if (!is_array($bullets)) {
         $bullets = [];
@@ -227,6 +257,9 @@ function cms_render_msr_case_study_card(array $card): void
     if ($featured) {
         echo '<p class="msr-programme-card-eyebrow">Lead case study</p>';
     }
+    if ($badge !== '') {
+        echo '<p class="msr-programme-card-badge"><span class="msr-programme-card-badge-pill">' . esc($badge) . '</span></p>';
+    }
     echo '<h3 class="h5 msr-programme-card-title">' . esc((string) ($card['title'] ?? '')) . '</h3>';
     echo '<p class="msr-programme-card-stack">' . esc((string) ($card['stack'] ?? '')) . '</p>';
 
@@ -237,8 +270,10 @@ function cms_render_msr_case_study_card(array $card): void
     }
 
     echo '<p class="msr-programme-card-ctas">';
-    echo '<a class="portfolio-chip portfolio-chip--primary" href="' . esc((string) ($card['view_url'] ?? '')) . '" target="_blank" rel="noopener noreferrer"><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i><span>View live</span></a>';
-    echo '<a class="portfolio-chip portfolio-chip--secondary" href="' . esc((string) ($card['code_url'] ?? '')) . '" target="_blank" rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i><span>GitHub</span></a>';
+    echo '<a class="portfolio-chip portfolio-chip--primary" href="' . esc((string) ($card['view_url'] ?? '')) . '" target="_blank" rel="noopener noreferrer"><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i><span>' . esc($viewLabel) . '</span></a>';
+    if ($codeUrl !== '') {
+        echo '<a class="portfolio-chip portfolio-chip--secondary" href="' . esc($codeUrl) . '" target="_blank" rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i><span>GitHub</span></a>';
+    }
     $companionUrl = trim((string) ($card['companion_url'] ?? ''));
     if ($companionUrl !== '') {
         $companionLabel = trim((string) ($card['companion_label'] ?? 'Companion demo'));

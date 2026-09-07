@@ -630,6 +630,22 @@ function cms_msr_case_study_cards(): array
     return [
         [
             'featured' => true,
+            'badge' => 'In progress',
+            'title' => 'Perception — comic production workspace (in progress)',
+            'stack' => 'PHP · Node · MAMP · Cover · Book · Ship · Sites/Projects/Preview',
+            'bullets' => [
+                ['icon' => 'fas fa-book', 'text' => 'Vegas noir GN — perception vs truth in an underground club world (book WIP)'],
+                ['icon' => 'fas fa-layer-group', 'text' => 'Cover A–G hub with owner-facing gates and live run locks'],
+                ['icon' => 'fas fa-screwdriver-wrench', 'text' => 'Book/Ship ladders + PHP↔Node local Sites/Projects/Preview tooling'],
+            ],
+            'thumb' => './media/images/case-studies/perception.jpg',
+            'thumb_alt' => 'Perception Volume 1 front cover — prestige crime noir graphic novel',
+            'view_url' => './projects/perception/',
+            'view_label' => 'View case study',
+            'code_url' => '',
+        ],
+        [
+            'featured' => false,
             'title' => 'Atlas Ops',
             'stack' => 'React · TypeScript · Vite · TanStack Query · Zustand',
             'bullets' => [
