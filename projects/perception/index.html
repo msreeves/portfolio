@@ -33,15 +33,17 @@
     </div>
   </header>
 
-  <main id="perception-content" class="perception-case">
+  <main id="perception-content" class="perception-case portfolio-flow">
     <div class="portfolio-shell container">
       <header class="perception-case__hero">
-        <p><span class="perception-case__badge">In progress</span></p>
-        <h1 class="perception-case__title">Perception — comic production workspace</h1>
-        <p class="perception-case__lede">
-          A prestige crime-noir graphic novel (WIP) and the local Cover · Book · Ship
-          workspace that produces it — process and tooling, not a finished comic product.
-        </p>
+        <div class="perception-case__hero-copy">
+          <p class="perception-case__badge-wrap"><span class="perception-case__badge">In progress</span></p>
+          <h1 class="perception-case__title">Perception — comic production workspace</h1>
+          <p class="perception-case__lede">
+            A prestige crime-noir graphic novel (WIP) and the local Cover · Book · Ship
+            workspace that produces it — process and tooling, not a finished comic product.
+          </p>
+        </div>
         <figure class="perception-case__cover">
           <img
             src="../../media/images/case-studies/perception-front-cover.jpg"
@@ -54,19 +56,18 @@
         </figure>
       </header>
 
-      <section class="perception-case__section" aria-labelledby="goal-heading">
+      <section class="perception-case__section perception-case__section--goal" aria-labelledby="goal-heading">
         <h2 id="goal-heading">Project goal</h2>
         <p>
-          <strong>Perception</strong> is a two-volume prestige crime-noir graphic novel set in
-          the Vegas underground. Part One follows fallen operative <strong>Carl Richards</strong>
-          in club <strong>Nirvana</strong> — grief, attraction, and crime pressure that turn
-          glitter into a trap. The theme is <strong>perception</strong>: appearance vs truth —
-          who Carl was, who others seem to be, and what the nightlife hides.
+          Perception is a two-volume prestige crime-noir graphic novel set in the Vegas
+          underground. Part One follows fallen operative Carl Richards in club Nirvana —
+          grief, attraction, and crime pressure that turn glitter into a trap. The theme is
+          perception: appearance vs truth — who Carl was, who others seem to be, and what
+          the nightlife hides.
         </p>
         <p>
-          This portfolio page shows the <strong>production system</strong> for that book
-          (cover hub, cast locks, issue ladder, ship reader) while the story is still in
-          progress.
+          This portfolio page shows the production system for that book (cover hub, cast
+          locks, issue ladder, ship reader) while the story is still in progress.
         </p>
       </section>
 
@@ -99,74 +100,104 @@
         </div>
       </section>
 
-      <section class="perception-case__section" aria-labelledby="problem-heading">
-        <h2 id="problem-heading">Problem</h2>
-        <p>
-          A graphic novel needs more than one pretty cover: cast locks, cover phases,
-          issue/page ladders, ship readiness, owner approvals, and machine-checkable gates.
-          Without a shared workspace, stages drift and recruiters cannot see the craft
-          behind a WIP book.
-        </p>
+      <section class="perception-case__pair" aria-label="Problem and approach">
+        <div class="perception-case__section" aria-labelledby="problem-heading">
+          <h2 id="problem-heading">Problem</h2>
+          <p>
+            Multi-site web work and a WIP graphic novel share one machine. Without a shared
+            local estate, stages drift, QA is ad hoc, and recruiters only see unfinished
+            pages — not the delivery craft behind them.
+          </p>
+        </div>
+        <div class="perception-case__section" aria-labelledby="approach-heading">
+          <h2 id="approach-heading">Approach</h2>
+          <p>
+            Build a MAMP workspace first (Sites · Projects · Preview · gates), then run
+            Cover · Book · Ship for Perception with the same verify/acceptance/review habits
+            used on MSR programme sites. Ship finished interiors later.
+          </p>
+        </div>
       </section>
 
-      <section class="perception-case__section" aria-labelledby="approach-heading">
-        <h2 id="approach-heading">Approach</h2>
-        <p>
-          One programme — Cover, Book, Ship — with owner-facing tools, lock files, and the
-          same verify/acceptance/review habits used on MSR sites. Build the workspace
-          first; ship finished interiors later.
-        </p>
+      <section class="perception-case__section perception-case__section--decisions" aria-labelledby="decisions-heading">
+        <h2 id="decisions-heading">Decisions (skills on show)</h2>
+        <ul class="perception-case__decisions">
+          <li>
+            <strong>MAMP for PHP/WP · Node for tooling.</strong>
+            Sites and comic paths stay on Apache; Projects, Preview, and Storage run as
+            owner-owned Node apps beside the docroot — not one tangled stack.
+          </li>
+          <li>
+            <strong>Making catalog ≠ product sites.</strong>
+            Projects lists WIP books and demos; portfolio and programme sites stay under
+            <code>sites/</code> so recruiters never confuse a local hub with a public product.
+          </li>
+          <li>
+            <strong>Machine-checkable “done”.</strong>
+            <code>edit:verify</code>, acceptance needles, and <code>review:site</code> gate
+            UI changes the same way MSR themes do — screenshots alone are not enough.
+          </li>
+          <li>
+            <strong>No public localhost CTAs.</strong>
+            Cover hub and cast live on this machine for interview demos; the portfolio CTA
+            is this write-up, not a broken <code>127.0.0.1</code> link.
+          </li>
+        </ul>
       </section>
 
-      <section class="perception-case__section" aria-labelledby="cover-heading">
-        <h2 id="cover-heading">Cover (A–G)</h2>
-        <p>
-          Volume fronts walk a phase ladder on the cover hub: summary → concepts →
-          illustration contract → art plate → font/colour compose → shelf test → typed
-          final. Owner locks at each gate keep approvals explicit (hub UI + Node APIs).
-        </p>
+      <section class="perception-case__programme" aria-labelledby="programme-heading">
+        <h2 id="programme-heading" class="perception-case__programme-title">Programme</h2>
+        <ol class="perception-case__steps">
+          <li class="perception-case__step">
+            <h3>Cover (A–G)</h3>
+            <p>
+              Volume fronts walk a phase ladder on the cover hub: summary → concepts →
+              illustration contract → art plate → font/colour compose → shelf test → typed
+              final. Owner locks at each gate keep approvals explicit (hub UI + Node APIs).
+            </p>
+          </li>
+          <li class="perception-case__step">
+            <h3>Book (cast · issue / page ladder)</h3>
+            <p>
+              Before panels: locked cast and art-style refs (see Cast screenshot). Then an
+              issue and page ladder — flow review → layout → panel batches — under the same
+              production law as covers. This case study shows that process; it does not
+              present unfinished interiors as the product.
+            </p>
+          </li>
+          <li class="perception-case__step">
+            <h3>Ship (digital)</h3>
+            <p>
+              Lettering → page pack → in-project HTML reader on MAMP (from Projects — not a
+              public site). Cover stage pages stay on the hub; they are not loaded into the
+              reader. The reader shell is bare for now while Ship is not the active stage.
+            </p>
+          </li>
+        </ol>
       </section>
 
-      <section class="perception-case__section" aria-labelledby="book-heading">
-        <h2 id="book-heading">Book (cast · issue / page ladder)</h2>
-        <p>
-          Before panels: locked cast and art-style refs (see Cast screenshot). Then an
-          issue and page ladder — flow review → layout → panel batches — under the same
-          production law as covers. This case study shows that process; it does not
-          present unfinished interiors as the product.
-        </p>
-      </section>
-
-      <section class="perception-case__section" aria-labelledby="ship-heading">
-        <h2 id="ship-heading">Ship (digital)</h2>
-        <p>
-          Lettering → page pack → in-project HTML reader on MAMP (from Projects — not a
-          public site). Cover stage pages stay on the hub; they are not loaded into the
-          reader. The reader shell is bare for now while Ship is not the active stage.
-        </p>
-      </section>
-
-      <section class="perception-case__section" aria-labelledby="workspace-heading">
-        <h2 id="workspace-heading">Local workspace — Sites · Projects · Preview</h2>
-        <p>
-          MAMP serves Sites and comic paths; Projects catalogs making work; Preview runs
-          device/QA checks. PHP↔Node tooling plus <code>edit:verify</code>, acceptance
-          needles, and <code>review:site</code> keep demos recruiter-proof while the book
-          is unfinished.
-        </p>
-      </section>
-
-      <section class="perception-case__section" aria-labelledby="status-heading">
-        <h2 id="status-heading">Status</h2>
-        <p>
-          <strong>In progress.</strong> Programme tooling and the local workspace are the
-          deliverable here. Finished interiors and a public reader ship wait until the
-          book is ready.
-        </p>
-        <p class="perception-case__note">
-          Live paths on <code>127.0.0.1:8888</code> (cover hub, cast, reader, Sites) are
-          for interview demos on this machine only — not the public CTA.
-        </p>
+      <section class="perception-case__pair perception-case__pair--close" aria-label="Workspace and status">
+        <div class="perception-case__section" aria-labelledby="workspace-heading">
+          <h2 id="workspace-heading">Local workspace — Sites · Projects · Preview</h2>
+          <p>
+            MAMP serves Sites and comic paths; Projects catalogs making work; Preview runs
+            device/QA checks. PHP↔Node tooling plus <code>edit:verify</code>, acceptance
+            needles, and <code>review:site</code> keep demos recruiter-proof while the book
+            is unfinished.
+          </p>
+        </div>
+        <div class="perception-case__section" aria-labelledby="status-heading">
+          <h2 id="status-heading">Status</h2>
+          <p>
+            <strong>In progress.</strong> Programme tooling and the local workspace are the
+            deliverable here. Finished interiors and a public reader ship wait until the
+            book is ready.
+          </p>
+          <p class="perception-case__note">
+            Live paths on <code>127.0.0.1:8888</code> (cover hub, cast, reader, Sites) are
+            for interview demos on this machine only — not the public CTA.
+          </p>
+        </div>
       </section>
 
       <nav class="perception-case__nav" aria-label="Case study links">

@@ -634,9 +634,9 @@ function cms_msr_case_study_cards(): array
             'title' => 'Perception — comic production workspace (in progress)',
             'stack' => 'PHP · Node · MAMP · Cover · Book · Ship · Sites/Projects/Preview',
             'bullets' => [
-                ['icon' => 'fas fa-book', 'text' => 'Vegas noir GN — perception vs truth in an underground club world (book WIP)'],
-                ['icon' => 'fas fa-layer-group', 'text' => 'Cover A–G hub with owner-facing gates and live run locks'],
-                ['icon' => 'fas fa-screwdriver-wrench', 'text' => 'Book/Ship ladders + PHP↔Node local Sites/Projects/Preview tooling'],
+                ['icon' => 'fas fa-book', 'text' => 'Vegas noir GN (WIP) plus Cover · Book · Ship production programme'],
+                ['icon' => 'fas fa-layer-group', 'text' => 'Local MAMP estate — Sites · Projects · Preview with owner gates'],
+                ['icon' => 'fas fa-screwdriver-wrench', 'text' => 'Machine-checkable done: edit:verify · acceptance · review:site'],
             ],
             'thumb' => './media/images/case-studies/perception.jpg',
             'thumb_alt' => 'Perception Volume 1 front cover — prestige crime noir graphic novel',
