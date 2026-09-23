@@ -4,6 +4,56 @@
     position: relative;
   }
 
+  .navbar.portfolio-nav {
+    --portfolio-header-h: 3.35rem;
+  }
+
+  .intro-hero {
+    --portfolio-header-h: 3.35rem;
+  }
+
+  .portfolio-nav-collapse {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 1029;
+    margin: 0;
+    padding: 0.65rem var(--msr-shell-pad, 1.25rem) 1rem;
+    background: rgba(8, 8, 16, 0.96);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(228, 228, 234, 0.1);
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.35);
+  }
+
+  .portfolio-nav-list {
+    width: 100%;
+    gap: 0.15rem;
+    padding: 0.15rem 0 0.25rem;
+  }
+
+  .navbar.portfolio-nav .portfolio-nav-list .nav-link {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 2.75rem;
+    width: 100%;
+    padding: 0.7rem 0.85rem;
+    margin: 0;
+    border-bottom: none;
+    border-radius: 0.5rem;
+    text-align: left;
+    font-size: 1rem;
+  }
+
+  .navbar.portfolio-nav .portfolio-nav-list .nav-link:hover,
+  .navbar.portfolio-nav .portfolio-nav-list .nav-link:focus-visible {
+    color: #fff;
+    background: rgba(43, 127, 255, 0.14);
+    border-bottom-color: transparent;
+  }
+
   .intro-hero-layout {
     grid-template-columns: 1fr;
     min-height: 0;
@@ -11,16 +61,63 @@
   }
 
   .intro-hero-media {
-    min-height: 52vw;
-    max-height: 460px;
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+    max-height: min(52vw, 22rem);
+  }
+
+  .intro-hero-media::after {
+    background:
+      linear-gradient(
+        180deg,
+        transparent 42%,
+        rgba(10, 10, 18, 0.55) 72%,
+        rgba(10, 10, 18, 0.98) 100%
+      ),
+      linear-gradient(
+        125deg,
+        rgba(43, 127, 255, 0.22) 0%,
+        transparent 50%,
+        rgba(192, 64, 216, 0.18) 100%
+      );
+  }
+
+  .intro-hero-photo {
+    min-height: 0;
+    height: 100%;
   }
 
   .intro-hero-panel {
-    padding: 1.5rem 1.25rem 2rem;
+    margin-top: -2.75rem;
+    padding: 0 1.25rem 1.75rem;
+    background: transparent;
+    position: relative;
+    z-index: 1;
+    align-items: flex-start;
   }
 
   .intro-hero-copy {
-    margin-inline: auto;
+    margin-inline: 0;
+    max-width: none;
+  }
+
+  .intro-hero-title {
+    font-size: clamp(1.75rem, 7vw, 2.15rem);
+  }
+
+  .intro-hero-tagline {
+    font-size: 0.98rem;
+    max-width: none;
+  }
+
+  .intro-hero-ctas {
+    width: 100%;
+  }
+
+  .intro-hero-ctas .portfolio-chip,
+  .intro-hero-ctas a.portfolio-chip {
+    flex: 1 1 calc(50% - 0.4rem);
+    min-width: min(100%, 9.5rem);
   }
 
   .portfolio-content-grid {
@@ -237,4 +334,66 @@
 
     font-size: 28px;
 }
+}
+
+@media screen and (max-width: 720px) {
+  .demo-vs-live-table-wrap {
+    overflow: visible;
+    border: none;
+    background: transparent;
+  }
+
+  .demo-vs-live-table,
+  .demo-vs-live-table tbody,
+  .demo-vs-live-table tr,
+  .demo-vs-live-table th,
+  .demo-vs-live-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .demo-vs-live-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .demo-vs-live-table tbody tr {
+    margin-bottom: var(--msr-stack-gap-tight, 0.75rem);
+    padding: var(--msr-card-pad, 1rem);
+    border: 1px solid rgba(228, 228, 234, 0.12);
+    border-radius: 0.5rem;
+    background: rgba(7, 7, 15, 0.55);
+  }
+
+  .demo-vs-live-table tbody tr:nth-child(even) {
+    background: rgba(7, 7, 15, 0.55);
+  }
+
+  .demo-vs-live-table tbody th {
+    padding: 0 0 0.65rem;
+    border-bottom: 1px solid rgba(228, 228, 234, 0.1);
+    margin-bottom: 0.55rem;
+  }
+
+  .demo-vs-live-table tbody td {
+    padding: 0.35rem 0;
+    border-bottom: none;
+  }
+
+  .demo-vs-live-table tbody td::before {
+    content: attr(data-label);
+    display: block;
+    font-weight: 700;
+    color: var(--msr-text-on-dark, #e4e4ea);
+    margin-bottom: 0.2rem;
+    font-size: 0.82rem;
+    letter-spacing: 0.02em;
+  }
 }

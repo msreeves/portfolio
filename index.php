@@ -41,27 +41,28 @@ $projects = cms_load_portfolio_projects();
 <body class="msr-portfolio">
 	<a class="visually-hidden-focusable" href="#site-content"><?= esc( 'Skip to content' ) ?></a>
 
-        <header>
-            
-            <nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
-                    aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon">
-                    <i class="fas fa-bars nav-toggler-bars" aria-hidden="true"></i>
-                    <i class="fas fa-xmark nav-toggler-close" aria-hidden="true"></i>
-                </span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                    <ul class="navbar-nav mx-auto">
-                        <?php foreach (cms_site_nav_items_for_render($content) as $navItem) { ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="<?= esc($navItem['href']) ?>"><?= esc($navItem['label']) ?></a>
-                        </li>
-                        <?php } ?>
-                    </ul>
+        <header class="portfolio-header">
+            <nav class="navbar navbar-expand-lg portfolio-nav" aria-label="<?= esc('Primary') ?>">
+                <div class="portfolio-nav-inner">
+                    <button class="navbar-toggler portfolio-nav-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
+                        aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="<?= esc('Toggle navigation') ?>">
+                        <span class="navbar-toggler-icon" aria-hidden="true">
+                            <i class="fas fa-bars nav-toggler-bars" aria-hidden="true"></i>
+                            <i class="fas fa-xmark nav-toggler-close" aria-hidden="true"></i>
+                        </span>
+                    </button>
+                    <div class="collapse navbar-collapse portfolio-nav-collapse" id="navbarTogglerDemo01">
+                        <ul class="navbar-nav portfolio-nav-list mx-lg-auto">
+                            <?php foreach (cms_site_nav_items_for_render($content) as $navItem) { ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?= esc($navItem['href']) ?>"><?= esc($navItem['label']) ?></a>
+                            </li>
+                            <?php } ?>
+                        </ul>
+                    </div>
                 </div>
             </nav>
-          
+
             <div id="intro" class="intro-hero">
             <div class="intro-hero-layout">
                 <div class="intro-hero-media">
@@ -74,13 +75,6 @@ $projects = cms_load_portfolio_projects();
                         <div class="intro-hero-ctas msr-fade-in">
                             <?php cms_render_cv_download_chips($content, [
                                 'wrap_class' => '',
-                                'extra_links' => [
-                                    [
-                                        'href' => '#recent-portfolio',
-                                        'label' => 'View case studies',
-                                        'class' => 'portfolio-chip portfolio-chip--secondary',
-                                    ],
-                                ],
                             ]); ?>
                         </div>
                     </div>
@@ -97,6 +91,11 @@ $projects = cms_load_portfolio_projects();
 <?php cms_render_panel_grid($content, ['html_recent_portfolio_1']); ?>
 
 <?php cms_render_msr_case_study_grid(); ?>
+        </div>
+    </section>
+    <section id="demo-vs-live" aria-labelledby="demo-vs-live-heading">
+        <div class="container portfolio-shell">
+<?php cms_render_demo_vs_live_strip($content); ?>
         </div>
     </section>
     <section>
@@ -262,6 +261,20 @@ if ($featuredBody === '' && cms_html_has_content($content, 'html_testimonial_1')
   integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
+  var navCollapse = document.getElementById('navbarTogglerDemo01');
+  if (navCollapse && window.bootstrap && bootstrap.Collapse) {
+    navCollapse.querySelectorAll('a.nav-link').forEach(function (link) {
+      link.addEventListener('click', function () {
+        if (window.matchMedia('(max-width: 991.98px)').matches) {
+          var instance = bootstrap.Collapse.getInstance(navCollapse);
+          if (instance) {
+            instance.hide();
+          }
+        }
+      });
+    });
+  }
+
   if ('IntersectionObserver' in window) {
     var revealEls = document.querySelectorAll('.msr-fade-in');
     if (revealEls.length) {

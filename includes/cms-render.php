@@ -138,9 +138,57 @@ function cms_html_has_content(array $content, string $key): bool
 }
 
 
-function cms_render_section_heading(string $title): void
+function cms_render_section_heading(string $title, string $headingId = ''): void
 {
-    echo '<div class="portfolio-section-heading"><h2 class="portfolio-section-title">' . esc($title) . '</h2></div>';
+    $idAttr = $headingId !== '' ? ' id="' . esc($headingId) . '"' : '';
+    echo '<div class="portfolio-section-heading"><h2 class="portfolio-section-title"' . $idAttr . '>' . esc($title) . '</h2></div>';
+}
+
+/**
+ * Demo vs live client comparison strip (portfolio production readiness).
+ *
+ * @param array<string, mixed> $content
+ */
+function cms_render_demo_vs_live_strip(array $content): void
+{
+    $rows = cms_demo_vs_live_rows();
+    if ($rows === []) {
+        return;
+    }
+
+    $heading = trim((string) ($content['heading_demo_vs_live'] ?? 'Demo vs live client'));
+    $lead = trim((string) ($content['demo_vs_live_lead'] ?? ''));
+
+    cms_render_section_heading($heading !== '' ? $heading : 'Demo vs live client', 'demo-vs-live-heading');
+
+    if ($lead !== '') {
+        echo '<p class="demo-vs-live-lead msr-fade-in">' . esc($lead) . '</p>';
+    }
+
+    echo '<div class="demo-vs-live-table-wrap msr-fade-in">';
+    echo '<table class="demo-vs-live-table">';
+    echo '<caption class="visually-hidden">Demo (now) versus live client (would enable) production checklist</caption>';
+    echo '<thead><tr>';
+    echo '<th scope="col">Capability</th>';
+    echo '<th scope="col">Demo (now)</th>';
+    echo '<th scope="col">Live client (would enable)</th>';
+    echo '</tr></thead><tbody>';
+
+    foreach ($rows as $row) {
+        $capability = trim((string) ($row['capability'] ?? ''));
+        $demo = trim((string) ($row['demo'] ?? ''));
+        $live = trim((string) ($row['live'] ?? ''));
+        if ($capability === '') {
+            continue;
+        }
+        echo '<tr>';
+        echo '<th scope="row">' . esc($capability) . '</th>';
+        echo '<td data-label="Demo (now)">' . esc($demo) . '</td>';
+        echo '<td data-label="Live client (would enable)">' . esc($live) . '</td>';
+        echo '</tr>';
+    }
+
+    echo '</tbody></table></div>';
 }
 
 

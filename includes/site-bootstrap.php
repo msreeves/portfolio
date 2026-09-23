@@ -96,6 +96,8 @@ function cms_heading_defaults(): array
 {
     return [
         'heading_recent_portfolio' => 'Featured case studies',
+        'heading_demo_vs_live' => 'Demo vs live client',
+        'demo_vs_live_lead' => 'Programme sites are portfolio demonstrations — not live companies. This strip shows what stays light on demos versus what I would enable on a real client site (protection, backups, SEO, consent) — without demand-gen tooling for show.',
         'heading_work_for' => 'Experience',
         'heading_skills' => 'Skills',
         'heading_testimonials' => 'Testimonials',
@@ -212,16 +214,17 @@ function cms_site_nav_scroll_sections(): array
 {
     return [
         'intro' => 'Home (top)',
-        'introduction' => 'About Me',
-        'recent-portfolio' => 'Featured Case Studies',
-        'work-for' => 'Previous Work Experience',
+        'introduction' => 'About',
+        'recent-portfolio' => 'Case studies',
+        'demo-vs-live' => 'Demo vs live',
+        'work-for' => 'Experience',
         'skills' => 'Skills',
         'testimonials' => 'Testimonials',
-        'portfolio' => 'Personal Portfolio',
+        'portfolio' => 'Archive projects',
         'game-test' => 'Games Tested',
         'timeline' => 'Timeline',
-        'contact' => 'Contact',
-        'contact-band' => 'Get in touch',
+        'contact' => 'Contact footer',
+        'contact-band' => 'Contact',
     ];
 }
 
@@ -243,10 +246,10 @@ function cms_site_nav_scroll_id_whitelist(): array
 function cms_site_nav_default_items(): array
 {
     return [
-        ['label' => 'Work', 'type' => 'scroll', 'target' => 'recent-portfolio'],
+        ['label' => 'Case studies', 'type' => 'scroll', 'target' => 'recent-portfolio'],
+        ['label' => 'Demo vs live', 'type' => 'scroll', 'target' => 'demo-vs-live'],
         ['label' => 'About', 'type' => 'scroll', 'target' => 'introduction'],
         ['label' => 'Experience', 'type' => 'scroll', 'target' => 'work-for'],
-        ['label' => 'Archive', 'type' => 'scroll', 'target' => 'portfolio'],
         ['label' => 'Contact', 'type' => 'scroll', 'target' => 'contact-band'],
     ];
 }
@@ -674,6 +677,23 @@ function cms_msr_case_study_cards(): array
         ],
         [
             'featured' => false,
+            'badge' => 'Local demo · live ship pending',
+            'title' => 'Gated Publishing library',
+            'stack' => 'Custom WP plugins · roles/caps · Gutenberg SSR',
+            'bullets' => [
+                ['icon' => 'fas fa-puzzle-piece', 'text' => 'msr-demo-mode · msr-showcase-block · msr-membership on Publishing (MAMP)'],
+                ['icon' => 'fas fa-user-lock', 'text' => 'Free/Member caps, gated resources, dashboard, and teaser shortcode'],
+                ['icon' => 'fas fa-code', 'text' => 'Dynamic block: React editor + PHP SSR — not a MemberPress install'],
+            ],
+            'thumb' => './media/images/case-studies/atlas-briefing.jpg',
+            'thumb_alt' => 'Publishing sandbox — gated resource library demo',
+            // Deep membership URLs 404 on live until plugins + pages are shipped — point at working sandbox home.
+            'view_url' => 'https://www.msreeves.co.uk/msrsandbox/',
+            'view_label' => 'View Publishing sandbox',
+            'code_url' => '',
+        ],
+        [
+            'featured' => false,
             'title' => 'MSR Events hub',
             'stack' => 'WordPress multisite · programme lifecycle',
             'bullets' => [
@@ -737,6 +757,57 @@ function cms_msr_case_study_cards(): array
     ];
 }
 
+/**
+ * Demo (now) vs live client (would enable) — production judgment strip (code-side).
+ *
+ * @return list<array{capability: string, demo: string, live: string}>
+ */
+function cms_demo_vs_live_rows(): array
+{
+    return [
+        [
+            'capability' => 'Cloudflare CDN + WAF',
+            'demo' => 'Hostinger DNS as shipped; Cloudflare proxy not claimed until owner confirms',
+            'live' => 'Cloudflare Free proxy on web A/AAAA · Full (Strict) SSL · MX/TXT DNS-only',
+        ],
+        [
+            'capability' => 'Hostinger updates / Patchstack',
+            'demo' => 'Hostinger Security on plan; Patchstack if offered — verify in hPanel',
+            'live' => 'Smart auto-updates ≥ security · Patchstack where available',
+        ],
+        [
+            'capability' => 'Admin 2FA',
+            'demo' => 'Not showcased as enabled on demonstration admins',
+            'live' => '2FA on Super Admin / admin accounts (Events network especially)',
+        ],
+        [
+            'capability' => 'Off-site backups',
+            'demo' => 'Products has UpdraftPlus; confirm Events + Publishing off-site',
+            'live' => 'Scheduled off-site backups for every install',
+        ],
+        [
+            'capability' => 'Search Console + sitemap',
+            'demo' => 'Not chasing demand-gen SEO on thin demo properties',
+            'live' => 'GSC property + XML sitemap for the real client domain',
+        ],
+        [
+            'capability' => 'One SEO plugin',
+            'demo' => 'No SEO stack for growth theatre',
+            'live' => 'Rank Math or Yoast on Publishing — not both',
+        ],
+        [
+            'capability' => 'Consent / analytics',
+            'demo' => 'No fake analytics, GBP, or paid growth tooling',
+            'live' => 'Honest consent banner + analytics only when the client needs them',
+        ],
+        [
+            'capability' => 'Products: Turnstile + PCI gateway',
+            'demo' => 'WooCommerce showcase; checkout not treated as live commerce',
+            'live' => 'Cloudflare Turnstile on public checkout · PCI-ready payment gateway',
+        ],
+    ];
+}
+
 
 function cms_intro_tagline_for_hero(array $content): string
 {
@@ -755,7 +826,7 @@ function cms_build_defaults(): array
         [
             'intro_name' => 'Michael Reeves',
             'intro_tagline' => 'Marketing & Digital Content Executive | Front-end Web/Wordpress Developer | Designer | Games Tester',
-            'intro_tagline_short' => 'CMS specialist & digital publishing · Front-end WordPress · Marketing & campaign design',
+            'intro_tagline_short' => 'Welcome — a portfolio of CMS and digital publishing work, front-end WordPress builds, and marketing design. Explore case studies below, or download the CV and marketing pack.',
             'about_heading' => 'About',
             'site_nav_json' => cms_site_nav_default_json(),
             'timeline_count' => 0,

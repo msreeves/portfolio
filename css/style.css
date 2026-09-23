@@ -82,7 +82,7 @@ video {
 }
 
 .intro-hero-ctas {
-  margin-top: 1rem;
+  margin-top: 1.25rem;
   margin-bottom: 0;
   display: flex;
   flex-wrap: wrap;
@@ -91,15 +91,18 @@ video {
 }
 
 .intro-hero {
-  margin-top: 70px;
-  background: #111;
+  --portfolio-header-h: 3.5rem;
+  margin-top: 0;
+  padding-top: var(--portfolio-header-h);
+  background: transparent;
 }
 
 .intro-hero-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-  min-height: calc(100vh - 70px);
-  max-height: 920px;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  min-height: calc(100svh - var(--portfolio-header-h));
+  max-height: 880px;
+  background: #0a0a12;
 }
 
 .intro-hero-media {
@@ -113,14 +116,21 @@ video {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(
-    125deg,
-    rgba(43, 127, 255, 0.32) 0%,
-    transparent 42%,
-    transparent 58%,
-    rgba(192, 64, 216, 0.28) 100%
-  );
-  mix-blend-mode: soft-light;
+  background:
+    linear-gradient(
+      90deg,
+      transparent 55%,
+      rgba(10, 10, 18, 0.55) 88%,
+      rgba(10, 10, 18, 0.92) 100%
+    ),
+    linear-gradient(
+      125deg,
+      rgba(43, 127, 255, 0.28) 0%,
+      transparent 42%,
+      transparent 58%,
+      rgba(192, 64, 216, 0.22) 100%
+    );
+  mix-blend-mode: normal;
 }
 
 .intro-hero-photo {
@@ -138,28 +148,32 @@ video {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #111;
-  padding: clamp(1.75rem, 5vw, 4.5rem);
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 40%, rgba(43, 127, 255, 0.12) 0%, transparent 60%),
+    #0a0a12;
+  padding: clamp(1.75rem, 5vw, 4rem) clamp(1.5rem, 4vw, 3.25rem);
 }
 
 .intro-hero-copy {
   color: #fff;
   width: 100%;
-  max-width: min(100%, 36rem);
+  max-width: min(100%, 34rem);
   margin-inline: auto;
 }
 
 .intro-hero-title {
-  font-size: clamp(1.85rem, 4vw, 2.85rem);
-  line-height: 1.12;
-  margin-bottom: 0.85rem;
+  font-size: clamp(2rem, 4.2vw, 3rem);
+  line-height: 1.08;
+  margin: 0 0 0.75rem;
+  letter-spacing: -0.02em;
 }
 
 .intro-hero-tagline {
-  font-size: clamp(1rem, 2.2vw, 1.2rem);
-  max-width: 32rem;
-  color: #e8e8e8;
-  line-height: 1.5;
+  font-size: clamp(0.98rem, 2vw, 1.15rem);
+  max-width: 30rem;
+  color: var(--msr-text-muted, #a8a8b8);
+  line-height: 1.55;
+  margin: 0;
 }
 
 .msr-fade-in {
@@ -417,8 +431,21 @@ video {
 }
 
 #skills .skills-section-layout {
-  display: block;
-  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;
+}
+
+#skills .skills-section-layout--tags {
+  gap: 1.5rem;
+}
+
+#skills .skills-section-layout--tags > .portfolio-section-heading {
+  margin-bottom: 0;
+}
+
+#skills .skills-section-layout--tags .portfolio-skill-tags {
+  margin-top: 0.15rem;
 }
 
 #skills .skills-courses-cell {
@@ -1173,25 +1200,6 @@ a.portfolio-chip > i {
   line-height: 2.4;
 }
 
-.navbar-toggler-icon i {
-  color: #fff;
-  font-size: 1.35rem;
-  line-height: 1;
-}
-
-/* Hamburger: bars when closed, X when Bootstrap sets aria-expanded="true" */
-.navbar-toggler .nav-toggler-close {
-  display: none;
-}
-
-.navbar-toggler[aria-expanded="true"] .nav-toggler-bars {
-  display: none;
-}
-
-.navbar-toggler[aria-expanded="true"] .nav-toggler-close {
-  display: inline-block;
-}
-
 body.msr-portfolio {
   color: var(--msr-text-on-dark, #e4e4ea);
   font-size: 16px;
@@ -1404,66 +1412,124 @@ section {
 
 /* NAVBAR { */
 
-.navbar {
-  overflow-x: visible;
-  overflow-y: visible;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1030;
-  background: linear-gradient(
-    90deg,
-    rgba(8, 10, 22, 0.97) 0%,
-    rgba(16, 8, 22, 0.97) 50%,
-    rgba(8, 10, 22, 0.97) 100%
-  );
-  border-bottom: 1px solid rgba(43, 127, 255, 0.22);
-  box-shadow: 0 4px 28px rgba(0, 0, 0, 0.4);
+.portfolio-header {
+  position: relative;
+  z-index: 2;
 }
 
-/* Many nav labels: allow wrapping on large screens so links are not clipped */
-@media (min-width: 992px) {
-  .navbar-expand-lg .navbar-nav {
-    flex-wrap: wrap;
-    justify-content: center;
-    row-gap: 0.25rem;
+.navbar.portfolio-nav {
+  --portfolio-header-h: 3.5rem;
+  overflow: visible;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1030;
+  min-height: var(--portfolio-header-h);
+  padding: 0;
+  background: rgba(8, 8, 16, 0.78);
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  border-bottom: 1px solid rgba(228, 228, 234, 0.08);
+  box-shadow: none;
+}
+
+.portfolio-nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: var(--msr-shell-max, 72rem);
+  min-height: var(--portfolio-header-h);
+  margin-inline: auto;
+  padding-inline: var(--msr-shell-pad, 1.25rem);
+}
+
+@media (max-width: 991.98px) {
+  .portfolio-nav-inner {
+    justify-content: flex-end;
   }
 }
 
-/* Higher specificity than Bootstrap 5 `.navbar-nav .nav-link` (which was winning over lone `.nav-link`) */
-.navbar .navbar-nav .nav-link {
-  color: #fff;
-  font-size: 16px;
-  margin-right: 10px;
-  border-bottom: 5px solid transparent;
+@media (min-width: 992px) {
+  .navbar-expand-lg .portfolio-nav-inner {
+    justify-content: center;
+  }
+
+  .navbar-expand-lg .portfolio-nav-collapse {
+    display: flex !important;
+    flex-basis: auto;
+  }
+
+  .navbar-expand-lg .portfolio-nav-list {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.15rem 0.35rem;
+    row-gap: 0.15rem;
+  }
+}
+
+.navbar.portfolio-nav .navbar-nav .nav-link {
+  color: rgba(228, 228, 234, 0.88);
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-right: 0;
+  border-bottom: 2px solid transparent;
   text-align: center;
-  padding-left: 0.75rem;
-  padding-right: 0.75rem;
+  padding: 0.55rem 0.7rem;
+  transition: color 0.18s ease, border-color 0.18s ease;
 }
 
-.navbar .navbar-nav .nav-link:hover,
-.navbar .navbar-nav .nav-link:focus-visible {
-  color: #b22222;
-  border-bottom: 5px solid #b22222;
+.navbar.portfolio-nav .navbar-nav .nav-link:hover,
+.navbar.portfolio-nav .navbar-nav .nav-link:focus-visible {
+  color: #fff;
+  border-bottom-color: var(--msr-blue, #2b7fff);
 }
 
-.navbar-toggler {
-  border: 2px solid #fff;
-  padding: 10px;
+.navbar.portfolio-nav .portfolio-nav-toggler {
+  border: 1px solid rgba(228, 228, 234, 0.22);
+  border-radius: 0.55rem;
+  padding: 0.45rem 0.55rem;
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: none;
 }
 
-/* Bootstrap 5 default toggler uses an SVG background; we use Font Awesome instead */
-.navbar .navbar-toggler .navbar-toggler-icon {
+.navbar.portfolio-nav .portfolio-nav-toggler:focus {
+  box-shadow: 0 0 0 0.2rem rgba(43, 127, 255, 0.35);
+}
+
+.navbar.portfolio-nav .portfolio-nav-toggler .navbar-toggler-icon {
   background-image: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: auto;
-  height: auto;
+  width: 1.35rem;
+  height: 1.35rem;
+}
+
+.navbar-toggler-icon i {
+  color: #fff;
+  font-size: 1.15rem;
+  line-height: 1;
+}
+
+.navbar-toggler .nav-toggler-close {
+  display: none;
+}
+
+.navbar-toggler[aria-expanded="true"] .nav-toggler-bars {
+  display: none;
+}
+
+.navbar-toggler[aria-expanded="true"] .nav-toggler-close {
+  display: inline-block;
 }
 
 #intro {
-  background: #111;
+  background: transparent;
   margin-top: 0;
 }
 
@@ -2217,3 +2283,93 @@ footer.footer_area .container > .row {
   margin-top: 0;
   margin-bottom: 0;
 }
+
+/* Demo vs live client — production judgment strip */
+.demo-vs-live-lead {
+  margin: 0;
+  max-width: var(--msr-prose-wide);
+  color: var(--msr-text-muted);
+  line-height: 1.55;
+  font-size: clamp(0.98rem, 1.6vw, 1.05rem);
+}
+
+.demo-vs-live-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid rgba(228, 228, 234, 0.12);
+  border-radius: 0.5rem;
+  background: rgba(7, 7, 15, 0.55);
+}
+
+.demo-vs-live-table {
+  width: 100%;
+  margin: 0;
+  border-collapse: collapse;
+  color: var(--msr-text-on-dark);
+  font-size: clamp(0.9rem, 1.45vw, 0.98rem);
+}
+
+.demo-vs-live-table caption {
+  caption-side: top;
+}
+
+.demo-vs-live-table thead th {
+  text-align: left;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  padding: 0.85rem 1rem;
+  color: var(--msr-text-on-dark);
+  background: rgba(43, 127, 255, 0.12);
+  border-bottom: 1px solid rgba(228, 228, 234, 0.14);
+  white-space: nowrap;
+}
+
+.demo-vs-live-table tbody th,
+.demo-vs-live-table tbody td {
+  padding: 0.85rem 1rem;
+  vertical-align: top;
+  border-bottom: 1px solid rgba(228, 228, 234, 0.08);
+  line-height: 1.45;
+}
+
+.demo-vs-live-table tbody tr:last-child th,
+.demo-vs-live-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.demo-vs-live-table tbody th {
+  font-weight: 700;
+  color: var(--msr-text-on-dark);
+  width: 22%;
+}
+
+.demo-vs-live-table tbody td {
+  color: var(--msr-text-muted);
+  width: 39%;
+}
+
+.demo-vs-live-table tbody tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.portfolio-shell > :where(.demo-vs-live-lead, .demo-vs-live-table-wrap) {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
