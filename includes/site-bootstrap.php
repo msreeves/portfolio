@@ -96,8 +96,13 @@ function cms_heading_defaults(): array
 {
     return [
         'heading_recent_portfolio' => 'Featured case studies',
+        'heading_portfolio_lanes' => 'How work is labelled here',
+        'portfolio_lanes_lead' => 'Deliberately layered: archive pieces show where I started; programme demos show WordPress programme depth; the portfolio shell and workspace tools show how I build and verify work today — with me setting scope and sign-off, not unattended generation.',
+        'portfolio_lanes_ai_note' => 'I use AI-assisted editing and audit tooling in my local workflow. Scope, copy, acceptance checks, and deploy stay with me — nothing ships on a green automated check alone.',
+        'portfolio_archive_intro' => 'Earlier builds labelled Archive — left visible to show progression. Live demos and GitHub links where available.',
+        'intro_hero_method' => 'Each case study is labelled Current standard, Programme demo, or Archive so recruiters can see progression — not one homogenised skin.',
         'heading_demo_vs_live' => 'Demo vs live client',
-        'demo_vs_live_lead' => 'Programme sites are portfolio demonstrations — not live companies. This strip shows what stays light on demos versus what I would enable on a real client site (protection, backups, SEO, consent) — without demand-gen tooling for show.',
+        'demo_vs_live_lead' => 'Programme sites are portfolio demonstrations — not live companies. This strip compares what stays light on demos versus what I would enable on a real client site (protection, backups, SEO, consent) — plus how craft and QA differ by lane (see labels above).',
         'heading_work_for' => 'Experience',
         'heading_skills' => 'Skills',
         'heading_testimonials' => 'Testimonials',
@@ -216,6 +221,7 @@ function cms_site_nav_scroll_sections(): array
         'intro' => 'Home (top)',
         'introduction' => 'About',
         'recent-portfolio' => 'Case studies',
+        'portfolio-lanes' => 'How labelled',
         'demo-vs-live' => 'Demo vs live',
         'work-for' => 'Experience',
         'skills' => 'Skills',
@@ -247,6 +253,7 @@ function cms_site_nav_default_items(): array
 {
     return [
         ['label' => 'Case studies', 'type' => 'scroll', 'target' => 'recent-portfolio'],
+        ['label' => 'How labelled', 'type' => 'scroll', 'target' => 'portfolio-lanes'],
         ['label' => 'Demo vs live', 'type' => 'scroll', 'target' => 'demo-vs-live'],
         ['label' => 'About', 'type' => 'scroll', 'target' => 'introduction'],
         ['label' => 'Experience', 'type' => 'scroll', 'target' => 'work-for'],
@@ -607,6 +614,8 @@ function cms_load_portfolio_projects(): array
         $thumb = trim((string)($data['thumb'] ?? ''));
         if ($title === '' || $thumb === '') continue;
 
+        $lane = cms_portfolio_lane_from_project_json($data);
+
         $projects[] = [
             'title' => $title,
             'stack' => trim((string)($data['stack'] ?? '')),
@@ -615,6 +624,7 @@ function cms_load_portfolio_projects(): array
             'view_url' => trim((string)($data['view_url'] ?? '')),
             'code_url' => trim((string)($data['code_url'] ?? '')),
             'order' => (int)($data['order'] ?? 9999),
+            'lane' => $lane,
         ];
     }
 
@@ -625,7 +635,126 @@ function cms_load_portfolio_projects(): array
     return $projects;
 }
 
+/**
+ * Portfolio lane keys for recruiter-facing labels (matches estate ongoing vs exhibit model).
+ *
+ * @return 'current'|'programme'|'archive'
+ */
+function cms_portfolio_lane_from_project_json(array $data): string
+{
+    $explicit = strtolower(trim((string) ($data['standardsTier'] ?? '')));
+    if ($explicit === 'active' || $explicit === 'current') {
+        return 'current';
+    }
+    if ($explicit === 'legacy' || $explicit === 'programme' || $explicit === 'frozen') {
+        return $explicit === 'programme' ? 'programme' : 'archive';
+    }
+
+    $slug = strtolower(trim((string) ($data['slug'] ?? '')));
+    if ($slug === 'event-companion' || $slug === 'perception' || $slug === 'atlas-ops') {
+        return 'current';
+    }
+
+    return 'archive';
+}
+
+
+function cms_portfolio_lane_badge_label(string $lane): string
+{
+    return match ($lane) {
+        'current' => 'Current standard',
+        'programme' => 'Programme demo',
+        'archive' => 'Archive',
+        default => '',
+    };
+}
+
+
+/**
+ * @return list<array{id: string, title: string, body: string}>
+ */
+function cms_portfolio_lanes_data(): array
+{
+    return [
+        [
+            'id' => 'current',
+            'title' => 'Current delivery (2025–26)',
+            'body' => 'Portfolio shell, Projects · Preview · Storage, and featured case studies I still extend — including Atlas Briefing (MSR Publishing) as the reference WordPress build at this bar. Responsive layout, accessibility checks, and regression on key routes when UI changes.',
+        ],
+        [
+            'id' => 'programme',
+            'title' => 'Programme demos',
+            'body' => 'WordPress programme sites (Events hub, Awards, Seminars, Products) — Vite-built themes and ACF patterns kept as honest snapshots of multisite work. Smoke-tested routes; not re-skinned unless I deliberately unpark one. (Publishing / Atlas Briefing is under Current delivery.)',
+        ],
+        [
+            'id' => 'archive',
+            'title' => 'Archive projects',
+            'body' => 'Earlier student and side builds (movie API, games, early salon site). Left visible to show progression — as-shipped snapshots, not retrofitted to today’s bar.',
+        ],
+    ];
+}
+
+
 /** MSR programme case studies for the featured grid (code-side; URLs are release targets). */
+
+function cms_portfolio_request_is_local_mamp(): bool
+{
+    $fullHost = strtolower((string) ($_SERVER['HTTP_HOST'] ?? ''));
+    if ($fullHost === '') {
+        return true;
+    }
+    if (str_contains($fullHost, ':8888')) {
+        return true;
+    }
+    $host = preg_replace('/:\d+$/', '', $fullHost) ?? $fullHost;
+    if ($host === 'localhost' || $host === '127.0.0.1' || str_ends_with($host, '.local')) {
+        return true;
+    }
+    if ($host === 'msreeves.co.uk' || $host === 'www.msreeves.co.uk') {
+        return false;
+    }
+
+    return false;
+}
+
+function cms_portfolio_msr_publishing_demo_url(): string
+{
+    if (cms_portfolio_request_is_local_mamp()) {
+        return '/sites/wp/msrpublishing/';
+    }
+
+    return 'https://www.msreeves.co.uk/msrpublishing/';
+}
+
+/** Rewrite local MAMP estate paths in CMS HTML to release targets on live portfolio. */
+
+function cms_portfolio_rewrite_estate_urls_in_html(string $html): string
+{
+    $target = cms_portfolio_msr_publishing_demo_url();
+    if ($target === '/sites/wp/msrpublishing/') {
+        return $html;
+    }
+
+    return str_replace('/sites/wp/msrpublishing/', $target, $html);
+}
+
+
+function cms_portfolio_link_is_external(string $url): bool
+{
+    $url = trim($url);
+    if ($url === '' || str_starts_with($url, './') || str_starts_with($url, '/')) {
+        return false;
+    }
+    if (!preg_match('#^https?://#i', $url)) {
+        return false;
+    }
+    $host = strtolower((string) parse_url($url, PHP_URL_HOST));
+    if ($host === '' || $host === '127.0.0.1' || $host === 'localhost' || str_ends_with($host, '.local')) {
+        return false;
+    }
+
+    return true;
+}
 
 
 function cms_msr_case_study_cards(): array
@@ -633,13 +762,14 @@ function cms_msr_case_study_cards(): array
     return [
         [
             'featured' => true,
+            'lane' => 'current',
             'badge' => 'In progress',
             'title' => 'Perception — comic production workspace (in progress)',
             'stack' => 'PHP · Node · MAMP · Cover · Book · Ship · Sites/Projects/Preview',
             'bullets' => [
                 ['icon' => 'fas fa-book', 'text' => 'Vegas noir GN (WIP) plus Cover · Book · Ship production programme'],
                 ['icon' => 'fas fa-layer-group', 'text' => 'Local MAMP estate — Sites · Projects · Preview with owner gates'],
-                ['icon' => 'fas fa-screwdriver-wrench', 'text' => 'Machine-checkable done: edit:verify · acceptance · review:site'],
+                ['icon' => 'fas fa-screwdriver-wrench', 'text' => 'Machine-checkable done: automated acceptance plus Playwright and accessibility review when UI changes'],
             ],
             'thumb' => './media/images/case-studies/perception.jpg',
             'thumb_alt' => 'Perception Volume 1 front cover — prestige crime noir graphic novel',
@@ -649,6 +779,7 @@ function cms_msr_case_study_cards(): array
         ],
         [
             'featured' => false,
+            'lane' => 'current',
             'title' => 'Atlas Ops',
             'stack' => 'React · TypeScript · Vite · TanStack Query · Zustand',
             'bullets' => [
@@ -663,37 +794,24 @@ function cms_msr_case_study_cards(): array
         ],
         [
             'featured' => false,
-            'title' => 'Atlas Briefing',
-            'stack' => 'B2B digital publisher · gated resources',
+            'lane' => 'current',
+            'badge' => 'Reference WP',
+            'title' => 'Atlas Briefing (MSR Publishing)',
+            'stack' => 'WordPress · Vite 5 · ACF · B2B resource library',
             'bullets' => [
                 ['icon' => 'fas fa-book-open', 'text' => 'Resource library with formats, topics, and subscribe flows'],
-                ['icon' => 'fas fa-shield-halved', 'text' => 'Vite-built theme with machine-checkable acceptance gates'],
-                ['icon' => 'fas fa-sitemap', 'text' => 'Proof point for CMS editorial and product IA'],
+                ['icon' => 'fas fa-shield-halved', 'text' => 'Current-standard WP: programme health checks, publishing acceptance, and regression on key routes'],
+                ['icon' => 'fas fa-sitemap', 'text' => 'Home standards callout explains this bar vs other programme snapshots'],
             ],
             'thumb' => './media/images/case-studies/atlas-briefing.jpg',
             'thumb_alt' => 'Atlas Briefing publishing demo homepage screenshot',
-            'view_url' => 'https://www.msreeves.co.uk/msrsandbox/',
+            'view_url' => cms_portfolio_msr_publishing_demo_url(),
+            'view_label' => 'View WP demo',
             'code_url' => 'https://github.com/msreeves/msrpublishing',
         ],
         [
             'featured' => false,
-            'badge' => 'Local demo · live ship pending',
-            'title' => 'Gated Publishing library',
-            'stack' => 'Custom WP plugins · roles/caps · Gutenberg SSR',
-            'bullets' => [
-                ['icon' => 'fas fa-puzzle-piece', 'text' => 'msr-demo-mode · msr-showcase-block · msr-membership on Publishing (MAMP)'],
-                ['icon' => 'fas fa-user-lock', 'text' => 'Free/Member caps, gated resources, dashboard, and teaser shortcode'],
-                ['icon' => 'fas fa-code', 'text' => 'Dynamic block: React editor + PHP SSR — not a MemberPress install'],
-            ],
-            'thumb' => './media/images/case-studies/atlas-briefing.jpg',
-            'thumb_alt' => 'Publishing sandbox — gated resource library demo',
-            // Deep membership URLs 404 on live until plugins + pages are shipped — point at working sandbox home.
-            'view_url' => 'https://www.msreeves.co.uk/msrsandbox/',
-            'view_label' => 'View Publishing sandbox',
-            'code_url' => '',
-        ],
-        [
-            'featured' => false,
+            'lane' => 'programme',
             'title' => 'MSR Events hub',
             'stack' => 'WordPress multisite · programme lifecycle',
             'bullets' => [
@@ -710,6 +828,7 @@ function cms_msr_case_study_cards(): array
         ],
         [
             'featured' => false,
+            'lane' => 'programme',
             'title' => 'MSR Awards',
             'stack' => 'Dark prestige theme · nominees & judging',
             'bullets' => [
@@ -726,6 +845,7 @@ function cms_msr_case_study_cards(): array
         ],
         [
             'featured' => false,
+            'lane' => 'programme',
             'title' => 'MSR Seminars',
             'stack' => 'Agenda · panelists · delegate programme',
             'bullets' => [
@@ -742,6 +862,7 @@ function cms_msr_case_study_cards(): array
         ],
         [
             'featured' => false,
+            'lane' => 'programme',
             'title' => 'MSR Products',
             'stack' => 'WooCommerce showcase',
             'bullets' => [
@@ -760,50 +881,64 @@ function cms_msr_case_study_cards(): array
 /**
  * Demo (now) vs live client (would enable) — production judgment strip (code-side).
  *
- * @return list<array{capability: string, demo: string, live: string}>
+ * @return list<array{capability: string, demo: string, live: string, craft: string}>
  */
 function cms_demo_vs_live_rows(): array
 {
     return [
         [
+            'capability' => 'Front-end craft & regression',
+            'demo' => 'Programme demos: smoke-tested routes; honest snapshot of the build era',
+            'live' => 'Client cadence: regression after UI edits; staging sign-off before release',
+            'craft' => 'Current portfolio lane: responsive + accessibility review on change; programme lane: smoke unless unparked',
+        ],
+        [
             'capability' => 'Cloudflare CDN + WAF',
             'demo' => 'Hostinger DNS as shipped; Cloudflare proxy not claimed until owner confirms',
             'live' => 'Cloudflare Free proxy on web A/AAAA · Full (Strict) SSL · MX/TXT DNS-only',
+            'craft' => 'Infrastructure choice — independent of UI lane labels',
         ],
         [
             'capability' => 'Hostinger updates / Patchstack',
             'demo' => 'Hostinger Security on plan; Patchstack if offered — verify in hPanel',
             'live' => 'Smart auto-updates ≥ security · Patchstack where available',
+            'craft' => 'Infrastructure choice — independent of UI lane labels',
         ],
         [
             'capability' => 'Admin 2FA',
             'demo' => 'Not showcased as enabled on demonstration admins',
             'live' => '2FA on Super Admin / admin accounts (Events network especially)',
+            'craft' => 'Infrastructure choice — independent of UI lane labels',
         ],
         [
             'capability' => 'Off-site backups',
             'demo' => 'Products has UpdraftPlus; confirm Events + Publishing off-site',
             'live' => 'Scheduled off-site backups for every install',
+            'craft' => 'Infrastructure choice — independent of UI lane labels',
         ],
         [
             'capability' => 'Search Console + sitemap',
             'demo' => 'Not chasing demand-gen SEO on thin demo properties',
             'live' => 'GSC property + XML sitemap for the real client domain',
+            'craft' => 'Infrastructure choice — independent of UI lane labels',
         ],
         [
             'capability' => 'One SEO plugin',
             'demo' => 'No SEO stack for growth theatre',
             'live' => 'Rank Math or Yoast on Publishing — not both',
+            'craft' => 'Infrastructure choice — independent of UI lane labels',
         ],
         [
             'capability' => 'Consent / analytics',
             'demo' => 'No fake analytics, GBP, or paid growth tooling',
             'live' => 'Honest consent banner + analytics only when the client needs them',
+            'craft' => 'Infrastructure choice — independent of UI lane labels',
         ],
         [
             'capability' => 'Products: Turnstile + PCI gateway',
             'demo' => 'WooCommerce showcase; checkout not treated as live commerce',
             'live' => 'Cloudflare Turnstile on public checkout · PCI-ready payment gateway',
+            'craft' => 'Infrastructure choice — independent of UI lane labels',
         ],
     ];
 }
@@ -817,6 +952,12 @@ function cms_intro_tagline_for_hero(array $content): string
     }
 
     return trim((string) ($content['intro_tagline'] ?? ''));
+}
+
+
+function cms_intro_method_for_hero(array $content): string
+{
+    return trim((string) ($content['intro_hero_method'] ?? ''));
 }
 
 

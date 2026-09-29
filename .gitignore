@@ -1,6 +1,7 @@
 .DS_Store
 *.log
 .vscode/
+node_modules/
 
 # Atlas Ops app deps / intermediate build (shipped copy is projects/atlas-ops/)
 apps/*/node_modules/

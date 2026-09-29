@@ -6,5 +6,6 @@
     "thumb": ".\/media\/images\/portfolio\/moviedata.png",
     "view_url": ".\/projects\/movie-api\/",
     "code_url": "https://github.com/msreeves87/movie-search/",
-    "order": 10
+    "order": 10,
+    "standardsTier": "legacy"
 }

@@ -1,5 +1,6 @@
 <?php
 require __DIR__ . '/includes/site-bootstrap.php';
+require __DIR__ . '/includes/vendor-assets.php';
 $content = load_site_content();
 $projects = cms_load_portfolio_projects();
 ?>
@@ -23,15 +24,10 @@ $projects = cms_load_portfolio_projects();
     <meta name="twitter:description" content="CMS specialist, front-end WordPress developer, and marketing/campaign design." />
     <meta name="twitter:image" content="https://www.msreeves.co.uk/media/images/case-studies/atlas-ops.png" />
     <link rel="canonical" href="https://www.msreeves.co.uk/" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Kodchasan:wght@400;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/v4-shims.min.css"
-        integrity="sha512-u6rY9/wehqytU8mKIhPvMDHtZmj6SbJ90Ctq8r5C+esABLe7qlQ2PY4l9gwK7xmr9fMp7d8yHvg2s3+nEsRjOg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="<?= esc(cms_vendor_href('fonts/kodchasan/kodchasan.css')) ?>" />
+    <link rel="stylesheet" href="<?= esc(cms_vendor_href('bootstrap/css/bootstrap.min.css')) ?>" />
+    <link rel="stylesheet" href="<?= esc(cms_vendor_href('fontawesome/css/all.min.css')) ?>" />
+    <link rel="stylesheet" href="<?= esc(cms_vendor_href('fontawesome/css/v4-shims.min.css')) ?>" />
     <link rel="icon" href="<?= esc(cms_img_src($content, 'img_intro_logo')) ?>" type="image/jpeg" />
     <link rel="preload" as="image" href="<?= esc(cms_img_src($content, 'img_intro_logo')) ?>" fetchpriority="high" />
     <link rel="stylesheet" href="./css/style.css?v=<?= esc(cms_asset_v('css/style.css')) ?>" />
@@ -72,6 +68,12 @@ $projects = cms_load_portfolio_projects();
                     <div class="intro-hero-copy">
                         <h1 class="intro-hero-title msr-fade-in"><?= esc($content['intro_name']) ?></h1>
                         <p class="intro-tagline intro-hero-tagline msr-fade-in"><?= esc(cms_intro_tagline_for_hero($content)) ?></p>
+<?php
+                        $heroMethod = cms_intro_method_for_hero($content);
+                        if ($heroMethod !== '') {
+?>
+                        <p class="intro-hero-method msr-fade-in"><?= esc($heroMethod) ?></p>
+<?php } ?>
                         <div class="intro-hero-ctas msr-fade-in">
                             <?php cms_render_cv_download_chips($content, [
                                 'wrap_class' => '',
@@ -91,6 +93,11 @@ $projects = cms_load_portfolio_projects();
 <?php cms_render_panel_grid($content, ['html_recent_portfolio_1']); ?>
 
 <?php cms_render_msr_case_study_grid(); ?>
+        </div>
+    </section>
+    <section id="portfolio-lanes" aria-labelledby="portfolio-lanes-heading">
+        <div class="container portfolio-shell">
+<?php cms_render_portfolio_lanes_section($content); ?>
         </div>
     </section>
     <section id="demo-vs-live" aria-labelledby="demo-vs-live-heading">
@@ -257,44 +264,7 @@ if ($featuredBody === '' && cms_html_has_content($content, 'html_testimonial_1')
     </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  var navCollapse = document.getElementById('navbarTogglerDemo01');
-  if (navCollapse && window.bootstrap && bootstrap.Collapse) {
-    navCollapse.querySelectorAll('a.nav-link').forEach(function (link) {
-      link.addEventListener('click', function () {
-        if (window.matchMedia('(max-width: 991.98px)').matches) {
-          var instance = bootstrap.Collapse.getInstance(navCollapse);
-          if (instance) {
-            instance.hide();
-          }
-        }
-      });
-    });
-  }
-
-  if ('IntersectionObserver' in window) {
-    var revealEls = document.querySelectorAll('.msr-fade-in');
-    if (revealEls.length) {
-      var revealObserver = new IntersectionObserver(function (entries, observer) {
-        entries.forEach(function (entry) {
-          if (!entry.isIntersecting) {
-            return;
-          }
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
-        });
-      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
-      revealEls.forEach(function (el) { revealObserver.observe(el); });
-    }
-  } else {
-    document.querySelectorAll('.msr-fade-in').forEach(function (el) {
-      el.classList.add('is-visible');
-    });
-  }
-});
-</script>
+<script src="<?= esc(cms_vendor_href('bootstrap/js/bootstrap.bundle.min.js')) ?>"></script>
+<script src="./js/portfolio-site.js?v=<?= esc(cms_asset_v('js/portfolio-site.js')) ?>" defer></script>
 </body>
 </html>

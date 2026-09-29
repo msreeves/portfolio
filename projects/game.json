@@ -6,5 +6,6 @@
     "thumb": ".\/media\/images\/portfolio\/hangmanicon.png",
     "view_url": ".\/projects\/game\/",
     "code_url": "https://github.com/msreeves87/hangman-game",
-    "order": 20
+    "order": 20,
+    "standardsTier": "legacy"
 }

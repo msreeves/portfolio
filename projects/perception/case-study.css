@@ -196,6 +196,25 @@
   margin-bottom: var(--perception-gap);
 }
 
+.perception-case__interview-list {
+  margin: 0;
+  padding-left: 1.25rem;
+  display: grid;
+  gap: 0.85rem;
+  max-width: var(--msr-prose-max);
+}
+
+.perception-case__interview-list li {
+  line-height: 1.55;
+  color: var(--msr-text-muted, #a8a8b8);
+}
+
+.perception-case__section--interview {
+  margin-top: var(--perception-gap);
+  padding-top: var(--perception-gap);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
 .perception-case__decisions {
   list-style: none;
   margin: 0;

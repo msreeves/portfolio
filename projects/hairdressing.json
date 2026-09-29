@@ -7,5 +7,6 @@
     "view_url": ".\/projects\/hairdressing\/",
     "admin_url": ".\/projects\/hairdressing\/admin\/",
     "code_url": "https://github.com/msreeves87/hk-portfolio/",
-    "order": 30
+    "order": 30,
+    "standardsTier": "legacy"
 }

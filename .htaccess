@@ -1,8 +1,16 @@
 # Portfolio docroot (ships to domain public_html).
-# Live publishing is /msrsandbox/ — local folder is sites/wp/msrpublishing/.
-# Alias so /msrpublishing bookmarks and old portfolio links do not 404.
+# Canonical publishing URL: /msrpublishing/ (WP at public_html/msrpublishing/).
 <IfModule mod_rewrite.c>
 	RewriteEngine On
-	RewriteRule ^msrpublishing/?$ /msrsandbox/ [R=301,L]
-	RewriteRule ^msrpublishing/(.*)$ /msrsandbox/$1 [R=301,L]
+
+	# Legacy bookmarks → canonical path.
+	RewriteCond %{ENV:REDIRECT_STATUS} ^$
+	RewriteRule ^msrsandbox/?$ /msrpublishing/ [R=301,L]
+	RewriteCond %{ENV:REDIRECT_STATUS} ^$
+	RewriteRule ^msrsandbox/(.*)$ /msrpublishing/$1 [R=301,L]
+
+	# Publishing WP: route pretty URLs to index.php (fixes MAMP RewriteBase on live + missing subfolder rules).
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule ^msrpublishing/?(.*)$ msrpublishing/index.php [L,QSA]
 </IfModule>

@@ -124,6 +124,8 @@ function cms_html_raw(array $content, string $key): string
         $html = cms_portfolio_fragment_render_inner($html);
     }
 
+    $html = cms_portfolio_rewrite_estate_urls_in_html($html);
+
     return cms_normalize_fade_in_classes($html);
 }
 
@@ -167,17 +169,19 @@ function cms_render_demo_vs_live_strip(array $content): void
 
     echo '<div class="demo-vs-live-table-wrap msr-fade-in">';
     echo '<table class="demo-vs-live-table">';
-    echo '<caption class="visually-hidden">Demo (now) versus live client (would enable) production checklist</caption>';
+    echo '<caption class="visually-hidden">Demo (now) versus live client (would enable) production checklist with craft and QA lane</caption>';
     echo '<thead><tr>';
     echo '<th scope="col">Capability</th>';
     echo '<th scope="col">Demo (now)</th>';
     echo '<th scope="col">Live client (would enable)</th>';
+    echo '<th scope="col">Craft / QA</th>';
     echo '</tr></thead><tbody>';
 
     foreach ($rows as $row) {
         $capability = trim((string) ($row['capability'] ?? ''));
         $demo = trim((string) ($row['demo'] ?? ''));
         $live = trim((string) ($row['live'] ?? ''));
+        $craft = trim((string) ($row['craft'] ?? ''));
         if ($capability === '') {
             continue;
         }
@@ -185,10 +189,80 @@ function cms_render_demo_vs_live_strip(array $content): void
         echo '<th scope="row">' . esc($capability) . '</th>';
         echo '<td data-label="Demo (now)">' . esc($demo) . '</td>';
         echo '<td data-label="Live client (would enable)">' . esc($live) . '</td>';
+        echo '<td data-label="Craft / QA">' . esc($craft) . '</td>';
         echo '</tr>';
     }
 
     echo '</tbody></table></div>';
+}
+
+
+/**
+ * Recruiter-facing progression lanes (ongoing vs programme vs archive).
+ *
+ * @param array<string, mixed> $content
+ */
+function cms_render_portfolio_lanes_section(array $content): void
+{
+    $lanes = cms_portfolio_lanes_data();
+    if ($lanes === []) {
+        return;
+    }
+
+    $heading = trim((string) ($content['heading_portfolio_lanes'] ?? 'How work is labelled here'));
+    $lead = trim((string) ($content['portfolio_lanes_lead'] ?? ''));
+    $aiNote = trim((string) ($content['portfolio_lanes_ai_note'] ?? ''));
+
+    cms_render_section_heading($heading !== '' ? $heading : 'How work is labelled here', 'portfolio-lanes-heading');
+
+    if ($lead !== '') {
+        echo '<p class="portfolio-lanes-lead msr-fade-in">' . esc($lead) . '</p>';
+    }
+
+    echo '<div class="portfolio-lanes-grid msr-fade-in" role="list">';
+    foreach ($lanes as $lane) {
+        $id = trim((string) ($lane['id'] ?? ''));
+        $title = trim((string) ($lane['title'] ?? ''));
+        $body = trim((string) ($lane['body'] ?? ''));
+        if ($title === '' || $body === '') {
+            continue;
+        }
+        $badge = cms_portfolio_lane_badge_label($id);
+        echo '<article class="portfolio-lane-card" role="listitem">';
+        if ($badge !== '') {
+            echo '<p class="portfolio-lane-card__badge"><span class="msr-lane-badge msr-lane-badge--' . esc($id) . '">' . esc($badge) . '</span></p>';
+        }
+        echo '<h3 class="portfolio-lane-card__title h5">' . esc($title) . '</h3>';
+        echo '<p class="portfolio-lane-card__body">' . esc($body) . '</p>';
+        echo '</article>';
+    }
+    echo '</div>';
+
+    if ($aiNote !== '') {
+        echo '<p class="portfolio-lanes-ai-note msr-fade-in">' . esc($aiNote) . '</p>';
+    }
+}
+
+
+function cms_render_portfolio_lane_badges(?string $lane, string $extraBadge = ''): void
+{
+    $lane = trim((string) $lane);
+    $extraBadge = trim($extraBadge);
+    if ($lane === '' && $extraBadge === '') {
+        return;
+    }
+
+    echo '<p class="msr-programme-card-badge msr-programme-card-badge-row">';
+    if ($lane !== '') {
+        $label = cms_portfolio_lane_badge_label($lane);
+        if ($label !== '') {
+            echo '<span class="msr-lane-badge msr-lane-badge--' . esc($lane) . '">' . esc($label) . '</span>';
+        }
+    }
+    if ($extraBadge !== '') {
+        echo '<span class="msr-programme-card-badge-pill">' . esc($extraBadge) . '</span>';
+    }
+    echo '</p>';
 }
 
 
@@ -278,6 +352,7 @@ function cms_render_msr_case_study_card(array $card): void
     $thumb = cms_msr_case_study_thumb_src((string) ($card['thumb'] ?? ''));
     $thumbAlt = trim((string) ($card['thumb_alt'] ?? $card['title'] ?? 'Case study screenshot'));
     $badge = trim((string) ($card['badge'] ?? ''));
+    $lane = trim((string) ($card['lane'] ?? ''));
     $viewLabel = trim((string) ($card['view_label'] ?? ''));
     if ($viewLabel === '') {
         $viewLabel = 'View live';
@@ -289,7 +364,7 @@ function cms_render_msr_case_study_card(array $card): void
     }
 
     echo '<div class="portfolio-grid-cell">';
-    echo '<article class="msr-programme-card msr-fade-in';
+    echo '<article class="msr-programme-card';
     if ($featured) {
         echo ' msr-programme-card--lead';
     }
@@ -305,9 +380,7 @@ function cms_render_msr_case_study_card(array $card): void
     if ($featured) {
         echo '<p class="msr-programme-card-eyebrow">Lead case study</p>';
     }
-    if ($badge !== '') {
-        echo '<p class="msr-programme-card-badge"><span class="msr-programme-card-badge-pill">' . esc($badge) . '</span></p>';
-    }
+    cms_render_portfolio_lane_badges($lane !== '' ? $lane : null, $badge);
     echo '<h3 class="h5 msr-programme-card-title">' . esc((string) ($card['title'] ?? '')) . '</h3>';
     echo '<p class="msr-programme-card-stack">' . esc((string) ($card['stack'] ?? '')) . '</p>';
 
@@ -317,15 +390,27 @@ function cms_render_msr_case_study_card(array $card): void
         echo '<p class="msr-programme-card-summary">' . esc((string) $card['summary']) . '</p>';
     }
 
+    $viewUrl = trim((string) ($card['view_url'] ?? ''));
+    $viewExternal = cms_portfolio_link_is_external($viewUrl);
+
     echo '<p class="msr-programme-card-ctas">';
-    echo '<a class="portfolio-chip portfolio-chip--primary" href="' . esc((string) ($card['view_url'] ?? '')) . '" target="_blank" rel="noopener noreferrer"><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i><span>' . esc($viewLabel) . '</span></a>';
+    echo '<a class="portfolio-chip portfolio-chip--primary" href="' . esc($viewUrl) . '"';
+    if ($viewExternal) {
+        echo ' target="_blank" rel="noopener noreferrer"';
+    }
+    echo '><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i><span>' . esc($viewLabel) . '</span></a>';
     if ($codeUrl !== '') {
         echo '<a class="portfolio-chip portfolio-chip--secondary" href="' . esc($codeUrl) . '" target="_blank" rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i><span>GitHub</span></a>';
     }
     $companionUrl = trim((string) ($card['companion_url'] ?? ''));
     if ($companionUrl !== '') {
         $companionLabel = trim((string) ($card['companion_label'] ?? 'Companion demo'));
-        echo '<a class="portfolio-chip portfolio-chip--secondary" href="' . esc($companionUrl) . '" target="_blank" rel="noopener noreferrer"><i class="fas fa-mobile-screen" aria-hidden="true"></i><span>' . esc($companionLabel) . '</span></a>';
+        $companionExternal = cms_portfolio_link_is_external($companionUrl);
+        echo '<a class="portfolio-chip portfolio-chip--secondary" href="' . esc($companionUrl) . '"';
+        if ($companionExternal) {
+            echo ' target="_blank" rel="noopener noreferrer"';
+        }
+        echo '><i class="fas fa-mobile-screen" aria-hidden="true"></i><span>' . esc($companionLabel) . '</span></a>';
     }
     echo '</p>';
     echo '</div></article></div>';
@@ -486,7 +571,11 @@ function cms_render_archive_projects_section(array $content, array $projects): v
     echo '<p class="portfolio-archive-count" aria-label="' . esc($countLabel) . '">' . esc($countLabel) . '</p>';
     echo '</div>';
 
-    echo '<p class="portfolio-archive-intro">Student and side projects with live demos and GitHub links.</p>';
+    $archiveIntro = trim((string) ($content['portfolio_archive_intro'] ?? ''));
+    if ($archiveIntro === '') {
+        $archiveIntro = 'Earlier builds labelled Archive — left visible to show progression. Live demos and GitHub links where available.';
+    }
+    echo '<p class="portfolio-archive-intro">' . esc($archiveIntro) . '</p>';
 
     echo '<div class="portfolio-content-grid portfolio-content-grid--projects portfolio-project-grid' . esc($projectGridMods) . '" data-project-count="' . (int) $count . '">';
 
@@ -496,6 +585,8 @@ function cms_render_archive_projects_section(array $content, array $projects): v
         echo '<div class="portfolio-project-card-media">';
         echo '<img class="portfolio-project-card-thumb" src="' . esc((string) ($project['thumb'] ?? '')) . '" alt="' . esc((string) ($project['title'] ?? '')) . '" loading="lazy" decoding="async" />';
         echo '</div><div class="portfolio-project-card-body">';
+        $projectLane = trim((string) ($project['lane'] ?? 'archive'));
+        cms_render_portfolio_lane_badges($projectLane !== '' ? $projectLane : 'archive', '');
         echo '<h3 class="h5 portfolio-project-card-title">' . esc((string) ($project['title'] ?? '')) . '</h3>';
         if (trim((string) ($project['stack'] ?? '')) !== '') {
             echo '<p class="portfolio-project-card-stack">Languages: ' . esc((string) $project['stack']) . '</p>';
