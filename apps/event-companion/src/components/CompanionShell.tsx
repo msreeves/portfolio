@@ -29,7 +29,7 @@ export function CompanionShell({
 
   const bannerExtra = [
     bookingIsMailto ? 'Register opens a demo mailto — not live booking.' : null,
-    agendaIsLocalHost ? 'Full web agenda needs local MAMP / msrevents.local.' : null,
+    agendaIsLocalHost ? 'Full web agenda needs local / msrevents.local.' : null,
   ]
     .filter(Boolean)
     .join(' ')

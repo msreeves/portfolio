@@ -25,7 +25,7 @@ Companion **React demo** extends MSR Events programme sites — **does not repla
 | **Portfolio placement** | Programme suite **Companion demo** CTAs on **Events hub** (picker) + Awards + Seminars — not Archive. Card JSON `hub: false`, `archive: false`. **Atlas Ops stays featured lead.** |
 | **Slug** | `event-companion` |
 | **Stack** | React, TypeScript, Vite, Tailwind, **Zod**; TanStack Query + Zustand optional |
-| **`companion_demo_url` (local)** | `http://127.0.0.1:8888/sites/portfolio/projects/event-companion/?event=msrseminars` |
+| **`companion_demo_url` (local)** | `http://127.0.0.1/sites/portfolio/projects/event-companion/?event=msrseminars` |
 | **`companion_demo_url` (prod)** | `https://www.msreeves.co.uk/projects/event-companion/?event=msrseminars` (Owner **B5**) |
 | **`booking_url` v1** | Demo URL (mailto / `#` + disclaimer). Future Woo on `msrproducts` — document only |
 | **ACF home** | `companion_demo_url` + `booking_url` on **hub blog 1 `event` post** for slug `msrseminars` |
@@ -63,7 +63,7 @@ Companion **React demo** extends MSR Events programme sites — **does not repla
 2. Root: `npm run ship -- portfolio`.
 3. On Events Hostinger: set ACF / options `companion_demo_url` to prod locks (`optionLocks.companionSeminars` / `companionAwards` / `companionPicker`) — local seed URLs must not stay live.
 4. Confirm `npm run url:lock:live` companion targets + picker/schedule/stub 200.
-5. Restore local MAMP demo: `npm run ship:portfolio:local`.
+5. Restore local demo: `npm run ship:portfolio:local`.
 
 ## Paths & naming
 
@@ -75,7 +75,7 @@ Companion **React demo** extends MSR Events programme sites — **does not repla
 | **JSON feed (v1)** | `sites/portfolio/apps/event-companion/public/data/msrseminars.json` (A1) |
 | **JSON sample (A0)** | `public/data/msrseminars.sample.json` |
 | **Session id map** | `docs/SESSION_ID_MAP.md` |
-| **Local URL** | `http://127.0.0.1:8888/sites/portfolio/projects/event-companion/?event=msrseminars` |
+| **Local URL** | `http://127.0.0.1/sites/portfolio/projects/event-companion/?event=msrseminars` |
 | **Optional public GitHub** | `https://github.com/msreeves/event-companion` (Track B4) |
 
 ---

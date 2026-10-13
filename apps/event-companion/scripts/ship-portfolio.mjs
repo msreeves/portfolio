@@ -2,10 +2,10 @@
 /**
  * Copy production build to the portfolio demo folder + SPA .htaccess.
  * Run from sites/portfolio/apps/event-companion:
- *   npm run ship:portfolio:local   # MAMP base + keep .local feed URLs
+ *   npm run ship:portfolio:local   # Herd base + keep .local feed URLs
  *   npm run ship:portfolio         # Hostinger base + rewrite feeds to prod URLs
  *
- * After a prod ship, restore MAMP with ship:portfolio:local before local demos.
+ * After a prod ship, restore Herd with ship:portfolio:local before local demos.
  */
 import { cpSync, existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
@@ -63,7 +63,7 @@ function rewriteDataFeedsForProd() {
     if (!row?.local || !row?.prod) continue
     pairs.push([row.local.replace(/\/$/, ''), row.prod.replace(/\/$/, '')])
   }
-  // Path-style MAMP aliases
+  // Path-style Herd aliases
   for (const alias of map.localAliases || []) {
     if (alias.local && alias.prod) {
       pairs.push([alias.local.replace(/\/$/, ''), alias.prod.replace(/\/$/, '')])
@@ -71,12 +71,12 @@ function rewriteDataFeedsForProd() {
   }
   // Explicit companion + portfolio path variants used in feeds
   pairs.push([
-    'http://127.0.0.1:8888/sites/portfolio/projects/event-companion',
+    'http://127.0.0.1/sites/portfolio/projects/event-companion',
     'https://www.msreeves.co.uk/projects/event-companion',
   ])
   pairs.sort((a, b) => b[0].length - a[0].length)
 
-  const banned = map.bannedLiveSubstrings || ['127.0.0.1', 'localhost', 'msrevents.local', ':8888']
+  const banned = map.bannedLiveSubstrings || ['127.0.0.1', 'localhost', 'msrevents.local', '']
   const dataDir = path.join(dest, 'data')
   if (!existsSync(dataDir)) return
 
@@ -109,9 +109,9 @@ console.log(`Shipped → ${dest}`)
 console.log(`RewriteBase ${rewriteBase}`)
 if (isProdShip) {
   console.log('Open https://www.msreeves.co.uk/projects/event-companion/')
-  console.log('Restore MAMP after Hostinger upload: npm run ship:portfolio:local')
+  console.log('Restore Herd after Hostinger upload: npm run ship:portfolio:local')
 } else {
   console.log(
-    'Open http://127.0.0.1:8888/sites/portfolio/projects/event-companion/?event=msrseminars',
+    'Open http://127.0.0.1/sites/portfolio/projects/event-companion/?event=msrseminars',
   )
 }

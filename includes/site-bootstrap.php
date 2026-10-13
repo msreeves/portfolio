@@ -697,13 +697,10 @@ function cms_portfolio_lanes_data(): array
 
 /** MSR programme case studies for the featured grid (code-side; URLs are release targets). */
 
-function cms_portfolio_request_is_local_mamp(): bool
+function cms_portfolio_request_is_local_dev(): bool
 {
     $fullHost = strtolower((string) ($_SERVER['HTTP_HOST'] ?? ''));
     if ($fullHost === '') {
-        return true;
-    }
-    if (str_contains($fullHost, ':8888')) {
         return true;
     }
     $host = preg_replace('/:\d+$/', '', $fullHost) ?? $fullHost;
@@ -719,14 +716,14 @@ function cms_portfolio_request_is_local_mamp(): bool
 
 function cms_portfolio_msr_publishing_demo_url(): string
 {
-    if (cms_portfolio_request_is_local_mamp()) {
+    if (cms_portfolio_request_is_local_dev()) {
         return '/sites/wp/msrpublishing/';
     }
 
     return 'https://www.msreeves.co.uk/msrpublishing/';
 }
 
-/** Rewrite local MAMP estate paths in CMS HTML to release targets on live portfolio. */
+/** Rewrite local estate paths in CMS HTML to release targets on live portfolio. */
 
 function cms_portfolio_rewrite_estate_urls_in_html(string $html): string
 {
@@ -764,17 +761,17 @@ function cms_msr_case_study_cards(): array
             'featured' => true,
             'lane' => 'current',
             'badge' => 'In progress',
-            'title' => 'Perception — comic production workspace (in progress)',
-            'stack' => 'PHP · Node · MAMP · Cover · Book · Ship · Sites/Projects/Preview',
+            'title' => 'Perception — graphic novel (production studio case study)',
+            'stack' => 'Production studio case study · art pipeline · Herd Cover · Book · Ship',
             'bullets' => [
-                ['icon' => 'fas fa-book', 'text' => 'Vegas noir GN (WIP) plus Cover · Book · Ship production programme'],
-                ['icon' => 'fas fa-layer-group', 'text' => 'Local MAMP estate — Sites · Projects · Preview with owner gates'],
-                ['icon' => 'fas fa-screwdriver-wrench', 'text' => 'Machine-checkable done: automated acceptance plus Playwright and accessibility review when UI changes'],
+                ['icon' => 'fas fa-palette', 'text' => 'Studio-first showcase — art direction, Modes pipeline visuals, WIP Part One cover'],
+                ['icon' => 'fas fa-book-open', 'text' => 'Case study — decision log, craft evidence, cover hub (A–G); Story DNA phase'],
+                ['icon' => 'fas fa-layer-group', 'text' => 'Digital edition not started; Studio stays off the public server; machine-checkable acceptance on portfolio UI'],
             ],
             'thumb' => './media/images/case-studies/perception.jpg',
             'thumb_alt' => 'Perception Volume 1 front cover — prestige crime noir graphic novel',
             'view_url' => './projects/perception/',
-            'view_label' => 'View case study',
+            'view_label' => 'Perception overview',
             'code_url' => '',
         ],
         [

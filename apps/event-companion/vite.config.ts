@@ -2,7 +2,7 @@ import path from 'node:path'
 import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 
-/** Prod Hostinger path. Local MAMP: EVENT_COMPANION_BASE=/sites/portfolio/projects/event-companion/ */
+/** Prod Hostinger path. Local: EVENT_COMPANION_BASE=/sites/portfolio/projects/event-companion/ */
 const PROD_BASE = '/projects/event-companion/'
 
 export default defineConfig(({ mode }) => {

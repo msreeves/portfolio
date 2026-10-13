@@ -2,7 +2,7 @@
 
 Day-of schedule **companion demo** for MSR Events (hub + Awards + Seminars) — programme picker, today / on-now, saved sessions, and Register handoff to the same booking URL as WordPress.
 
-**Local demo:** [picker](http://127.0.0.1:8888/sites/portfolio/projects/event-companion/) · [Seminars schedule](http://127.0.0.1:8888/sites/portfolio/projects/event-companion/?event=msrseminars) · [Awards stub](http://127.0.0.1:8888/sites/portfolio/projects/event-companion/?event=msrawards)
+**Local demo:** [picker](http://127.0.0.1/sites/portfolio/projects/event-companion/) · [Seminars schedule](http://127.0.0.1/sites/portfolio/projects/event-companion/?event=msrseminars) · [Awards stub](http://127.0.0.1/sites/portfolio/projects/event-companion/?event=msrawards)
 
 > Portfolio companion demo — static JSON feed; not a native app store build. Programme websites link out to this SPA.
 
@@ -32,12 +32,12 @@ Awards (`?event=msrawards`) is **stub mode** (no agenda CPT — website-led). De
 - Sticky header + footer: **Back to website** → `site_url` (programme home)
 - **All programmes** → picker (`./`)
 - Optional **Hub event page** → `event_page_url`
-- Feed fields (local MAMP):
+- Feed fields (local):
 
 | Field | Local | Production (Owner B5 / Hostinger) |
 |-------|-------|-----------------------------------|
-| `site_url` | `http://msrevents.local:8888/msrseminars/` | `https://www.msreeves.co.uk/events/msrseminars/` |
-| `event_page_url` | `http://msrevents.local:8888/event/msrseminars/` | hub event URL on live Events |
+| `site_url` | `http://msrevents.local/msrseminars/` | `https://www.msreeves.co.uk/events/msrseminars/` |
+| `event_page_url` | `http://msrevents.local/event/msrseminars/` | hub event URL on live Events |
 | Catalog | `data/catalog.json` | same path under `/projects/event-companion/` |
 | Unknown exit | picker + hub `/our-events/` | same paths on live |
 
@@ -67,7 +67,7 @@ docs/            SESSION_ID_MAP.md, DATA_FEED.md
 If this folder lives inside the MSR portfolio tree (`sites/portfolio/apps/event-companion/`):
 
 ```bash
-npm run ship:portfolio:local   # MAMP base → projects/event-companion/
+npm run ship:portfolio:local   # Herd base → projects/event-companion/
 npm run ship:portfolio         # prod Vite base /projects/event-companion/
 ```
 

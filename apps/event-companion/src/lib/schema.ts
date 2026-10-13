@@ -105,6 +105,6 @@ export type CatalogStatus = z.infer<typeof CatalogStatusSchema>
 export type CatalogProgramme = z.infer<typeof CatalogProgrammeSchema>
 export type CompanionCatalog = z.infer<typeof CompanionCatalogSchema>
 
-/** Fallbacks when feed unknown / missing (local MAMP). */
-export const HUB_EVENTS_URL = 'http://msrevents.local:8888/our-events/'
-export const SEMINARS_HOME_URL = 'http://msrevents.local:8888/msrseminars/'
+/** Fallbacks when feed unknown / missing (local). */
+export const HUB_EVENTS_URL = 'http://msrevents.local/our-events/'
+export const SEMINARS_HOME_URL = 'http://msrevents.local/msrseminars/'

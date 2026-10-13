@@ -9,7 +9,7 @@
 	RewriteCond %{ENV:REDIRECT_STATUS} ^$
 	RewriteRule ^msrsandbox/(.*)$ /msrpublishing/$1 [R=301,L]
 
-	# Publishing WP: route pretty URLs to index.php (fixes MAMP RewriteBase on live + missing subfolder rules).
+	# Publishing WP: route pretty URLs to index.php (fixes local RewriteBase on live + missing subfolder rules).
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteCond %{REQUEST_FILENAME} !-d
 	RewriteRule ^msrpublishing/?(.*)$ msrpublishing/index.php [L,QSA]
