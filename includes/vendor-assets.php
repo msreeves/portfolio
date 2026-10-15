@@ -46,6 +46,13 @@ function cms_vendor_href_admin(string $relative): string
     return '../' . cms_vendor_uri($relative) . '?v=' . rawurlencode($q);
 }
 
+/** Static or PHP pages under projects/{slug}/ — vendor tree is two levels up. */
+function cms_vendor_href_projects(string $relative): string
+{
+    $q = cms_vendor_v();
+    return '../../' . cms_vendor_uri($relative) . '?v=' . rawurlencode($q);
+}
+
 function cms_vendor_base_admin(string $relative): string
 {
     return '../' . cms_vendor_uri($relative);

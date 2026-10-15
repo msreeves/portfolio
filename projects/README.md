@@ -1,56 +1,23 @@
-# Portfolio project demos
+# Portfolio mini-demos (not MSR Projects)
 
-This folder holds **shipped** mini-sites and their **card JSON**. It is not the same as repo-root `projects/` (source / WIP).
+Static/SPA **showcase** folders for the portfolio site (`sites/portfolio/`).
 
-## Layout
+| This path | Not this |
+|-----------|----------|
+| `sites/portfolio/projects/*` | Repo-root `projects/comic/` (graphic novel production) |
+| Case studies & demos on portfolio | **Projects** app `http://127.0.0.1:4088/` |
 
-| Path | Purpose |
-|------|---------|
-| `<slug>/` | Built demo (static files Apache can serve) |
-| `<slug>.json` | Card metadata — drives **localhost hub** + optional **archive** grid |
-| `_project.card.example.json` | Template (ignored by loaders) |
+Card JSON: `*.json` here. `hub: false` — demos are **not** nested on the Sites hub (open **Portfolio** on Sites instead).
 
-## JSON fields
+## Stack C — assets on active case studies (L2)
 
-| Field | Required | Notes |
-|-------|----------|--------|
-| `slug` | recommended | Folder name under `projects/` |
-| `title` | **yes** | Hub + archive label |
-| `view_url` | **yes** (hub) | Relative, e.g. `./projects/my-demo/` |
-| `thumb` | **yes** (archive) | Relative image path under portfolio |
-| `stack` | recommended | Short tech line |
-| `summary` | recommended | One–two sentences |
-| `code_url` | recommended | GitHub URL |
-| `order` | optional | Sort key (lower first). Default `9999` |
-| `active` | optional | `false` hides everywhere. Default on |
-| `hub` | optional | `false` hides on `http://127.0.0.1:8888/` Portfolio mini-sites. Default `true` |
-| `archive` | optional | `false` hides from portfolio homepage archive accordion. Default `true` |
+**Not Stack A** — do not link `localhost/workspace-*` or workspace nav here.
 
-### Featured case studies (separate)
+| Surface | Asset model |
+|---------|-------------|
+| Portfolio home (`index.php`) | `includes/vendor-assets.php` → `./vendor/…` |
+| Case study under `projects/{slug}/` | Self-hosted **`../../vendor/…`** (fonts, Bootstrap, Font Awesome + v4-shims) then `../../css/style.css` · or PHP `cms_vendor_href_projects()` from `vendor-assets.php` |
+| Built SPAs (`atlas-ops`, `event-companion`) | Vite build output only — no CDN Bootstrap on ship tree |
+| Legacy demos (`game`, `movie-api`, …) | **Legacy exhibit** — CDN OK until owner unparks |
 
-Recruiter “Lead case study” cards live in PHP:
-
-`sites/portfolio/includes/site-bootstrap.php` → `cms_msr_case_study_cards()`
-
-Use a card JSON with `"archive": false` when the demo is featured there, so it still appears on the **local hub** without duplicating the archive grid (see `atlas-ops.json`).
-
-## Checklist for a new demo
-
-1. Develop under `sites/portfolio/apps/<slug>/` (see `sites/portfolio/apps/README.md`). Non-portfolio sandboxes may still use repo-root `projects/` (e.g. comic).
-2. Ship built assets to `sites/portfolio/projects/<slug>/` (correct Vite/`base` + SPA `.htaccess` if needed).
-3. Copy `_project.card.example.json` → `<slug>.json` and fill fields.
-4. Add thumb under `sites/portfolio/media/images/…`.
-5. If featured: add `cms_msr_case_study_cards()` entry; set `"archive": false` on the JSON.
-6. Refresh hub cache: `http://127.0.0.1:8888/?hub_refresh=1`
-7. Confirm: hub mini-site link + portfolio live URL.
-
-## Current cards
-
-| JSON | Hub | Archive |
-|------|-----|---------|
-| `perception.json` | yes | no (featured case study) |
-| `atlas-ops.json` | yes | no (featured case study) |
-| `event-companion.json` | no | yes (archive only) |
-| `movie-api.json` | yes | yes |
-| `game.json` | yes | yes |
-| `hairdressing.json` | yes | yes |
+**Live-safe:** no `:4088` / `:4090` / `:4000` / `127.0.0.1` CTAs on shippable HTML; prose-only local notes OK. Gate: `npm run estate:live-ship:check` from repo root.

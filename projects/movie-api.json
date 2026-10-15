@@ -7,5 +7,6 @@
     "view_url": ".\/projects\/movie-api\/",
     "code_url": "https://github.com/msreeves87/movie-search/",
     "order": 10,
+    "hub": false,
     "standardsTier": "legacy"
 }

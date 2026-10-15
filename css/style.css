@@ -12,6 +12,8 @@ body.msr-portfolio {
   --msr-red: #b22222;
   --msr-text-on-dark: #e4e4ea;
   --msr-text-muted: #a8a8b8;
+  --msr-link: #e4c04a;
+  --msr-link-hover: #f5e6a8;
   --msr-shell-max: 72rem;
   --msr-shell-pad: clamp(1rem, 2.8vw, 1.5rem);
   --msr-section-space: clamp(2.75rem, 7vw, 4.75rem);
@@ -1430,6 +1432,58 @@ a {
   font-family: inherit;
   font-weight: inherit;
   color: #000;
+}
+
+/* Perception / case-study pages — prose links on dark stage (not chips or card teasers) */
+body.msr-portfolio.perception-case-page .portfolio-flow
+  :where(
+    p,
+    li,
+    figcaption,
+    .perception-case__outcome,
+    .perception-reader-alias__lede,
+    .perception-reader-alias__meta,
+    .perception-hub__footer,
+    .perception-gallery__links,
+    .perception-studio__prose,
+    .perception-studio__interview
+  )
+  a:not(.portfolio-chip) {
+  color: var(--msr-link);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  text-decoration-thickness: 1px;
+}
+
+body.msr-portfolio.perception-case-page .portfolio-flow
+  :where(
+    p,
+    li,
+    figcaption,
+    .perception-case__outcome,
+    .perception-reader-alias__lede,
+    .perception-reader-alias__meta,
+    .perception-hub__footer,
+    .perception-gallery__links,
+    .perception-studio__prose,
+    .perception-studio__interview
+  )
+  a:not(.portfolio-chip):hover,
+body.msr-portfolio.perception-case-page .portfolio-flow
+  :where(
+    p,
+    li,
+    figcaption,
+    .perception-case__outcome,
+    .perception-reader-alias__lede,
+    .perception-reader-alias__meta,
+    .perception-hub__footer,
+    .perception-gallery__links,
+    .perception-studio__prose,
+    .perception-studio__interview
+  )
+  a:not(.portfolio-chip):focus-visible {
+  color: var(--msr-link-hover);
 }
 
 html {

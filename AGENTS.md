@@ -12,4 +12,4 @@
 
 **Gates:** `edit:verify` · `ACCEPTANCE_CONFIG=config/portfolio-acceptance.json npm run msr:acceptance` · `review:site -- portfolio`.
 
-**Local URL:** `http://127.0.0.1:8888/sites/portfolio/`
+**Local URL:** `http://127.0.0.1/sites/portfolio/`

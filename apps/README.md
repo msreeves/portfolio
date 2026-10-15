@@ -5,7 +5,7 @@ React (and similar) **source apps** that ship as static demos under `sites/portf
 | Path | Role |
 |------|------|
 | `apps/<slug>/` | Develop here (`npm run dev`) |
-| `projects/<slug>/` | Shipped build Apache serves |
+| `projects/<slug>/` | Shipped static build (Herd docroot on local; rsync with portfolio) |
 | `projects/<slug>.json` | Hub + archive card metadata |
 
 ## Atlas Ops

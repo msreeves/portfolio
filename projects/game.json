@@ -7,5 +7,6 @@
     "view_url": ".\/projects\/game\/",
     "code_url": "https://github.com/msreeves87/hangman-game",
     "order": 20,
+    "hub": false,
     "standardsTier": "legacy"
 }
