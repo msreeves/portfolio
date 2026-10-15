@@ -6,7 +6,7 @@
 
 | Environment | Example |
 |-------------|---------|
-| Local picker (C1a) | `http://127.0.0.1:8888/sites/portfolio/projects/event-companion/` |
+| Local picker (C1a) | `http://127.0.0.1/sites/portfolio/projects/event-companion/` |
 | Local Seminars | `…/event-companion/?event=msrseminars` |
 | Local Awards (C1b stub) | `…/event-companion/?event=msrawards` |
 | Vite dev | `http://127.0.0.1:5173/` (picker) · `?event=msrseminars` · `?event=msrawards` |

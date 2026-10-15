@@ -4,14 +4,14 @@
   "mode": "schedule",
   "timezone": "Europe/London",
   "delegate_phase": "registration",
-  "companion_demo_url": "http://127.0.0.1:8888/sites/portfolio/projects/event-companion/?event=msrseminars",
+  "companion_demo_url": "http://127.0.0.1/sites/portfolio/projects/event-companion/?event=msrseminars",
   "booking_url": "mailto:hello@example.com?subject=MSR%20Seminars%20registration%20(demo)",
   "disclaimer": "Portfolio companion demo — not an App Store product. Registration opens the same booking URL as the website.",
   "demo_dates": [
     "2026-06-18",
     "2026-06-19"
   ],
-  "agenda_url": "http://msrevents.local:8888/msrseminars/agenda/",
+  "agenda_url": "http://msrevents.local/msrseminars/agenda/",
   "tracks": [
     {
       "id": "training",
@@ -53,7 +53,7 @@
       "starts_at": "2026-06-18T09:00:00+01:00",
       "ends_at": "2026-06-18T09:45:00+01:00",
       "summary": "A plenary on how organisations are redesigning learning around outcomes, peers, and measurable capability.",
-      "agenda_url": "http://msrevents.local:8888/msrseminars/agenda/#seminars-session-313-1"
+      "agenda_url": "http://msrevents.local/msrseminars/agenda/#seminars-session-313-1"
     },
     {
       "id": "seminars-session-313-2",
@@ -63,7 +63,7 @@
       "starts_at": "2026-06-18T10:00:00+01:00",
       "ends_at": "2026-06-18T11:30:00+01:00",
       "summary": "Practice facilitation techniques you can reuse in internal academies and client workshops.",
-      "agenda_url": "http://msrevents.local:8888/msrseminars/agenda/#seminars-session-313-2"
+      "agenda_url": "http://msrevents.local/msrseminars/agenda/#seminars-session-313-2"
     },
     {
       "id": "seminars-session-313-4",
@@ -73,7 +73,7 @@
       "starts_at": "2026-06-18T13:30:00+01:00",
       "ends_at": "2026-06-18T14:30:00+01:00",
       "summary": "L&D leaders share how they connect programmes to business metrics without vanity reporting.",
-      "agenda_url": "http://msrevents.local:8888/msrseminars/agenda/#seminars-session-313-4"
+      "agenda_url": "http://msrevents.local/msrseminars/agenda/#seminars-session-313-4"
     },
     {
       "id": "seminars-session-353-0",
@@ -83,7 +83,7 @@
       "starts_at": "2026-06-18T09:30:00+01:00",
       "ends_at": "2026-06-18T10:15:00+01:00",
       "summary": "Executive perspective on decision-making when markets, regulation, and teams all shift at once.",
-      "agenda_url": "http://msrevents.local:8888/msrseminars/agenda/#seminars-session-353-0"
+      "agenda_url": "http://msrevents.local/msrseminars/agenda/#seminars-session-353-0"
     },
     {
       "id": "seminars-session-232-0",
@@ -93,7 +93,7 @@
       "starts_at": "2026-06-18T09:00:00+01:00",
       "ends_at": "2026-06-18T09:45:00+01:00",
       "summary": "How rigorous evidence changes programme design, accreditation, and public trust.",
-      "agenda_url": "http://msrevents.local:8888/msrseminars/agenda/#seminars-session-232-0"
+      "agenda_url": "http://msrevents.local/msrseminars/agenda/#seminars-session-232-0"
     },
     {
       "id": "seminars-session-354-1",
@@ -103,7 +103,7 @@
       "starts_at": "2026-06-19T09:45:00+01:00",
       "ends_at": "2026-06-19T10:30:00+01:00",
       "summary": "Separating durable AI use cases from hype—and what governance must look like in 2026.",
-      "agenda_url": "http://msrevents.local:8888/msrseminars/agenda/#seminars-session-354-1"
+      "agenda_url": "http://msrevents.local/msrseminars/agenda/#seminars-session-354-1"
     },
     {
       "id": "seminars-session-239-5",
@@ -113,9 +113,9 @@
       "starts_at": "2026-06-19T13:30:00+01:00",
       "ends_at": "2026-06-19T14:15:00+01:00",
       "summary": "Synthesis of themes from both days—leadership, digital, and people priorities.",
-      "agenda_url": "http://msrevents.local:8888/msrseminars/agenda/#seminars-session-239-5"
+      "agenda_url": "http://msrevents.local/msrseminars/agenda/#seminars-session-239-5"
     }
   ],
-  "site_url": "http://msrevents.local:8888/msrseminars/",
-  "event_page_url": "http://msrevents.local:8888/event/msrseminars/"
+  "site_url": "http://msrevents.local/msrseminars/",
+  "event_page_url": "http://msrevents.local/event/msrseminars/"
 }

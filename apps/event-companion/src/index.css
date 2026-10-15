@@ -25,7 +25,7 @@
   --msr-accent-dark: #1e7d66;
   --msr-accent-light: #3ec4a0;
   --msr-accent-soft: rgba(42, 170, 138, 0.22);
-  --msr-on-accent: #ffffff;
+  --msr-on-accent: #0f0f0f;
 }
 
 [data-programme='msrawards'] {

@@ -88,11 +88,9 @@ export function ProgrammePickerView() {
                 <h2 className="font-display text-xl font-bold text-ink">{p.title}</h2>
                 <span
                   className={`rounded-sm px-2.5 py-0.5 text-xs font-semibold ${
-                    ready
-                      ? 'bg-accent-soft text-accent-light'
-                      : stub
-                        ? 'bg-accent-soft text-accent-light'
-                        : 'bg-ink/10 text-ink-muted'
+                    ready || stub
+                      ? 'bg-accent-soft text-ink'
+                      : 'bg-ink/10 text-ink-muted'
                   }`}
                 >
                   {ready ? 'Schedule ready' : stub ? 'Website-led' : 'Website only'}
@@ -124,7 +122,7 @@ export function ProgrammePickerView() {
                 {p.event_page_url ? (
                   <a
                     href={p.event_page_url}
-                    className="inline-flex min-h-11 items-center text-sm font-medium text-accent-light underline-offset-2 hover:underline"
+                    className="inline-flex min-h-11 items-center text-sm font-medium text-ink underline-offset-2 hover:text-accent-light hover:underline"
                   >
                     Hub event page
                   </a>
@@ -139,7 +137,7 @@ export function ProgrammePickerView() {
         Or browse{' '}
         <a
           href={catalog.hub_events_url}
-          className="font-semibold text-accent-light underline-offset-2 hover:underline"
+          className="font-semibold text-ink underline-offset-2 hover:text-accent-light hover:underline"
         >
           all hub events
         </a>{' '}

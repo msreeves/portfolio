@@ -94,7 +94,7 @@ export function StubProgrammeView({ feed }: Props) {
             <p className="mt-4 text-sm">
               <a
                 href={feed.event_page_url}
-                className="font-medium text-accent-light underline-offset-2 hover:underline"
+                className="font-medium text-accent underline-offset-2 hover:underline"
               >
                 Hub event page
               </a>
@@ -107,7 +107,7 @@ export function StubProgrammeView({ feed }: Props) {
         <div className="mb-4 flex flex-wrap items-center gap-3 rounded-sm border border-ink/10 bg-paper-card px-4 py-3">
           <a
             href={feed.site_url}
-            className="inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold text-accent-light hover:underline"
+            className="inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold text-accent hover:underline"
           >
             <span aria-hidden="true">←</span>
             Back to website

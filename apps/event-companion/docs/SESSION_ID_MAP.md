@@ -1,6 +1,6 @@
 # Session ID map — Event Companion ↔ Seminars agenda
 
-**Verified:** 2026-08-21 against live `http://msrevents.local:8888/msrseminars/agenda/` (36 anchors).
+**Verified:** 2026-08-21 against live `http://msrevents.local/msrseminars/agenda/` (36 anchors).
 
 **Source of truth (web):** `msrseminars_get_session_anchor_id( $agenda_post_id, $row_index )`  
 → HTML `id` / `.ics` filename stem: `seminars-session-{post_id}-{index}`  
@@ -24,7 +24,7 @@
 Re-check after agenda reseed / PR-5:
 
 ```bash
-curl -sS "http://msrevents.local:8888/msrseminars/agenda/" \
+curl -sS "http://msrevents.local/msrseminars/agenda/" \
   | rg -o 'id="seminars-session-[0-9]+-[0-9]+"' | sort -u
 ```
 

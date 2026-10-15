@@ -30,7 +30,7 @@ export function SessionCard({
         <div className="min-w-0 flex-1">
           <div className="mb-1 flex flex-wrap items-center gap-2 text-xs font-medium uppercase tracking-wide text-ink-muted">
             {live ? (
-              <span className="inline-flex items-center gap-1.5 rounded-sm bg-accent-soft px-2 py-0.5 text-accent-light">
+              <span className="inline-flex items-center gap-1.5 rounded-sm bg-accent-soft px-2 py-0.5 text-ink">
                 <span className="live-dot inline-block h-1.5 w-1.5 rounded-sm bg-accent" aria-hidden />
                 On now
               </span>
@@ -47,7 +47,7 @@ export function SessionCard({
           {session.agenda_url ? (
             <p className="mt-3">
               <a
-                className="text-sm font-medium text-accent-light underline-offset-2 hover:underline"
+                className="text-sm font-medium text-accent underline-offset-2 hover:underline"
                 href={session.agenda_url}
                 target="_blank"
                 rel="noreferrer"

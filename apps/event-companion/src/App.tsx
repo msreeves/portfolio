@@ -346,7 +346,7 @@ function EventScheduleApp({ eventParam }: { eventParam: string }) {
               <button
                 type="button"
                 onClick={() => setTab('saved')}
-                className="text-sm font-medium text-accent-light underline-offset-2 hover:underline"
+                className="text-sm font-medium text-accent underline-offset-2 hover:underline"
               >
                 {saved.length} saved — open My agenda to export
               </button>
