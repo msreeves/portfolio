@@ -114,7 +114,7 @@ Seminars options may **override** only if documented in the A3-seminars seed REA
 | Remote | What lives there |
 |--------|------------------|
 | [`msreeves/portfolio`](https://github.com/msreeves/portfolio) | App source under `apps/event-companion/`; shipped static under `projects/event-companion/`; card JSON |
-| [`msreeves/msr-workspace`](https://github.com/msreeves/msr-workspace) (umbrella) | Playbook, STATUS, seeds, acceptance configs, theme bridge scripts |
+| [`msreeves/workspace`](https://github.com/msreeves/workspace) (umbrella) | Playbook, STATUS, seeds, acceptance configs, theme bridge scripts |
 | Optional [`msreeves/event-companion`](https://github.com/msreeves/event-companion) | Public mirror of app source (B4) — packaging only, not a second product |
 
 **Mirror automation:** portfolio workflow `.github/workflows/mirror-event-companion.yml` copies `apps/event-companion/` → `msreeves/event-companion` on push to `main`. Secret: `EVENT_COMPANION_PUSH_TOKEN`. Local: `npm run github:hooks:install` + commit/push portfolio.
