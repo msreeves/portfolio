@@ -1,0 +1,20 @@
+{
+    "_comment": "Lane cards in How work is labelled — section lead/AI note stay in site.json.",
+    "lanes": [
+        {
+            "id": "current",
+            "title": "Current delivery (2025–26)",
+            "body": "Portfolio shell, Projects · Preview · Storage, and featured case studies I still extend — including Atlas Briefing (MSR Publishing) as the reference WordPress build at this bar. Responsive layout, accessibility checks, and regression on key routes when UI changes."
+        },
+        {
+            "id": "programme",
+            "title": "Programme demos",
+            "body": "WordPress programme sites (Events hub, Awards, Seminars, Products) — Vite-built themes and ACF patterns kept as honest snapshots of multisite work. Smoke-tested routes; not re-skinned unless I deliberately unpark one. (Publishing / Atlas Briefing is under Current delivery.)"
+        },
+        {
+            "id": "archive",
+            "title": "Archive projects",
+            "body": "Earlier student and side builds (movie API, games, early salon site). Left visible to show progression — as-shipped snapshots, not retrofitted to today’s bar."
+        }
+    ]
+}

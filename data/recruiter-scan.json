@@ -1,0 +1,39 @@
+{
+    "_comment": "Recruiter scan band — edit here or override via site.json career_highlights_json / role_focus_json.",
+    "careerHighlights": [
+        {
+            "stat": "40+ international BSI websites",
+            "detail": "Daily digital content operations in EpiServer CMS (current role)."
+        },
+        {
+            "stat": "Hundreds of pages per launch",
+            "detail": "Enterprise publishing and review for global business divisions."
+        },
+        {
+            "stat": "WordPress programme suite",
+            "detail": "Multisite demos with honest labels — current standard vs programme snapshot."
+        }
+    ],
+    "roleFocus": [
+        {
+            "title": "WordPress / CMS",
+            "body": "Lead Atlas Briefing build, multisite programme demos, and enterprise CMS operations.",
+            "href": "#portfolio-lead-heading"
+        },
+        {
+            "title": "Front-end / React",
+            "body": "Atlas Ops SPA, Event Companion, and Vite-built programme themes.",
+            "href": "#portfolio-spotlight-heading"
+        },
+        {
+            "title": "Digital publishing",
+            "body": "Resource libraries, editorial workflows, and launch QA.",
+            "href": "#work-for"
+        },
+        {
+            "title": "Marketing / campaigns",
+            "body": "HubSpot email, Canva creative, and downloadable marketing portfolio PDF.",
+            "href": "#skills"
+        }
+    ]
+}

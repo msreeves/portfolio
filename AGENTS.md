@@ -10,9 +10,11 @@
 | [`.cursor/rules/portfolio-agent.mdc`](../../.cursor/rules/portfolio-agent.mdc) | Data source · acceptance |
 | [`docs/reference/estate-governance-map.md`](../../docs/reference/estate-governance-map.md) §0d | Gates |
 
-**Data:** `data/site.json` · `projects/*.json` · `includes/site-bootstrap.php` (large — read section map first).
+**CMS-first law:** [`docs/law/portfolio-cms-first.md`](../../docs/law/portfolio-cms-first.md) — **data-owned site** vs CMS-as-job-title (do not mix).
 
-**Selected work (lead / current focus / programme):** placement and order are **code-owned** today — see [`docs/reference/portfolio-selected-work-setup.md`](../../docs/reference/portfolio-selected-work-setup.md). Archive grid is separate (`projects/*.json`).
+**Data:** `data/site.json` · `data/*.json` (Selected work, recruiter scan, lanes, …) · `projects/*.json` · `includes/site-bootstrap.php` (loaders only — read section map first).
+
+**Selected work:** [`docs/reference/portfolio-selected-work-setup.md`](../../docs/reference/portfolio-selected-work-setup.md). Archive grid is separate (`projects/*.json`).
 
 **Gates:** `edit:verify` · `ACCEPTANCE_CONFIG=config/portfolio-acceptance.json npm run msr:acceptance` · `review:site -- portfolio`.
 

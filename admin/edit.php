@@ -14,7 +14,7 @@ $labels = [
     'intro_tagline' => 'Intro — fallback roles line (only if short tagline is empty)',
     'intro_tagline_short' => 'Intro — hero tagline (shown under name)',
     'intro_hero_headline' => 'Intro — hero headline (H1)',
-    'intro_hero_method' => 'Intro — CMS / method line (under tagline)',
+    'intro_hero_method' => 'Intro — how this site is built (content model line, not job title)',
     'heading_career_highlights' => 'Recruiter scan — career highlights heading',
     'career_highlights_json' => 'Recruiter scan — highlights JSON (optional; empty = defaults)',
     'role_focus_json' => 'Recruiter scan — role focus JSON (optional; empty = defaults)',
@@ -69,7 +69,7 @@ $wizardSteps = [
     [
         'title' => 'About',
         'section_name' => 'About section — copy and employer logos (#introduction)',
-        'hint' => 'Introduction panels and logo strip. Role tracks (CMS, WordPress, Marketing) are code-owned in cms_about_role_tracks(). Logo order/hrefs are code-owned in cms_employer_logo_items(); paths below are editable.',
+        'hint' => 'Introduction panels and logo strip. Role tracks and logo order/hrefs: data/*.json when present (see docs/law/portfolio-cms-first.md); img_gallery_* paths below stay in site.json.',
         'groups' => [
             ['label' => '', 'keys' => ['about_heading']],
             ['label' => 'Introduction — panel 1 (Profile pitch)', 'keys' => ['html_introduction_1']],

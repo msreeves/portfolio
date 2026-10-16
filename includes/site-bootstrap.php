@@ -103,8 +103,8 @@ function cms_heading_defaults(): array
         'portfolio_lanes_lead' => 'Deliberately layered: archive pieces show where I started; programme demos show WordPress programme depth; the portfolio shell and workspace tools show how I build and verify work today — with me setting scope and sign-off, not unattended generation.',
         'portfolio_lanes_ai_note' => 'I use AI-assisted editing and audit tooling in my local workflow. Scope, copy, acceptance checks, and deploy stay with me — nothing ships on a green automated check alone.',
         'portfolio_archive_intro' => 'Earlier builds labelled Archive — left visible to show progression. Live demos and GitHub links where available.',
-        'intro_hero_method' => 'Website Editor / CMS Specialist at BSI — WordPress, EpiServer, and Umbraco by day; this portfolio is JSON-driven copy plus structured selected-work data, labelled like a programme CMS.',
-        'selected_work_lead_lede' => 'Lead CMS case study — one reference WordPress build (Atlas Briefing). The <span class="msr-lane-badge msr-lane-badge--current">Current standard</span> bar programme demos are measured against (copy and links, no screenshot here).',
+        'intro_hero_method' => 'Content-first site: copy in site.json, selected work in data/selected-work.json, archive in projects/*.json — admin wizard for edits; PHP only renders layout and local vs live demo URLs.',
+        'selected_work_lead_lede' => 'Lead case study — one reference WordPress build (Atlas Briefing). The <span class="msr-lane-badge msr-lane-badge--current">Current standard</span> bar programme demos are measured against (copy and links, no screenshot here).',
         'selected_work_current_lede' => 'Current focus — active studio and SPA builds with screenshots and case-study links in this band only.',
         'selected_work_programme_lede' => 'Programme demos — four labelled <span class="msr-lane-badge msr-lane-badge--programme">Programme demo</span> WordPress snapshots in a 2×2 grid; open demos and GitHub.',
         'career_highlights_json' => '',
@@ -681,27 +681,118 @@ function cms_portfolio_lane_badge_label(string $lane): string
 
 
 /**
+ * Load a JSON document from sites/portfolio/data/ (cached per request).
+ *
+ * @return array<string, mixed>|null
+ */
+function cms_load_portfolio_data_json(string $filename): ?array
+{
+    static $cache = [];
+    if (array_key_exists($filename, $cache)) {
+        return $cache[$filename];
+    }
+
+    $filename = ltrim($filename, '/');
+    if (preg_match('#^[a-z0-9][a-z0-9._-]*\\.json$#i', $filename) !== 1) {
+        $cache[$filename] = null;
+
+        return null;
+    }
+
+    $path = __DIR__ . '/../data/' . $filename;
+    if (!is_readable($path)) {
+        $cache[$filename] = null;
+
+        return null;
+    }
+
+    $data = json_decode((string) file_get_contents($path), true);
+    if (!is_array($data)) {
+        $cache[$filename] = null;
+
+        return null;
+    }
+
+    $cache[$filename] = $data;
+
+    return $data;
+}
+
+/**
  * @return list<array{id: string, title: string, body: string}>
  */
 function cms_portfolio_lanes_data(): array
 {
-    return [
-        [
-            'id' => 'current',
-            'title' => 'Current delivery (2025–26)',
-            'body' => 'Portfolio shell, Projects · Preview · Storage, and featured case studies I still extend — including Atlas Briefing (MSR Publishing) as the reference WordPress build at this bar. Responsive layout, accessibility checks, and regression on key routes when UI changes.',
-        ],
-        [
-            'id' => 'programme',
-            'title' => 'Programme demos',
-            'body' => 'WordPress programme sites (Events hub, Awards, Seminars, Products) — Vite-built themes and ACF patterns kept as honest snapshots of multisite work. Smoke-tested routes; not re-skinned unless I deliberately unpark one. (Publishing / Atlas Briefing is under Current delivery.)',
-        ],
-        [
-            'id' => 'archive',
-            'title' => 'Archive projects',
-            'body' => 'Earlier student and side builds (movie API, games, early salon site). Left visible to show progression — as-shipped snapshots, not retrofitted to today’s bar.',
-        ],
-    ];
+    $data = cms_load_portfolio_data_json('portfolio-lanes.json');
+    $lanes = $data['lanes'] ?? null;
+    if (!is_array($lanes)) {
+        return [];
+    }
+
+    $out = [];
+    foreach ($lanes as $lane) {
+        if (!is_array($lane)) {
+            continue;
+        }
+        $id = trim((string) ($lane['id'] ?? ''));
+        $title = trim((string) ($lane['title'] ?? ''));
+        $body = trim((string) ($lane['body'] ?? ''));
+        if ($id === '' || $title === '' || $body === '') {
+            continue;
+        }
+        $out[] = ['id' => $id, 'title' => $title, 'body' => $body];
+    }
+
+    return $out;
+}
+
+/**
+ * @return array{careerHighlights: list<array{stat: string, detail: string}>, roleFocus: list<array{title: string, body: string, href: string}>}
+ */
+function cms_recruiter_scan_from_data_file(): array
+{
+    $empty = ['careerHighlights' => [], 'roleFocus' => []];
+    $data = cms_load_portfolio_data_json('recruiter-scan.json');
+    if ($data === null) {
+        return $empty;
+    }
+
+    $highlights = [];
+    foreach ((array) ($data['careerHighlights'] ?? []) as $row) {
+        if (!is_array($row)) {
+            continue;
+        }
+        $stat = trim((string) ($row['stat'] ?? ''));
+        if ($stat === '') {
+            continue;
+        }
+        $highlights[] = [
+            'stat' => $stat,
+            'detail' => trim((string) ($row['detail'] ?? '')),
+        ];
+    }
+
+    $focus = [];
+    foreach ((array) ($data['roleFocus'] ?? []) as $row) {
+        if (!is_array($row)) {
+            continue;
+        }
+        $title = trim((string) ($row['title'] ?? ''));
+        if ($title === '') {
+            continue;
+        }
+        $href = trim((string) ($row['href'] ?? '#recent-portfolio'));
+        if ($href === '') {
+            $href = '#recent-portfolio';
+        }
+        $focus[] = [
+            'title' => $title,
+            'body' => trim((string) ($row['body'] ?? '')),
+            'href' => $href,
+        ];
+    }
+
+    return ['careerHighlights' => $highlights, 'roleFocus' => $focus];
 }
 
 
@@ -981,29 +1072,16 @@ function cms_content_field(array $content, string $key): string
  */
 function cms_career_highlight_items(array $content = []): array
 {
-    $defaults = [
-        [
-            'stat' => 'CMS at enterprise scale',
-            'detail' => '40+ international BSI websites — daily publishing in EpiServer CMS (current Website Editor role).',
-        ],
-        [
-            'stat' => 'WordPress lead case study',
-            'detail' => 'Atlas Briefing reference build — ACF, resource library, and regression on publishing routes.',
-        ],
-        [
-            'stat' => 'Hundreds of pages per launch',
-            'detail' => 'Enterprise publishing workflows, stakeholder review, and launch QA.',
-        ],
-    ];
+    $fromFile = cms_recruiter_scan_from_data_file()['careerHighlights'];
 
     $raw = trim((string) ($content['career_highlights_json'] ?? ''));
     if ($raw === '') {
-        return $defaults;
+        return $fromFile;
     }
 
     $decoded = json_decode($raw, true);
     if (!is_array($decoded)) {
-        return $defaults;
+        return $fromFile;
     }
 
     $out = [];
@@ -1021,7 +1099,7 @@ function cms_career_highlight_items(array $content = []): array
         ];
     }
 
-    return $out !== [] ? $out : $defaults;
+    return $out !== [] ? $out : $fromFile;
 }
 
 
@@ -1036,37 +1114,16 @@ function cms_career_highlight_items(array $content = []): array
  */
 function cms_role_focus_entries(array $content = []): array
 {
-    $defaults = [
-        [
-            'title' => 'WordPress / CMS',
-            'body' => 'Lead Atlas Briefing build, multisite programme demos, and BSI EpiServer operations.',
-            'href' => '#portfolio-lead-heading',
-        ],
-        [
-            'title' => 'Front-end / React',
-            'body' => 'Atlas Ops SPA, Event Companion, and Vite-built programme themes.',
-            'href' => '#portfolio-spotlight-heading',
-        ],
-        [
-            'title' => 'Digital publishing',
-            'body' => 'BSI scale, resource libraries, editorial workflows, and launch QA.',
-            'href' => '#work-for',
-        ],
-        [
-            'title' => 'Marketing / campaigns',
-            'body' => 'HubSpot email, Canva creative, and downloadable marketing portfolio PDF.',
-            'href' => '#skills',
-        ],
-    ];
+    $fromFile = cms_recruiter_scan_from_data_file()['roleFocus'];
 
     $raw = trim((string) ($content['role_focus_json'] ?? ''));
     if ($raw === '') {
-        return $defaults;
+        return $fromFile;
     }
 
     $decoded = json_decode($raw, true);
     if (!is_array($decoded)) {
-        return $defaults;
+        return $fromFile;
     }
 
     $out = [];
@@ -1089,7 +1146,7 @@ function cms_role_focus_entries(array $content = []): array
         ];
     }
 
-    return $out !== [] ? $out : $defaults;
+    return $out !== [] ? $out : $fromFile;
 }
 
 
