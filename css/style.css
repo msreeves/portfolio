@@ -700,8 +700,35 @@ body.msr-portfolio > a.visually-hidden-focusable:focus-visible {
   max-height: min(22rem, 52vw);
 }
 
+#recent-portfolio .portfolio-case-study-band-intro--lead {
+  margin-top: var(--msr-stack-gap, 1.25rem);
+}
+
 #recent-portfolio .portfolio-case-study-band-intro--current {
   margin-top: var(--msr-section-space-tight, 2.5rem);
+}
+
+#recent-portfolio .portfolio-selected-work-map {
+  margin: 0;
+  padding-left: 1.15rem;
+  max-width: var(--msr-prose-wide, 48rem);
+  color: #e4e4ea;
+  line-height: 1.55;
+  font-size: 0.98rem;
+}
+
+#recent-portfolio .portfolio-selected-work-map li {
+  margin-bottom: 0.45rem;
+}
+
+#recent-portfolio .portfolio-selected-work-map li:last-child {
+  margin-bottom: 0;
+}
+
+#recent-portfolio .portfolio-selected-work-map em {
+  color: var(--msr-text-muted, #a8a8b8);
+  font-style: normal;
+  font-size: 0.92rem;
 }
 
 #recent-portfolio .portfolio-case-study-band-intro--programme {

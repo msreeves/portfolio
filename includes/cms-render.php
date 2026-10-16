@@ -407,10 +407,31 @@ function cms_msr_case_study_card_density(array $card): string
 }
 
 /**
+ * Homepage Selected work: screenshots only on Current focus (lane current, not featured).
+ *
+ * @param array<string, mixed> $card
+ */
+function cms_msr_case_study_show_home_media(array $card): bool
+{
+    if (array_key_exists('home_media', $card)) {
+        return (bool) $card['home_media'];
+    }
+    if (!empty($card['featured'])) {
+        return false;
+    }
+
+    return trim((string) ($card['lane'] ?? '')) === 'current';
+}
+
+/**
  * @param array<string, mixed> $card
  */
 function cms_render_msr_case_study_thumb_media(array $card, string $thumb, string $thumbAlt): void
 {
+    if (!cms_msr_case_study_show_home_media($card)) {
+        return;
+    }
+
     $role = cms_msr_case_study_thumb_role($card);
     if ($role === 'none' || $thumb === '') {
         return;
@@ -687,19 +708,19 @@ function cms_render_msr_case_study_grid(): void
     }
 
     if ($leadCards !== []) {
+        echo '<div class="portfolio-case-study-band-intro portfolio-case-study-band-intro--lead">';
+        echo '<h3 class="portfolio-band-subtitle h4" id="portfolio-lead-heading">Lead case study</h3>';
+        echo '<p class="portfolio-case-study-band-lede">One reference WordPress build — the <span class="msr-lane-badge msr-lane-badge--current">Current standard</span> bar programme demos are measured against (copy and links, no screenshot here).</p>';
+        echo '</div>';
         echo '<div class="portfolio-lead-case-study">';
-        cms_render_msr_case_study_card_grid(
-            $leadCards,
-            'portfolio-case-study-grid--lead portfolio-content-grid--solo portfolio-content-grid--has-lead portfolio-content-grid--fluid-proof',
-            1
-        );
+        cms_render_msr_case_study_index_list($leadCards, 'portfolio-case-study-index--lead');
         echo '</div>';
     }
 
     if ($spotlightCards !== []) {
         echo '<div class="portfolio-case-study-band-intro portfolio-case-study-band-intro--current">';
         echo '<h3 class="portfolio-band-subtitle h4" id="portfolio-spotlight-heading">Current focus</h3>';
-        echo '<p class="portfolio-case-study-band-lede">Graphic novel production and a React delivery workspace — depth on the linked case studies.</p>';
+        echo '<p class="portfolio-case-study-band-lede">Two active builds — <strong>Perception</strong> and <strong>Atlas Ops</strong>. Screenshots and case-study links live in this band only.</p>';
         echo '</div>';
         cms_render_msr_case_study_card_grid(
             $spotlightCards,
@@ -714,7 +735,7 @@ function cms_render_msr_case_study_grid(): void
 
     echo '<div class="portfolio-case-study-band-intro portfolio-case-study-band-intro--programme">';
     echo '<h3 class="portfolio-band-subtitle h4" id="portfolio-programme-demos-heading">Programme demos</h3>';
-    echo '<p class="portfolio-case-study-band-lede">WordPress multisite and WooCommerce snapshots — labelled <span class="msr-lane-badge msr-lane-badge--programme">Programme demo</span>, not the current delivery bar.</p>';
+    echo '<p class="portfolio-case-study-band-lede">Four labelled <span class="msr-lane-badge msr-lane-badge--programme">Programme demo</span> snapshots in a 2×2 grid — open demos and GitHub; exhibit depth, not the current delivery bar.</p>';
     echo '</div>';
     cms_render_msr_case_study_card_grid(
         $programmeLaneCards,
