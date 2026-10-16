@@ -20,7 +20,7 @@ function cms_sanitize_nav_url(string $u): string
     if (preg_match('#^tel:[^\s<>"\']+$#i', $u) === 1) {
         return $u;
     }
-    if (str_starts_with($u, '#') && preg_match('#^#[\w\-]+$#', $u) === 1) {
+    if (str_starts_with($u, '#') && preg_match('~^#[\w\-]+$~', $u) === 1) {
         return $u;
     }
     if (str_starts_with($u, './') && !str_contains($u, '..') && preg_match('#^\./[\w\-./%]+$#', $u) === 1) {
