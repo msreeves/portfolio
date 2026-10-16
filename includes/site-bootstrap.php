@@ -103,7 +103,12 @@ function cms_heading_defaults(): array
         'portfolio_lanes_lead' => 'Deliberately layered: archive pieces show where I started; programme demos show WordPress programme depth; the portfolio shell and workspace tools show how I build and verify work today — with me setting scope and sign-off, not unattended generation.',
         'portfolio_lanes_ai_note' => 'I use AI-assisted editing and audit tooling in my local workflow. Scope, copy, acceptance checks, and deploy stay with me — nothing ships on a green automated check alone.',
         'portfolio_archive_intro' => 'Earlier builds labelled Archive — left visible to show progression. Live demos and GitHub links where available.',
-        'intro_hero_method' => 'Enterprise CMS, WordPress, ACF, JavaScript, and React — with each project labelled so commercial, personal, and demo work stay distinct.',
+        'intro_hero_method' => 'Website Editor / CMS Specialist at BSI — WordPress, EpiServer, and Umbraco by day; this portfolio is JSON-driven copy plus structured selected-work data, labelled like a programme CMS.',
+        'selected_work_lead_lede' => 'Lead CMS case study — one reference WordPress build (Atlas Briefing). The <span class="msr-lane-badge msr-lane-badge--current">Current standard</span> bar programme demos are measured against (copy and links, no screenshot here).',
+        'selected_work_current_lede' => 'Current focus — active studio and SPA builds with screenshots and case-study links in this band only.',
+        'selected_work_programme_lede' => 'Programme demos — four labelled <span class="msr-lane-badge msr-lane-badge--programme">Programme demo</span> WordPress snapshots in a 2×2 grid; open demos and GitHub.',
+        'career_highlights_json' => '',
+        'role_focus_json' => '',
         'heading_demo_vs_live' => 'Demo vs live client',
         'demo_vs_live_lead' => 'Programme sites are portfolio demonstrations — not live companies. This strip compares what stays light on demos versus what I would enable on a real client site (protection, backups, SEO, consent) — plus how craft and QA differ by lane (see labels above).',
         'heading_work_for' => 'Experience',
@@ -759,151 +764,95 @@ function cms_portfolio_link_is_external(string $url): bool
 }
 
 
+/**
+ * Resolve special view_url tokens in selected-work.json (@msrpublishing = env-aware WP demo).
+ */
+function cms_resolve_case_study_view_url(string $url): string
+{
+    $url = trim($url);
+    if ($url === '@msrpublishing') {
+        return cms_portfolio_msr_publishing_demo_url();
+    }
+
+    return $url;
+}
+
+/**
+ * @param array<string, mixed> $card
+ * @return array<string, mixed>
+ */
+function cms_normalize_case_study_card(array $card): array
+{
+    if (isset($card['view_url']) && is_string($card['view_url'])) {
+        $card['view_url'] = cms_resolve_case_study_view_url($card['view_url']);
+    }
+
+    return $card;
+}
+
+/**
+ * @return array{bands: array<string, list<string>>, cards: array<string, array<string, mixed>>}|null
+ */
+function cms_load_selected_work_config(): ?array
+{
+    static $cache = null;
+    if ($cache !== null) {
+        return $cache;
+    }
+
+    $path = __DIR__ . '/../data/selected-work.json';
+    if (!is_readable($path)) {
+        $cache = null;
+
+        return null;
+    }
+
+    $data = json_decode((string) file_get_contents($path), true);
+    if (!is_array($data) || !is_array($data['bands'] ?? null) || !is_array($data['cards'] ?? null)) {
+        $cache = null;
+
+        return null;
+    }
+
+    $cache = [
+        'bands' => $data['bands'],
+        'cards' => $data['cards'],
+    ];
+
+    return $cache;
+}
+
+/**
+ * Selected work case study cards — order from data/selected-work.json (CMS data).
+ *
+ * @return list<array<string, mixed>>
+ */
 function cms_msr_case_study_cards(): array
 {
-    return [
-        [
-            'featured' => true,
-            'lane' => 'current',
-            'badge' => 'Reference WP',
-            'title' => 'Atlas Briefing (MSR Publishing)',
-            'stack' => 'WordPress · Vite 5 · ACF · B2B resource library',
-            'home_summary' => 'Reference WordPress build — resource library, programme health checks, and regression on key routes.',
-            'index_thumb' => 'none',
-            'bullets' => [
-                ['icon' => 'fas fa-book-open', 'text' => 'Resource library with formats, topics, and subscribe flows'],
-                ['icon' => 'fas fa-shield-halved', 'text' => 'Current-standard WP: programme health checks, publishing acceptance, and regression on key routes'],
-                ['icon' => 'fas fa-sitemap', 'text' => 'Home standards callout explains this bar vs other programme snapshots'],
-            ],
-            'thumb' => './media/images/case-studies/atlas-briefing.jpg',
-            'thumb_alt' => 'Atlas Briefing publishing demo homepage screenshot',
-            'thumb_role' => 'landscape',
-            'view_url' => cms_portfolio_msr_publishing_demo_url(),
-            'code_url' => 'https://github.com/msreeves/msrpublishing',
-            'lead_layout' => 'wide',
-        ],
-        [
-            'featured' => false,
-            'lane' => 'current',
-            'badge' => 'In progress',
-            'title' => 'Perception — graphic novel',
-            'stack' => 'Studio case study · cover pipeline · digital edition next',
-            'home_summary' => 'Studio-first graphic novel — art pipeline, cover hub; Reader pack on portfolio; production studio stays local-only.',
-            'bullets' => [
-                ['icon' => 'fas fa-palette', 'text' => 'Studio-first — art direction, Modes pipeline, WIP Part One cover'],
-                ['icon' => 'fas fa-book-open', 'text' => 'Case study — decision log, craft evidence, cover hub (A–G)'],
-                ['icon' => 'fas fa-layer-group', 'text' => 'Reader pack on portfolio; production studio stays local-only'],
-            ],
-            'thumb' => './media/images/case-studies/perception-cover-hub.png',
-            'thumb_alt' => 'Perception graphic novel — studio cover hub and production overview',
-            'thumb_role' => 'landscape',
-            'thumb_position' => 'center top',
-            'view_url' => './projects/perception/',
-            'code_url' => '',
-            'case_study_url' => './projects/perception/studio',
-        ],
-        [
-            'featured' => false,
-            'lane' => 'current',
-            'title' => 'Atlas Ops',
-            'stack' => 'React · TypeScript · Vite · TanStack Query · Zustand',
-            'home_summary' => 'Project CRUD with list and drag-and-drop kanban — team roles, analytics, production polish.',
-            'bullets' => [
-                ['icon' => 'fas fa-table-columns', 'text' => 'Project CRUD with list and drag-and-drop kanban'],
-                ['icon' => 'fas fa-users', 'text' => 'Team roles, permissions, and activity feeds'],
-                ['icon' => 'fas fa-chart-line', 'text' => 'Analytics charts, theme/settings, and production polish (a11y, ErrorBoundary, lazy routes)'],
-            ],
-            'thumb' => './media/images/case-studies/atlas-ops.png',
-            'thumb_alt' => 'Atlas Ops delivery workspace dashboard screenshot',
-            'thumb_role' => 'landscape',
-            'card_density' => 'standard',
-            'view_url' => './projects/atlas-ops/',
-            'code_url' => 'https://github.com/msreeves/atlas-ops',
-            'case_study_url' => './projects/atlas-ops/case-study.html',
-        ],
-        [
-            'featured' => false,
-            'lane' => 'programme',
-            'title' => 'MSR Events hub',
-            'stack' => 'WordPress multisite · programme lifecycle',
-            'home_summary' => 'Lifecycle bands and editorial refresh on the programme home.',
-            'index_thumb' => 'none',
-            'bullets' => [
-                ['icon' => 'fas fa-calendar-days', 'text' => 'Lifecycle bands and editorial refresh on programme home'],
-                ['icon' => 'fas fa-mobile-screen', 'text' => 'Event Companion demo — one SPA for hub, Awards, and Seminars'],
-                ['icon' => 'fas fa-vial', 'text' => 'Hub acceptance and Playwright regression coverage'],
-            ],
-            'thumb' => './media/images/case-studies/msr-events-hub.jpg',
-            'thumb_alt' => 'MSR Events hub homepage screenshot',
-            'thumb_role' => 'landscape',
-            'card_density' => 'compact',
-            'view_url' => 'https://www.msreeves.co.uk/events/',
-            'code_url' => 'https://github.com/msreeves/msrevents',
-            'companion_url' => './projects/event-companion/',
-            'companion_label' => 'Companion demo',
-        ],
-        [
-            'featured' => false,
-            'lane' => 'programme',
-            'title' => 'MSR Awards',
-            'stack' => 'Dark prestige theme · nominees & judging',
-            'home_summary' => 'Nominee archive, judging narrative, and ceremony content.',
-            'index_thumb' => 'none',
-            'bullets' => [
-                ['icon' => 'fas fa-trophy', 'text' => 'Nominee archive, judging narrative, and ceremony content'],
-                ['icon' => 'fas fa-star', 'text' => 'Featured nominees band and portfolio-ready demo seed'],
-                ['icon' => 'fas fa-mobile-screen', 'text' => 'Companion stub demo — website-led Awards in the same SPA'],
-            ],
-            'thumb' => './media/images/case-studies/msr-awards.jpg',
-            'thumb_alt' => 'MSR Awards programme homepage screenshot',
-            'thumb_role' => 'landscape',
-            'card_density' => 'compact',
-            'view_url' => 'https://www.msreeves.co.uk/events/msrawards/',
-            'code_url' => 'https://github.com/msreeves/msrawards',
-            'companion_url' => './projects/event-companion/?event=msrawards',
-            'companion_label' => 'Companion demo',
-        ],
-        [
-            'featured' => false,
-            'lane' => 'programme',
-            'title' => 'MSR Seminars',
-            'stack' => 'Agenda · panelists · delegate programme',
-            'home_summary' => 'Day-of schedule companion for MSR Seminars (React SPA).',
-            'index_thumb' => 'none',
-            'bullets' => [
-                ['icon' => 'fas fa-microphone-lines', 'text' => 'Agenda-led sessions with speakers and sponsors'],
-                ['icon' => 'fas fa-mobile-screen', 'text' => 'Day-of schedule companion for MSR Seminars (React SPA)'],
-                ['icon' => 'fas fa-filter', 'text' => 'BEM nav, filter tabs, and programme editorial polish'],
-            ],
-            'thumb' => './media/images/case-studies/msr-seminars.jpg',
-            'thumb_alt' => 'MSR Seminars programme homepage screenshot',
-            'thumb_role' => 'landscape',
-            'card_density' => 'compact',
-            'view_url' => 'https://www.msreeves.co.uk/events/msrseminars/',
-            'code_url' => 'https://github.com/msreeves/msrseminars',
-            'companion_url' => './projects/event-companion/?event=msrseminars',
-            'companion_label' => 'Companion demo',
-        ],
-        [
-            'featured' => false,
-            'lane' => 'programme',
-            'title' => 'MSR Products',
-            'stack' => 'WooCommerce showcase',
-            'home_summary' => 'Shop catalogue with structured product highlights — Vite 5 theme in verify manifest.',
-            'index_thumb' => 'none',
-            'bullets' => [
-                ['icon' => 'fas fa-cart-shopping', 'text' => 'Shop catalogue with structured product highlights'],
-                ['icon' => 'fas fa-bolt', 'text' => 'Vite 5 theme build in verify manifest'],
-                ['icon' => 'fas fa-route', 'text' => 'Smoke-tested home, shop, and product routes'],
-            ],
-            'thumb' => './media/images/case-studies/msr-products.jpg',
-            'thumb_alt' => 'MSR Products WooCommerce demo homepage screenshot',
-            'thumb_role' => 'landscape',
-            'card_density' => 'compact',
-            'view_url' => 'https://www.msreeves.co.uk/msrproducts/',
-            'code_url' => 'https://github.com/msreeves/msrproducts',
-        ],
+    $config = cms_load_selected_work_config();
+    if ($config === null) {
+        return [];
+    }
+
+    $order = [
+        ...(array) ($config['bands']['lead'] ?? []),
+        ...(array) ($config['bands']['currentFocus'] ?? []),
+        ...(array) ($config['bands']['programme'] ?? []),
     ];
+
+    $cards = [];
+    foreach ($order as $id) {
+        if (!is_string($id) || $id === '') {
+            continue;
+        }
+        $raw = $config['cards'][$id] ?? null;
+        if (!is_array($raw)) {
+            continue;
+        }
+        $cards[] = cms_normalize_case_study_card($raw);
+    }
+
+    return $cards;
 }
 
 /**
@@ -996,7 +945,28 @@ function cms_intro_tagline_for_hero(array $content): string
 
 function cms_intro_method_for_hero(array $content): string
 {
-    return trim((string) ($content['intro_hero_method'] ?? ''));
+    $v = trim((string) ($content['intro_hero_method'] ?? ''));
+    if ($v !== '') {
+        return $v;
+    }
+
+    return trim((string) (cms_heading_defaults()['intro_hero_method'] ?? ''));
+}
+
+
+/**
+ * Plain or rich CMS string with heading_defaults fallback.
+ *
+ * @param array<string, mixed> $content
+ */
+function cms_content_field(array $content, string $key): string
+{
+    $v = trim((string) ($content[$key] ?? ''));
+    if ($v !== '') {
+        return $v;
+    }
+
+    return trim((string) (cms_heading_defaults()[$key] ?? ''));
 }
 
 
@@ -1005,22 +975,53 @@ function cms_intro_method_for_hero(array $content): string
  *
  * @return list<array{stat: string, detail: string}>
  */
-function cms_career_highlight_items(): array
+/**
+ * @param array<string, mixed> $content
+ * @return list<array{stat: string, detail: string}>
+ */
+function cms_career_highlight_items(array $content = []): array
 {
-    return [
+    $defaults = [
         [
-            'stat' => '40+ international BSI websites',
-            'detail' => 'Daily digital content operations in EpiServer CMS (current role).',
+            'stat' => 'CMS at enterprise scale',
+            'detail' => '40+ international BSI websites — daily publishing in EpiServer CMS (current Website Editor role).',
+        ],
+        [
+            'stat' => 'WordPress lead case study',
+            'detail' => 'Atlas Briefing reference build — ACF, resource library, and regression on publishing routes.',
         ],
         [
             'stat' => 'Hundreds of pages per launch',
-            'detail' => 'Enterprise publishing and review for global business divisions.',
-        ],
-        [
-            'stat' => 'WordPress programme suite',
-            'detail' => 'Multisite demos with honest labels — current standard vs programme snapshot.',
+            'detail' => 'Enterprise publishing workflows, stakeholder review, and launch QA.',
         ],
     ];
+
+    $raw = trim((string) ($content['career_highlights_json'] ?? ''));
+    if ($raw === '') {
+        return $defaults;
+    }
+
+    $decoded = json_decode($raw, true);
+    if (!is_array($decoded)) {
+        return $defaults;
+    }
+
+    $out = [];
+    foreach ($decoded as $row) {
+        if (!is_array($row)) {
+            continue;
+        }
+        $stat = trim((string) ($row['stat'] ?? ''));
+        if ($stat === '') {
+            continue;
+        }
+        $out[] = [
+            'stat' => $stat,
+            'detail' => trim((string) ($row['detail'] ?? '')),
+        ];
+    }
+
+    return $out !== [] ? $out : $defaults;
 }
 
 
@@ -1029,18 +1030,22 @@ function cms_career_highlight_items(): array
  *
  * @return list<array{title: string, body: string, href: string}>
  */
-function cms_role_focus_entries(): array
+/**
+ * @param array<string, mixed> $content
+ * @return list<array{title: string, body: string, href: string}>
+ */
+function cms_role_focus_entries(array $content = []): array
 {
-    return [
+    $defaults = [
         [
             'title' => 'WordPress / CMS',
-            'body' => 'Atlas Briefing reference build, MSR programme WordPress demos, enterprise CMS experience.',
-            'href' => '#recent-portfolio',
+            'body' => 'Lead Atlas Briefing build, multisite programme demos, and BSI EpiServer operations.',
+            'href' => '#portfolio-lead-heading',
         ],
         [
             'title' => 'Front-end / React',
-            'body' => 'Atlas Ops SPA, Event Companion demos, responsive theme work on programme sites.',
-            'href' => '#recent-portfolio',
+            'body' => 'Atlas Ops SPA, Event Companion, and Vite-built programme themes.',
+            'href' => '#portfolio-spotlight-heading',
         ],
         [
             'title' => 'Digital publishing',
@@ -1053,6 +1058,38 @@ function cms_role_focus_entries(): array
             'href' => '#skills',
         ],
     ];
+
+    $raw = trim((string) ($content['role_focus_json'] ?? ''));
+    if ($raw === '') {
+        return $defaults;
+    }
+
+    $decoded = json_decode($raw, true);
+    if (!is_array($decoded)) {
+        return $defaults;
+    }
+
+    $out = [];
+    foreach ($decoded as $row) {
+        if (!is_array($row)) {
+            continue;
+        }
+        $title = trim((string) ($row['title'] ?? ''));
+        if ($title === '') {
+            continue;
+        }
+        $href = trim((string) ($row['href'] ?? '#recent-portfolio'));
+        if ($href === '') {
+            $href = '#recent-portfolio';
+        }
+        $out[] = [
+            'title' => $title,
+            'body' => trim((string) ($row['body'] ?? '')),
+            'href' => $href,
+        ];
+    }
+
+    return $out !== [] ? $out : $defaults;
 }
 
 

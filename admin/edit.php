@@ -13,6 +13,14 @@ $labels = [
     'intro_name' => 'Intro — name (H1)',
     'intro_tagline' => 'Intro — fallback roles line (only if short tagline is empty)',
     'intro_tagline_short' => 'Intro — hero tagline (shown under name)',
+    'intro_hero_headline' => 'Intro — hero headline (H1)',
+    'intro_hero_method' => 'Intro — CMS / method line (under tagline)',
+    'heading_career_highlights' => 'Recruiter scan — career highlights heading',
+    'career_highlights_json' => 'Recruiter scan — highlights JSON (optional; empty = defaults)',
+    'role_focus_json' => 'Recruiter scan — role focus JSON (optional; empty = defaults)',
+    'selected_work_lead_lede' => 'Selected work — lead band lede (HTML allowed for lane badges)',
+    'selected_work_current_lede' => 'Selected work — current focus band lede',
+    'selected_work_programme_lede' => 'Selected work — programme demos band lede',
     'cv_label' => 'CV — download label',
     'cv_marketing_label' => 'CV — marketing portfolio label',
     'cv_pdf' => 'CV — PDF file',
@@ -41,8 +49,9 @@ $wizardSteps = [
         'section_name' => 'Top of page — name, tagline, CV links, intro photo',
         'hint' => 'The short tagline appears under your name. Hero and footer Downloads use the CV and marketing portfolio fields below. Legacy “roles line” is only used if the short tagline is empty.',
         'groups' => [
-            ['label' => 'Name & tagline', 'keys' => ['intro_name', 'intro_tagline_short']],
+            ['label' => 'Name & headline', 'keys' => ['intro_name', 'intro_hero_headline', 'intro_tagline_short', 'intro_hero_method']],
             ['label' => 'Fallback roles line (optional)', 'keys' => ['intro_tagline']],
+            ['label' => 'Recruiter scan (highlights + role focus)', 'keys' => ['heading_career_highlights', 'career_highlights_json', 'role_focus_json']],
             ['label' => 'Downloads', 'keys' => ['cv_label', 'cv_marketing_label', 'cv_pdf', 'cv_marketing_pdf']],
             ['label' => 'Intro photo', 'layout' => 'grid', 'keys' => ['img_intro_logo']],
         ],
@@ -50,10 +59,11 @@ $wizardSteps = [
     [
         'title' => 'Work',
         'section_name' => 'Featured case studies — nav “Work” (#recent-portfolio)',
-        'hint' => 'Section heading and intro panel above the MSR programme grid. Programme cards are code-owned. Marketing PDF lives under About role tracks and the download chips — not in this strip.',
+        'hint' => 'Section heading, band ledes, and intro map above the grid. Card order, bullets, and URLs are in data/selected-work.json (bands: lead · currentFocus · programme). Marketing PDF lives under About — not here.',
         'groups' => [
             ['label' => '', 'keys' => ['heading_recent_portfolio']],
             ['label' => 'Intro strip', 'keys' => ['html_recent_portfolio_1']],
+            ['label' => 'Band ledes (under each subheading)', 'keys' => ['selected_work_lead_lede', 'selected_work_current_lede', 'selected_work_programme_lede']],
         ],
     ],
     [
@@ -791,8 +801,9 @@ if ($k === '__portfolio_block__') {
     echo '<div class="mb-3">';
     echo '<label class="form-label" for="' . esc($id) . '">' . esc($labelText) . '</label>';
 
-    if ($k === 'intro_tagline' || $k === 'footer_copyright') {
-        echo '<textarea class="form-control" id="' . esc($id) . '" name="' . esc($id) . '" rows="3">' . esc($val) . '</textarea>';
+    if ($k === 'intro_tagline' || $k === 'footer_copyright' || str_ends_with($k, '_lede') || str_ends_with($k, '_json')) {
+        $rows = str_ends_with($k, '_json') ? 8 : 3;
+        echo '<textarea class="form-control" id="' . esc($id) . '" name="' . esc($id) . '" rows="' . (int) $rows . '">' . esc($val) . '</textarea>';
     } else {
         echo '<input type="text" class="form-control" id="' . esc($id) . '" name="' . esc($id) . '" value="' . esc($val) . '" />';
     }

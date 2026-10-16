@@ -111,7 +111,7 @@ cms_render_section_heading($selectedWorkHeading);
 
 <?php cms_render_panel_grid($content, ['html_recent_portfolio_1']); ?>
 
-<?php cms_render_msr_case_study_grid(); ?>
+<?php cms_render_msr_case_study_grid($content); ?>
         </div>
     </section>
     <section id="work-for">

@@ -1,0 +1,152 @@
+{
+    "_comment": "Selected work grid — bands control order; cards are CMS data (admin: site.json ledes + this file). view_url @msrpublishing resolves at render.",
+    "version": 1,
+    "bands": {
+        "lead": ["atlas-briefing"],
+        "currentFocus": ["perception", "atlas-ops"],
+        "programme": ["msr-events-hub", "msr-awards", "msr-seminars", "msr-products"]
+    },
+    "cards": {
+        "atlas-briefing": {
+            "featured": true,
+            "lane": "current",
+            "badge": "Reference WP",
+            "title": "Atlas Briefing (MSR Publishing)",
+            "stack": "WordPress · Vite 5 · ACF · B2B resource library",
+            "home_summary": "Lead CMS case study — WordPress resource library, editor-facing patterns, and programme health checks on key routes.",
+            "index_thumb": "none",
+            "bullets": [
+                {"icon": "fas fa-book-open", "text": "Resource library with formats, topics, and subscribe flows"},
+                {"icon": "fas fa-shield-halved", "text": "Current-standard WP: programme health checks, publishing acceptance, and regression on key routes"},
+                {"icon": "fas fa-sitemap", "text": "Home standards callout explains this bar vs other programme snapshots"}
+            ],
+            "thumb": "./media/images/case-studies/atlas-briefing.jpg",
+            "thumb_alt": "Atlas Briefing publishing demo homepage screenshot",
+            "thumb_role": "landscape",
+            "view_url": "@msrpublishing",
+            "code_url": "https://github.com/msreeves/msrpublishing",
+            "lead_layout": "wide"
+        },
+        "perception": {
+            "featured": false,
+            "lane": "current",
+            "badge": "In progress",
+            "title": "Perception — graphic novel",
+            "stack": "Studio case study · cover pipeline · digital edition next",
+            "home_summary": "Studio-first graphic novel — art pipeline, cover hub; Reader pack on portfolio; production studio stays local-only.",
+            "bullets": [
+                {"icon": "fas fa-palette", "text": "Studio-first — art direction, Modes pipeline, WIP Part One cover"},
+                {"icon": "fas fa-book-open", "text": "Case study — decision log, craft evidence, cover hub (A–G)"},
+                {"icon": "fas fa-layer-group", "text": "Reader pack on portfolio; production studio stays local-only"}
+            ],
+            "thumb": "./media/images/case-studies/perception-cover-hub.png",
+            "thumb_alt": "Perception graphic novel — studio cover hub and production overview",
+            "thumb_role": "landscape",
+            "thumb_position": "center top",
+            "view_url": "./projects/perception/",
+            "code_url": "",
+            "case_study_url": "./projects/perception/studio"
+        },
+        "atlas-ops": {
+            "featured": false,
+            "lane": "current",
+            "title": "Atlas Ops",
+            "stack": "React · TypeScript · Vite · TanStack Query · Zustand",
+            "home_summary": "Project CRUD with list and drag-and-drop kanban — team roles, analytics, production polish.",
+            "bullets": [
+                {"icon": "fas fa-table-columns", "text": "Project CRUD with list and drag-and-drop kanban"},
+                {"icon": "fas fa-users", "text": "Team roles, permissions, and activity feeds"},
+                {"icon": "fas fa-chart-line", "text": "Analytics charts, theme/settings, and production polish (a11y, ErrorBoundary, lazy routes)"}
+            ],
+            "thumb": "./media/images/case-studies/atlas-ops.png",
+            "thumb_alt": "Atlas Ops delivery workspace dashboard screenshot",
+            "thumb_role": "landscape",
+            "card_density": "standard",
+            "view_url": "./projects/atlas-ops/",
+            "code_url": "https://github.com/msreeves/atlas-ops",
+            "case_study_url": "./projects/atlas-ops/case-study.html"
+        },
+        "msr-events-hub": {
+            "featured": false,
+            "lane": "programme",
+            "title": "MSR Events hub",
+            "stack": "WordPress multisite · programme lifecycle",
+            "home_summary": "Lifecycle bands and editorial refresh on the programme home.",
+            "index_thumb": "none",
+            "bullets": [
+                {"icon": "fas fa-calendar-days", "text": "Lifecycle bands and editorial refresh on programme home"},
+                {"icon": "fas fa-mobile-screen", "text": "Event Companion demo — one SPA for hub, Awards, and Seminars"},
+                {"icon": "fas fa-vial", "text": "Hub acceptance and Playwright regression coverage"}
+            ],
+            "thumb": "./media/images/case-studies/msr-events-hub.jpg",
+            "thumb_alt": "MSR Events hub homepage screenshot",
+            "thumb_role": "landscape",
+            "card_density": "compact",
+            "view_url": "https://www.msreeves.co.uk/events/",
+            "code_url": "https://github.com/msreeves/msrevents",
+            "companion_url": "./projects/event-companion/",
+            "companion_label": "Companion demo"
+        },
+        "msr-awards": {
+            "featured": false,
+            "lane": "programme",
+            "title": "MSR Awards",
+            "stack": "Dark prestige theme · nominees & judging",
+            "home_summary": "Nominee archive, judging narrative, and ceremony content.",
+            "index_thumb": "none",
+            "bullets": [
+                {"icon": "fas fa-trophy", "text": "Nominee archive, judging narrative, and ceremony content"},
+                {"icon": "fas fa-star", "text": "Featured nominees band and portfolio-ready demo seed"},
+                {"icon": "fas fa-mobile-screen", "text": "Companion stub demo — website-led Awards in the same SPA"}
+            ],
+            "thumb": "./media/images/case-studies/msr-awards.jpg",
+            "thumb_alt": "MSR Awards programme homepage screenshot",
+            "thumb_role": "landscape",
+            "card_density": "compact",
+            "view_url": "https://www.msreeves.co.uk/events/msrawards/",
+            "code_url": "https://github.com/msreeves/msrawards",
+            "companion_url": "./projects/event-companion/?event=msrawards",
+            "companion_label": "Companion demo"
+        },
+        "msr-seminars": {
+            "featured": false,
+            "lane": "programme",
+            "title": "MSR Seminars",
+            "stack": "Agenda · panelists · delegate programme",
+            "home_summary": "Day-of schedule companion for MSR Seminars (React SPA).",
+            "index_thumb": "none",
+            "bullets": [
+                {"icon": "fas fa-microphone-lines", "text": "Agenda-led sessions with speakers and sponsors"},
+                {"icon": "fas fa-mobile-screen", "text": "Day-of schedule companion for MSR Seminars (React SPA)"},
+                {"icon": "fas fa-filter", "text": "BEM nav, filter tabs, and programme editorial polish"}
+            ],
+            "thumb": "./media/images/case-studies/msr-seminars.jpg",
+            "thumb_alt": "MSR Seminars programme homepage screenshot",
+            "thumb_role": "landscape",
+            "card_density": "compact",
+            "view_url": "https://www.msreeves.co.uk/events/msrseminars/",
+            "code_url": "https://github.com/msreeves/msrseminars",
+            "companion_url": "./projects/event-companion/?event=msrseminars",
+            "companion_label": "Companion demo"
+        },
+        "msr-products": {
+            "featured": false,
+            "lane": "programme",
+            "title": "MSR Products",
+            "stack": "WooCommerce showcase",
+            "home_summary": "Shop catalogue with structured product highlights — Vite 5 theme in verify manifest.",
+            "index_thumb": "none",
+            "bullets": [
+                {"icon": "fas fa-cart-shopping", "text": "Shop catalogue with structured product highlights"},
+                {"icon": "fas fa-bolt", "text": "Vite 5 theme build in verify manifest"},
+                {"icon": "fas fa-route", "text": "Smoke-tested home, shop, and product routes"}
+            ],
+            "thumb": "./media/images/case-studies/msr-products.jpg",
+            "thumb_alt": "MSR Products WooCommerce demo homepage screenshot",
+            "thumb_role": "landscape",
+            "card_density": "compact",
+            "view_url": "https://www.msreeves.co.uk/msrproducts/",
+            "code_url": "https://github.com/msreeves/msrproducts"
+        }
+    }
+}

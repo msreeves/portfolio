@@ -154,7 +154,7 @@ function cms_render_section_heading(string $title, string $headingId = ''): void
  */
 function cms_render_career_highlights_section(array $content): void
 {
-    $items = cms_career_highlight_items();
+    $items = cms_career_highlight_items($content);
     if ($items === []) {
         return;
     }
@@ -189,7 +189,7 @@ function cms_render_recruiter_scan_section(array $content): void
 {
     cms_render_career_highlights_section($content);
 
-    $entries = cms_role_focus_entries();
+    $entries = cms_role_focus_entries($content);
     if ($entries === []) {
         return;
     }
@@ -684,7 +684,10 @@ function cms_render_msr_case_study_card_grid(array $cards, string $gridModifierC
 }
 
 
-function cms_render_msr_case_study_grid(): void
+/**
+ * @param array<string, mixed> $content
+ */
+function cms_render_msr_case_study_grid(array $content = []): void
 {
     $cards = cms_msr_case_study_cards();
     if ($cards === []) {
@@ -708,9 +711,12 @@ function cms_render_msr_case_study_grid(): void
     }
 
     if ($leadCards !== []) {
+        $leadLede = cms_sanitize_rich_html(cms_content_field($content, 'selected_work_lead_lede'));
         echo '<div class="portfolio-case-study-band-intro portfolio-case-study-band-intro--lead">';
-        echo '<h3 class="portfolio-band-subtitle h4" id="portfolio-lead-heading">Lead case study</h3>';
-        echo '<p class="portfolio-case-study-band-lede">One reference WordPress build — the <span class="msr-lane-badge msr-lane-badge--current">Current standard</span> bar programme demos are measured against (copy and links, no screenshot here).</p>';
+        echo '<h3 class="portfolio-band-subtitle h4 portfolio-band-subtitle--scroll-target" id="portfolio-lead-heading">Lead case study</h3>';
+        if ($leadLede !== '') {
+            echo '<p class="portfolio-case-study-band-lede">' . $leadLede . '</p>';
+        }
         echo '</div>';
         echo '<div class="portfolio-lead-case-study">';
         cms_render_msr_case_study_index_list($leadCards, 'portfolio-case-study-index--lead');
@@ -718,9 +724,12 @@ function cms_render_msr_case_study_grid(): void
     }
 
     if ($spotlightCards !== []) {
+        $currentLede = cms_sanitize_rich_html(cms_content_field($content, 'selected_work_current_lede'));
         echo '<div class="portfolio-case-study-band-intro portfolio-case-study-band-intro--current">';
-        echo '<h3 class="portfolio-band-subtitle h4" id="portfolio-spotlight-heading">Current focus</h3>';
-        echo '<p class="portfolio-case-study-band-lede">Two active builds — <strong>Perception</strong> and <strong>Atlas Ops</strong>. Screenshots and case-study links live in this band only.</p>';
+        echo '<h3 class="portfolio-band-subtitle h4 portfolio-band-subtitle--scroll-target" id="portfolio-spotlight-heading">Current focus</h3>';
+        if ($currentLede !== '') {
+            echo '<p class="portfolio-case-study-band-lede">' . $currentLede . '</p>';
+        }
         echo '</div>';
         cms_render_msr_case_study_card_grid(
             $spotlightCards,
@@ -733,9 +742,12 @@ function cms_render_msr_case_study_grid(): void
         return;
     }
 
+    $programmeLede = cms_sanitize_rich_html(cms_content_field($content, 'selected_work_programme_lede'));
     echo '<div class="portfolio-case-study-band-intro portfolio-case-study-band-intro--programme">';
-    echo '<h3 class="portfolio-band-subtitle h4" id="portfolio-programme-demos-heading">Programme demos</h3>';
-    echo '<p class="portfolio-case-study-band-lede">Four labelled <span class="msr-lane-badge msr-lane-badge--programme">Programme demo</span> snapshots in a 2×2 grid — open demos and GitHub; exhibit depth, not the current delivery bar.</p>';
+    echo '<h3 class="portfolio-band-subtitle h4 portfolio-band-subtitle--scroll-target" id="portfolio-programme-demos-heading">Programme demos</h3>';
+    if ($programmeLede !== '') {
+        echo '<p class="portfolio-case-study-band-lede">' . $programmeLede . '</p>';
+    }
     echo '</div>';
     cms_render_msr_case_study_card_grid(
         $programmeLaneCards,

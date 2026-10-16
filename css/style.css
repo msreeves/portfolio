@@ -638,6 +638,10 @@ body.msr-portfolio > a.visually-hidden-focusable:focus-visible {
   font-weight: 600;
 }
 
+.portfolio-band-subtitle--scroll-target {
+  scroll-margin-top: 5.5rem;
+}
+
 .msr-programme-card--compact .msr-programme-card-body {
   padding: clamp(0.85rem, 2vw, 1.1rem);
 }
