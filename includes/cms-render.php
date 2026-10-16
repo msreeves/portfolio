@@ -670,60 +670,58 @@ function cms_render_msr_case_study_grid(): void
     }
 
     $leadCards = [];
-    $spotlightCards = [];
-    $programmeLaneCards = [];
+    $programmeCards = [];
     foreach ($cards as $card) {
         if (!empty($card['featured'])) {
             $leadCards[] = $card;
-
-            continue;
-        }
-        if (trim((string) ($card['lane'] ?? '')) === 'programme') {
-            $programmeLaneCards[] = $card;
         } else {
-            $spotlightCards[] = $card;
+            $programmeCards[] = $card;
         }
     }
 
     if ($leadCards !== []) {
-        echo '<div class="portfolio-lead-case-study">';
-        cms_render_msr_case_study_card_grid(
-            $leadCards,
-            'portfolio-case-study-grid--lead portfolio-content-grid--solo',
-            1
-        );
-        echo '</div>';
+        echo '<div class="portfolio-lead-case-study msr-fade-in">';
+        echo '<div class="portfolio-content-grid portfolio-content-grid--cards msr-programme-grid msr-programme-grid--proof portfolio-content-grid--solo portfolio-content-grid--has-lead portfolio-content-grid--fluid-proof" data-card-count="' . (int) count($leadCards) . '">';
+        foreach ($leadCards as $card) {
+            cms_render_msr_case_study_card($card);
+        }
+        echo '</div></div>';
     }
 
-    if ($spotlightCards !== []) {
-        echo '<div class="portfolio-case-study-band-intro portfolio-case-study-band-intro--current">';
-        echo '<h3 class="portfolio-band-subtitle h4" id="portfolio-spotlight-heading">Current focus</h3>';
-        echo '<p class="portfolio-case-study-band-lede">Graphic novel production and a React delivery workspace — depth on the linked case studies.</p>';
-        echo '</div>';
-        cms_render_msr_case_study_card_grid(
-            $spotlightCards,
-            'msr-programme-grid--spotlight portfolio-case-study-grid--current',
-            2
-        );
-    }
-
-    if ($programmeLaneCards === []) {
+    if ($programmeCards === []) {
         return;
     }
 
-    echo '<div class="portfolio-case-study-band-intro portfolio-case-study-band-intro--programme">';
-    echo '<h3 class="portfolio-band-subtitle h4" id="portfolio-programme-demos-heading">Programme demos</h3>';
-    echo '<p class="portfolio-case-study-band-lede">WordPress multisite and WooCommerce snapshots — labelled <span class="msr-lane-badge msr-lane-badge--programme">Programme demo</span>, not the current delivery bar.</p>';
+    $visibleCards = array_slice($programmeCards, 0, min(3, count($programmeCards)));
+    $remainingCards = array_slice($programmeCards, count($visibleCards));
+
+    echo '<div class="portfolio-content-grid portfolio-content-grid--cards msr-programme-grid msr-programme-grid--proof';
+    echo esc(cms_portfolio_case_study_grid_modifiers($visibleCards));
+    echo '" data-card-count="' . (int) count($visibleCards) . '">';
+    foreach ($visibleCards as $card) {
+        cms_render_msr_case_study_card($card);
+    }
     echo '</div>';
-    cms_render_msr_case_study_card_grid(
-        $programmeLaneCards,
-        'msr-programme-grid--proof portfolio-case-study-grid--programme portfolio-content-grid--max-cols-2',
-        2
-    );
-    echo '<p class="portfolio-case-study-index-footnote msr-fade-in"><strong>Event Companion demo — one SPA</strong> for ';
-    echo '<a href="./projects/event-companion/">Events hub, Awards, and Seminars</a>.';
-    echo ' <a href="./projects/event-companion/?event=msrseminars">Seminars companion</a>';
-    echo ' · <a href="./projects/event-companion/?event=msrawards">Awards companion</a>.</p>';
+
+    if ($remainingCards === []) {
+        return;
+    }
+
+    $remainingCount = count($remainingCards);
+    $summaryLabel = $remainingCount === 1
+        ? 'More programme case study'
+        : 'More programme case studies (' . $remainingCount . ')';
+
+    echo '<details class="portfolio-disclosure portfolio-case-study-disclosure msr-fade-in">';
+    echo '<summary class="portfolio-disclosure-summary">' . esc($summaryLabel) . '</summary>';
+    echo '<div class="portfolio-disclosure-body">';
+    echo '<div class="portfolio-content-grid portfolio-content-grid--cards msr-programme-grid msr-programme-grid--proof';
+    echo esc(cms_portfolio_case_study_grid_modifiers($remainingCards, 2));
+    echo '" data-card-count="' . (int) $remainingCount . '">';
+    foreach ($remainingCards as $card) {
+        cms_render_msr_case_study_card($card);
+    }
+    echo '</div></div></details>';
 }
 
 /**
