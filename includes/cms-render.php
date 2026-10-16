@@ -654,7 +654,8 @@ function cms_render_msr_case_study_card_grid(array $cards, string $gridModifierC
     }
 
     $gridMods = cms_portfolio_case_study_grid_modifiers($cards, $maxCols);
-    echo '<div class="portfolio-content-grid msr-programme-grid msr-fade-in ' . esc($gridModifierClass) . esc($gridMods) . '">';
+    echo '<div class="portfolio-content-grid portfolio-content-grid--cards msr-programme-grid msr-programme-grid--proof msr-fade-in ';
+    echo esc($gridModifierClass) . esc($gridMods) . '" data-card-count="' . (int) count($cards) . '">';
     foreach ($cards as $card) {
         cms_render_msr_case_study_card($card);
     }
@@ -687,7 +688,11 @@ function cms_render_msr_case_study_grid(): void
 
     if ($leadCards !== []) {
         echo '<div class="portfolio-lead-case-study">';
-        cms_render_msr_case_study_index_list($leadCards, 'portfolio-case-study-index--lead');
+        cms_render_msr_case_study_card_grid(
+            $leadCards,
+            'portfolio-case-study-grid--lead portfolio-content-grid--solo portfolio-content-grid--has-lead portfolio-content-grid--fluid-proof',
+            1
+        );
         echo '</div>';
     }
 
@@ -696,7 +701,11 @@ function cms_render_msr_case_study_grid(): void
         echo '<h3 class="portfolio-band-subtitle h4" id="portfolio-spotlight-heading">Current focus</h3>';
         echo '<p class="portfolio-case-study-band-lede">Graphic novel production and a React delivery workspace — depth on the linked case studies.</p>';
         echo '</div>';
-        cms_render_msr_case_study_index_list($spotlightCards, 'portfolio-case-study-index--current');
+        cms_render_msr_case_study_card_grid(
+            $spotlightCards,
+            'msr-programme-grid--spotlight portfolio-case-study-grid--current',
+            2
+        );
     }
 
     if ($programmeLaneCards === []) {
@@ -707,7 +716,11 @@ function cms_render_msr_case_study_grid(): void
     echo '<h3 class="portfolio-band-subtitle h4" id="portfolio-programme-demos-heading">Programme demos</h3>';
     echo '<p class="portfolio-case-study-band-lede">WordPress multisite and WooCommerce snapshots — labelled <span class="msr-lane-badge msr-lane-badge--programme">Programme demo</span>, not the current delivery bar.</p>';
     echo '</div>';
-    cms_render_msr_case_study_index_list($programmeLaneCards, 'portfolio-case-study-index--programme');
+    cms_render_msr_case_study_card_grid(
+        $programmeLaneCards,
+        'portfolio-case-study-grid--programme portfolio-content-grid--max-cols-2',
+        2
+    );
     echo '<p class="portfolio-case-study-index-footnote msr-fade-in"><strong>Event Companion demo — one SPA</strong> for ';
     echo '<a href="./projects/event-companion/">Events hub, Awards, and Seminars</a>.';
     echo ' <a href="./projects/event-companion/?event=msrseminars">Seminars companion</a>';

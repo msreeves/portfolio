@@ -710,6 +710,66 @@ body.msr-portfolio > a.visually-hidden-focusable:focus-visible {
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+/* Selected work cards — dark stage (no white programme panels) */
+#recent-portfolio .msr-programme-card {
+  background: rgba(14, 14, 22, 0.92);
+  border: 1px solid rgba(228, 228, 234, 0.12);
+  border-top-width: 4px;
+  border-top-color: var(--msr-red, #b22222);
+  box-shadow:
+    0 10px 32px rgba(0, 0, 0, 0.38),
+    0 0 36px rgba(43, 127, 255, 0.06);
+  color: #e4e4ea;
+}
+
+#recent-portfolio .msr-programme-card--lead {
+  border-top-color: var(--msr-magenta, #c040d8);
+  box-shadow:
+    0 14px 40px rgba(0, 0, 0, 0.46),
+    0 0 56px rgba(192, 64, 216, 0.14),
+    0 0 40px rgba(43, 127, 255, 0.1);
+}
+
+#recent-portfolio .msr-programme-card-title {
+  color: #f4f4f8;
+}
+
+#recent-portfolio .msr-programme-card-stack {
+  color: #c8c8d4;
+}
+
+#recent-portfolio .msr-programme-card-summary,
+#recent-portfolio .msr-programme-card .msr-case-study-bullets li {
+  color: #e4e4ea;
+}
+
+#recent-portfolio .msr-programme-card .msr-lane-badge--current {
+  border-color: rgba(192, 64, 216, 0.35);
+  color: #f0e6f4;
+  background: rgba(192, 64, 216, 0.1);
+}
+
+#recent-portfolio .msr-programme-card .msr-lane-badge--programme {
+  border-color: rgba(228, 228, 234, 0.22);
+  color: var(--msr-text-muted, #a8a8b8);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+#recent-portfolio .msr-programme-card .msr-programme-card-badge-pill {
+  color: var(--msr-text-muted, #a8a8b8);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(228, 228, 234, 0.15);
+}
+
+#recent-portfolio .msr-programme-card-media {
+  border-bottom: 1px solid rgba(228, 228, 234, 0.1);
+  background: #0a0a12;
+}
+
+#recent-portfolio .msr-programme-card--lead-wide .msr-programme-card-media {
+  border-bottom: 1px solid rgba(228, 228, 234, 0.1);
+}
+
 #recent-portfolio .portfolio-case-study-index {
   display: flex;
   flex-direction: column;
