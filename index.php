@@ -284,7 +284,7 @@ if ($featuredBody === '' && cms_html_has_content($content, 'html_testimonial_1')
                     </div>
                   </div>
                 </div>
-                    <div class="copywright">
+                    <div class="copyright">
                             <h5><?= esc($content['footer_copyright']) ?></h5>
                         </div>  
                     </div>
