@@ -687,6 +687,19 @@ body.msr-portfolio > a.visually-hidden-focusable:focus-visible {
   margin-bottom: 0.25rem;
 }
 
+/* Selected work grids: keep 2-up / 2×2 above phone width (override global single-col breakpoints) */
+@media (min-width: 640px) {
+  #recent-portfolio .portfolio-case-study-grid--current.portfolio-content-grid--cols-2,
+  #recent-portfolio .portfolio-case-study-grid--programme.portfolio-content-grid--cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+#recent-portfolio .portfolio-case-study-grid--lead .msr-programme-card--lead-wide .msr-programme-card-media {
+  aspect-ratio: 16 / 10;
+  max-height: min(22rem, 52vw);
+}
+
 #recent-portfolio .portfolio-case-study-band-intro--current {
   margin-top: var(--msr-section-space-tight, 2.5rem);
 }

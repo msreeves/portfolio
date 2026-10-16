@@ -687,7 +687,11 @@ function cms_render_msr_case_study_grid(): void
 
     if ($leadCards !== []) {
         echo '<div class="portfolio-lead-case-study">';
-        cms_render_msr_case_study_index_list($leadCards, 'portfolio-case-study-index--lead');
+        cms_render_msr_case_study_card_grid(
+            $leadCards,
+            'portfolio-case-study-grid--lead portfolio-content-grid--solo',
+            1
+        );
         echo '</div>';
     }
 
