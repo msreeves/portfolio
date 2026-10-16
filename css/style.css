@@ -11,7 +11,7 @@ body.msr-portfolio {
   --msr-magenta-glow: rgba(192, 64, 216, 0.2);
   --msr-red: #b22222;
   --msr-text-on-dark: #e4e4ea;
-  --msr-text-muted: #a8a8b8;
+  --msr-text-muted: #b0b0be;
   --msr-link: #e4c04a;
   --msr-link-hover: #f5e6a8;
   --msr-shell-max: 72rem;
@@ -1832,7 +1832,10 @@ body.msr-portfolio::before {
 .portfolio-main .main_home a:not(.portfolio-chip),
 .portfolio-main .online a:not(.portfolio-chip),
 .portfolio-main .work-experience-panel a:not(.portfolio-chip) {
-  color: #f0b4f8;
+  color: var(--msr-link);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  text-decoration-thickness: 1px;
 }
 
 .portfolio-main .main_home a:not(.portfolio-chip):hover,
@@ -1841,7 +1844,7 @@ body.msr-portfolio::before {
 .portfolio-main .online a:not(.portfolio-chip):focus-visible,
 .portfolio-main .work-experience-panel a:not(.portfolio-chip):hover,
 .portfolio-main .work-experience-panel a:not(.portfolio-chip):focus-visible {
-  color: #fff;
+  color: var(--msr-link-hover);
 }
 
 .portfolio-main .main_home .portfolio-highlight,
@@ -1872,6 +1875,63 @@ a {
   font-family: inherit;
   font-weight: inherit;
   color: #000;
+}
+
+/* Home + insets — prose links on dark stage (not chips, brand cards, or footer icons) */
+body.msr-portfolio .portfolio-main.portfolio-flow
+  :where(
+    p,
+    li,
+    blockquote,
+    .portfolio-disclosure-body,
+    .testimonials,
+    .testimonial-featured-quote,
+    .portfolio-lanes-lead,
+    .portfolio-lanes-ai-note,
+    .demo-vs-live-lead,
+    .portfolio-selected-work-map
+  )
+  a:not(.portfolio-chip):not(.employer-brand-card):not(.footer-icon-link) {
+  color: var(--msr-link);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  text-decoration-thickness: 1px;
+}
+
+body.msr-portfolio .portfolio-main.portfolio-flow
+  :where(
+    p,
+    li,
+    blockquote,
+    .portfolio-disclosure-body,
+    .testimonials,
+    .testimonial-featured-quote,
+    .portfolio-lanes-lead,
+    .portfolio-lanes-ai-note,
+    .demo-vs-live-lead,
+    .portfolio-selected-work-map
+  )
+  a:not(.portfolio-chip):not(.employer-brand-card):not(.footer-icon-link):hover,
+body.msr-portfolio .portfolio-main.portfolio-flow
+  :where(
+    p,
+    li,
+    blockquote,
+    .portfolio-disclosure-body,
+    .testimonials,
+    .testimonial-featured-quote,
+    .portfolio-lanes-lead,
+    .portfolio-lanes-ai-note,
+    .demo-vs-live-lead,
+    .portfolio-selected-work-map
+  )
+  a:not(.portfolio-chip):not(.employer-brand-card):not(.footer-icon-link):focus-visible {
+  color: var(--msr-link-hover);
+}
+
+body.msr-portfolio .work-experience-bullets > li,
+body.msr-portfolio .about-bsi-bullets > li {
+  color: #e4e4ea;
 }
 
 /* Perception / case-study pages — prose links on dark stage (not chips or card teasers) */
@@ -2486,8 +2546,8 @@ body.msr-portfolio .main_home {
   width: 100%;
   margin: auto;
 }
-body.msr-portfolio .main_home ul li a {
-  color: #f0b4f8;
+body.msr-portfolio .main_home ul li a:not(.portfolio-chip) {
+  color: var(--msr-link);
 }
 .main_home ul {
   margin-top: 5%;
