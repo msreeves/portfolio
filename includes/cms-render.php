@@ -205,8 +205,9 @@ function cms_render_recruiter_scan_section(array $content): void
         if ($title === '') {
             continue;
         }
+        $safeHref = cms_sanitize_nav_url($href);
         echo '<li class="portfolio-role-focus__item">';
-        echo '<a class="portfolio-role-focus__link" href="' . esc($href) . '">';
+        echo '<a class="portfolio-role-focus__link" href="' . esc($safeHref) . '">';
         echo '<span class="portfolio-role-focus__title">' . esc($title) . '</span>';
         if ($body !== '') {
             echo '<span class="portfolio-role-focus__body">' . esc($body) . '</span>';
@@ -1293,7 +1294,11 @@ function cms_render_about_role_tracks(): void
         $titleIcon = trim((string) ($track['icon'] ?? 'fas fa-circle-check'));
         $cta = is_array($track['cta'] ?? null) ? $track['cta'] : null;
         ?>
-        <div class="portfolio-grid-cell"><div class="portfolio-role-track portfolio-panel main_home">
+        <?php
+        $trackSlug = trim((string) ($track['slug'] ?? ''));
+        $trackId = $trackSlug !== '' ? 'how-i-work-' . $trackSlug : '';
+        ?>
+        <div class="portfolio-grid-cell"><div class="portfolio-role-track portfolio-panel main_home"<?= $trackId !== '' ? ' id="' . esc($trackId) . '"' : '' ?>>
             <h3 class="title portfolio-role-track-title">
                 <i class="<?= esc($titleIcon) ?>" aria-hidden="true"></i>
                 <span><?= esc((string) $track['title']) ?></span>

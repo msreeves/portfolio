@@ -17,23 +17,23 @@
     "roleFocus": [
         {
             "title": "WordPress / CMS",
-            "body": "Lead Atlas Briefing build, multisite programme demos, and enterprise CMS operations.",
-            "href": "#portfolio-lead-heading"
+            "body": "Selected work — Atlas Briefing lead case study plus programme WordPress demos.",
+            "href": "#recent-portfolio"
         },
         {
             "title": "Front-end / React",
-            "body": "Atlas Ops SPA, Event Companion, and Vite-built programme themes.",
+            "body": "Current focus band — Atlas Ops React SPA (screenshots and case study).",
             "href": "#portfolio-spotlight-heading"
         },
         {
             "title": "Digital publishing",
-            "body": "Resource libraries, editorial workflows, and launch QA.",
+            "body": "Experience — BSI, Nexus, and agency publishing roles.",
             "href": "#work-for"
         },
         {
             "title": "Marketing / campaigns",
-            "body": "HubSpot email, Canva creative, and downloadable marketing portfolio PDF.",
-            "href": "#skills"
+            "body": "How I work — campaign design track and marketing portfolio PDF.",
+            "href": "#how-i-work-marketing"
         }
     ]
 }

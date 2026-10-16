@@ -1048,8 +1048,15 @@ function cms_about_role_tracks(): array
                 'text' => $text,
             ];
         }
+        $slug = trim((string) ($track['slug'] ?? ''));
+        if ($slug === '') {
+            $slug = preg_replace('/[^a-z0-9]+/', '-', strtolower($title)) ?? '';
+            $slug = trim($slug, '-');
+        }
+
         $normalized = [
             'title' => $title,
+            'slug' => $slug,
             'icon' => trim((string) ($track['icon'] ?? 'fas fa-circle-check')),
             'bullets' => $bullets,
         ];

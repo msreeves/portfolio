@@ -638,7 +638,13 @@ body.msr-portfolio > a.visually-hidden-focusable:focus-visible {
   font-weight: 600;
 }
 
-.portfolio-band-subtitle--scroll-target {
+.portfolio-band-subtitle--scroll-target,
+#recent-portfolio,
+#work-for,
+#how-i-work,
+#skills,
+#introduction,
+.portfolio-role-track[id^="how-i-work-"] {
   scroll-margin-top: 5.5rem;
 }
 

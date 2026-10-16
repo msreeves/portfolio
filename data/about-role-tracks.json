@@ -2,6 +2,7 @@
     "_comment": "How I work — role track cards (About / how-i-work band).",
     "tracks": [
         {
+            "slug": "cms-publishing",
             "title": "CMS & publishing",
             "icon": "fas fa-newspaper",
             "bullets": [
@@ -11,6 +12,7 @@
             ]
         },
         {
+            "slug": "frontend-wordpress",
             "title": "Front-end & WordPress",
             "icon": "fab fa-wordpress",
             "bullets": [
@@ -20,6 +22,7 @@
             ]
         },
         {
+            "slug": "marketing",
             "title": "Marketing & campaign design",
             "icon": "fas fa-palette",
             "bullets": [
