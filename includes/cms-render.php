@@ -502,20 +502,56 @@ function cms_render_msr_case_study_index_thumb(array $card, string $thumb, strin
 /**
  * @param array<string, mixed> $card
  */
-function cms_render_msr_case_study_index_links(array $card, bool $includeCompanion = true): void
+function cms_msr_case_study_resolved_view_label(array $card): string
+{
+    $label = trim((string) ($card['view_label'] ?? ''));
+    if ($label !== '') {
+        return $label;
+    }
+
+    return 'Open demo';
+}
+
+/**
+ * @param array<string, mixed> $card
+ */
+function cms_msr_case_study_resolved_case_study_label(array $card): string
+{
+    $label = trim((string) ($card['case_study_label'] ?? ''));
+    if ($label !== '') {
+        return $label;
+    }
+
+    return 'Case study';
+}
+
+/**
+ * @param array<string, mixed> $card
+ */
+function cms_msr_case_study_resolved_companion_label(array $card): string
+{
+    $label = trim((string) ($card['companion_label'] ?? ''));
+    if ($label !== '') {
+        return $label;
+    }
+
+    return 'Companion demo';
+}
+
+/**
+ * @param array<string, mixed> $card
+ */
+function cms_render_msr_case_study_ctas(array $card, bool $includeCompanion = true, string $wrapClass = 'msr-programme-card-ctas'): void
 {
     $viewUrl = trim((string) ($card['view_url'] ?? ''));
-    $viewLabel = trim((string) ($card['view_label'] ?? ''));
-    if ($viewLabel === '') {
-        $viewLabel = 'View live';
-    }
+    $viewLabel = cms_msr_case_study_resolved_view_label($card);
     $codeUrl = trim((string) ($card['code_url'] ?? ''));
     $caseStudyUrl = trim((string) ($card['case_study_url'] ?? ''));
-    $caseStudyLabel = trim((string) ($card['case_study_label'] ?? 'Case study'));
+    $caseStudyLabel = cms_msr_case_study_resolved_case_study_label($card);
     $companionUrl = $includeCompanion ? trim((string) ($card['companion_url'] ?? '')) : '';
-    $companionLabel = trim((string) ($card['companion_label'] ?? 'Companion demo'));
+    $companionLabel = cms_msr_case_study_resolved_companion_label($card);
 
-    echo '<p class="portfolio-case-study-index-ctas msr-programme-card-ctas">';
+    echo '<p class="' . esc($wrapClass) . '">';
     if ($viewUrl !== '') {
         $viewExternal = cms_portfolio_link_is_external($viewUrl);
         echo '<a class="portfolio-chip portfolio-chip--primary" href="' . esc($viewUrl) . '"';
@@ -544,6 +580,14 @@ function cms_render_msr_case_study_index_links(array $card, bool $includeCompani
         echo '><i class="fas fa-mobile-screen" aria-hidden="true"></i><span>' . esc($companionLabel) . '</span></a>';
     }
     echo '</p>';
+}
+
+/**
+ * @param array<string, mixed> $card
+ */
+function cms_render_msr_case_study_index_links(array $card, bool $includeCompanion = true): void
+{
+    cms_render_msr_case_study_ctas($card, $includeCompanion, 'portfolio-case-study-index-ctas msr-programme-card-ctas');
 }
 
 /**
@@ -600,6 +644,23 @@ function cms_render_msr_case_study_index_list(array $cards, string $listClass): 
     echo '</div>';
 }
 
+/**
+ * @param list<array<string, mixed>> $cards
+ */
+function cms_render_msr_case_study_card_grid(array $cards, string $gridModifierClass, int $maxCols = 2): void
+{
+    if ($cards === []) {
+        return;
+    }
+
+    $gridMods = cms_portfolio_case_study_grid_modifiers($cards, $maxCols);
+    echo '<div class="portfolio-content-grid msr-programme-grid msr-fade-in ' . esc($gridModifierClass) . esc($gridMods) . '">';
+    foreach ($cards as $card) {
+        cms_render_msr_case_study_card($card);
+    }
+    echo '</div>';
+}
+
 
 function cms_render_msr_case_study_grid(): void
 {
@@ -635,7 +696,11 @@ function cms_render_msr_case_study_grid(): void
         echo '<h3 class="portfolio-band-subtitle h4" id="portfolio-spotlight-heading">Current focus</h3>';
         echo '<p class="portfolio-case-study-band-lede">Graphic novel production and a React delivery workspace — depth on the linked case studies.</p>';
         echo '</div>';
-        cms_render_msr_case_study_index_list($spotlightCards, 'portfolio-case-study-index--current');
+        cms_render_msr_case_study_card_grid(
+            $spotlightCards,
+            'msr-programme-grid--spotlight portfolio-case-study-grid--current',
+            2
+        );
     }
 
     if ($programmeLaneCards === []) {
@@ -646,7 +711,11 @@ function cms_render_msr_case_study_grid(): void
     echo '<h3 class="portfolio-band-subtitle h4" id="portfolio-programme-demos-heading">Programme demos</h3>';
     echo '<p class="portfolio-case-study-band-lede">WordPress multisite and WooCommerce snapshots — labelled <span class="msr-lane-badge msr-lane-badge--programme">Programme demo</span>, not the current delivery bar.</p>';
     echo '</div>';
-    cms_render_msr_case_study_index_list($programmeLaneCards, 'portfolio-case-study-index--programme');
+    cms_render_msr_case_study_card_grid(
+        $programmeLaneCards,
+        'msr-programme-grid--proof portfolio-case-study-grid--programme portfolio-content-grid--max-cols-2',
+        2
+    );
     echo '<p class="portfolio-case-study-index-footnote msr-fade-in"><strong>Event Companion demo — one SPA</strong> for ';
     echo '<a href="./projects/event-companion/">Events hub, Awards, and Seminars</a>.';
     echo ' <a href="./projects/event-companion/?event=msrseminars">Seminars companion</a>';
@@ -664,11 +733,6 @@ function cms_render_msr_case_study_card(array $card): void
     $thumbAlt = trim((string) ($card['thumb_alt'] ?? $card['title'] ?? 'Case study screenshot'));
     $badge = trim((string) ($card['badge'] ?? ''));
     $lane = trim((string) ($card['lane'] ?? ''));
-    $viewLabel = trim((string) ($card['view_label'] ?? ''));
-    if ($viewLabel === '') {
-        $viewLabel = 'View live';
-    }
-    $codeUrl = trim((string) ($card['code_url'] ?? ''));
     $bullets = $card['bullets'] ?? [];
     if (!is_array($bullets)) {
         $bullets = [];
@@ -717,39 +781,7 @@ function cms_render_msr_case_study_card(array $card): void
         echo '<p class="msr-programme-card-summary">' . esc((string) $card['summary']) . '</p>';
     }
 
-    $viewUrl = trim((string) ($card['view_url'] ?? ''));
-    $viewExternal = cms_portfolio_link_is_external($viewUrl);
-
-    echo '<p class="msr-programme-card-ctas">';
-    echo '<a class="portfolio-chip portfolio-chip--primary" href="' . esc($viewUrl) . '"';
-    if ($viewExternal) {
-        echo ' target="_blank" rel="noopener noreferrer"';
-    }
-    echo '><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i><span>' . esc($viewLabel) . '</span></a>';
-    if ($codeUrl !== '') {
-        echo '<a class="portfolio-chip portfolio-chip--secondary" href="' . esc($codeUrl) . '" target="_blank" rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i><span>GitHub</span></a>';
-    }
-    $caseStudyUrl = trim((string) ($card['case_study_url'] ?? ''));
-    if ($caseStudyUrl !== '' && $caseStudyUrl !== $viewUrl) {
-        $caseStudyLabel = trim((string) ($card['case_study_label'] ?? 'Case study'));
-        $caseStudyExternal = cms_portfolio_link_is_external($caseStudyUrl);
-        echo '<a class="portfolio-chip portfolio-chip--secondary" href="' . esc($caseStudyUrl) . '"';
-        if ($caseStudyExternal) {
-            echo ' target="_blank" rel="noopener noreferrer"';
-        }
-        echo '><i class="fas fa-book-open" aria-hidden="true"></i><span>' . esc($caseStudyLabel) . '</span></a>';
-    }
-    $companionUrl = trim((string) ($card['companion_url'] ?? ''));
-    if ($companionUrl !== '') {
-        $companionLabel = trim((string) ($card['companion_label'] ?? 'Companion demo'));
-        $companionExternal = cms_portfolio_link_is_external($companionUrl);
-        echo '<a class="portfolio-chip portfolio-chip--secondary" href="' . esc($companionUrl) . '"';
-        if ($companionExternal) {
-            echo ' target="_blank" rel="noopener noreferrer"';
-        }
-        echo '><i class="fas fa-mobile-screen" aria-hidden="true"></i><span>' . esc($companionLabel) . '</span></a>';
-    }
-    echo '</p>';
+    cms_render_msr_case_study_ctas($card, true, 'msr-programme-card-ctas');
     echo '</div></article></div>';
 }
 

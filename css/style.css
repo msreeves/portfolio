@@ -678,6 +678,15 @@ body.msr-portfolio > a.visually-hidden-focusable:focus-visible {
   margin-top: var(--msr-stack-gap, 1.25rem);
 }
 
+#recent-portfolio .portfolio-case-study-grid--current,
+#recent-portfolio .portfolio-case-study-grid--programme {
+  margin-top: var(--msr-stack-gap, 1.25rem);
+}
+
+#recent-portfolio .portfolio-case-study-grid--programme.msr-programme-grid--proof {
+  margin-bottom: 0.25rem;
+}
+
 #recent-portfolio .portfolio-case-study-band-intro--current {
   margin-top: var(--msr-section-space-tight, 2.5rem);
 }

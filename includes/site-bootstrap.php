@@ -779,10 +779,7 @@ function cms_msr_case_study_cards(): array
             'thumb_alt' => 'Atlas Briefing publishing demo homepage screenshot',
             'thumb_role' => 'landscape',
             'view_url' => cms_portfolio_msr_publishing_demo_url(),
-            'view_label' => 'View WP demo',
             'code_url' => 'https://github.com/msreeves/msrpublishing',
-            'case_study_url' => cms_portfolio_msr_publishing_demo_url(),
-            'case_study_label' => 'Case study (live demo)',
             'lead_layout' => 'wide',
         ],
         [
@@ -804,10 +801,8 @@ function cms_msr_case_study_cards(): array
             'thumb_fit' => 'contain',
             'thumb_position' => 'center',
             'view_url' => './projects/perception/',
-            'view_label' => 'Perception overview',
             'code_url' => '',
             'case_study_url' => './projects/perception/studio',
-            'case_study_label' => 'Read case study',
         ],
         [
             'featured' => false,
@@ -826,10 +821,8 @@ function cms_msr_case_study_cards(): array
             'thumb_role' => 'landscape',
             'card_density' => 'standard',
             'view_url' => './projects/atlas-ops/',
-            'view_label' => 'Open demo',
             'code_url' => 'https://github.com/msreeves/atlas-ops',
             'case_study_url' => './projects/atlas-ops/case-study.html',
-            'case_study_label' => 'Case study',
         ],
         [
             'featured' => false,
