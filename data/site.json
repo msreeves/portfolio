@@ -11,7 +11,7 @@
     "heading_portfolio_lanes": "How work is labelled here",
     "portfolio_lanes_lead": "Deliberately layered: archive pieces show where I started; programme demos show WordPress programme depth; the portfolio shell and workspace tools show how I build and verify work today — with me setting scope and sign-off, not unattended generation.",
     "portfolio_lanes_ai_note": "I use AI-assisted editing and audit tooling in my local workflow. Scope, copy, acceptance checks, and deploy stay with me — nothing ships on a green automated check alone.",
-    "portfolio_archive_intro": "Earlier builds labelled Archive — sites and apps in separate bands, newest first. The latest site build stays in Selected work above.",
+    "portfolio_archive_intro": "Earlier builds labelled Archive — left visible to show progression. Live demos and GitHub links where available.",
     "heading_demo_vs_live": "Demo vs live client",
     "demo_vs_live_lead": "Programme sites are portfolio demonstrations — not live companies. This strip compares what stays light on demos versus what I would enable on a real client site (protection, backups, SEO, consent) — plus how craft and QA differ by lane (see labels above).",
     "heading_work_for": "Experience",

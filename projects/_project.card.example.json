@@ -8,7 +8,6 @@
   "view_url": "./projects/my-demo/",
   "code_url": "https://github.com/msreeves/my-demo",
   "order": 50,
-  "surface": "site",
   "hub": true,
   "archive": true,
   "active": true

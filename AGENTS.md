@@ -12,6 +12,8 @@
 
 **Data:** `data/site.json` · `projects/*.json` · `includes/site-bootstrap.php` (large — read section map first).
 
+**Selected work (lead / current focus / programme):** placement and order are **code-owned** today — see [`docs/reference/portfolio-selected-work-setup.md`](../../docs/reference/portfolio-selected-work-setup.md). Archive grid is separate (`projects/*.json`).
+
 **Gates:** `edit:verify` · `ACCEPTANCE_CONFIG=config/portfolio-acceptance.json npm run msr:acceptance` · `review:site -- portfolio`.
 
 **Inset boxes:** card/panel copy uses `--msr-inset-*` tokens in `css/style.css`; programme/archive card thumbs use `object-fit: cover` in a `16/10` frame (portrait lead cards use `contain`).

@@ -102,7 +102,7 @@ function cms_heading_defaults(): array
         'heading_portfolio_lanes' => 'How work is labelled here',
         'portfolio_lanes_lead' => 'Deliberately layered: archive pieces show where I started; programme demos show WordPress programme depth; the portfolio shell and workspace tools show how I build and verify work today — with me setting scope and sign-off, not unattended generation.',
         'portfolio_lanes_ai_note' => 'I use AI-assisted editing and audit tooling in my local workflow. Scope, copy, acceptance checks, and deploy stay with me — nothing ships on a green automated check alone.',
-        'portfolio_archive_intro' => 'Earlier builds labelled Archive — sites and apps in separate bands, newest first. The latest site build stays in Selected work above.',
+        'portfolio_archive_intro' => 'Earlier builds labelled Archive — left visible to show progression. Live demos and GitHub links where available.',
         'intro_hero_method' => 'Enterprise CMS, WordPress, ACF, JavaScript, and React — with each project labelled so commercial, personal, and demo work stay distinct.',
         'heading_demo_vs_live' => 'Demo vs live client',
         'demo_vs_live_lead' => 'Programme sites are portfolio demonstrations — not live companies. This strip compares what stays light on demos versus what I would enable on a real client site (protection, backups, SEO, consent) — plus how craft and QA differ by lane (see labels above).',
@@ -579,295 +579,62 @@ function cms_list_media_pdf_paths(): array
 }
 
 
-/**
- * Estate portfolio demo lists (workspace config with shipped fallback).
- *
- * @return array{defaultTier: string, activeSlugs: list<string>, featuredCaseStudies: list<string>, legacySlugs: list<string>}
- */
-function cms_portfolio_estate_demo_config(): array
+function cms_load_portfolio_projects(): array
 {
-    static $cache = null;
-    if ($cache !== null) {
-        return $cache;
-    }
-
-    $defaults = [
-        'defaultTier' => 'legacy',
-        'activeSlugs' => ['event-companion'],
-        'featuredCaseStudies' => ['perception', 'atlas-ops'],
-        'legacySlugs' => ['movie-api', 'game', 'hairdressing'],
-    ];
-
-    $paths = [
-        __DIR__ . '/../data/estate-portfolio-demos.json',
-        __DIR__ . '/../../../config/estate-standards-tier.json',
-    ];
-
-    foreach ($paths as $path) {
-        if (!is_readable($path)) {
-            continue;
-        }
-        $raw = @file_get_contents($path);
-        if ($raw === false) {
-            continue;
-        }
-        $decoded = json_decode($raw, true);
-        if (!is_array($decoded)) {
-            continue;
-        }
-        $pd = $decoded['portfolioDemos'] ?? $decoded;
-        if (!is_array($pd)) {
-            continue;
-        }
-        $cache = [
-            'defaultTier' => (string) ($pd['defaultTier'] ?? $defaults['defaultTier']),
-            'activeSlugs' => array_values(array_map('strval', $pd['activeSlugs'] ?? $defaults['activeSlugs'])),
-            'featuredCaseStudies' => array_values(array_map('strval', $pd['featuredCaseStudies'] ?? $defaults['featuredCaseStudies'])),
-            'legacySlugs' => array_values(array_map('strval', $pd['legacySlugs'] ?? $defaults['legacySlugs'])),
-        ];
-
-        return $cache;
-    }
-
-    $cache = $defaults;
-
-    return $cache;
-}
-
-/**
- * Latest mtime under a project tree (skips heavy vendor folders).
- */
-function cms_portfolio_path_latest_mtime(string $dir, int $maxFiles = 8000): int
-{
-    $max = @filemtime($dir) ?: 0;
-    if (!is_dir($dir)) {
-        return $max;
-    }
-
-    $skip = ['node_modules', 'vendor', '.git', 'dist', 'cache'];
-    $n = 0;
-    try {
-        $it = new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator($dir, FilesystemIterator::SKIP_DOTS)
-        );
-        foreach ($it as $file) {
-            if (!$file->isFile()) {
-                continue;
-            }
-            $path = $file->getPathname();
-            foreach ($skip as $segment) {
-                if (str_contains($path, DIRECTORY_SEPARATOR . $segment . DIRECTORY_SEPARATOR)) {
-                    continue 2;
-                }
-            }
-            $n++;
-            if ($n > $maxFiles) {
-                break;
-            }
-            $max = max($max, $file->getMTime());
-        }
-    } catch (Throwable) {
-        return $max;
-    }
-
-    return $max;
-}
-
-function cms_portfolio_project_activity_time(string $slug, string $jsonPath, array $data): int
-{
-    $updatedAt = trim((string) ($data['updatedAt'] ?? ''));
-    if ($updatedAt !== '') {
-        $parsed = strtotime($updatedAt);
-        if ($parsed !== false) {
-            return $parsed;
-        }
-    }
-
-    $times = [];
-    if (is_file($jsonPath)) {
-        $jsonMtime = @filemtime($jsonPath);
-        if ($jsonMtime !== false) {
-            $times[] = $jsonMtime;
-        }
-    }
-
-    $projectDir = dirname($jsonPath) . '/' . $slug;
-    if (is_dir($projectDir)) {
-        $times[] = cms_portfolio_path_latest_mtime($projectDir);
-    }
-
-    return $times !== [] ? max($times) : 0;
-}
-
-/**
- * Auto class: shipped SPA/tooling vs site-style build (override with surface: app|site).
- *
- * @return 'app'|'site'
- */
-function cms_portfolio_project_kind(string $slug, array $data): string
-{
-    $explicit = strtolower(trim((string) ($data['surface'] ?? $data['kind'] ?? '')));
-    if ($explicit === 'app' || $explicit === 'site') {
-        return $explicit;
-    }
-
-    $stack = strtolower((string) ($data['stack'] ?? ''));
-    if (preg_match('/\b(react|typescript|vite|spa|zod|tanstack|node\.?js|rest api)\b/', $stack) === 1) {
-        return 'app';
-    }
-    if (preg_match('/\b(wordpress|woocommerce|html5|vanilla javascript|php|episerver|umbraco|json content)\b/', $stack) === 1) {
-        return 'site';
-    }
-
-    if (in_array($slug, ['event-companion', 'atlas-ops', 'movie-api'], true)) {
-        return 'app';
-    }
-
-    return 'site';
-}
-
-function cms_portfolio_project_is_legacy(string $slug, array $data): bool
-{
-    $tier = strtolower(trim((string) ($data['standardsTier'] ?? '')));
-    if ($tier === 'legacy' || $tier === 'frozen') {
-        return true;
-    }
-    if ($tier === 'active' || $tier === 'current') {
-        return false;
-    }
-
-    $cfg = cms_portfolio_estate_demo_config();
-    if (in_array($slug, $cfg['legacySlugs'], true)) {
-        return true;
-    }
-
-    return ($cfg['defaultTier'] ?? 'legacy') === 'legacy'
-        && !in_array($slug, $cfg['activeSlugs'], true)
-        && !in_array($slug, $cfg['featuredCaseStudies'], true);
-}
-
-/**
- * @return list<array{slug: string, data: array<string, mixed>, kind: string, activity: int, legacy: bool}>
- */
-function cms_portfolio_project_records(): array
-{
-    static $cache = null;
-    if ($cache !== null) {
-        return $cache;
-    }
-
     $dir = __DIR__ . '/../projects';
     if (!is_dir($dir)) {
-        $cache = [];
-
-        return $cache;
+        return [];
+    }
+    $projectFiles = glob($dir . '/*.json') ?: [];
+    if ($projectFiles === []) {
+        return [];
     }
 
-    $records = [];
-    foreach (glob($dir . '/*.json') ?: [] as $file) {
+    $projects = [];
+    foreach ($projectFiles as $file) {
         $base = basename($file);
+        // Skip templates / private drafts (e.g. _project.card.example.json).
         if (str_starts_with($base, '_')) {
             continue;
         }
 
         $raw = @file_get_contents($file);
-        if ($raw === false) {
-            continue;
-        }
+        if ($raw === false) continue;
+
         $data = json_decode($raw, true);
-        if (!is_array($data)) {
-            continue;
-        }
-
-        $slug = strtolower(trim((string) ($data['slug'] ?? pathinfo($base, PATHINFO_FILENAME))));
-        if ($slug === '') {
-            continue;
-        }
-
-        $records[] = [
-            'slug' => $slug,
-            'data' => $data,
-            'kind' => cms_portfolio_project_kind($slug, $data),
-            'activity' => cms_portfolio_project_activity_time($slug, $file, $data),
-            'legacy' => cms_portfolio_project_is_legacy($slug, $data),
-        ];
-    }
-
-    $cache = $records;
-
-    return $cache;
-}
-
-/**
- * Newest non-legacy site demo — stays in Selected work, not the archive grid.
- */
-function cms_portfolio_auto_spotlight_site_slug(): ?string
-{
-    $bestSlug = null;
-    $bestTime = 0;
-
-    foreach (cms_portfolio_project_records() as $row) {
-        if ($row['legacy'] || $row['kind'] !== 'site') {
-            continue;
-        }
-        if (array_key_exists('active', $row['data'])) {
-            $isActive = filter_var($row['data']['active'], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
-            if ($isActive === false) {
-                continue;
-            }
-        }
-
-        if ($row['activity'] > $bestTime) {
-            $bestTime = $row['activity'];
-            $bestSlug = $row['slug'];
-        }
-    }
-
-    return $bestSlug;
-}
-
-function cms_load_portfolio_projects(): array
-{
-    $spotlightSite = cms_portfolio_auto_spotlight_site_slug();
-    $projects = [];
-
-    foreach (cms_portfolio_project_records() as $row) {
-        $slug = $row['slug'];
-        $data = $row['data'];
-
-        if ($spotlightSite !== null && $slug === $spotlightSite) {
-            continue;
-        }
+        if (!is_array($data)) continue;
 
         if (array_key_exists('active', $data)) {
             $isActive = filter_var($data['active'], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
-            if ($isActive === false) {
-                continue;
-            }
+            if ($isActive === false) continue;
         }
 
-        $title = trim((string) ($data['title'] ?? ''));
-        $thumb = trim((string) ($data['thumb'] ?? ''));
-        if ($title === '' || $thumb === '') {
-            continue;
+        // Featured case studies may keep a hub card but opt out of the archive accordion.
+        if (array_key_exists('archive', $data)) {
+            $inArchive = filter_var($data['archive'], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+            if ($inArchive === false) continue;
         }
+
+        $title = trim((string)($data['title'] ?? ''));
+        $thumb = trim((string)($data['thumb'] ?? ''));
+        if ($title === '' || $thumb === '') continue;
+
+        $lane = cms_portfolio_lane_from_project_json($data);
 
         $projects[] = [
-            'slug' => $slug,
             'title' => $title,
-            'stack' => trim((string) ($data['stack'] ?? '')),
-            'summary' => trim((string) ($data['summary'] ?? '')),
+            'stack' => trim((string)($data['stack'] ?? '')),
+            'summary' => trim((string)($data['summary'] ?? '')),
             'thumb' => $thumb,
-            'view_url' => trim((string) ($data['view_url'] ?? '')),
-            'code_url' => trim((string) ($data['code_url'] ?? '')),
-            'kind' => $row['kind'],
-            'activity' => $row['activity'],
-            'lane' => cms_portfolio_lane_from_project_json($data),
+            'view_url' => trim((string)($data['view_url'] ?? '')),
+            'code_url' => trim((string)($data['code_url'] ?? '')),
+            'order' => (int)($data['order'] ?? 9999),
+            'lane' => $lane,
         ];
     }
 
     usort($projects, static function (array $a, array $b): int {
-        return [$b['activity'], $a['title']] <=> [$a['activity'], $b['title']];
+        return [$a['order'], $a['title']] <=> [$b['order'], $b['title']];
     });
 
     return $projects;
@@ -889,8 +656,7 @@ function cms_portfolio_lane_from_project_json(array $data): string
     }
 
     $slug = strtolower(trim((string) ($data['slug'] ?? '')));
-    $spotlightSite = cms_portfolio_auto_spotlight_site_slug();
-    if ($spotlightSite !== null && $slug === $spotlightSite) {
+    if ($slug === 'event-companion' || $slug === 'perception' || $slug === 'atlas-ops') {
         return 'current';
     }
 
