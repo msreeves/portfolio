@@ -1,0 +1,7 @@
+{
+  "_comment": "Shipped copy of workspace config/estate-standards-tier.json → portfolioDemos. Sync when lists change.",
+  "defaultTier": "legacy",
+  "activeSlugs": ["event-companion"],
+  "featuredCaseStudies": ["perception", "atlas-ops"],
+  "legacySlugs": ["movie-api", "game", "hairdressing"]
+}

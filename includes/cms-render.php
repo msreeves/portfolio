@@ -946,34 +946,10 @@ function cms_render_skills_section(array $content): void
 
 
 /**
- * @param list<array{title: string, stack: string, summary: string, thumb: string, view_url: string, code_url: string}> $projects
+ * @param list<array<string, mixed>> $projects
  */
-function cms_render_archive_projects_section(array $content, array $projects): void
+function cms_render_archive_project_cards(array $projects): void
 {
-    if ($projects === []) {
-        return;
-    }
-
-    $heading = (string) ($content['heading_portfolio'] ?? 'Archive projects');
-    $count = count($projects);
-    $projectGridMods = cms_portfolio_grid_modifiers($count, 3);
-    $countLabel = $count === 1 ? '1 project' : $count . ' projects';
-
-    echo '<section id="portfolio" class="portfolio-archive-section" aria-labelledby="archive-projects-heading">';
-    echo '<div class="container portfolio-shell">';
-    echo '<div class="portfolio-section-heading portfolio-archive-heading">';
-    echo '<h2 id="archive-projects-heading" class="portfolio-section-title">' . esc($heading) . '</h2>';
-    echo '<p class="portfolio-archive-count" aria-label="' . esc($countLabel) . '">' . esc($countLabel) . '</p>';
-    echo '</div>';
-
-    $archiveIntro = trim((string) ($content['portfolio_archive_intro'] ?? ''));
-    if ($archiveIntro === '') {
-        $archiveIntro = 'Earlier builds labelled Archive — left visible to show progression. Live demos and GitHub links where available.';
-    }
-    echo '<p class="portfolio-archive-intro">' . esc($archiveIntro) . '</p>';
-
-    echo '<div class="portfolio-content-grid portfolio-content-grid--projects portfolio-project-grid' . esc($projectGridMods) . '" data-project-count="' . (int) $count . '">';
-
     foreach ($projects as $project) {
         echo '<div class="portfolio-grid-cell">';
         echo '<article class="portfolio-project-card msr-fade-in">';
@@ -998,8 +974,70 @@ function cms_render_archive_projects_section(array $content, array $projects): v
         }
         echo '</p></div></article></div>';
     }
+}
 
-    echo '</div></div></section>';
+/**
+ * @param list<array<string, mixed>> $projects
+ */
+function cms_render_archive_project_group(string $groupId, string $title, array $projects): void
+{
+    if ($projects === []) {
+        return;
+    }
+
+    $count = count($projects);
+    $projectGridMods = cms_portfolio_grid_modifiers($count, 3);
+    $headingId = 'archive-projects-' . $groupId . '-heading';
+
+    echo '<div class="portfolio-archive-group portfolio-archive-group--' . esc($groupId) . '">';
+    echo '<h3 class="portfolio-archive-group-title h4" id="' . esc($headingId) . '">' . esc($title) . '</h3>';
+    echo '<p class="portfolio-archive-group-lede">Newest first — auto-updated from project activity.</p>';
+    echo '<div class="portfolio-content-grid portfolio-content-grid--projects portfolio-project-grid' . esc($projectGridMods) . '" data-project-count="' . (int) $count . '" data-archive-kind="' . esc($groupId) . '">';
+    cms_render_archive_project_cards($projects);
+    echo '</div></div>';
+}
+
+/**
+ * @param list<array<string, mixed>> $projects
+ */
+function cms_render_archive_projects_section(array $content, array $projects): void
+{
+    if ($projects === []) {
+        return;
+    }
+
+    $siteProjects = [];
+    $appProjects = [];
+    foreach ($projects as $project) {
+        $kind = trim((string) ($project['kind'] ?? 'site'));
+        if ($kind === 'app') {
+            $appProjects[] = $project;
+        } else {
+            $siteProjects[] = $project;
+        }
+    }
+
+    $heading = (string) ($content['heading_portfolio'] ?? 'Archive projects');
+    $count = count($projects);
+    $countLabel = $count === 1 ? '1 project' : $count . ' projects';
+
+    echo '<section id="portfolio" class="portfolio-archive-section" aria-labelledby="archive-projects-heading">';
+    echo '<div class="container portfolio-shell">';
+    echo '<div class="portfolio-section-heading portfolio-archive-heading">';
+    echo '<h2 id="archive-projects-heading" class="portfolio-section-title">' . esc($heading) . '</h2>';
+    echo '<p class="portfolio-archive-count" aria-label="' . esc($countLabel) . '">' . esc($countLabel) . '</p>';
+    echo '</div>';
+
+    $archiveIntro = trim((string) ($content['portfolio_archive_intro'] ?? ''));
+    if ($archiveIntro === '') {
+        $archiveIntro = 'Earlier builds labelled Archive — sites and apps in separate bands, newest first. The latest site build stays in Selected work above.';
+    }
+    echo '<p class="portfolio-archive-intro">' . esc($archiveIntro) . '</p>';
+
+    cms_render_archive_project_group('sites', 'Archive — sites', $siteProjects);
+    cms_render_archive_project_group('apps', 'Archive — apps', $appProjects);
+
+    echo '</div></section>';
 }
 
 

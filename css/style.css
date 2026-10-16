@@ -1572,6 +1572,25 @@ a.portfolio-chip > i {
   font-size: 0.98rem;
 }
 
+.portfolio-archive-group {
+  margin-top: 1.75rem;
+}
+
+.portfolio-archive-group:first-of-type {
+  margin-top: 1.25rem;
+}
+
+.portfolio-archive-group-title {
+  margin: 0 0 0.35rem;
+  color: #f4f4f8;
+}
+
+.portfolio-archive-group-lede {
+  margin: 0 0 1rem;
+  color: rgba(232, 232, 238, 0.82);
+  font-size: 0.92rem;
+}
+
 .portfolio-archive-index {
   display: flex;
   flex-wrap: wrap;
