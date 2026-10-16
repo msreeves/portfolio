@@ -95,12 +95,15 @@ function cms_fragment_labels(): array
 function cms_heading_defaults(): array
 {
     return [
-        'heading_recent_portfolio' => 'Featured case studies',
+        'intro_hero_headline' => 'Front-End WordPress Developer & CMS Specialist',
+        'heading_recent_portfolio' => 'Selected work',
+        'heading_career_highlights' => 'Career highlights',
+        'heading_how_i_work' => 'How I work',
         'heading_portfolio_lanes' => 'How work is labelled here',
         'portfolio_lanes_lead' => 'Deliberately layered: archive pieces show where I started; programme demos show WordPress programme depth; the portfolio shell and workspace tools show how I build and verify work today — with me setting scope and sign-off, not unattended generation.',
         'portfolio_lanes_ai_note' => 'I use AI-assisted editing and audit tooling in my local workflow. Scope, copy, acceptance checks, and deploy stay with me — nothing ships on a green automated check alone.',
         'portfolio_archive_intro' => 'Earlier builds labelled Archive — left visible to show progression. Live demos and GitHub links where available.',
-        'intro_hero_method' => 'Each case study is labelled Current standard, Programme demo, or Archive so recruiters can see progression — not one homogenised skin.',
+        'intro_hero_method' => 'Enterprise CMS, WordPress, ACF, JavaScript, and React — with each project labelled so commercial, personal, and demo work stay distinct.',
         'heading_demo_vs_live' => 'Demo vs live client',
         'demo_vs_live_lead' => 'Programme sites are portfolio demonstrations — not live companies. This strip compares what stays light on demos versus what I would enable on a real client site (protection, backups, SEO, consent) — plus how craft and QA differ by lane (see labels above).',
         'heading_work_for' => 'Experience',
@@ -219,11 +222,14 @@ function cms_site_nav_scroll_sections(): array
 {
     return [
         'intro' => 'Home (top)',
-        'introduction' => 'About',
-        'recent-portfolio' => 'Case studies',
+        'career-highlights' => 'Career highlights',
+        'role-focus' => 'Browse by role',
+        'recent-portfolio' => 'Selected work',
         'portfolio-lanes' => 'How labelled',
         'demo-vs-live' => 'Demo vs live',
         'work-for' => 'Experience',
+        'how-i-work' => 'How I work',
+        'introduction' => 'About',
         'skills' => 'Skills',
         'testimonials' => 'Testimonials',
         'portfolio' => 'Archive projects',
@@ -252,11 +258,10 @@ function cms_site_nav_scroll_id_whitelist(): array
 function cms_site_nav_default_items(): array
 {
     return [
-        ['label' => 'Case studies', 'type' => 'scroll', 'target' => 'recent-portfolio'],
-        ['label' => 'How labelled', 'type' => 'scroll', 'target' => 'portfolio-lanes'],
-        ['label' => 'Demo vs live', 'type' => 'scroll', 'target' => 'demo-vs-live'],
-        ['label' => 'About', 'type' => 'scroll', 'target' => 'introduction'],
+        ['label' => 'Selected work', 'type' => 'scroll', 'target' => 'recent-portfolio'],
         ['label' => 'Experience', 'type' => 'scroll', 'target' => 'work-for'],
+        ['label' => 'About', 'type' => 'scroll', 'target' => 'introduction'],
+        ['label' => 'CV', 'type' => 'url', 'target' => './media/pdf/michael-reeves-cv.pdf'],
         ['label' => 'Contact', 'type' => 'scroll', 'target' => 'contact-band'],
     ];
 }
@@ -760,41 +765,11 @@ function cms_msr_case_study_cards(): array
         [
             'featured' => true,
             'lane' => 'current',
-            'badge' => 'In progress',
-            'title' => 'Perception — graphic novel (production studio case study)',
-            'stack' => 'Production studio case study · art pipeline · Herd Cover · Book · Ship',
-            'bullets' => [
-                ['icon' => 'fas fa-palette', 'text' => 'Studio-first showcase — art direction, Modes pipeline visuals, WIP Part One cover'],
-                ['icon' => 'fas fa-book-open', 'text' => 'Case study — decision log, craft evidence, cover hub (A–G); Story DNA phase'],
-                ['icon' => 'fas fa-layer-group', 'text' => 'Digital edition not started; Studio stays off the public server; machine-checkable acceptance on portfolio UI'],
-            ],
-            'thumb' => './media/images/case-studies/perception.jpg',
-            'thumb_alt' => 'Perception Volume 1 front cover — prestige crime noir graphic novel',
-            'view_url' => './projects/perception/',
-            'view_label' => 'Perception overview',
-            'code_url' => '',
-        ],
-        [
-            'featured' => false,
-            'lane' => 'current',
-            'title' => 'Atlas Ops',
-            'stack' => 'React · TypeScript · Vite · TanStack Query · Zustand',
-            'bullets' => [
-                ['icon' => 'fas fa-table-columns', 'text' => 'Project CRUD with list and drag-and-drop kanban'],
-                ['icon' => 'fas fa-users', 'text' => 'Team roles, permissions, and activity feeds'],
-                ['icon' => 'fas fa-chart-line', 'text' => 'Analytics charts, theme/settings, and production polish (a11y, ErrorBoundary, lazy routes)'],
-            ],
-            'thumb' => './media/images/case-studies/atlas-ops.png',
-            'thumb_alt' => 'Atlas Ops delivery workspace dashboard screenshot',
-            'view_url' => './projects/atlas-ops/',
-            'code_url' => 'https://github.com/msreeves/atlas-ops',
-        ],
-        [
-            'featured' => false,
-            'lane' => 'current',
             'badge' => 'Reference WP',
             'title' => 'Atlas Briefing (MSR Publishing)',
             'stack' => 'WordPress · Vite 5 · ACF · B2B resource library',
+            'home_summary' => 'Reference WordPress build — resource library, programme health checks, and regression on key routes.',
+            'index_thumb' => 'none',
             'bullets' => [
                 ['icon' => 'fas fa-book-open', 'text' => 'Resource library with formats, topics, and subscribe flows'],
                 ['icon' => 'fas fa-shield-halved', 'text' => 'Current-standard WP: programme health checks, publishing acceptance, and regression on key routes'],
@@ -802,15 +777,67 @@ function cms_msr_case_study_cards(): array
             ],
             'thumb' => './media/images/case-studies/atlas-briefing.jpg',
             'thumb_alt' => 'Atlas Briefing publishing demo homepage screenshot',
+            'thumb_role' => 'landscape',
             'view_url' => cms_portfolio_msr_publishing_demo_url(),
             'view_label' => 'View WP demo',
             'code_url' => 'https://github.com/msreeves/msrpublishing',
+            'case_study_url' => cms_portfolio_msr_publishing_demo_url(),
+            'case_study_label' => 'Case study (live demo)',
+            'lead_layout' => 'wide',
+        ],
+        [
+            'featured' => false,
+            'lane' => 'current',
+            'badge' => 'In progress',
+            'title' => 'Perception — graphic novel',
+            'stack' => 'Studio case study · cover pipeline · digital edition next',
+            'home_summary' => 'Studio-first graphic novel — art pipeline, cover hub; Reader pack on portfolio; production studio stays local-only.',
+            'index_thumb' => 'inline-cover',
+            'bullets' => [
+                ['icon' => 'fas fa-palette', 'text' => 'Studio-first — art direction, Modes pipeline, WIP Part One cover'],
+                ['icon' => 'fas fa-book-open', 'text' => 'Case study — decision log, craft evidence, cover hub (A–G)'],
+                ['icon' => 'fas fa-layer-group', 'text' => 'Reader pack on portfolio; production studio stays local-only'],
+            ],
+            'thumb' => './media/images/case-studies/perception-front-cover.jpg',
+            'thumb_alt' => 'Perception Volume 1 front cover — prestige crime noir graphic novel',
+            'thumb_role' => 'cover',
+            'thumb_fit' => 'contain',
+            'thumb_position' => 'center',
+            'view_url' => './projects/perception/',
+            'view_label' => 'Perception overview',
+            'code_url' => '',
+            'case_study_url' => './projects/perception/studio',
+            'case_study_label' => 'Read case study',
+        ],
+        [
+            'featured' => false,
+            'lane' => 'current',
+            'title' => 'Atlas Ops',
+            'stack' => 'React · TypeScript · Vite · TanStack Query · Zustand',
+            'home_summary' => 'Project CRUD with list and drag-and-drop kanban — team roles, analytics, production polish.',
+            'index_thumb' => 'none',
+            'bullets' => [
+                ['icon' => 'fas fa-table-columns', 'text' => 'Project CRUD with list and drag-and-drop kanban'],
+                ['icon' => 'fas fa-users', 'text' => 'Team roles, permissions, and activity feeds'],
+                ['icon' => 'fas fa-chart-line', 'text' => 'Analytics charts, theme/settings, and production polish (a11y, ErrorBoundary, lazy routes)'],
+            ],
+            'thumb' => './media/images/case-studies/atlas-ops.png',
+            'thumb_alt' => 'Atlas Ops delivery workspace dashboard screenshot',
+            'thumb_role' => 'landscape',
+            'card_density' => 'standard',
+            'view_url' => './projects/atlas-ops/',
+            'view_label' => 'Open demo',
+            'code_url' => 'https://github.com/msreeves/atlas-ops',
+            'case_study_url' => './projects/atlas-ops/case-study.html',
+            'case_study_label' => 'Case study',
         ],
         [
             'featured' => false,
             'lane' => 'programme',
             'title' => 'MSR Events hub',
             'stack' => 'WordPress multisite · programme lifecycle',
+            'home_summary' => 'Lifecycle bands and editorial refresh on the programme home.',
+            'index_thumb' => 'none',
             'bullets' => [
                 ['icon' => 'fas fa-calendar-days', 'text' => 'Lifecycle bands and editorial refresh on programme home'],
                 ['icon' => 'fas fa-mobile-screen', 'text' => 'Event Companion demo — one SPA for hub, Awards, and Seminars'],
@@ -818,6 +845,8 @@ function cms_msr_case_study_cards(): array
             ],
             'thumb' => './media/images/case-studies/msr-events-hub.jpg',
             'thumb_alt' => 'MSR Events hub homepage screenshot',
+            'thumb_role' => 'landscape',
+            'card_density' => 'compact',
             'view_url' => 'https://www.msreeves.co.uk/events/',
             'code_url' => 'https://github.com/msreeves/msrevents',
             'companion_url' => './projects/event-companion/',
@@ -828,6 +857,8 @@ function cms_msr_case_study_cards(): array
             'lane' => 'programme',
             'title' => 'MSR Awards',
             'stack' => 'Dark prestige theme · nominees & judging',
+            'home_summary' => 'Nominee archive, judging narrative, and ceremony content.',
+            'index_thumb' => 'none',
             'bullets' => [
                 ['icon' => 'fas fa-trophy', 'text' => 'Nominee archive, judging narrative, and ceremony content'],
                 ['icon' => 'fas fa-star', 'text' => 'Featured nominees band and portfolio-ready demo seed'],
@@ -835,6 +866,8 @@ function cms_msr_case_study_cards(): array
             ],
             'thumb' => './media/images/case-studies/msr-awards.jpg',
             'thumb_alt' => 'MSR Awards programme homepage screenshot',
+            'thumb_role' => 'landscape',
+            'card_density' => 'compact',
             'view_url' => 'https://www.msreeves.co.uk/events/msrawards/',
             'code_url' => 'https://github.com/msreeves/msrawards',
             'companion_url' => './projects/event-companion/?event=msrawards',
@@ -845,13 +878,17 @@ function cms_msr_case_study_cards(): array
             'lane' => 'programme',
             'title' => 'MSR Seminars',
             'stack' => 'Agenda · panelists · delegate programme',
+            'home_summary' => 'Day-of schedule companion for MSR Seminars (React SPA).',
+            'index_thumb' => 'none',
             'bullets' => [
                 ['icon' => 'fas fa-microphone-lines', 'text' => 'Agenda-led sessions with speakers and sponsors'],
-                ['icon' => 'fas fa-filter', 'text' => 'BEM nav, filter tabs, and programme editorial polish'],
                 ['icon' => 'fas fa-mobile-screen', 'text' => 'Day-of schedule companion for MSR Seminars (React SPA)'],
+                ['icon' => 'fas fa-filter', 'text' => 'BEM nav, filter tabs, and programme editorial polish'],
             ],
             'thumb' => './media/images/case-studies/msr-seminars.jpg',
             'thumb_alt' => 'MSR Seminars programme homepage screenshot',
+            'thumb_role' => 'landscape',
+            'card_density' => 'compact',
             'view_url' => 'https://www.msreeves.co.uk/events/msrseminars/',
             'code_url' => 'https://github.com/msreeves/msrseminars',
             'companion_url' => './projects/event-companion/?event=msrseminars',
@@ -862,6 +899,8 @@ function cms_msr_case_study_cards(): array
             'lane' => 'programme',
             'title' => 'MSR Products',
             'stack' => 'WooCommerce showcase',
+            'home_summary' => 'Shop catalogue with structured product highlights — Vite 5 theme in verify manifest.',
+            'index_thumb' => 'none',
             'bullets' => [
                 ['icon' => 'fas fa-cart-shopping', 'text' => 'Shop catalogue with structured product highlights'],
                 ['icon' => 'fas fa-bolt', 'text' => 'Vite 5 theme build in verify manifest'],
@@ -869,6 +908,8 @@ function cms_msr_case_study_cards(): array
             ],
             'thumb' => './media/images/case-studies/msr-products.jpg',
             'thumb_alt' => 'MSR Products WooCommerce demo homepage screenshot',
+            'thumb_role' => 'landscape',
+            'card_density' => 'compact',
             'view_url' => 'https://www.msreeves.co.uk/msrproducts/',
             'code_url' => 'https://github.com/msreeves/msrproducts',
         ],
@@ -941,6 +982,17 @@ function cms_demo_vs_live_rows(): array
 }
 
 
+function cms_intro_headline_for_hero(array $content): string
+{
+    $headline = trim((string) ($content['intro_hero_headline'] ?? ''));
+    if ($headline !== '') {
+        return $headline;
+    }
+
+    return 'Front-End WordPress Developer & CMS Specialist';
+}
+
+
 function cms_intro_tagline_for_hero(array $content): string
 {
     $short = trim((string) ($content['intro_tagline_short'] ?? ''));
@@ -958,13 +1010,69 @@ function cms_intro_method_for_hero(array $content): string
 }
 
 
+/**
+ * Verified scale highlights for recruiter scan (sourced from Experience copy in site.json).
+ *
+ * @return list<array{stat: string, detail: string}>
+ */
+function cms_career_highlight_items(): array
+{
+    return [
+        [
+            'stat' => '40+ international BSI websites',
+            'detail' => 'Daily digital content operations in EpiServer CMS (current role).',
+        ],
+        [
+            'stat' => 'Hundreds of pages per launch',
+            'detail' => 'Enterprise publishing and review for global business divisions.',
+        ],
+        [
+            'stat' => 'WordPress programme suite',
+            'detail' => 'Multisite demos with honest labels — current standard vs programme snapshot.',
+        ],
+    ];
+}
+
+
+/**
+ * Lightweight role entry points (same page — scroll targets).
+ *
+ * @return list<array{title: string, body: string, href: string}>
+ */
+function cms_role_focus_entries(): array
+{
+    return [
+        [
+            'title' => 'WordPress / CMS',
+            'body' => 'Atlas Briefing reference build, MSR programme WordPress demos, enterprise CMS experience.',
+            'href' => '#recent-portfolio',
+        ],
+        [
+            'title' => 'Front-end / React',
+            'body' => 'Atlas Ops SPA, Event Companion demos, responsive theme work on programme sites.',
+            'href' => '#recent-portfolio',
+        ],
+        [
+            'title' => 'Digital publishing',
+            'body' => 'BSI scale, resource libraries, editorial workflows, and launch QA.',
+            'href' => '#work-for',
+        ],
+        [
+            'title' => 'Marketing / campaigns',
+            'body' => 'HubSpot email, Canva creative, and downloadable marketing portfolio PDF.',
+            'href' => '#skills',
+        ],
+    ];
+}
+
+
 function cms_build_defaults(): array
 {
     $out = array_merge(
         [
             'intro_name' => 'Michael Reeves',
             'intro_tagline' => 'Marketing & Digital Content Executive | Front-end Web/Wordpress Developer | Designer | Games Tester',
-            'intro_tagline_short' => 'Welcome — a portfolio of CMS and digital publishing work, front-end WordPress builds, and marketing design. Explore case studies below, or download the CV and marketing pack.',
+            'intro_tagline_short' => 'Building and maintaining digital publishing experiences, WordPress websites, and responsive front-end interfaces.',
             'about_heading' => 'About',
             'site_nav_json' => cms_site_nav_default_json(),
             'timeline_count' => 0,

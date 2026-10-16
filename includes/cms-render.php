@@ -146,12 +146,102 @@ function cms_render_section_heading(string $title, string $headingId = ''): void
     echo '<div class="portfolio-section-heading"><h2 class="portfolio-section-title"' . $idAttr . '>' . esc($title) . '</h2></div>';
 }
 
+
+/**
+ * Compact recruiter scan — verified highlights from Experience copy.
+ *
+ * @param array<string, mixed> $content
+ */
+function cms_render_career_highlights_section(array $content): void
+{
+    $items = cms_career_highlight_items();
+    if ($items === []) {
+        return;
+    }
+
+    $heading = trim((string) ($content['heading_career_highlights'] ?? 'Career highlights'));
+    cms_render_section_heading($heading !== '' ? $heading : 'Career highlights', 'career-highlights-heading');
+
+    echo '<ul class="portfolio-career-highlights msr-fade-in" role="list">';
+    foreach ($items as $item) {
+        $stat = trim((string) ($item['stat'] ?? ''));
+        $detail = trim((string) ($item['detail'] ?? ''));
+        if ($stat === '') {
+            continue;
+        }
+        echo '<li class="portfolio-career-highlight">';
+        echo '<p class="portfolio-career-highlight__stat">' . esc($stat) . '</p>';
+        if ($detail !== '') {
+            echo '<p class="portfolio-career-highlight__detail">' . esc($detail) . '</p>';
+        }
+        echo '</li>';
+    }
+    echo '</ul>';
+}
+
+
+/**
+ * Post-hero recruiter scan: highlights + role entry points in one visual band.
+ *
+ * @param array<string, mixed> $content
+ */
+function cms_render_recruiter_scan_section(array $content): void
+{
+    cms_render_career_highlights_section($content);
+
+    $entries = cms_role_focus_entries();
+    if ($entries === []) {
+        return;
+    }
+
+    echo '<div id="role-focus" class="portfolio-scan-subsection msr-fade-in" aria-labelledby="role-focus-heading">';
+    echo '<h3 id="role-focus-heading" class="portfolio-subsection-title">Browse by role focus</h3>';
+    echo '<nav class="portfolio-role-focus" aria-label="Browse portfolio by role focus">';
+    echo '<ul class="portfolio-role-focus__list" role="list">';
+    foreach ($entries as $entry) {
+        $title = trim((string) ($entry['title'] ?? ''));
+        $body = trim((string) ($entry['body'] ?? ''));
+        $href = trim((string) ($entry['href'] ?? '#recent-portfolio'));
+        if ($title === '') {
+            continue;
+        }
+        echo '<li class="portfolio-role-focus__item">';
+        echo '<a class="portfolio-role-focus__link" href="' . esc($href) . '">';
+        echo '<span class="portfolio-role-focus__title">' . esc($title) . '</span>';
+        if ($body !== '') {
+            echo '<span class="portfolio-role-focus__body">' . esc($body) . '</span>';
+        }
+        echo '</a></li>';
+    }
+    echo '</ul></nav></div>';
+}
+
+
+/** Role-focused entry points (anchors on the same homepage). */
+function cms_render_role_focus_section(): void
+{
+    cms_render_recruiter_scan_section([]);
+}
+
+
+/**
+ * Evidence-led working practices (moved out of About for clearer IA).
+ *
+ * @param array<string, mixed> $content
+ */
+function cms_render_how_i_work_section(array $content): void
+{
+    $heading = trim((string) ($content['heading_how_i_work'] ?? 'How I work'));
+    cms_render_section_heading($heading !== '' ? $heading : 'How I work', 'how-i-work-heading');
+    cms_render_about_role_tracks();
+}
+
 /**
  * Demo vs live client comparison strip (portfolio production readiness).
  *
  * @param array<string, mixed> $content
  */
-function cms_render_demo_vs_live_strip(array $content): void
+function cms_render_demo_vs_live_strip(array $content, bool $showSectionHeading = true): void
 {
     $rows = cms_demo_vs_live_rows();
     if ($rows === []) {
@@ -161,7 +251,9 @@ function cms_render_demo_vs_live_strip(array $content): void
     $heading = trim((string) ($content['heading_demo_vs_live'] ?? 'Demo vs live client'));
     $lead = trim((string) ($content['demo_vs_live_lead'] ?? ''));
 
-    cms_render_section_heading($heading !== '' ? $heading : 'Demo vs live client', 'demo-vs-live-heading');
+    if ($showSectionHeading) {
+        cms_render_section_heading($heading !== '' ? $heading : 'Demo vs live client', 'demo-vs-live-heading');
+    }
 
     if ($lead !== '') {
         echo '<p class="demo-vs-live-lead msr-fade-in">' . esc($lead) . '</p>';
@@ -202,7 +294,7 @@ function cms_render_demo_vs_live_strip(array $content): void
  *
  * @param array<string, mixed> $content
  */
-function cms_render_portfolio_lanes_section(array $content): void
+function cms_render_portfolio_lanes_section(array $content, bool $showSectionHeading = true): void
 {
     $lanes = cms_portfolio_lanes_data();
     if ($lanes === []) {
@@ -213,7 +305,9 @@ function cms_render_portfolio_lanes_section(array $content): void
     $lead = trim((string) ($content['portfolio_lanes_lead'] ?? ''));
     $aiNote = trim((string) ($content['portfolio_lanes_ai_note'] ?? ''));
 
-    cms_render_section_heading($heading !== '' ? $heading : 'How work is labelled here', 'portfolio-lanes-heading');
+    if ($showSectionHeading) {
+        cms_render_section_heading($heading !== '' ? $heading : 'How work is labelled here', 'portfolio-lanes-heading');
+    }
 
     if ($lead !== '') {
         echo '<p class="portfolio-lanes-lead msr-fade-in">' . esc($lead) . '</p>';
@@ -279,6 +373,233 @@ function cms_msr_case_study_thumb_src(string $thumb): string
     return './' . ltrim($thumb, '/');
 }
 
+/**
+ * @param array<string, mixed> $card
+ */
+function cms_msr_case_study_thumb_role(array $card): string
+{
+    $role = strtolower(trim((string) ($card['thumb_role'] ?? '')));
+    if (in_array($role, ['cover', 'landscape', 'none'], true)) {
+        return $role;
+    }
+    if (!empty($card['featured']) && strtolower(trim((string) ($card['lead_layout'] ?? ''))) !== 'wide') {
+        return 'cover';
+    }
+
+    return 'landscape';
+}
+
+/**
+ * @param array<string, mixed> $card
+ */
+function cms_msr_case_study_card_density(array $card): string
+{
+    $density = strtolower(trim((string) ($card['card_density'] ?? '')));
+    if ($density === 'compact' || $density === 'standard') {
+        return $density;
+    }
+    $lane = trim((string) ($card['lane'] ?? ''));
+    if ($lane === 'programme') {
+        return 'compact';
+    }
+
+    return 'standard';
+}
+
+/**
+ * @param array<string, mixed> $card
+ */
+function cms_render_msr_case_study_thumb_media(array $card, string $thumb, string $thumbAlt): void
+{
+    $role = cms_msr_case_study_thumb_role($card);
+    if ($role === 'none' || $thumb === '') {
+        return;
+    }
+
+    $density = cms_msr_case_study_card_density($card);
+    $fit = strtolower(trim((string) ($card['thumb_fit'] ?? '')));
+    if ($fit !== 'contain') {
+        $fit = 'cover';
+    }
+    $position = trim((string) ($card['thumb_position'] ?? 'center top'));
+    if ($position === '') {
+        $position = 'center top';
+    }
+
+    $mediaClass = 'msr-programme-card-media';
+    if ($role === 'cover') {
+        $mediaClass .= ' msr-programme-card-media--cover';
+    } elseif ($density === 'compact') {
+        $mediaClass .= ' msr-programme-card-media--compact';
+    }
+
+    $imgClass = 'msr-programme-card-thumb msr-programme-card-thumb--fit-' . ($fit === 'contain' ? 'contain' : 'cover');
+    $style = 'object-position:' . preg_replace('/[^a-z0-9%.\s-]/i', '', $position) . ';';
+
+    $width = $role === 'cover' ? 600 : 960;
+    $height = $role === 'cover' ? 900 : ($density === 'compact' ? 400 : 600);
+
+    echo '<div class="' . esc($mediaClass) . '">';
+    echo '<img class="' . esc($imgClass) . '" style="' . esc($style) . '" src="' . esc($thumb) . '" alt="' . esc($thumbAlt) . '" width="' . (int) $width . '" height="' . (int) $height . '" loading="lazy" decoding="async" />';
+    echo '</div>';
+}
+
+/**
+ * @param array<string, mixed> $card
+ */
+function cms_msr_case_study_home_summary(array $card): string
+{
+    $summary = trim((string) ($card['home_summary'] ?? ''));
+    if ($summary !== '') {
+        return $summary;
+    }
+    $bullets = $card['bullets'] ?? [];
+    if (is_array($bullets) && $bullets !== []) {
+        $first = cms_normalize_icon_bullet($bullets[0]);
+
+        return $first['text'];
+    }
+
+    return trim((string) ($card['summary'] ?? ''));
+}
+
+/**
+ * @param array<string, mixed> $card
+ */
+function cms_msr_case_study_index_thumb_mode(array $card): string
+{
+    $mode = strtolower(trim((string) ($card['index_thumb'] ?? '')));
+    if (in_array($mode, ['inline-cover', 'none'], true)) {
+        return $mode;
+    }
+    if (cms_msr_case_study_thumb_role($card) === 'cover') {
+        return 'inline-cover';
+    }
+
+    return 'none';
+}
+
+/**
+ * @param array<string, mixed> $card
+ */
+function cms_render_msr_case_study_index_thumb(array $card, string $thumb, string $thumbAlt): void
+{
+    if ($thumb === '' || cms_msr_case_study_index_thumb_mode($card) !== 'inline-cover') {
+        return;
+    }
+
+    $fit = strtolower(trim((string) ($card['thumb_fit'] ?? '')));
+    if ($fit !== 'contain') {
+        $fit = 'cover';
+    }
+    $imgClass = 'portfolio-case-study-index-thumb portfolio-case-study-index-thumb--' . ($fit === 'contain' ? 'contain' : 'cover');
+
+    echo '<div class="portfolio-case-study-index-thumb-wrap">';
+    echo '<img class="' . esc($imgClass) . '" src="' . esc($thumb) . '" alt="' . esc($thumbAlt) . '" width="120" height="180" loading="lazy" decoding="async" />';
+    echo '</div>';
+}
+
+/**
+ * @param array<string, mixed> $card
+ */
+function cms_render_msr_case_study_index_links(array $card, bool $includeCompanion = true): void
+{
+    $viewUrl = trim((string) ($card['view_url'] ?? ''));
+    $viewLabel = trim((string) ($card['view_label'] ?? ''));
+    if ($viewLabel === '') {
+        $viewLabel = 'View live';
+    }
+    $codeUrl = trim((string) ($card['code_url'] ?? ''));
+    $caseStudyUrl = trim((string) ($card['case_study_url'] ?? ''));
+    $caseStudyLabel = trim((string) ($card['case_study_label'] ?? 'Case study'));
+    $companionUrl = $includeCompanion ? trim((string) ($card['companion_url'] ?? '')) : '';
+    $companionLabel = trim((string) ($card['companion_label'] ?? 'Companion demo'));
+
+    echo '<p class="portfolio-case-study-index-ctas msr-programme-card-ctas">';
+    if ($viewUrl !== '') {
+        $viewExternal = cms_portfolio_link_is_external($viewUrl);
+        echo '<a class="portfolio-chip portfolio-chip--primary" href="' . esc($viewUrl) . '"';
+        if ($viewExternal) {
+            echo ' target="_blank" rel="noopener noreferrer"';
+        }
+        echo '><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i><span>' . esc($viewLabel) . '</span></a>';
+    }
+    if ($codeUrl !== '') {
+        echo '<a class="portfolio-chip portfolio-chip--secondary" href="' . esc($codeUrl) . '" target="_blank" rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i><span>GitHub</span></a>';
+    }
+    if ($caseStudyUrl !== '' && $caseStudyUrl !== $viewUrl) {
+        $caseStudyExternal = cms_portfolio_link_is_external($caseStudyUrl);
+        echo '<a class="portfolio-chip portfolio-chip--secondary" href="' . esc($caseStudyUrl) . '"';
+        if ($caseStudyExternal) {
+            echo ' target="_blank" rel="noopener noreferrer"';
+        }
+        echo '><i class="fas fa-book-open" aria-hidden="true"></i><span>' . esc($caseStudyLabel) . '</span></a>';
+    }
+    if ($companionUrl !== '') {
+        $companionExternal = cms_portfolio_link_is_external($companionUrl);
+        echo '<a class="portfolio-chip portfolio-chip--secondary" href="' . esc($companionUrl) . '"';
+        if ($companionExternal) {
+            echo ' target="_blank" rel="noopener noreferrer"';
+        }
+        echo '><i class="fas fa-mobile-screen" aria-hidden="true"></i><span>' . esc($companionLabel) . '</span></a>';
+    }
+    echo '</p>';
+}
+
+/**
+ * @param array<string, mixed> $card
+ */
+function cms_render_msr_case_study_index_row(array $card, string $rowModifier = ''): void
+{
+    $featured = !empty($card['featured']);
+    $thumb = cms_msr_case_study_thumb_src((string) ($card['thumb'] ?? ''));
+    $thumbAlt = trim((string) ($card['thumb_alt'] ?? $card['title'] ?? 'Case study'));
+    $badge = trim((string) ($card['badge'] ?? ''));
+    $lane = trim((string) ($card['lane'] ?? ''));
+    $summary = cms_msr_case_study_home_summary($card);
+
+    $rowClass = 'portfolio-case-study-index-row';
+    if ($featured) {
+        $rowClass .= ' portfolio-case-study-index-row--lead';
+    }
+    if ($rowModifier !== '') {
+        $rowClass .= ' ' . $rowModifier;
+    }
+
+    echo '<article class="' . esc($rowClass) . '">';
+    cms_render_msr_case_study_index_thumb($card, $thumb, $thumbAlt);
+    echo '<div class="portfolio-case-study-index-main">';
+    if ($featured) {
+        echo '<p class="portfolio-case-study-index-eyebrow">Lead case study</p>';
+    }
+    cms_render_portfolio_lane_badges($lane !== '' ? $lane : null, $badge);
+    echo '<h3 class="h5 portfolio-case-study-index-title">' . esc((string) ($card['title'] ?? '')) . '</h3>';
+    echo '<p class="portfolio-case-study-index-stack">' . esc((string) ($card['stack'] ?? '')) . '</p>';
+    if ($summary !== '') {
+        echo '<p class="portfolio-case-study-index-summary">' . esc($summary) . '</p>';
+    }
+    cms_render_msr_case_study_index_links($card, !$featured && $lane !== 'programme');
+    echo '</div></article>';
+}
+
+/**
+ * @param list<array<string, mixed>> $cards
+ */
+function cms_render_msr_case_study_index_list(array $cards, string $listClass): void
+{
+    if ($cards === []) {
+        return;
+    }
+
+    echo '<div class="portfolio-case-study-index ' . esc($listClass) . ' msr-fade-in" role="list">';
+    foreach ($cards as $card) {
+        echo '<div class="portfolio-case-study-index-item" role="listitem">';
+        cms_render_msr_case_study_index_row($card);
+        echo '</div>';
+    }
+    echo '</div>';
+}
+
 
 function cms_render_msr_case_study_grid(): void
 {
@@ -288,59 +609,48 @@ function cms_render_msr_case_study_grid(): void
     }
 
     $leadCards = [];
-    $programmeCards = [];
+    $spotlightCards = [];
+    $programmeLaneCards = [];
     foreach ($cards as $card) {
         if (!empty($card['featured'])) {
             $leadCards[] = $card;
+
+            continue;
+        }
+        if (trim((string) ($card['lane'] ?? '')) === 'programme') {
+            $programmeLaneCards[] = $card;
         } else {
-            $programmeCards[] = $card;
+            $spotlightCards[] = $card;
         }
     }
 
-    // Lead case study(s) get a dedicated full-width row — not mixed into the 3-up grid.
     if ($leadCards !== []) {
-        echo '<div class="portfolio-lead-case-study msr-fade-in">';
-        echo '<div class="portfolio-content-grid portfolio-content-grid--cards msr-programme-grid msr-programme-grid--proof portfolio-content-grid--solo portfolio-content-grid--has-lead portfolio-content-grid--fluid-proof" data-card-count="' . (int) count($leadCards) . '">';
-        foreach ($leadCards as $card) {
-            cms_render_msr_case_study_card($card);
-        }
-        echo '</div></div>';
+        echo '<div class="portfolio-lead-case-study">';
+        cms_render_msr_case_study_index_list($leadCards, 'portfolio-case-study-index--lead');
+        echo '</div>';
     }
 
-    if ($programmeCards === []) {
+    if ($spotlightCards !== []) {
+        echo '<div class="portfolio-case-study-band-intro portfolio-case-study-band-intro--current">';
+        echo '<h3 class="portfolio-band-subtitle h4" id="portfolio-spotlight-heading">Current focus</h3>';
+        echo '<p class="portfolio-case-study-band-lede">Graphic novel production and a React delivery workspace — depth on the linked case studies.</p>';
+        echo '</div>';
+        cms_render_msr_case_study_index_list($spotlightCards, 'portfolio-case-study-index--current');
+    }
+
+    if ($programmeLaneCards === []) {
         return;
     }
 
-    $visibleCards = array_slice($programmeCards, 0, min(3, count($programmeCards)));
-    $remainingCards = array_slice($programmeCards, count($visibleCards));
-
-    echo '<div class="portfolio-content-grid portfolio-content-grid--cards msr-programme-grid msr-programme-grid--proof';
-    echo esc(cms_portfolio_case_study_grid_modifiers($visibleCards));
-    echo '" data-card-count="' . (int) count($visibleCards) . '">';
-    foreach ($visibleCards as $card) {
-        cms_render_msr_case_study_card($card);
-    }
+    echo '<div class="portfolio-case-study-band-intro portfolio-case-study-band-intro--programme">';
+    echo '<h3 class="portfolio-band-subtitle h4" id="portfolio-programme-demos-heading">Programme demos</h3>';
+    echo '<p class="portfolio-case-study-band-lede">WordPress multisite and WooCommerce snapshots — labelled <span class="msr-lane-badge msr-lane-badge--programme">Programme demo</span>, not the current delivery bar.</p>';
     echo '</div>';
-
-    if ($remainingCards === []) {
-        return;
-    }
-
-    $remainingCount = count($remainingCards);
-    $summaryLabel = $remainingCount === 1
-        ? 'More programme case study'
-        : 'More programme case studies (' . $remainingCount . ')';
-
-    echo '<details class="portfolio-disclosure portfolio-case-study-disclosure msr-fade-in">';
-    echo '<summary class="portfolio-disclosure-summary">' . esc($summaryLabel) . '</summary>';
-    echo '<div class="portfolio-disclosure-body">';
-    echo '<div class="portfolio-content-grid portfolio-content-grid--cards msr-programme-grid msr-programme-grid--proof';
-    echo esc(cms_portfolio_case_study_grid_modifiers($remainingCards));
-    echo '" data-card-count="' . (int) $remainingCount . '">';
-    foreach ($remainingCards as $card) {
-        cms_render_msr_case_study_card($card);
-    }
-    echo '</div></div></details>';
+    cms_render_msr_case_study_index_list($programmeLaneCards, 'portfolio-case-study-index--programme');
+    echo '<p class="portfolio-case-study-index-footnote msr-fade-in"><strong>Event Companion demo — one SPA</strong> for ';
+    echo '<a href="./projects/event-companion/">Events hub, Awards, and Seminars</a>.';
+    echo ' <a href="./projects/event-companion/?event=msrseminars">Seminars companion</a>';
+    echo ' · <a href="./projects/event-companion/?event=msrawards">Awards companion</a>.</p>';
 }
 
 /**
@@ -349,6 +659,7 @@ function cms_render_msr_case_study_grid(): void
 function cms_render_msr_case_study_card(array $card): void
 {
     $featured = !empty($card['featured']);
+    $leadLayout = strtolower(trim((string) ($card['lead_layout'] ?? '')));
     $thumb = cms_msr_case_study_thumb_src((string) ($card['thumb'] ?? ''));
     $thumbAlt = trim((string) ($card['thumb_alt'] ?? $card['title'] ?? 'Case study screenshot'));
     $badge = trim((string) ($card['badge'] ?? ''));
@@ -362,19 +673,31 @@ function cms_render_msr_case_study_card(array $card): void
     if (!is_array($bullets)) {
         $bullets = [];
     }
+    $density = cms_msr_case_study_card_density($card);
+    $bulletCap = $density === 'compact' ? 2 : 3;
+    if (count($bullets) > $bulletCap) {
+        $bullets = array_slice($bullets, 0, $bulletCap);
+    }
 
     echo '<div class="portfolio-grid-cell">';
+    $thumbRole = cms_msr_case_study_thumb_role($card);
+
     echo '<article class="msr-programme-card';
     if ($featured) {
         echo ' msr-programme-card--lead';
+        if ($leadLayout === 'wide') {
+            echo ' msr-programme-card--lead-wide';
+        }
+    }
+    if ($density === 'compact') {
+        echo ' msr-programme-card--compact';
+    }
+    if ($thumbRole === 'cover') {
+        echo ' msr-programme-card--thumb-cover';
     }
     echo '">';
 
-    if ($thumb !== '') {
-        echo '<div class="msr-programme-card-media">';
-        echo '<img class="msr-programme-card-thumb" src="' . esc($thumb) . '" alt="' . esc($thumbAlt) . '" width="960" height="600" loading="lazy" decoding="async" />';
-        echo '</div>';
-    }
+    cms_render_msr_case_study_thumb_media($card, $thumb, $thumbAlt);
 
     echo '<div class="msr-programme-card-body">';
     if ($featured) {
@@ -385,7 +708,11 @@ function cms_render_msr_case_study_card(array $card): void
     echo '<p class="msr-programme-card-stack">' . esc((string) ($card['stack'] ?? '')) . '</p>';
 
     if ($bullets !== []) {
-        cms_render_icon_bullet_list($bullets, 'msr-case-study-bullets');
+        $bulletClass = 'msr-case-study-bullets';
+        if ($density === 'compact') {
+            $bulletClass .= ' msr-case-study-bullets--compact';
+        }
+        cms_render_icon_bullet_list($bullets, $bulletClass);
     } elseif (trim((string) ($card['summary'] ?? '')) !== '') {
         echo '<p class="msr-programme-card-summary">' . esc((string) $card['summary']) . '</p>';
     }
@@ -401,6 +728,16 @@ function cms_render_msr_case_study_card(array $card): void
     echo '><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i><span>' . esc($viewLabel) . '</span></a>';
     if ($codeUrl !== '') {
         echo '<a class="portfolio-chip portfolio-chip--secondary" href="' . esc($codeUrl) . '" target="_blank" rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i><span>GitHub</span></a>';
+    }
+    $caseStudyUrl = trim((string) ($card['case_study_url'] ?? ''));
+    if ($caseStudyUrl !== '' && $caseStudyUrl !== $viewUrl) {
+        $caseStudyLabel = trim((string) ($card['case_study_label'] ?? 'Case study'));
+        $caseStudyExternal = cms_portfolio_link_is_external($caseStudyUrl);
+        echo '<a class="portfolio-chip portfolio-chip--secondary" href="' . esc($caseStudyUrl) . '"';
+        if ($caseStudyExternal) {
+            echo ' target="_blank" rel="noopener noreferrer"';
+        }
+        echo '><i class="fas fa-book-open" aria-hidden="true"></i><span>' . esc($caseStudyLabel) . '</span></a>';
     }
     $companionUrl = trim((string) ($card['companion_url'] ?? ''));
     if ($companionUrl !== '') {
@@ -661,14 +998,14 @@ function cms_portfolio_grid_modifiers(int $itemCount, int $maxCols = 3): string
  *
  * @param list<array<string, mixed>> $cards
  */
-function cms_portfolio_case_study_grid_modifiers(array $cards): string
+function cms_portfolio_case_study_grid_modifiers(array $cards, int $maxCols = 3): string
 {
     $count = count($cards);
     if ($count <= 0) {
         return '';
     }
 
-    return cms_portfolio_grid_modifiers($count, 3) . ' portfolio-content-grid--fluid-proof';
+    return cms_portfolio_grid_modifiers($count, $maxCols) . ' portfolio-content-grid--fluid-proof';
 }
 
 /**
@@ -713,9 +1050,9 @@ function cms_work_experience_primary_keys(): array
 function cms_work_experience_earlier_keys(): array
 {
     return [
-        'html_work_markallen',
         'html_work_rusi',
         'html_work_indigo',
+        'html_work_markallen',
     ];
 }
 

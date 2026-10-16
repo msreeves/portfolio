@@ -10,18 +10,18 @@ $projects = cms_load_portfolio_projects();
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Michael Reeves — CMS specialist, front-end WordPress developer, and marketing/campaign design. Enterprise publishing, programme demos, and a downloadable marketing portfolio." />
+    <meta name="description" content="Michael Reeves — Front-End WordPress Developer & CMS Specialist. Digital publishing, enterprise CMS delivery, and labelled programme demos with downloadable CV." />
     <meta name="keywords" content="Michael Reeves, portfolio, front-end developer, WordPress developer, CMS web editor, digital content, marketing design, Canva, campaign design, EpiServer, HTML, CSS, JavaScript, PHP" />
     <meta name="author" content="Michael Reeves">
     <title>Michael Reeves — Portfolio</title>
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Michael Reeves — Portfolio" />
-    <meta property="og:description" content="CMS specialist, front-end WordPress developer, and marketing/campaign design — live case studies and a downloadable CV." />
+    <meta property="og:description" content="Front-End WordPress Developer & CMS Specialist — selected work, experience, and downloadable CV." />
     <meta property="og:url" content="https://www.msreeves.co.uk/" />
     <meta property="og:image" content="https://www.msreeves.co.uk/media/images/case-studies/atlas-ops.png" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Michael Reeves — Portfolio" />
-    <meta name="twitter:description" content="CMS specialist, front-end WordPress developer, and marketing/campaign design." />
+    <meta name="twitter:description" content="Front-End WordPress Developer & CMS Specialist — digital publishing and front-end delivery." />
     <meta name="twitter:image" content="https://www.msreeves.co.uk/media/images/case-studies/atlas-ops.png" />
     <link rel="canonical" href="https://www.msreeves.co.uk/" />
     <link rel="stylesheet" href="<?= esc(cms_vendor_href('fonts/kodchasan/kodchasan.css')) ?>" />
@@ -66,7 +66,8 @@ $projects = cms_load_portfolio_projects();
                 </div>
                 <div class="intro-hero-panel">
                     <div class="intro-hero-copy">
-                        <h1 class="intro-hero-title msr-fade-in"><?= esc($content['intro_name']) ?></h1>
+                        <h1 class="intro-hero-title msr-fade-in"><?= esc(cms_intro_headline_for_hero($content)) ?></h1>
+                        <p class="intro-hero-byline msr-fade-in"><?= esc((string) ($content['intro_name'] ?? 'Michael Reeves')) ?></p>
                         <p class="intro-tagline intro-hero-tagline msr-fade-in"><?= esc(cms_intro_tagline_for_hero($content)) ?></p>
 <?php
                         $heroMethod = cms_intro_method_for_hero($content);
@@ -76,7 +77,14 @@ $projects = cms_load_portfolio_projects();
 <?php } ?>
                         <div class="intro-hero-ctas msr-fade-in">
                             <?php cms_render_cv_download_chips($content, [
-                                'wrap_class' => '',
+                                'wrap_class' => 'portfolio-hero-cta-row',
+                                'extra_links' => [
+                                    [
+                                        'href' => '#recent-portfolio',
+                                        'label' => 'View selected work',
+                                        'class' => 'portfolio-chip portfolio-chip--primary portfolio-chip--hero-work',
+                                    ],
+                                ],
                             ]); ?>
                         </div>
                     </div>
@@ -86,23 +94,51 @@ $projects = cms_load_portfolio_projects();
         </header>
 
     <main id="site-content" class="portfolio-main portfolio-flow">
+    <section id="career-highlights" class="portfolio-scan-band" aria-labelledby="career-highlights-heading">
+        <div class="container portfolio-shell portfolio-scan-band__inner">
+<?php cms_render_recruiter_scan_section($content); ?>
+        </div>
+    </section>
     <section id="recent-portfolio">
         <div class="container portfolio-shell">
-<?php cms_render_section_heading((string) $content['heading_recent_portfolio']); ?>
+<?php
+$selectedWorkHeading = trim((string) ($content['heading_recent_portfolio'] ?? ''));
+if ($selectedWorkHeading === '' || strcasecmp($selectedWorkHeading, 'Featured case studies') === 0) {
+    $selectedWorkHeading = 'Selected work';
+}
+cms_render_section_heading($selectedWorkHeading);
+?>
 
 <?php cms_render_panel_grid($content, ['html_recent_portfolio_1']); ?>
 
 <?php cms_render_msr_case_study_grid(); ?>
         </div>
     </section>
-    <section id="portfolio-lanes" aria-labelledby="portfolio-lanes-heading">
+    <section id="work-for">
         <div class="container portfolio-shell">
-<?php cms_render_portfolio_lanes_section($content); ?>
+<?php cms_render_section_heading((string) $content['heading_work_for']); ?>
+<?php cms_render_work_experience_section($content); ?>
         </div>
     </section>
-    <section id="demo-vs-live" aria-labelledby="demo-vs-live-heading">
+    <section id="how-i-work" aria-labelledby="how-i-work-heading">
         <div class="container portfolio-shell">
-<?php cms_render_demo_vs_live_strip($content); ?>
+<?php cms_render_how_i_work_section($content); ?>
+        </div>
+    </section>
+    <section id="portfolio-transparency" class="portfolio-transparency-band" aria-label="Labelling and production transparency">
+        <div class="container portfolio-shell portfolio-transparency-stack">
+            <details id="portfolio-lanes" class="portfolio-disclosure portfolio-transparency-disclosure msr-fade-in">
+                <summary class="portfolio-disclosure-summary">How work is labelled here</summary>
+                <div class="portfolio-disclosure-body">
+<?php cms_render_portfolio_lanes_section($content, false); ?>
+                </div>
+            </details>
+            <details id="demo-vs-live" class="portfolio-disclosure portfolio-transparency-disclosure msr-fade-in">
+                <summary class="portfolio-disclosure-summary">Demo vs live client (production checklist)</summary>
+                <div class="portfolio-disclosure-body">
+<?php cms_render_demo_vs_live_strip($content, false); ?>
+                </div>
+            </details>
         </div>
     </section>
     <section>
@@ -110,7 +146,6 @@ $projects = cms_load_portfolio_projects();
             <div class="container portfolio-shell">
 <?php cms_render_section_heading((string) $content['about_heading']); ?>
 <?php cms_render_panel_grid($content, ['html_introduction_1', 'html_introduction_2']); ?>
-<?php cms_render_about_role_tracks(); ?>
                 <div class="employer-logo-grid">
                     <p class="employer-logo-grid-caption">Websites I worked on — brand and publishing sites from current and agency roles</p>
                     <div class="employer-logo-grid-inner employer-brand-grid">
@@ -136,12 +171,6 @@ $projects = cms_load_portfolio_projects();
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <section id="work-for">
-        <div class="container portfolio-shell">
-<?php cms_render_section_heading((string) $content['heading_work_for']); ?>
-<?php cms_render_work_experience_section($content); ?>
         </div>
     </section>
     <section id="skills">

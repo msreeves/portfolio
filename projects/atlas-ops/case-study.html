@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Atlas Ops case study — React and TypeScript portfolio demo with project CRUD, kanban, and team workspace patterns." />
+  <title>Atlas Ops — case study · Michael Reeves</title>
+  <link rel="stylesheet" href="../../vendor/fonts/kodchasan/kodchasan.css" />
+  <link rel="stylesheet" href="../../vendor/bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="../../vendor/fontawesome/css/all.min.css" />
+  <link rel="stylesheet" href="../../vendor/fontawesome/css/v4-shims.min.css" />
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../../css/responsive.css" />
+  <link rel="stylesheet" href="../perception/case-study.css" />
+</head>
+<body class="msr-portfolio perception-case-page">
+  <a class="visually-hidden-focusable" href="#atlas-ops-content">Skip to content</a>
+
+  <header class="perception-case-top">
+    <div class="portfolio-shell container perception-case-top__inner">
+      <a class="portfolio-chip portfolio-chip--secondary perception-case-top__back" href="./">
+        <i class="fas fa-arrow-left" aria-hidden="true"></i>
+        <span>Atlas Ops demo</span>
+      </a>
+      <p class="perception-case-top__brand">Michael Reeves · Portfolio</p>
+    </div>
+  </header>
+
+  <main id="atlas-ops-content" class="perception-case portfolio-flow">
+    <div class="portfolio-shell container perception-studio__spine">
+      <header class="perception-case__hero">
+        <div class="perception-case__hero-copy">
+          <p class="perception-case__badge-wrap"><span class="perception-case__badge">Portfolio demo</span></p>
+          <h1 class="perception-case__title">Atlas Ops</h1>
+          <p class="perception-case__outcome">
+            Fictional AI delivery ops dashboard — a personal demonstration SPA, not a live client product or the MSR Storage board.
+          </p>
+          <p class="perception-case__role">
+            <strong>My role:</strong> solo design and front-end build — React UI, routing, state, and demo data wiring.
+          </p>
+        </div>
+        <figure class="perception-case__cover perception-media">
+          <img
+            src="../../media/images/case-studies/atlas-ops.png"
+            width="960"
+            height="600"
+            alt="Atlas Ops dashboard screenshot"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+      </header>
+
+      <section class="perception-studio__chapter" aria-labelledby="overview-heading">
+        <h2 id="overview-heading" class="perception-studio__chapter-title">Overview</h2>
+        <p class="perception-studio__prose">
+          Atlas Ops explores how a small delivery team might track projects, kanban status, people, and light analytics in one workspace.
+          It ships as a static build under this portfolio domain with a public GitHub repository.
+        </p>
+      </section>
+
+      <section class="perception-studio__chapter" aria-labelledby="implementation-heading">
+        <h2 id="implementation-heading" class="perception-studio__chapter-title">Implementation</h2>
+        <ul class="perception-studio__constraints">
+          <li>React with TypeScript, Vite bundling, and Tailwind utility styling.</li>
+          <li>TanStack Query for async data reads; Zustand for local UI state where appropriate.</li>
+          <li>Project CRUD, list view, and drag-and-drop kanban interactions.</li>
+          <li>Team roles, permissions UI, activity feed, analytics charts, and settings/theme screens.</li>
+          <li>Error boundaries, lazy-loaded routes, and keyboard-friendly controls on primary flows.</li>
+        </ul>
+      </section>
+
+      <section class="perception-studio__chapter" aria-labelledby="verification-heading">
+        <h2 id="verification-heading" class="perception-studio__chapter-title">Verification</h2>
+        <p class="perception-studio__prose">
+          This is a demonstration — not a commercial deployment. Behaviour is exercised manually in the browser; there is no claim of production user counts or client outcomes.
+          Compare with labelled <a href="../../#recent-portfolio">programme WordPress demos</a> for multisite publishing evidence.
+        </p>
+      </section>
+
+      <p class="perception-case__actions">
+        <a class="portfolio-chip portfolio-chip--primary" href="./"><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i><span>Open live demo</span></a>
+        <a class="portfolio-chip portfolio-chip--secondary" href="https://github.com/msreeves/atlas-ops" target="_blank" rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i><span>GitHub</span></a>
+        <a class="portfolio-chip portfolio-chip--secondary" href="../../#recent-portfolio"><i class="fas fa-th-large" aria-hidden="true"></i><span>Back to selected work</span></a>
+      </p>
+    </div>
+  </main>
+</body>
+</html>
