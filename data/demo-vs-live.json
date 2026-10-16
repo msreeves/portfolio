@@ -1,0 +1,59 @@
+{
+    "_comment": "Demo vs live client strip rows — heading and lead stay in site.json.",
+    "rows": [
+        {
+            "capability": "Front-end craft & regression",
+            "demo": "Programme demos: smoke-tested routes; honest snapshot of the build era",
+            "live": "Client cadence: regression after UI edits; staging sign-off before release",
+            "craft": "Current portfolio lane: responsive + accessibility review on change; programme lane: smoke unless unparked"
+        },
+        {
+            "capability": "Cloudflare CDN + WAF",
+            "demo": "Hostinger DNS as shipped; Cloudflare proxy not claimed until owner confirms",
+            "live": "Cloudflare Free proxy on web A/AAAA · Full (Strict) SSL · MX/TXT DNS-only",
+            "craft": "Infrastructure choice — independent of UI lane labels"
+        },
+        {
+            "capability": "Hostinger updates / Patchstack",
+            "demo": "Hostinger Security on plan; Patchstack if offered — verify in hPanel",
+            "live": "Smart auto-updates ≥ security · Patchstack where available",
+            "craft": "Infrastructure choice — independent of UI lane labels"
+        },
+        {
+            "capability": "Admin 2FA",
+            "demo": "Not showcased as enabled on demonstration admins",
+            "live": "2FA on Super Admin / admin accounts (Events network especially)",
+            "craft": "Infrastructure choice — independent of UI lane labels"
+        },
+        {
+            "capability": "Off-site backups",
+            "demo": "Products has UpdraftPlus; confirm Events + Publishing off-site",
+            "live": "Scheduled off-site backups for every install",
+            "craft": "Infrastructure choice — independent of UI lane labels"
+        },
+        {
+            "capability": "Search Console + sitemap",
+            "demo": "Not chasing demand-gen SEO on thin demo properties",
+            "live": "GSC property + XML sitemap for the real client domain",
+            "craft": "Infrastructure choice — independent of UI lane labels"
+        },
+        {
+            "capability": "One SEO plugin",
+            "demo": "No SEO stack for growth theatre",
+            "live": "Rank Math or Yoast on Publishing — not both",
+            "craft": "Infrastructure choice — independent of UI lane labels"
+        },
+        {
+            "capability": "Consent / analytics",
+            "demo": "No fake analytics, GBP, or paid growth tooling",
+            "live": "Honest consent banner + analytics only when the client needs them",
+            "craft": "Infrastructure choice — independent of UI lane labels"
+        },
+        {
+            "capability": "Products: Turnstile + PCI gateway",
+            "demo": "WooCommerce showcase; checkout not treated as live commerce",
+            "live": "Cloudflare Turnstile on public checkout · PCI-ready payment gateway",
+            "craft": "Infrastructure choice — independent of UI lane labels"
+        }
+    ]
+}

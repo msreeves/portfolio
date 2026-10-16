@@ -1,0 +1,18 @@
+{
+    "_comment": "About employer logo strip — order and outbound links. Image paths use site.json img_gallery_* keys.",
+    "items": [
+        {"href": "https://www.bsigroup.com/", "img": "img_gallery_bsi", "label": "BSI Group"},
+        {"href": "https://www.educationinvestor.co.uk/", "img": "img_gallery_1", "label": "Education Investor"},
+        {"href": "https://www.healthinvestor.co.uk/", "img": "img_gallery_2", "label": "Health Investor"},
+        {"href": "https://www.caring-times.co.uk/", "img": "img_gallery_3", "label": "Caring Times"},
+        {"href": "https://www.ctownersclub.com/", "img": "img_gallery_4", "label": "CT Owners Club"},
+        {"href": "https://www.nmt-magazine.co.uk/", "img": "img_gallery_5", "label": "NMT Magazine"},
+        {"href": "https://www.nmtownersclub.com/", "img": "img_gallery_6", "label": "NMT Owners Club"},
+        {"href": "https://www.nurseryworld.co.uk/", "img": "img_gallery_9", "label": "Nursery World"},
+        {"href": "https://www.cypnow.co.uk/", "img": "img_gallery_10", "label": "CYP Now"},
+        {"href": "https://www.rusi.org/", "img": "img_gallery_11", "label": "RUSI"},
+        {"href": "https://www.gramophone.co.uk/", "img": "img_gallery_12", "label": "Gramophone"},
+        {"href": "./media/pdf/bwie.pdf", "img": "img_gallery_7", "label": "BWIE"},
+        {"href": "https://independentschoolmanagement.co.uk/", "img": "img_gallery_8", "label": "ISM"}
+    ]
+}

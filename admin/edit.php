@@ -69,7 +69,7 @@ $wizardSteps = [
     [
         'title' => 'About',
         'section_name' => 'About section — copy and employer logos (#introduction)',
-        'hint' => 'Introduction panels and logo strip. Role tracks and logo order/hrefs: data/*.json when present (see docs/law/portfolio-cms-first.md); img_gallery_* paths below stay in site.json.',
+        'hint' => 'Introduction panels and logo strip. Logo order/hrefs: data/employer-logos.json · role tracks: data/about-role-tracks.json · img_gallery_* paths below stay in site.json (see docs/law/portfolio-cms-first.md).',
         'groups' => [
             ['label' => '', 'keys' => ['about_heading']],
             ['label' => 'Introduction — panel 1 (Profile pitch)', 'keys' => ['html_introduction_1']],

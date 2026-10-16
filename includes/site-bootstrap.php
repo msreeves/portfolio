@@ -947,68 +947,119 @@ function cms_msr_case_study_cards(): array
 }
 
 /**
- * Demo (now) vs live client (would enable) — production judgment strip (code-side).
+ * Demo (now) vs live client (would enable) — rows from data/demo-vs-live.json.
  *
  * @return list<array{capability: string, demo: string, live: string, craft: string}>
  */
 function cms_demo_vs_live_rows(): array
 {
-    return [
-        [
-            'capability' => 'Front-end craft & regression',
-            'demo' => 'Programme demos: smoke-tested routes; honest snapshot of the build era',
-            'live' => 'Client cadence: regression after UI edits; staging sign-off before release',
-            'craft' => 'Current portfolio lane: responsive + accessibility review on change; programme lane: smoke unless unparked',
-        ],
-        [
-            'capability' => 'Cloudflare CDN + WAF',
-            'demo' => 'Hostinger DNS as shipped; Cloudflare proxy not claimed until owner confirms',
-            'live' => 'Cloudflare Free proxy on web A/AAAA · Full (Strict) SSL · MX/TXT DNS-only',
-            'craft' => 'Infrastructure choice — independent of UI lane labels',
-        ],
-        [
-            'capability' => 'Hostinger updates / Patchstack',
-            'demo' => 'Hostinger Security on plan; Patchstack if offered — verify in hPanel',
-            'live' => 'Smart auto-updates ≥ security · Patchstack where available',
-            'craft' => 'Infrastructure choice — independent of UI lane labels',
-        ],
-        [
-            'capability' => 'Admin 2FA',
-            'demo' => 'Not showcased as enabled on demonstration admins',
-            'live' => '2FA on Super Admin / admin accounts (Events network especially)',
-            'craft' => 'Infrastructure choice — independent of UI lane labels',
-        ],
-        [
-            'capability' => 'Off-site backups',
-            'demo' => 'Products has UpdraftPlus; confirm Events + Publishing off-site',
-            'live' => 'Scheduled off-site backups for every install',
-            'craft' => 'Infrastructure choice — independent of UI lane labels',
-        ],
-        [
-            'capability' => 'Search Console + sitemap',
-            'demo' => 'Not chasing demand-gen SEO on thin demo properties',
-            'live' => 'GSC property + XML sitemap for the real client domain',
-            'craft' => 'Infrastructure choice — independent of UI lane labels',
-        ],
-        [
-            'capability' => 'One SEO plugin',
-            'demo' => 'No SEO stack for growth theatre',
-            'live' => 'Rank Math or Yoast on Publishing — not both',
-            'craft' => 'Infrastructure choice — independent of UI lane labels',
-        ],
-        [
-            'capability' => 'Consent / analytics',
-            'demo' => 'No fake analytics, GBP, or paid growth tooling',
-            'live' => 'Honest consent banner + analytics only when the client needs them',
-            'craft' => 'Infrastructure choice — independent of UI lane labels',
-        ],
-        [
-            'capability' => 'Products: Turnstile + PCI gateway',
-            'demo' => 'WooCommerce showcase; checkout not treated as live commerce',
-            'live' => 'Cloudflare Turnstile on public checkout · PCI-ready payment gateway',
-            'craft' => 'Infrastructure choice — independent of UI lane labels',
-        ],
-    ];
+    $data = cms_load_portfolio_data_json('demo-vs-live.json');
+    $rows = $data['rows'] ?? null;
+    if (!is_array($rows)) {
+        return [];
+    }
+
+    $out = [];
+    foreach ($rows as $row) {
+        if (!is_array($row)) {
+            continue;
+        }
+        $capability = trim((string) ($row['capability'] ?? ''));
+        if ($capability === '') {
+            continue;
+        }
+        $out[] = [
+            'capability' => $capability,
+            'demo' => trim((string) ($row['demo'] ?? '')),
+            'live' => trim((string) ($row['live'] ?? '')),
+            'craft' => trim((string) ($row['craft'] ?? '')),
+        ];
+    }
+
+    return $out;
+}
+
+/**
+ * About employer logo strip — data/employer-logos.json.
+ *
+ * @return list<array{href: string, img: string, label: string}>
+ */
+function cms_employer_logo_items(): array
+{
+    $data = cms_load_portfolio_data_json('employer-logos.json');
+    $items = $data['items'] ?? null;
+    if (!is_array($items)) {
+        return [];
+    }
+
+    $out = [];
+    foreach ($items as $row) {
+        if (!is_array($row)) {
+            continue;
+        }
+        $img = trim((string) ($row['img'] ?? ''));
+        $label = trim((string) ($row['label'] ?? ''));
+        if ($img === '' || $label === '' || !str_starts_with($img, 'img_')) {
+            continue;
+        }
+        $out[] = [
+            'href' => trim((string) ($row['href'] ?? '')),
+            'img' => $img,
+            'label' => $label,
+        ];
+    }
+
+    return $out;
+}
+
+/**
+ * How I work role tracks — data/about-role-tracks.json.
+ *
+ * @return list<array<string, mixed>>
+ */
+function cms_about_role_tracks(): array
+{
+    $data = cms_load_portfolio_data_json('about-role-tracks.json');
+    $tracks = $data['tracks'] ?? null;
+    if (!is_array($tracks)) {
+        return [];
+    }
+
+    $out = [];
+    foreach ($tracks as $track) {
+        if (!is_array($track)) {
+            continue;
+        }
+        $title = trim((string) ($track['title'] ?? ''));
+        if ($title === '') {
+            continue;
+        }
+        $bullets = [];
+        foreach ((array) ($track['bullets'] ?? []) as $bullet) {
+            if (!is_array($bullet)) {
+                continue;
+            }
+            $text = trim((string) ($bullet['text'] ?? ''));
+            if ($text === '') {
+                continue;
+            }
+            $bullets[] = [
+                'icon' => trim((string) ($bullet['icon'] ?? 'fas fa-circle-check')),
+                'text' => $text,
+            ];
+        }
+        $normalized = [
+            'title' => $title,
+            'icon' => trim((string) ($track['icon'] ?? 'fas fa-circle-check')),
+            'bullets' => $bullets,
+        ];
+        if (is_array($track['cta'] ?? null)) {
+            $normalized['cta'] = $track['cta'];
+        }
+        $out[] = $normalized;
+    }
+
+    return $out;
 }
 
 

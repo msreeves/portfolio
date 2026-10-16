@@ -1,0 +1,37 @@
+{
+    "_comment": "How I work — role track cards (About / how-i-work band).",
+    "tracks": [
+        {
+            "title": "CMS & publishing",
+            "icon": "fas fa-newspaper",
+            "bullets": [
+                {"icon": "fas fa-globe", "text": "Enterprise content operations across 40+ international BSI websites in EpiServer"},
+                {"icon": "fas fa-file-lines", "text": "Multi-format publishing — blogs, webinars, white papers, and certification assets"},
+                {"icon": "fas fa-people-group", "text": "Workflow coordination with Workfront, HubSpot campaigns, and stakeholder teams"}
+            ]
+        },
+        {
+            "title": "Front-end & WordPress",
+            "icon": "fab fa-wordpress",
+            "bullets": [
+                {"icon": "fas fa-paintbrush", "text": "Responsive WordPress themes, ACF-driven content, and Vite-built programme sites"},
+                {"icon": "fas fa-shield-halved", "text": "MSR portfolio demos with machine-checkable acceptance and Playwright QA gates"},
+                {"icon": "fas fa-robot", "text": "AI-assisted delivery (Cursor) for faster troubleshooting, refactors, and prototyping"}
+            ]
+        },
+        {
+            "title": "Marketing & campaign design",
+            "icon": "fas fa-palette",
+            "bullets": [
+                {"icon": "fas fa-envelope-open-text", "text": "HubSpot email campaigns and landing pages for event registration and audience engagement"},
+                {"icon": "fas fa-share-nodes", "text": "Canva social and event assets for awards, power lists, and sector conferences"},
+                {"icon": "fas fa-file-pdf", "text": "Agency marketing samples collected in a downloadable portfolio PDF"}
+            ],
+            "cta": {
+                "href": "./media/pdf/marketing-portfolio.pdf",
+                "label": "Marketing portfolio (PDF)",
+                "icon": "fas fa-file-pdf"
+            }
+        }
+    ]
+}

@@ -1078,30 +1078,6 @@ function cms_portfolio_case_study_grid_modifiers(array $cards, int $maxCols = 3)
     return cms_portfolio_grid_modifiers($count, $maxCols) . ' portfolio-content-grid--fluid-proof';
 }
 
-/**
- * Employer logo tiles for the About section.
- *
- * @return list<array{href: string, img: string, label: string}>
- */
-function cms_employer_logo_items(): array
-{
-    return [
-        ['href' => 'https://www.bsigroup.com/', 'img' => 'img_gallery_bsi', 'label' => 'BSI Group'],
-        ['href' => 'https://www.educationinvestor.co.uk/', 'img' => 'img_gallery_1', 'label' => 'Education Investor'],
-        ['href' => 'https://www.healthinvestor.co.uk/', 'img' => 'img_gallery_2', 'label' => 'Health Investor'],
-        ['href' => 'https://www.caring-times.co.uk/', 'img' => 'img_gallery_3', 'label' => 'Caring Times'],
-        ['href' => 'https://www.ctownersclub.com/', 'img' => 'img_gallery_4', 'label' => 'CT Owners Club'],
-        ['href' => 'https://www.nmt-magazine.co.uk/', 'img' => 'img_gallery_5', 'label' => 'NMT Magazine'],
-        ['href' => 'https://www.nmtownersclub.com/', 'img' => 'img_gallery_6', 'label' => 'NMT Owners Club'],
-        ['href' => 'https://www.nurseryworld.co.uk/', 'img' => 'img_gallery_9', 'label' => 'Nursery World'],
-        ['href' => 'https://www.cypnow.co.uk/', 'img' => 'img_gallery_10', 'label' => 'CYP Now'],
-        ['href' => 'https://www.rusi.org/', 'img' => 'img_gallery_11', 'label' => 'RUSI'],
-        ['href' => 'https://www.gramophone.co.uk/', 'img' => 'img_gallery_12', 'label' => 'Gramophone'],
-        ['href' => './media/pdf/bwie.pdf', 'img' => 'img_gallery_7', 'label' => 'BWIE'],
-        ['href' => 'https://independentschoolmanagement.co.uk/', 'img' => 'img_gallery_8', 'label' => 'ISM'],
-    ];
-}
-
 /** Work-experience panel keys in display order (primary résumé roles). */
 
 
@@ -1302,46 +1278,6 @@ function cms_render_footer_cv_pdf_links(array $content): void
         </a>
         <?php
     }
-}
-
-/** Role tracks: CMS publishing, front-end WordPress, and marketing design. */
-
-function cms_about_role_tracks(): array
-{
-    return [
-        [
-            'title' => 'CMS & publishing',
-            'icon' => 'fas fa-newspaper',
-            'bullets' => [
-                ['icon' => 'fas fa-globe', 'text' => 'Enterprise content operations across 40+ international BSI websites in EpiServer'],
-                ['icon' => 'fas fa-file-lines', 'text' => 'Multi-format publishing — blogs, webinars, white papers, and certification assets'],
-                ['icon' => 'fas fa-people-group', 'text' => 'Workflow coordination with Workfront, HubSpot campaigns, and stakeholder teams'],
-            ],
-        ],
-        [
-            'title' => 'Front-end & WordPress',
-            'icon' => 'fab fa-wordpress',
-            'bullets' => [
-                ['icon' => 'fas fa-paintbrush', 'text' => 'Responsive WordPress themes, ACF-driven content, and Vite-built programme sites'],
-                ['icon' => 'fas fa-shield-halved', 'text' => 'MSR portfolio demos with machine-checkable acceptance and Playwright QA gates'],
-                ['icon' => 'fas fa-robot', 'text' => 'AI-assisted delivery (Cursor) for faster troubleshooting, refactors, and prototyping'],
-            ],
-        ],
-        [
-            'title' => 'Marketing & campaign design',
-            'icon' => 'fas fa-palette',
-            'bullets' => [
-                ['icon' => 'fas fa-envelope-open-text', 'text' => 'HubSpot email campaigns and landing pages for event registration and audience engagement'],
-                ['icon' => 'fas fa-share-nodes', 'text' => 'Canva social and event assets for awards, power lists, and sector conferences'],
-                ['icon' => 'fas fa-file-pdf', 'text' => 'Agency marketing samples collected in a downloadable portfolio PDF'],
-            ],
-            'cta' => [
-                'href' => './media/pdf/marketing-portfolio.pdf',
-                'label' => 'Marketing portfolio (PDF)',
-                'icon' => 'fas fa-file-pdf',
-            ],
-        ],
-    ];
 }
 
 function cms_render_about_role_tracks(): void
