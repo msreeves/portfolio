@@ -104,7 +104,7 @@ function cms_heading_defaults(): array
         'portfolio_lanes_ai_note' => 'I use AI-assisted editing and audit tooling in my local workflow. Scope, copy, acceptance checks, and deploy stay with me — nothing ships on a green automated check alone.',
         'portfolio_archive_intro' => 'Earlier builds labelled Archive — left visible to show progression. Live demos and GitHub links where available.',
         'intro_hero_method' => 'Content-first build: copy and selected-work cards live in structured data; PHP handles layout and local vs live demo links. Updates go through the admin wizard—not scattered through theme templates.',
-        'selected_work_lead_lede' => 'Lead case study — one reference WordPress build (Atlas Briefing). The <span class="msr-lane-badge msr-lane-badge--current">Current standard</span> bar programme demos are measured against (copy and links, no screenshot here).',
+        'selected_work_lead_lede' => 'Lead case study — <strong>MSR Products</strong> WooCommerce showcase (catalogue UX, companion demo, Figma source). Programme demos below are measured against the same delivery bar.',
         'selected_work_current_lede' => 'Current focus — active studio and SPA builds with screenshots and case-study links in this band only.',
         'selected_work_programme_lede' => 'Programme demos — four labelled <span class="msr-lane-badge msr-lane-badge--programme">Programme demo</span> WordPress snapshots in a 2×2 grid; open demos and GitHub.',
         'career_highlights_json' => '',
@@ -824,6 +824,15 @@ function cms_portfolio_msr_publishing_demo_url(): string
     return 'https://www.msreeves.co.uk/msrpublishing/';
 }
 
+function cms_portfolio_msr_products_demo_url(): string
+{
+    if (cms_portfolio_request_is_local_dev()) {
+        return '/sites/wp/msrproducts/';
+    }
+
+    return 'https://www.msreeves.co.uk/msrproducts/';
+}
+
 /** Rewrite local estate paths in CMS HTML to release targets on live portfolio. */
 
 function cms_portfolio_rewrite_estate_urls_in_html(string $html): string
@@ -864,6 +873,9 @@ function cms_resolve_case_study_view_url(string $url): string
     if ($url === '@msrpublishing') {
         return cms_portfolio_msr_publishing_demo_url();
     }
+    if ($url === '@msrproducts') {
+        return cms_portfolio_msr_products_demo_url();
+    }
 
     return $url;
 }
@@ -875,7 +887,11 @@ function cms_resolve_case_study_view_url(string $url): string
 function cms_normalize_case_study_card(array $card): array
 {
     if (isset($card['view_url']) && is_string($card['view_url'])) {
-        $card['view_url'] = cms_resolve_case_study_view_url($card['view_url']);
+        $raw = trim($card['view_url']);
+        if ($raw === '@msrpublishing' || $raw === '@msrproducts') {
+            $card['view_url_token'] = $raw;
+        }
+        $card['view_url'] = cms_resolve_case_study_view_url($raw);
     }
 
     return $card;
@@ -909,6 +925,9 @@ function cms_load_selected_work_config(): ?array
         'bands' => $data['bands'],
         'cards' => $data['cards'],
     ];
+    if (isset($data['_comment']) && is_string($data['_comment'])) {
+        $cache['_comment'] = $data['_comment'];
+    }
 
     return $cache;
 }
