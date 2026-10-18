@@ -3,572 +3,132 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="MSR Products — WooCommerce showcase: full-page Figma-style design frames from the live Fieldcrest shop." />
+  <meta name="description" content="MSR Products — WooCommerce programme demo: inquiry-led shop, SKU-matched imagery, and Product Companion browse SPA." />
   <title>MSR Products — case study · Michael Reeves</title>
   <link rel="stylesheet" href="../../vendor/fonts/kodchasan/kodchasan.css" />
   <link rel="stylesheet" href="../../vendor/bootstrap/css/bootstrap.min.css" />
   <link rel="stylesheet" href="../../vendor/fontawesome/css/all.min.css" />
+  <link rel="stylesheet" href="../../vendor/fontawesome/css/v4-shims.min.css" />
   <link rel="stylesheet" href="../../css/style.css" />
   <link rel="stylesheet" href="../../css/responsive.css" />
+  <link rel="stylesheet" href="../perception/case-study.css" />
   <style>
-    body.msr-products-figma-page {
+    .msr-products-case-shot {
       margin: 0;
-      min-height: 100vh;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
+      border-radius: 0.35rem;
       overflow: hidden;
-      background: #2c2c2c;
-      color: #e8e8e8;
+      border: 1px solid rgba(228, 228, 234, 0.15);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+      background: #0a0a12;
     }
-    body.msr-products-figma-page::before { display: none !important; }
-
-    .figma-app {
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      padding: 0 0.75rem;
-      height: 48px;
-      background: #1e1e1e;
-      border-bottom: 1px solid #3d3d3d;
-      font-size: 0.8125rem;
-      z-index: 10;
-    }
-    .figma-app__left,
-    .figma-app__center,
-    .figma-app__right {
-      display: flex;
-      align-items: center;
-      gap: 0.65rem;
-      min-width: 0;
-    }
-    .figma-app__center {
-      flex: 1;
-      justify-content: center;
-      color: #b3b3b3;
-    }
-    .figma-app__center strong { color: #fff; font-weight: 600; }
-    .figma-app__center .fa-figma { color: #a259ff; }
-    .figma-app__back {
-      color: #e8e8e8;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      padding: 0.35rem 0.5rem;
-      border-radius: 6px;
-    }
-    .figma-app__back:hover { background: #333; color: #fff; }
-    .figma-app__pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      padding: 0.3rem 0.65rem;
-      border-radius: 6px;
-      background: #333;
-      color: #ddd;
-      text-decoration: none;
-      font-size: 0.75rem;
-      white-space: nowrap;
-    }
-    .figma-app__pill:hover { background: #444; color: #fff; }
-    .figma-app__pill--primary { background: #0d99ff; color: #fff; }
-    .figma-app__pill--primary:hover { background: #0b87e0; }
-
-    .figma-canvas {
-      flex: 1;
-      overflow: auto;
-      -webkit-overflow-scrolling: touch;
-      background-color: #e8e8e8;
-      background-image: radial-gradient(circle, #b8b8b8 1px, transparent 1px);
-      background-size: 20px 20px;
-      background-position: 0 0;
-    }
-    .figma-canvas__inner {
-      padding: 3rem clamp(1.5rem, 4vw, 4rem) 5rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4rem;
-      min-width: min(100%, 1560px);
-      margin: 0 auto;
-    }
-    .figma-canvas__intro {
-      width: min(1440px, 100%);
-      background: rgba(255, 255, 255, 0.92);
-      border: 1px solid #d4d4d4;
-      border-radius: 8px;
-      padding: 1.25rem 1.5rem;
-      color: #333;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-    }
-    .figma-canvas__intro h1 {
-      font-size: clamp(1.35rem, 2.5vw, 1.75rem);
-      margin: 0 0 0.35rem;
-      color: #111;
-    }
-    .figma-canvas__intro .eyebrow {
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      font-size: 0.7rem;
-      color: #666;
-      margin: 0 0 0.5rem;
-    }
-    .figma-canvas__intro p {
-      margin: 0 0 0.75rem;
-      color: #555;
-      max-width: 52rem;
-      line-height: 1.5;
-    }
-    .figma-canvas__intro ul {
-      margin: 0 0 1rem;
-      padding-left: 1.2rem;
-      color: #444;
-      font-size: 0.9rem;
-    }
-    .figma-canvas__intro .cta-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
-    .figma-artboard {
-      width: min(1440px, 100%);
-      flex-shrink: 0;
-    }
-    .figma-artboard__label {
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: #555;
-      margin-bottom: 0.5rem;
-      padding-left: 0.15rem;
-    }
-    .figma-artboard__frame {
-      background: #fff;
-      border-radius: 2px;
-      box-shadow:
-        0 0 0 1px rgba(0, 0, 0, 0.08),
-        0 12px 40px rgba(0, 0, 0, 0.12);
-      overflow: hidden;
-    }
-    .figma-artboard__meta {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.75rem;
-      padding: 0.4rem 0.65rem;
-      background: #fafafa;
-      border-bottom: 1px solid #eee;
-      font-size: 0.7rem;
-      color: #666;
-    }
-    .figma-artboard__meta a {
-      color: #0d99ff;
-      text-decoration: none;
-    }
-    .figma-artboard__meta a:hover { text-decoration: underline; }
-    .figma-artboard__viewport {
-      width: 100%;
-      position: relative;
-      overflow: hidden;
-      background: #fff;
-    }
-    .figma-artboard__viewport--fullpage,
-    .figma-board-split__left .figma-artboard__frame {
-      overflow: visible;
-    }
-    .figma-artboard__viewport iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 1440px;
-      height: 900px;
-      border: 0;
-      transform-origin: 0 0;
-    }
-    .figma-artboard__viewport.is-screenshot img {
+    .msr-products-case-shot img {
+      display: block;
       width: 100%;
       height: auto;
-      display: block;
       vertical-align: top;
     }
-    .figma-artboard__size {
-      font-size: 0.65rem;
-      color: #888;
-      margin-top: 0.35rem;
-      padding-left: 0.15rem;
-    }
-
-    .figma-board-split {
-      width: min(1440px, 100%);
-      display: none;
-    }
-    @media (min-width: 960px) {
-      .figma-board-split {
-        display: grid;
-        grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
-        gap: 1.25rem;
-        align-items: start;
-      }
-    }
-    .figma-board-split__left,
-    .figma-board-split__right {
-      min-width: 0;
-    }
-    .figma-board-split__left .figma-artboard {
-      width: 100%;
-    }
-    .figma-board-split__right {
-      display: flex;
-      flex-direction: column;
-      gap: 0.85rem;
-      position: sticky;
-      top: 0.75rem;
-      min-height: min(72vh, 900px);
-    }
-    .figma-board-split__right .figma-artboard {
-      width: 100%;
-      flex: 1 1 0;
-      min-height: 0;
-      display: flex;
-      flex-direction: column;
-    }
-    .figma-board-split__right .figma-artboard__frame {
-      flex: 1;
-      min-height: 0;
-      display: flex;
-      flex-direction: column;
-    }
-    .figma-artboard__viewport--fullpage {
-      overflow: visible;
-    }
-    .figma-artboard__viewport--fullpage img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-    .figma-artboard__viewport--pan {
-      overflow-x: hidden;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-      overscroll-behavior: contain;
-      flex: 1;
-      min-height: 0;
-    }
-    .figma-artboard__viewport--pan img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    .figma-board-stack {
-      width: min(1440px, 100%);
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-    }
-    @media (min-width: 960px) {
-      .figma-board-stack {
-        display: none;
-      }
-    }
-    .figma-board-stack .figma-artboard__viewport--fullpage {
-      max-height: none;
-    }
-    .figma-board-stack .figma-artboard__viewport--pan {
-      max-height: min(58vh, 640px);
-    }
-
-    .figma-board-narrow {
-      width: min(1440px, 100%);
-      margin-top: 0.5rem;
-      padding-top: 2rem;
-      border-top: 1px solid rgba(0, 0, 0, 0.12);
-    }
-    .figma-board-narrow__title {
-      font-size: 0.8rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      color: #555;
-      margin: 0 0 0.35rem;
-    }
-    .figma-board-narrow__lede {
-      margin: 0 0 1.25rem;
-      font-size: 0.88rem;
-      color: #666;
-      max-width: 40rem;
+    .msr-products-case-shot__caption {
+      margin: 0.65rem 0 0;
+      font-size: 0.85rem;
+      color: var(--msr-text-muted, #a8a8b8);
       line-height: 1.45;
-    }
-    .figma-board-narrow__grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1.25rem;
-    }
-    @media (min-width: 640px) {
-      .figma-board-narrow__grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
-    }
-    .figma-board-narrow .figma-artboard {
-      width: 100%;
-      max-width: 420px;
-      margin: 0 auto;
-    }
-    .figma-board-narrow .figma-artboard__viewport--pan {
-      max-height: min(52vh, 520px);
-    }
-    @media (min-width: 960px) {
-      .figma-board-narrow {
-        margin-top: 2.5rem;
-      }
-    }
-
-    .figma-canvas__foot {
-      width: min(1440px, 100%);
-      text-align: center;
-      font-size: 0.75rem;
-      color: #666;
     }
   </style>
 </head>
-<body class="msr-portfolio msr-products-figma-page">
-  <header class="figma-app" role="banner">
-    <div class="figma-app__left">
-      <a class="figma-app__back" href="../../#recent-portfolio">
+<body class="msr-portfolio perception-case-page">
+  <a class="visually-hidden-focusable" href="#msr-products-content">Skip to content</a>
+
+  <header class="perception-case-top">
+    <div class="portfolio-shell container perception-case-top__inner">
+      <a class="portfolio-chip portfolio-chip--secondary perception-case-top__back" href="../../#recent-portfolio">
         <i class="fas fa-arrow-left" aria-hidden="true"></i>
-        <span>Portfolio</span>
+        <span>Selected work</span>
       </a>
-    </div>
-    <div class="figma-app__center">
-      <i class="fas fa-layer-group" aria-hidden="true"></i>
-      <span><strong>MSR Products</strong> / Screens from the live site · Desktop 1440</span>
-    </div>
-    <div class="figma-app__right">
-      <a class="figma-app__pill" href="../product-companion/">Companion</a>
-      <a class="figma-app__pill figma-app__pill--primary" href="https://www.msreeves.co.uk/msrproducts/" target="_blank" rel="noopener noreferrer">Live shop</a>
+      <p class="perception-case-top__brand">Michael Reeves · Portfolio</p>
     </div>
   </header>
 
-  <main class="figma-canvas" id="figma-canvas" aria-label="Design frames">
-    <div class="figma-canvas__inner">
-      <section class="figma-canvas__intro" aria-labelledby="intro-title">
-        <p class="eyebrow">Programme demo · WooCommerce showcase</p>
-        <h1 id="intro-title">MSR Products</h1>
-        <p>
-          Fieldcrest Supply Co. — inquiry-first demonstration store on a Vite-built WooCommerce theme.
-          Frames below are scaled views of the shipped UI (not a separate mock file).
+  <main id="msr-products-content" class="perception-case portfolio-flow">
+    <div class="portfolio-shell container perception-studio__spine">
+      <header class="perception-case__hero">
+        <div class="perception-case__hero-copy">
+          <p class="perception-case__badge-wrap"><span class="perception-case__badge">Programme demo</span></p>
+          <h1 class="perception-case__title">MSR Products</h1>
+          <p class="perception-case__outcome">
+            Fieldcrest Supply Co. — inquiry-first WooCommerce demonstration store on a Vite-built theme. The live shop is the demo; this page is the case-study summary.
+          </p>
+          <p class="perception-case__role">
+            <strong>Try it:</strong> open the live shop for catalogue, product detail, and enquiry flows — or the Product Companion SPA on this portfolio.
+          </p>
+          <p class="perception-case__actions perception-case__actions--hero">
+            <a class="portfolio-chip portfolio-chip--primary" href="/sites/wp/msrproducts/"><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i><span>Open the live demo</span></a>
+            <a class="portfolio-chip portfolio-chip--secondary" href="../product-companion/"><i class="fas fa-mobile-screen" aria-hidden="true"></i><span>Product Companion</span></a>
+            <a class="portfolio-chip portfolio-chip--secondary" href="https://github.com/msreeves/msrproducts" target="_blank" rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i><span>GitHub</span></a>
+          </p>
+        </div>
+        <figure class="perception-case__cover perception-media">
+          <img
+            src="../../media/images/case-studies/msr-products.jpg"
+            width="960"
+            height="600"
+            alt="MSR Products WooCommerce demo homepage"
+            loading="eager"
+            decoding="async"
+          />
+        </figure>
+      </header>
+
+      <section class="perception-studio__chapter" aria-labelledby="overview-heading">
+        <h2 id="overview-heading" class="perception-studio__chapter-title">Overview</h2>
+        <p class="perception-studio__prose">
+          MSR Products sits in the portfolio <span class="msr-lane-badge msr-lane-badge--programme">Programme demo</span> lane alongside Events, Awards, Seminars, and Atlas Briefing.
+          Commerce is inquiry-led (no checkout theatre): browse SKUs, open product detail, and use enquiry CTAs aligned with the demo brief.
         </p>
-        <ul>
-          <li><strong>Live shop</strong> — catalogue, compare, and enquiry flows.</li>
-          <li><strong>SKU-accurate imagery</strong> — thumbnails tied to catalogue SKUs.</li>
-          <li><strong>Product Companion</strong> — React browse demo on this portfolio.</li>
-          <li><strong>Design frames</strong> — desktop: full-page home (scroll the canvas); shop and PDP scroll inside the right column. Narrow previews below.</li>
+      </section>
+
+      <section class="perception-studio__chapter" aria-labelledby="implementation-heading">
+        <h2 id="implementation-heading" class="perception-studio__chapter-title">Implementation</h2>
+        <ul class="perception-studio__constraints">
+          <li>WooCommerce with Vite-built theme assets and ACF options for promo, hero, and catalogue copy.</li>
+          <li><strong>SKU-accurate imagery</strong> — thumbnails matched to catalogue SKUs (bag → bag, bottle → bottle).</li>
+          <li>Home showcase bands, shop archive, and product templates under programme acceptance.</li>
+          <li><strong>Product Companion</strong> — React browse demo (search, categories, inquiry CTAs) fed from exported catalogue JSON.</li>
         </ul>
-        <div class="cta-row">
-          <a class="portfolio-chip portfolio-chip--primary" href="https://www.msreeves.co.uk/msrproducts/" rel="noopener noreferrer">
-            <span>Live shop</span>
-          </a>
-          <a class="portfolio-chip portfolio-chip--secondary" href="https://github.com/msreeves/msrproducts" rel="noopener noreferrer">
-            <span>Theme repo</span>
-          </a>
-        </div>
       </section>
 
-      <div class="figma-board-split" aria-label="Desktop storefront screenshots">
-        <div class="figma-board-split__left">
-          <article class="figma-artboard" data-frame="home">
-            <p class="figma-artboard__label">Home</p>
-            <div class="figma-artboard__frame">
-              <div class="figma-artboard__meta">
-                <span>Home — full page</span>
-                <a href="/sites/wp/msrproducts/" target="_blank" rel="noopener noreferrer">Open in new tab</a>
-              </div>
-              <div class="figma-artboard__viewport is-screenshot figma-artboard__viewport--fullpage" data-figma-shot="screens/home-full.jpg" data-figma-frame data-src="/sites/wp/msrproducts/?portfolio_capture=1" data-figma-sync-height="1"></div>
-            </div>
-            <p class="figma-artboard__size" data-figma-size>1440 wide · full page — scroll the canvas</p>
-          </article>
-        </div>
-        <div class="figma-board-split__right">
-          <article class="figma-artboard" data-frame="shop">
-            <p class="figma-artboard__label">Shop</p>
-            <div class="figma-artboard__frame">
-              <div class="figma-artboard__meta">
-                <span>Shop — scroll frame</span>
-                <a href="/sites/wp/msrproducts/shop/" target="_blank" rel="noopener noreferrer">Open</a>
-              </div>
-              <div class="figma-artboard__viewport is-screenshot figma-artboard__viewport--pan" data-figma-shot="screens/shop-full.jpg" data-figma-frame data-src="/sites/wp/msrproducts/shop/?portfolio_capture=1"></div>
-            </div>
-            <p class="figma-artboard__size" data-figma-size>1440 wide · full page</p>
-          </article>
-          <article class="figma-artboard" data-frame="product">
-            <p class="figma-artboard__label">Product detail</p>
-            <div class="figma-artboard__frame">
-              <div class="figma-artboard__meta">
-                <span>PDP — scroll frame</span>
-                <a href="/sites/wp/msrproducts/product/push-it-messenger-bag/" target="_blank" rel="noopener noreferrer">Open</a>
-              </div>
-              <div class="figma-artboard__viewport is-screenshot figma-artboard__viewport--pan" data-figma-shot="screens/product-full.jpg" data-figma-frame data-src="/sites/wp/msrproducts/product/push-it-messenger-bag/?portfolio_capture=1"></div>
-            </div>
-            <p class="figma-artboard__size" data-figma-size>1440 wide · full page</p>
-          </article>
-        </div>
-      </div>
-
-      <div class="figma-board-stack" aria-label="Mobile storefront screenshots">
-        <article class="figma-artboard" data-frame="home-stack">
-          <p class="figma-artboard__label">Home</p>
-          <div class="figma-artboard__frame">
-            <div class="figma-artboard__meta">
-              <span>Home — full page</span>
-              <a href="/sites/wp/msrproducts/" target="_blank" rel="noopener noreferrer">Open</a>
-            </div>
-            <div class="figma-artboard__viewport is-screenshot figma-artboard__viewport--fullpage" data-figma-shot="screens/home-full.jpg" data-figma-fallback="../../media/images/case-studies/msr-products.jpg" data-figma-frame data-src="/sites/wp/msrproducts/?portfolio_capture=1"></div>
-          </div>
-          <p class="figma-artboard__size" data-figma-size>Full page</p>
-        </article>
-        <article class="figma-artboard" data-frame="shop-stack">
-          <p class="figma-artboard__label">Shop</p>
-          <div class="figma-artboard__frame">
-            <div class="figma-artboard__meta">
-              <span>Shop — scroll frame</span>
-              <a href="/sites/wp/msrproducts/shop/" target="_blank" rel="noopener noreferrer">Open</a>
-            </div>
-            <div class="figma-artboard__viewport is-screenshot figma-artboard__viewport--pan" data-figma-shot="screens/shop-full.jpg" data-figma-frame data-src="/sites/wp/msrproducts/shop/?portfolio_capture=1"></div>
-          </div>
-          <p class="figma-artboard__size" data-figma-size>Scroll for full page</p>
-        </article>
-        <article class="figma-artboard" data-frame="product-stack">
-          <p class="figma-artboard__label">Product detail</p>
-          <div class="figma-artboard__frame">
-            <div class="figma-artboard__meta">
-              <span>PDP — scroll frame</span>
-              <a href="/sites/wp/msrproducts/product/push-it-messenger-bag/" target="_blank" rel="noopener noreferrer">Open</a>
-            </div>
-            <div class="figma-artboard__viewport is-screenshot figma-artboard__viewport--pan" data-figma-shot="screens/product-full.jpg" data-figma-frame data-src="/sites/wp/msrproducts/product/push-it-messenger-bag/?portfolio_capture=1"></div>
-          </div>
-          <p class="figma-artboard__size" data-figma-size>Scroll for full page</p>
-        </article>
-      </div>
-
-      <section class="figma-board-narrow" aria-labelledby="narrow-screens-heading">
-        <h2 class="figma-board-narrow__title" id="narrow-screens-heading">Responsive width</h2>
-        <p class="figma-board-narrow__lede">Same routes at ~390px — scroll each frame for the full capture. Shown under the desktop board on large screens; primary layout on phone uses the stack above.</p>
-        <div class="figma-board-narrow__grid">
-          <article class="figma-artboard" data-frame="home-narrow">
-            <p class="figma-artboard__label">Home</p>
-            <div class="figma-artboard__frame">
-              <div class="figma-artboard__meta"><span>~390px</span></div>
-              <div class="figma-artboard__viewport is-screenshot figma-artboard__viewport--pan" data-figma-shot="screens/home-full.jpg" data-figma-fallback="../../media/images/case-studies/msr-products.jpg" data-figma-frame data-src="/sites/wp/msrproducts/?portfolio_capture=1"></div>
-            </div>
-          </article>
-          <article class="figma-artboard" data-frame="shop-narrow">
-            <p class="figma-artboard__label">Shop</p>
-            <div class="figma-artboard__frame">
-              <div class="figma-artboard__meta"><span>~390px · scroll</span></div>
-              <div class="figma-artboard__viewport is-screenshot figma-artboard__viewport--pan" data-figma-shot="screens/shop-full.jpg" data-figma-frame data-src="/sites/wp/msrproducts/shop/?portfolio_capture=1"></div>
-            </div>
-          </article>
-          <article class="figma-artboard" data-frame="product-narrow">
-            <p class="figma-artboard__label">Product</p>
-            <div class="figma-artboard__frame">
-              <div class="figma-artboard__meta"><span>~390px · scroll</span></div>
-              <div class="figma-artboard__viewport is-screenshot figma-artboard__viewport--pan" data-figma-shot="screens/product-full.jpg" data-figma-frame data-src="/sites/wp/msrproducts/product/push-it-messenger-bag/?portfolio_capture=1"></div>
-            </div>
-          </article>
-        </div>
+      <section class="perception-studio__chapter" aria-labelledby="homepage-shot-heading">
+        <h2 id="homepage-shot-heading" class="perception-studio__chapter-title">Homepage capture</h2>
+        <p class="perception-studio__prose">
+          One full-page desktop capture for at-a-glance proof. For interaction, use <strong>Live shop</strong> above — that is the authoritative demo.
+        </p>
+        <figure class="msr-products-case-shot">
+          <img
+            src="screens/home-full.jpg"
+            width="1440"
+            height="4844"
+            alt="MSR Products homepage — full-page desktop capture"
+            loading="lazy"
+            decoding="async"
+            onerror="this.src='../../media/images/case-studies/msr-products.jpg'; this.removeAttribute('height');"
+          />
+          <figcaption class="msr-products-case-shot__caption">Full-page capture (1440px wide). Regenerate with <code>npm run msrproducts:design-screens:capture</code> after theme changes.</figcaption>
+        </figure>
       </section>
 
-      <p class="figma-canvas__foot">
-        JPEG exports: <code>npm run msrproducts:design-screens:capture</code> ·
-        <span>Product Companion</span> · <span>SKU-accurate</span>
+      <section class="perception-studio__chapter" aria-labelledby="verification-heading">
+        <h2 id="verification-heading" class="perception-studio__chapter-title">Verification</h2>
+        <p class="perception-studio__prose">
+          Labelled programme demo — not a live client brand. Design proof is the shipped theme and local/live shop URLs, not a separate design tool export.
+        </p>
+      </section>
+
+      <p class="perception-case__actions">
+        <a class="portfolio-chip portfolio-chip--primary" href="/sites/wp/msrproducts/"><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i><span>Live shop</span></a>
+        <a class="portfolio-chip portfolio-chip--secondary" href="../product-companion/"><i class="fas fa-mobile-screen" aria-hidden="true"></i><span>Product Companion</span></a>
+        <a class="portfolio-chip portfolio-chip--secondary" href="https://github.com/msreeves/msrproducts" target="_blank" rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i><span>GitHub</span></a>
+        <a class="portfolio-chip portfolio-chip--secondary" href="../../#recent-portfolio"><i class="fas fa-th-large" aria-hidden="true"></i><span>Back to selected work</span></a>
       </p>
     </div>
   </main>
-
-  <script>
-    (function () {
-      var W = 1440;
-      var H = 900;
-      function mountIframe(wrap, src) {
-        var iframe = document.createElement('iframe');
-        iframe.title = 'Storefront frame preview';
-        iframe.loading = 'lazy';
-        iframe.setAttribute('src', src);
-        wrap.classList.remove('is-screenshot');
-        wrap.appendChild(iframe);
-        function resize() {
-          var scale = wrap.clientWidth / W;
-          iframe.style.transform = 'scale(' + scale + ')';
-          wrap.style.height = Math.round(H * scale) + 'px';
-        }
-        resize();
-        window.addEventListener('resize', resize);
-      }
-      function syncSplitHeights() {
-        var split = document.querySelector('.figma-board-split');
-        if (!split || window.matchMedia('(max-width: 959px)').matches) {
-          return;
-        }
-        var left = split.querySelector('.figma-board-split__left .figma-artboard');
-        var right = split.querySelector('.figma-board-split__right');
-        if (!left || !right) {
-          return;
-        }
-        var h = Math.round(left.getBoundingClientRect().height);
-        if (h < 280) {
-          return;
-        }
-        right.style.height = h + 'px';
-        right.style.maxHeight = h + 'px';
-      }
-      window.addEventListener('resize', function () {
-        window.requestAnimationFrame(syncSplitHeights);
-      });
-      document.querySelectorAll('[data-figma-frame]').forEach(function (wrap) {
-        var shot = wrap.getAttribute('data-figma-shot');
-        var fallback = wrap.getAttribute('data-figma-fallback');
-        var liveSrc = wrap.getAttribute('data-src');
-        var sizeEl = wrap.closest('.figma-artboard')?.querySelector('[data-figma-size]');
-        if (shot) {
-          var img = document.createElement('img');
-          img.alt = 'Storefront screenshot';
-          img.loading = wrap.closest('[data-frame="home"]') ? 'eager' : 'lazy';
-          img.decoding = 'async';
-          img.addEventListener('load', function () {
-            if (sizeEl && img.naturalWidth) {
-              sizeEl.textContent = img.naturalWidth + ' × ' + img.naturalHeight + ' (full-page capture)';
-            }
-            if (wrap.getAttribute('data-figma-sync-height') === '1') {
-              syncSplitHeights();
-            }
-          });
-          img.addEventListener('error', function () {
-            img.remove();
-            if (fallback && !wrap.classList.contains('figma-artboard__viewport--fullpage')) {
-              var fb = document.createElement('img');
-              fb.src = fallback;
-              fb.alt = img.alt;
-              fb.loading = img.loading;
-              fb.decoding = 'async';
-              fb.addEventListener('error', function () {
-                fb.remove();
-                if (liveSrc) mountIframe(wrap, liveSrc);
-              });
-              wrap.appendChild(fb);
-              return;
-            }
-            if (liveSrc) mountIframe(wrap, liveSrc);
-          });
-          img.src = shot;
-          wrap.appendChild(img);
-          return;
-        }
-        if (liveSrc) mountIframe(wrap, liveSrc);
-      });
-    })();
-  </script>
 </body>
 </html>

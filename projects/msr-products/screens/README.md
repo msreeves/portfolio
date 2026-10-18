@@ -1,6 +1,6 @@
-# MSR Products — site screen exports
+# MSR Products — homepage capture
 
-Full-page JPEGs captured from the **local** shop (not a design tool export).
+Full-page JPEG for the portfolio case study hero (`../index.html`).
 
 ```bash
 npm run msrproducts:design-screens:capture
@@ -8,4 +8,4 @@ npm run msrproducts:design-screens:capture
 
 Requires Herd on port 80 and Playwright Chromium (`cd localhost/web-dev-tools/preview && npx playwright install chromium` once).
 
-Outputs: `home-full.jpg`, `shop-full.jpg`, `product-full.jpg`.
+Primary output: `home-full.jpg` (shop/product files are optional extras if the capture script still writes them).
