@@ -759,6 +759,8 @@ function cms_render_msr_case_study_grid(array $content = []): void
     echo '<a href="./projects/event-companion/">Events hub, Awards, and Seminars</a>.';
     echo ' <a href="./projects/event-companion/?event=msrseminars">Seminars companion</a>';
     echo ' · <a href="./projects/event-companion/?event=msrawards">Awards companion</a>.</p>';
+    echo '<p class="portfolio-case-study-index-footnote msr-fade-in"><strong>Product Companion demo</strong> — ';
+    echo '<a href="./projects/product-companion/">browse the MSR Products catalogue</a> (search, categories, inquiry CTAs).</p>';
 }
 
 /**
@@ -777,7 +779,7 @@ function cms_render_msr_case_study_card(array $card): void
         $bullets = [];
     }
     $density = cms_msr_case_study_card_density($card);
-    $bulletCap = $density === 'compact' ? 2 : 3;
+    $bulletCap = $density === 'compact' ? 3 : 3;
     if (count($bullets) > $bulletCap) {
         $bullets = array_slice($bullets, 0, $bulletCap);
     }
@@ -809,6 +811,11 @@ function cms_render_msr_case_study_card(array $card): void
     cms_render_portfolio_lane_badges($lane !== '' ? $lane : null, $badge);
     echo '<h3 class="h5 msr-programme-card-title">' . esc((string) ($card['title'] ?? '')) . '</h3>';
     echo '<p class="msr-programme-card-stack">' . esc((string) ($card['stack'] ?? '')) . '</p>';
+
+    $homeSummary = trim((string) ($card['home_summary'] ?? ''));
+    if ($homeSummary !== '') {
+        echo '<p class="msr-programme-card-summary">' . esc($homeSummary) . '</p>';
+    }
 
     if ($bullets !== []) {
         $bulletClass = 'msr-case-study-bullets';

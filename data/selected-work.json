@@ -134,19 +134,23 @@
             "lane": "programme",
             "title": "MSR Products",
             "stack": "WooCommerce showcase",
-            "home_summary": "Shop catalogue with structured product highlights — Vite 5 theme in verify manifest.",
+            "home_summary": "Inquiry-first WooCommerce showcase — Figma design source, SKU-matched Luma imagery, and Product Companion browse demo.",
             "index_thumb": "none",
             "bullets": [
-                {"icon": "fas fa-cart-shopping", "text": "Shop catalogue with structured product highlights"},
-                {"icon": "fas fa-bolt", "text": "Vite 5 theme build in verify manifest"},
-                {"icon": "fas fa-route", "text": "Smoke-tested home, shop, and product routes"}
+                {"icon": "fab fa-figma", "text": "Figma design source synced from the local theme (not a throwaway mock)"},
+                {"icon": "fas fa-barcode", "text": "Product images matched to catalogue SKUs (bag → bag, bottle → bottle)"},
+                {"icon": "fas fa-mobile-screen", "text": "Product Companion SPA — search, categories, inquiry CTAs"}
             ],
             "thumb": "./media/images/case-studies/msr-products.jpg",
             "thumb_alt": "MSR Products WooCommerce demo homepage screenshot",
             "thumb_role": "landscape",
             "card_density": "compact",
             "view_url": "https://www.msreeves.co.uk/msrproducts/",
-            "code_url": "https://github.com/msreeves/msrproducts"
+            "code_url": "https://github.com/msreeves/msrproducts",
+            "case_study_url": "./projects/msr-products/",
+            "case_study_label": "Case study",
+            "companion_url": "./projects/product-companion/",
+            "companion_label": "Product Companion demo"
         }
     }
 }
