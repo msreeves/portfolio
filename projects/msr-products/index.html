@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="MSR Products — WooCommerce showcase case study: Figma design source, SKU-matched catalogue imagery, and Product Companion demo." />
+  <title>MSR Products — case study · Michael Reeves</title>
+  <link rel="stylesheet" href="../../vendor/fonts/kodchasan/kodchasan.css" />
+  <link rel="stylesheet" href="../../vendor/bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="../../vendor/fontawesome/css/all.min.css" />
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../../css/responsive.css" />
+  <style>
+    .msr-products-case { max-width: 48rem; margin: 0 auto; padding: 2rem 1rem 4rem; }
+    .msr-products-case h1 { font-size: clamp(1.75rem, 4vw, 2.5rem); margin-bottom: 0.5rem; }
+    .msr-products-case .lead { color: var(--msr-muted, #5c5c5c); margin-bottom: 1.5rem; }
+    .msr-products-case ul { margin: 1rem 0 2rem; padding-left: 1.25rem; }
+    .msr-products-case .cta-row { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1.5rem 0; }
+  </style>
+</head>
+<body class="msr-portfolio">
+  <div class="msr-products-case portfolio-shell">
+    <a class="portfolio-chip portfolio-chip--secondary" href="../../#recent-portfolio">
+      <i class="fas fa-arrow-left" aria-hidden="true"></i>
+      <span>Back to case studies</span>
+    </a>
+    <header class="mt-4">
+      <p class="text-uppercase small text-muted mb-1">Programme · WooCommerce showcase</p>
+      <h1>MSR Products</h1>
+      <p class="lead">
+        Inquiry-first shop catalogue on a Vite-built WooCommerce theme. Design screens live in Figma as the
+        source of truth; product photography is matched to Magento Luma SKUs so bags, bottles, and gear read correctly in the UI.
+      </p>
+    </header>
+    <section aria-labelledby="decisions-heading">
+      <h2 id="decisions-heading">What we optimised for</h2>
+      <ul>
+        <li><strong>Design-first workflow</strong> — local theme captured into Figma; portfolio links the design file, not a generic mock.</li>
+        <li><strong>SKU-accurate imagery</strong> — thumbnails derived from each product SKU (e.g. Wayfarer Messenger <code>24-MB05</code>), not random stock.</li>
+        <li><strong>Companion browse</strong> — React catalogue demo for portfolio visitors (search, category chips, inquiry CTAs).</li>
+        <li><strong>Catalog mode</strong> — cart/checkout quiet; contact and inquiry routes carry the commercial story.</li>
+      </ul>
+    </section>
+    <div class="cta-row">
+      <a class="portfolio-chip portfolio-chip--primary" href="https://www.figma.com/design/feczWdozap6NXdNIeJywcD/Untitled?node-id=2007-2" rel="noopener noreferrer">
+        <i class="fab fa-figma" aria-hidden="true"></i>
+        <span>Figma design source</span>
+      </a>
+      <a class="portfolio-chip portfolio-chip--secondary" href="../product-companion/">
+        <i class="fas fa-mobile-screen" aria-hidden="true"></i>
+        <span>Product Companion</span>
+      </a>
+      <a class="portfolio-chip portfolio-chip--secondary" href="https://www.msreeves.co.uk/msrproducts/" rel="noopener noreferrer">
+        <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+        <span>Live site</span>
+      </a>
+      <a class="portfolio-chip portfolio-chip--secondary" href="https://github.com/msreeves/msrproducts" rel="noopener noreferrer">
+        <i class="fab fa-github" aria-hidden="true"></i>
+        <span>Theme repo</span>
+      </a>
+    </div>
+    <p class="small text-muted">
+      Local demo: <a href="http://127.0.0.1/sites/wp/msrproducts/">http://127.0.0.1/sites/wp/msrproducts/</a>
+    </p>
+  </div>
+</body>
+</html>
