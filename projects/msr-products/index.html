@@ -199,46 +199,31 @@
 
     .figma-board-split {
       width: min(1440px, 100%);
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-      align-items: stretch;
+      display: none;
     }
     @media (min-width: 960px) {
       .figma-board-split {
-        grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+        display: grid;
+        grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
         gap: 1.25rem;
-        min-height: min(78vh, 1100px);
+        align-items: start;
       }
     }
     .figma-board-split__left,
     .figma-board-split__right {
       min-width: 0;
-      min-height: 0;
     }
     .figma-board-split__left .figma-artboard {
       width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-    }
-    .figma-board-split__left .figma-artboard__frame {
-      flex: 1;
-      min-height: 0;
-      display: flex;
-      flex-direction: column;
     }
     .figma-board-split__right {
       display: flex;
       flex-direction: column;
-      gap: 1rem;
-      min-height: min(50vh, 520px);
-    }
-    @media (min-width: 960px) {
-      .figma-board-split__right {
-        min-height: 0;
-        height: 100%;
-      }
+      gap: 0.85rem;
+      position: sticky;
+      top: 0.75rem;
+      height: min(82vh, 1080px);
+      max-height: min(82vh, 1080px);
     }
     .figma-board-split__right .figma-artboard {
       width: 100%;
@@ -253,26 +238,88 @@
       display: flex;
       flex-direction: column;
     }
+    .figma-artboard__viewport--fullpage {
+      overflow: visible;
+    }
+    .figma-artboard__viewport--fullpage img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
     .figma-artboard__viewport--pan {
       overflow-x: hidden;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
       overscroll-behavior: contain;
+      flex: 1;
+      min-height: 0;
+    }
+    .figma-artboard__viewport--pan img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .figma-board-stack {
+      width: min(1440px, 100%);
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
     }
     @media (min-width: 960px) {
-      .figma-board-split__left .figma-artboard__viewport--pan {
-        flex: 1;
-        min-height: 0;
-        max-height: min(78vh, 1100px);
-      }
-      .figma-board-split__right .figma-artboard__viewport--pan {
-        flex: 1;
-        min-height: 0;
+      .figma-board-stack {
+        display: none;
       }
     }
-    @media (max-width: 959px) {
-      .figma-artboard__viewport--pan {
-        max-height: min(65vh, 720px);
+    .figma-board-stack .figma-artboard__viewport--fullpage {
+      max-height: none;
+    }
+    .figma-board-stack .figma-artboard__viewport--pan {
+      max-height: min(58vh, 640px);
+    }
+
+    .figma-board-narrow {
+      width: min(1440px, 100%);
+      margin-top: 0.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.12);
+    }
+    .figma-board-narrow__title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #555;
+      margin: 0 0 0.35rem;
+    }
+    .figma-board-narrow__lede {
+      margin: 0 0 1.25rem;
+      font-size: 0.88rem;
+      color: #666;
+      max-width: 40rem;
+      line-height: 1.45;
+    }
+    .figma-board-narrow__grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+    @media (min-width: 640px) {
+      .figma-board-narrow__grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+    .figma-board-narrow .figma-artboard {
+      width: 100%;
+      max-width: 420px;
+      margin: 0 auto;
+    }
+    .figma-board-narrow .figma-artboard__viewport--pan {
+      max-height: min(52vh, 520px);
+    }
+    @media (min-width: 960px) {
+      .figma-board-narrow {
+        margin-top: 2.5rem;
       }
     }
 
@@ -315,7 +362,7 @@
           <li><strong>Live shop</strong> — catalogue, compare, and enquiry flows.</li>
           <li><strong>SKU-accurate imagery</strong> — thumbnails tied to catalogue SKUs.</li>
           <li><strong>Product Companion</strong> — React browse demo on this portfolio.</li>
-          <li><strong>Design frames</strong> — home on the left; shop and product stacked on the right (scroll each frame).</li>
+          <li><strong>Design frames</strong> — desktop: full-page home (scroll the canvas); shop and PDP scroll inside the right column. Narrow previews below.</li>
         </ul>
         <div class="cta-row">
           <a class="portfolio-chip portfolio-chip--primary" href="https://www.msreeves.co.uk/msrproducts/" rel="noopener noreferrer">
@@ -327,18 +374,18 @@
         </div>
       </section>
 
-      <div class="figma-board-split" aria-label="Storefront screenshots">
+      <div class="figma-board-split" aria-label="Desktop storefront screenshots">
         <div class="figma-board-split__left">
           <article class="figma-artboard" data-frame="home">
             <p class="figma-artboard__label">Home</p>
             <div class="figma-artboard__frame">
               <div class="figma-artboard__meta">
-                <span>Home — full page (scroll)</span>
+                <span>Home — full page</span>
                 <a href="/sites/wp/msrproducts/" target="_blank" rel="noopener noreferrer">Open in new tab</a>
               </div>
-              <div class="figma-artboard__viewport is-screenshot figma-artboard__viewport--pan" data-figma-shot="screens/home-full.jpg" data-figma-fallback="../../media/images/case-studies/msr-products.jpg" data-figma-frame data-src="/sites/wp/msrproducts/"></div>
+              <div class="figma-artboard__viewport is-screenshot figma-artboard__viewport--fullpage" data-figma-shot="screens/home-full.jpg" data-figma-fallback="../../media/images/case-studies/msr-products.jpg" data-figma-frame data-src="/sites/wp/msrproducts/"></div>
             </div>
-            <p class="figma-artboard__size" data-figma-size>1440 wide · full page</p>
+            <p class="figma-artboard__size" data-figma-size>1440 wide · full page — scroll the canvas</p>
           </article>
         </div>
         <div class="figma-board-split__right">
@@ -346,7 +393,7 @@
             <p class="figma-artboard__label">Shop</p>
             <div class="figma-artboard__frame">
               <div class="figma-artboard__meta">
-                <span>Shop — full page (scroll)</span>
+                <span>Shop — scroll frame</span>
                 <a href="/sites/wp/msrproducts/shop/" target="_blank" rel="noopener noreferrer">Open</a>
               </div>
               <div class="figma-artboard__viewport is-screenshot figma-artboard__viewport--pan" data-figma-shot="screens/shop-full.jpg" data-figma-frame data-src="/sites/wp/msrproducts/shop/"></div>
@@ -357,7 +404,7 @@
             <p class="figma-artboard__label">Product detail</p>
             <div class="figma-artboard__frame">
               <div class="figma-artboard__meta">
-                <span>PDP — full page (scroll)</span>
+                <span>PDP — scroll frame</span>
                 <a href="/sites/wp/msrproducts/product/push-it-messenger-bag/" target="_blank" rel="noopener noreferrer">Open</a>
               </div>
               <div class="figma-artboard__viewport is-screenshot figma-artboard__viewport--pan" data-figma-shot="screens/product-full.jpg" data-figma-frame data-src="/sites/wp/msrproducts/product/push-it-messenger-bag/"></div>
@@ -366,6 +413,70 @@
           </article>
         </div>
       </div>
+
+      <div class="figma-board-stack" aria-label="Mobile storefront screenshots">
+        <article class="figma-artboard" data-frame="home-stack">
+          <p class="figma-artboard__label">Home</p>
+          <div class="figma-artboard__frame">
+            <div class="figma-artboard__meta">
+              <span>Home — full page</span>
+              <a href="/sites/wp/msrproducts/" target="_blank" rel="noopener noreferrer">Open</a>
+            </div>
+            <div class="figma-artboard__viewport is-screenshot figma-artboard__viewport--fullpage" data-figma-shot="screens/home-full.jpg" data-figma-fallback="../../media/images/case-studies/msr-products.jpg" data-figma-frame data-src="/sites/wp/msrproducts/"></div>
+          </div>
+          <p class="figma-artboard__size" data-figma-size>Full page</p>
+        </article>
+        <article class="figma-artboard" data-frame="shop-stack">
+          <p class="figma-artboard__label">Shop</p>
+          <div class="figma-artboard__frame">
+            <div class="figma-artboard__meta">
+              <span>Shop — scroll frame</span>
+              <a href="/sites/wp/msrproducts/shop/" target="_blank" rel="noopener noreferrer">Open</a>
+            </div>
+            <div class="figma-artboard__viewport is-screenshot figma-artboard__viewport--pan" data-figma-shot="screens/shop-full.jpg" data-figma-frame data-src="/sites/wp/msrproducts/shop/"></div>
+          </div>
+          <p class="figma-artboard__size" data-figma-size>Scroll for full page</p>
+        </article>
+        <article class="figma-artboard" data-frame="product-stack">
+          <p class="figma-artboard__label">Product detail</p>
+          <div class="figma-artboard__frame">
+            <div class="figma-artboard__meta">
+              <span>PDP — scroll frame</span>
+              <a href="/sites/wp/msrproducts/product/push-it-messenger-bag/" target="_blank" rel="noopener noreferrer">Open</a>
+            </div>
+            <div class="figma-artboard__viewport is-screenshot figma-artboard__viewport--pan" data-figma-shot="screens/product-full.jpg" data-figma-frame data-src="/sites/wp/msrproducts/product/push-it-messenger-bag/"></div>
+          </div>
+          <p class="figma-artboard__size" data-figma-size>Scroll for full page</p>
+        </article>
+      </div>
+
+      <section class="figma-board-narrow" aria-labelledby="narrow-screens-heading">
+        <h2 class="figma-board-narrow__title" id="narrow-screens-heading">Responsive width</h2>
+        <p class="figma-board-narrow__lede">Same routes at ~390px — scroll each frame for the full capture. Shown under the desktop board on large screens; primary layout on phone uses the stack above.</p>
+        <div class="figma-board-narrow__grid">
+          <article class="figma-artboard" data-frame="home-narrow">
+            <p class="figma-artboard__label">Home</p>
+            <div class="figma-artboard__frame">
+              <div class="figma-artboard__meta"><span>~390px</span></div>
+              <div class="figma-artboard__viewport is-screenshot figma-artboard__viewport--pan" data-figma-shot="screens/home-full.jpg" data-figma-fallback="../../media/images/case-studies/msr-products.jpg" data-figma-frame data-src="/sites/wp/msrproducts/"></div>
+            </div>
+          </article>
+          <article class="figma-artboard" data-frame="shop-narrow">
+            <p class="figma-artboard__label">Shop</p>
+            <div class="figma-artboard__frame">
+              <div class="figma-artboard__meta"><span>~390px · scroll</span></div>
+              <div class="figma-artboard__viewport is-screenshot figma-artboard__viewport--pan" data-figma-shot="screens/shop-full.jpg" data-figma-frame data-src="/sites/wp/msrproducts/shop/"></div>
+            </div>
+          </article>
+          <article class="figma-artboard" data-frame="product-narrow">
+            <p class="figma-artboard__label">Product</p>
+            <div class="figma-artboard__frame">
+              <div class="figma-artboard__meta"><span>~390px · scroll</span></div>
+              <div class="figma-artboard__viewport is-screenshot figma-artboard__viewport--pan" data-figma-shot="screens/product-full.jpg" data-figma-frame data-src="/sites/wp/msrproducts/product/push-it-messenger-bag/"></div>
+            </div>
+          </article>
+        </div>
+      </section>
 
       <p class="figma-canvas__foot">
         JPEG exports: <code>npm run msrproducts:design-screens:capture</code> ·
