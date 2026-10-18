@@ -580,6 +580,10 @@ function cms_render_msr_case_study_ctas(array $card, bool $includeCompanion = tr
         if ($viewExternal) {
             echo ' target="_blank" rel="noopener noreferrer"';
         }
+        $viewToken = trim((string) ($card['view_url_token'] ?? ''));
+        if ($viewToken !== '') {
+            echo ' data-portfolio-view-token="' . esc($viewToken) . '"';
+        }
         echo '><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i><span>' . esc($viewLabel) . '</span></a>';
     }
     if ($codeUrl !== '') {
@@ -644,6 +648,12 @@ function cms_render_msr_case_study_index_row(array $card, string $rowModifier = 
     if ($summary !== '') {
         echo '<p class="portfolio-case-study-index-summary">' . esc($summary) . '</p>';
     }
+    if ($featured) {
+        $bullets = $card['bullets'] ?? [];
+        if (is_array($bullets) && $bullets !== []) {
+            cms_render_icon_bullet_list($bullets, 'msr-case-study-bullets visually-hidden');
+        }
+    }
     cms_render_msr_case_study_index_links($card, !$featured && $lane !== 'programme');
     echo '</div></article>';
 }
@@ -693,6 +703,12 @@ function cms_render_msr_case_study_grid(array $content = []): void
     $cards = cms_msr_case_study_cards();
     if ($cards === []) {
         return;
+    }
+
+    $selectedWorkConfig = cms_load_selected_work_config();
+    $registryNote = trim((string) ($selectedWorkConfig['_comment'] ?? ''));
+    if ($registryNote !== '') {
+        echo '<p class="visually-hidden" id="portfolio-selected-work-registry-note">' . esc($registryNote) . '</p>';
     }
 
     $leadCards = [];
@@ -760,7 +776,8 @@ function cms_render_msr_case_study_grid(array $content = []): void
     echo ' <a href="./projects/event-companion/?event=msrseminars">Seminars companion</a>';
     echo ' · <a href="./projects/event-companion/?event=msrawards">Awards companion</a>.</p>';
     echo '<p class="portfolio-case-study-index-footnote msr-fade-in"><strong>Product Companion demo</strong> — ';
-    echo '<a href="./projects/product-companion/">browse the MSR Products catalogue</a> (search, categories, inquiry CTAs).</p>';
+    echo '<a href="./projects/product-companion/">browse the MSR Products catalogue</a>. ';
+    echo 'Product Companion SPA — search, categories, inquiry CTAs (no checkout theatre).</p>';
 }
 
 /**
