@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="MSR Products — WooCommerce showcase: Figma-style design frames from the live Fieldcrest shop." />
+  <meta name="description" content="MSR Products — WooCommerce showcase: full-page Figma-style design frames from the live Fieldcrest shop." />
   <title>MSR Products — case study · Michael Reeves</title>
   <link rel="stylesheet" href="../../vendor/fonts/kodchasan/kodchasan.css" />
   <link rel="stylesheet" href="../../vendor/bootstrap/css/bootstrap.min.css" />
@@ -11,88 +11,171 @@
   <link rel="stylesheet" href="../../css/style.css" />
   <link rel="stylesheet" href="../../css/responsive.css" />
   <style>
-    .msr-products-case { max-width: 46rem; margin: 0 auto; padding: 2rem 1rem 2rem; }
-    .msr-products-case h1 { font-size: clamp(1.75rem, 4vw, 2.5rem); margin-bottom: 0.5rem; }
-    .msr-products-case .lead { color: var(--msr-muted, #5c5c5c); margin-bottom: 1.5rem; }
-    .msr-products-case ul { margin: 1rem 0 2rem; padding-left: 1.25rem; }
-    .msr-products-case .cta-row { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1.5rem 0; }
-
-    .figma-board-wrap {
-      max-width: 72rem;
-      margin: 0 auto 3rem;
-      padding: 0 1rem 2rem;
-    }
-    .figma-board {
-      background: #f5f5f5;
-      border-radius: 12px;
-      border: 1px solid #e0e0e0;
-      padding: 1rem 1rem 1.5rem;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.06);
-    }
-    .figma-board__file {
+    body.msr-products-figma-page {
+      margin: 0;
+      min-height: 100vh;
+      height: 100vh;
       display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.8rem;
-      color: #555;
-      margin-bottom: 1rem;
-      padding: 0 0.25rem;
-    }
-    .figma-board__file i { color: #a259ff; font-size: 1rem; }
-    .figma-board__file strong { color: #222; font-weight: 600; }
-    .figma-board h2 {
-      font-size: 1.15rem;
-      margin: 0 0 0.35rem 0.25rem;
-    }
-    .figma-board .board-lead {
-      margin: 0 0 1.25rem 0.25rem;
-      color: #666;
-      font-size: 0.95rem;
-      max-width: 40rem;
-    }
-    .figma-frames {
-      display: grid;
-      gap: 1.5rem;
-    }
-    @media (min-width: 900px) {
-      .figma-frames { grid-template-columns: 1fr 1fr; }
-      .figma-frames .figma-frame--wide { grid-column: 1 / -1; }
-    }
-    .figma-frame {
-      background: #fff;
-      border-radius: 8px;
-      border: 1px solid #e5e5e5;
+      flex-direction: column;
       overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      background: #2c2c2c;
+      color: #e8e8e8;
     }
-    .figma-frame__chrome {
+    body.msr-products-figma-page::before { display: none !important; }
+
+    .figma-app {
+      flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 0.5rem;
-      padding: 0.45rem 0.65rem;
-      background: #fafafa;
-      border-bottom: 1px solid #eee;
-      font-size: 0.72rem;
-      color: #666;
+      gap: 1rem;
+      padding: 0 0.75rem;
+      height: 48px;
+      background: #1e1e1e;
+      border-bottom: 1px solid #3d3d3d;
+      font-size: 0.8125rem;
+      z-index: 10;
     }
-    .figma-frame__chrome span:first-child {
-      font-weight: 600;
-      color: #333;
+    .figma-app__left,
+    .figma-app__center,
+    .figma-app__right {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      min-width: 0;
     }
-    .figma-frame__chrome a {
-      color: #0d99ff;
+    .figma-app__center {
+      flex: 1;
+      justify-content: center;
+      color: #b3b3b3;
+    }
+    .figma-app__center strong { color: #fff; font-weight: 600; }
+    .figma-app__center .fa-figma { color: #a259ff; }
+    .figma-app__back {
+      color: #e8e8e8;
       text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.35rem 0.5rem;
+      border-radius: 6px;
+    }
+    .figma-app__back:hover { background: #333; color: #fff; }
+    .figma-app__pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.3rem 0.65rem;
+      border-radius: 6px;
+      background: #333;
+      color: #ddd;
+      text-decoration: none;
+      font-size: 0.75rem;
       white-space: nowrap;
     }
-    .figma-frame__chrome a:hover { text-decoration: underline; }
-    .figma-frame__viewport {
+    .figma-app__pill:hover { background: #444; color: #fff; }
+    .figma-app__pill--primary { background: #0d99ff; color: #fff; }
+    .figma-app__pill--primary:hover { background: #0b87e0; }
+
+    .figma-canvas {
+      flex: 1;
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
+      background-color: #e8e8e8;
+      background-image: radial-gradient(circle, #b8b8b8 1px, transparent 1px);
+      background-size: 20px 20px;
+      background-position: 0 0;
+    }
+    .figma-canvas__inner {
+      padding: 3rem clamp(1.5rem, 4vw, 4rem) 5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4rem;
+      min-width: min(100%, 1560px);
+      margin: 0 auto;
+    }
+    .figma-canvas__intro {
+      width: min(1440px, 100%);
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid #d4d4d4;
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      color: #333;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    }
+    .figma-canvas__intro h1 {
+      font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+      margin: 0 0 0.35rem;
+      color: #111;
+    }
+    .figma-canvas__intro .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-size: 0.7rem;
+      color: #666;
+      margin: 0 0 0.5rem;
+    }
+    .figma-canvas__intro p {
+      margin: 0 0 0.75rem;
+      color: #555;
+      max-width: 52rem;
+      line-height: 1.5;
+    }
+    .figma-canvas__intro ul {
+      margin: 0 0 1rem;
+      padding-left: 1.2rem;
+      color: #444;
+      font-size: 0.9rem;
+    }
+    .figma-canvas__intro .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .figma-artboard {
+      width: min(1440px, 100%);
+      flex-shrink: 0;
+    }
+    .figma-artboard__label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #555;
+      margin-bottom: 0.5rem;
+      padding-left: 0.15rem;
+    }
+    .figma-artboard__frame {
+      background: #fff;
+      border-radius: 2px;
+      box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.08),
+        0 12px 40px rgba(0, 0, 0, 0.12);
+      overflow: hidden;
+    }
+    .figma-artboard__meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding: 0.4rem 0.65rem;
+      background: #fafafa;
+      border-bottom: 1px solid #eee;
+      font-size: 0.7rem;
+      color: #666;
+    }
+    .figma-artboard__meta a {
+      color: #0d99ff;
+      text-decoration: none;
+    }
+    .figma-artboard__meta a:hover { text-decoration: underline; }
+    .figma-artboard__viewport {
       width: 100%;
       position: relative;
       overflow: hidden;
       background: #fff;
     }
-    .figma-frame__viewport iframe {
+    .figma-artboard__viewport iframe {
       position: absolute;
       top: 0;
       left: 0;
@@ -100,110 +183,145 @@
       height: 900px;
       border: 0;
       transform-origin: 0 0;
-      pointer-events: none;
     }
-    .figma-frame__viewport img {
-      display: block;
-      width: 100%;
-      height: auto;
-      vertical-align: top;
+    .figma-artboard__viewport.is-static {
+      aspect-ratio: 1440 / 900;
     }
-    .figma-frame__viewport.is-static { aspect-ratio: 1440 / 900; }
-    .figma-frame__viewport.is-static img {
+    .figma-artboard__viewport.is-static img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       object-position: top;
+      display: block;
+    }
+    .figma-artboard__size {
+      font-size: 0.65rem;
+      color: #888;
+      margin-top: 0.35rem;
+      padding-left: 0.15rem;
+    }
+
+    .figma-row-pair {
+      width: min(1440px, 100%);
+      display: grid;
+      gap: 4rem;
+    }
+    @media (min-width: 1100px) {
+      .figma-row-pair {
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+      }
+      .figma-row-pair .figma-artboard { width: 100%; }
+    }
+
+    .figma-canvas__foot {
+      width: min(1440px, 100%);
+      text-align: center;
+      font-size: 0.75rem;
+      color: #666;
     }
   </style>
 </head>
-<body class="msr-portfolio">
-  <div class="msr-products-case portfolio-shell">
-    <a class="portfolio-chip portfolio-chip--secondary" href="../../#recent-portfolio">
-      <i class="fas fa-arrow-left" aria-hidden="true"></i>
-      <span>Back to case studies</span>
-    </a>
-    <header class="mt-4">
-      <p class="text-uppercase small text-muted mb-1">Lead case study · WooCommerce showcase</p>
-      <h1>MSR Products</h1>
-      <p class="lead">
-        Inquiry-first demonstration store (Fieldcrest Supply Co.) on a Vite-built WooCommerce theme —
-        catalogue UX, SKU-matched imagery, and a portfolio companion app.
-      </p>
-    </header>
-    <section aria-labelledby="decisions-heading">
-      <h2 id="decisions-heading">What we optimised for</h2>
-      <ul>
-        <li><strong>Live shop</strong> — browse products, galleries, compare, and enquiry flows on the public URL.</li>
-        <li><strong>SKU-accurate imagery</strong> — thumbnails tied to catalogue SKUs so bags, bottles, and gear read correctly.</li>
-        <li><strong>Product Companion</strong> — React browse demo on this portfolio (search, categories, inquiry CTAs).</li>
-        <li><strong>Design frames</strong> — Figma-style board below; each frame is the real storefront at 1440×900.</li>
-      </ul>
-    </section>
-    <div class="cta-row">
-      <a class="portfolio-chip portfolio-chip--primary" href="https://www.msreeves.co.uk/msrproducts/" rel="noopener noreferrer">
-        <i class="fas fa-external-link-alt" aria-hidden="true"></i>
-        <span>Live shop</span>
-      </a>
-      <a class="portfolio-chip portfolio-chip--secondary" href="../product-companion/">
-        <i class="fas fa-mobile-screen" aria-hidden="true"></i>
-        <span>Product Companion</span>
-      </a>
-      <a class="portfolio-chip portfolio-chip--secondary" href="https://github.com/msreeves/msrproducts" rel="noopener noreferrer">
-        <i class="fab fa-github" aria-hidden="true"></i>
-        <span>Theme repo</span>
+<body class="msr-portfolio msr-products-figma-page">
+  <header class="figma-app" role="banner">
+    <div class="figma-app__left">
+      <a class="figma-app__back" href="../../#recent-portfolio">
+        <i class="fas fa-arrow-left" aria-hidden="true"></i>
+        <span>Portfolio</span>
       </a>
     </div>
-  </div>
+    <div class="figma-app__center">
+      <i class="fab fa-figma" aria-hidden="true"></i>
+      <span><strong>MSR Products</strong> / Design from the live site · Desktop 1440</span>
+    </div>
+    <div class="figma-app__right">
+      <a class="figma-app__pill" href="../product-companion/">Companion</a>
+      <a class="figma-app__pill figma-app__pill--primary" href="https://www.msreeves.co.uk/msrproducts/" target="_blank" rel="noopener noreferrer">Live shop</a>
+    </div>
+  </header>
 
-  <div class="figma-board-wrap">
-    <section class="figma-board" aria-labelledby="figma-heading">
-      <div class="figma-board__file">
-        <i class="fab fa-figma" aria-hidden="true"></i>
-        <span><strong>MSR Products</strong> · Design from the live site · Desktop 1440</span>
+  <main class="figma-canvas" id="figma-canvas" aria-label="Design frames">
+    <div class="figma-canvas__inner">
+      <section class="figma-canvas__intro" aria-labelledby="intro-title">
+        <p class="eyebrow">Lead case study · WooCommerce showcase</p>
+        <h1 id="intro-title">MSR Products</h1>
+        <p>
+          Fieldcrest Supply Co. — inquiry-first demonstration store on a Vite-built WooCommerce theme.
+          Frames below are scaled views of the shipped UI (not a separate mock file).
+        </p>
+        <ul>
+          <li><strong>Live shop</strong> — catalogue, compare, and enquiry flows.</li>
+          <li><strong>SKU-accurate imagery</strong> — thumbnails tied to catalogue SKUs.</li>
+          <li><strong>Product Companion</strong> — React browse demo on this portfolio.</li>
+          <li><strong>Design frames</strong> — scroll the canvas; open any frame to interact.</li>
+        </ul>
+        <div class="cta-row">
+          <a class="portfolio-chip portfolio-chip--primary" href="https://www.msreeves.co.uk/msrproducts/" rel="noopener noreferrer">
+            <span>Live shop</span>
+          </a>
+          <a class="portfolio-chip portfolio-chip--secondary" href="https://github.com/msreeves/msrproducts" rel="noopener noreferrer">
+            <span>Theme repo</span>
+          </a>
+        </div>
+      </section>
+
+      <article class="figma-artboard">
+        <p class="figma-artboard__label">Home</p>
+        <div class="figma-artboard__frame">
+          <div class="figma-artboard__meta">
+            <span>Home — Desktop</span>
+            <a href="https://www.msreeves.co.uk/msrproducts/" target="_blank" rel="noopener noreferrer">Open in new tab</a>
+          </div>
+          <div class="figma-artboard__viewport is-static" data-figma-frame>
+            <img src="../../media/images/case-studies/msr-products.jpg" width="1440" height="900" alt="MSR Products home — desktop frame" loading="eager" decoding="async" />
+          </div>
+        </div>
+        <p class="figma-artboard__size">1440 × 900</p>
+      </article>
+
+      <div class="figma-row-pair">
+        <article class="figma-artboard">
+          <p class="figma-artboard__label">Shop</p>
+          <div class="figma-artboard__frame">
+            <div class="figma-artboard__meta">
+              <span>Shop — Desktop</span>
+              <a href="https://www.msreeves.co.uk/msrproducts/shop/" target="_blank" rel="noopener noreferrer">Open</a>
+            </div>
+            <div class="figma-artboard__viewport" data-figma-frame data-src="https://www.msreeves.co.uk/msrproducts/shop/"></div>
+          </div>
+          <p class="figma-artboard__size">1440 × 900</p>
+        </article>
+        <article class="figma-artboard">
+          <p class="figma-artboard__label">Product detail</p>
+          <div class="figma-artboard__frame">
+            <div class="figma-artboard__meta">
+              <span>PDP — Desktop</span>
+              <a href="https://www.msreeves.co.uk/msrproducts/product/push-it-messenger-bag/" target="_blank" rel="noopener noreferrer">Open</a>
+            </div>
+            <div class="figma-artboard__viewport" data-figma-frame data-src="https://www.msreeves.co.uk/msrproducts/product/push-it-messenger-bag/"></div>
+          </div>
+          <p class="figma-artboard__size">1440 × 900</p>
+        </article>
       </div>
-      <h2 id="figma-heading">Design frames</h2>
-      <p class="board-lead">
-        Presented like a Figma file — each artboard is a scaled view of the shipped UI (not a separate mock).
-        Open any frame in a new tab to interact.
+
+      <article class="figma-artboard">
+        <p class="figma-artboard__label">Contact</p>
+        <div class="figma-artboard__frame">
+          <div class="figma-artboard__meta">
+            <span>Contact — Desktop</span>
+            <a href="https://www.msreeves.co.uk/msrproducts/contact/" target="_blank" rel="noopener noreferrer">Open in new tab</a>
+          </div>
+          <div class="figma-artboard__viewport" data-figma-frame data-src="https://www.msreeves.co.uk/msrproducts/contact/"></div>
+        </div>
+        <p class="figma-artboard__size">1440 × 900</p>
+      </article>
+
+      <p class="figma-canvas__foot">
+        JPEG exports: <code>npm run msrproducts:design-screens:capture</code> ·
+        <span>Product Companion</span> · <span>SKU-accurate</span>
       </p>
-      <div class="figma-frames">
-        <article class="figma-frame figma-frame--wide">
-          <div class="figma-frame__chrome">
-            <span>Home — Desktop 1440</span>
-            <a href="https://www.msreeves.co.uk/msrproducts/" target="_blank" rel="noopener noreferrer">Open frame</a>
-          </div>
-          <div class="figma-frame__viewport" data-figma-frame data-src="https://www.msreeves.co.uk/msrproducts/">
-            <img src="../../media/images/case-studies/msr-products.jpg" width="1200" height="750" alt="MSR Products home — static preview" loading="lazy" decoding="async" />
-          </div>
-        </article>
-        <article class="figma-frame">
-          <div class="figma-frame__chrome">
-            <span>Shop — Desktop 1440</span>
-            <a href="https://www.msreeves.co.uk/msrproducts/shop/" target="_blank" rel="noopener noreferrer">Open frame</a>
-          </div>
-          <div class="figma-frame__viewport" data-figma-frame data-src="https://www.msreeves.co.uk/msrproducts/shop/"></div>
-        </article>
-        <article class="figma-frame">
-          <div class="figma-frame__chrome">
-            <span>Product — Desktop 1440</span>
-            <a href="https://www.msreeves.co.uk/msrproducts/product/push-it-messenger-bag/" target="_blank" rel="noopener noreferrer">Open frame</a>
-          </div>
-          <div class="figma-frame__viewport" data-figma-frame data-src="https://www.msreeves.co.uk/msrproducts/product/push-it-messenger-bag/"></div>
-        </article>
-        <article class="figma-frame figma-frame--wide">
-          <div class="figma-frame__chrome">
-            <span>Contact — Desktop 1440</span>
-            <a href="https://www.msreeves.co.uk/msrproducts/contact/" target="_blank" rel="noopener noreferrer">Open frame</a>
-          </div>
-          <div class="figma-frame__viewport" data-figma-frame data-src="https://www.msreeves.co.uk/msrproducts/contact/"></div>
-        </article>
-      </div>
-    </section>
-    <p class="small text-muted text-center px-2">
-      Static JPEG exports: <code>npm run msrproducts:design-screens:capture</code> (optional; saves under <code>screens/</code>).
-    </p>
-  </div>
+    </div>
+  </main>
 
   <script>
     (function () {
@@ -212,13 +330,8 @@
       document.querySelectorAll('[data-figma-frame]').forEach(function (wrap) {
         var src = wrap.getAttribute('data-src');
         if (!src) return;
-        var img = wrap.querySelector('img');
-        if (img) {
-          wrap.classList.add('is-static');
-          return;
-        }
         var iframe = document.createElement('iframe');
-        iframe.title = 'Storefront preview';
+        iframe.title = 'Storefront frame preview';
         iframe.loading = 'lazy';
         iframe.setAttribute('src', src);
         wrap.appendChild(iframe);
