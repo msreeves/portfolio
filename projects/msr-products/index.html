@@ -197,17 +197,83 @@
       padding-left: 0.15rem;
     }
 
-    .figma-row-pair {
+    .figma-board-split {
       width: min(1440px, 100%);
       display: grid;
-      gap: 4rem;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      align-items: stretch;
     }
-    @media (min-width: 1100px) {
-      .figma-row-pair {
-        grid-template-columns: 1fr 1fr;
-        gap: 3rem;
+    @media (min-width: 960px) {
+      .figma-board-split {
+        grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+        gap: 1.25rem;
+        min-height: min(78vh, 1100px);
       }
-      .figma-row-pair .figma-artboard { width: 100%; }
+    }
+    .figma-board-split__left,
+    .figma-board-split__right {
+      min-width: 0;
+      min-height: 0;
+    }
+    .figma-board-split__left .figma-artboard {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    .figma-board-split__left .figma-artboard__frame {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    .figma-board-split__right {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      min-height: min(50vh, 520px);
+    }
+    @media (min-width: 960px) {
+      .figma-board-split__right {
+        min-height: 0;
+        height: 100%;
+      }
+    }
+    .figma-board-split__right .figma-artboard {
+      width: 100%;
+      flex: 1 1 0;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    .figma-board-split__right .figma-artboard__frame {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    .figma-artboard__viewport--pan {
+      overflow-x: hidden;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+    }
+    @media (min-width: 960px) {
+      .figma-board-split__left .figma-artboard__viewport--pan {
+        flex: 1;
+        min-height: 0;
+        max-height: min(78vh, 1100px);
+      }
+      .figma-board-split__right .figma-artboard__viewport--pan {
+        flex: 1;
+        min-height: 0;
+      }
+    }
+    @media (max-width: 959px) {
+      .figma-artboard__viewport--pan {
+        max-height: min(65vh, 720px);
+      }
     }
 
     .figma-canvas__foot {
@@ -249,7 +315,7 @@
           <li><strong>Live shop</strong> — catalogue, compare, and enquiry flows.</li>
           <li><strong>SKU-accurate imagery</strong> — thumbnails tied to catalogue SKUs.</li>
           <li><strong>Product Companion</strong> — React browse demo on this portfolio.</li>
-          <li><strong>Design frames</strong> — scroll the canvas; open any frame to interact.</li>
+          <li><strong>Design frames</strong> — home on the left; shop and product stacked on the right (scroll each frame).</li>
         </ul>
         <div class="cta-row">
           <a class="portfolio-chip portfolio-chip--primary" href="https://www.msreeves.co.uk/msrproducts/" rel="noopener noreferrer">
@@ -261,54 +327,45 @@
         </div>
       </section>
 
-      <article class="figma-artboard" data-frame="home">
-        <p class="figma-artboard__label">Home</p>
-        <div class="figma-artboard__frame">
-          <div class="figma-artboard__meta">
-            <span>Home — full page</span>
-            <a href="/sites/wp/msrproducts/" target="_blank" rel="noopener noreferrer">Open in new tab</a>
-          </div>
-          <div class="figma-artboard__viewport is-screenshot" data-figma-shot="screens/home-full.jpg" data-figma-fallback="../../media/images/case-studies/msr-products.jpg" data-figma-frame data-src="/sites/wp/msrproducts/"></div>
+      <div class="figma-board-split" aria-label="Storefront screenshots">
+        <div class="figma-board-split__left">
+          <article class="figma-artboard" data-frame="home">
+            <p class="figma-artboard__label">Home</p>
+            <div class="figma-artboard__frame">
+              <div class="figma-artboard__meta">
+                <span>Home — full page (scroll)</span>
+                <a href="/sites/wp/msrproducts/" target="_blank" rel="noopener noreferrer">Open in new tab</a>
+              </div>
+              <div class="figma-artboard__viewport is-screenshot figma-artboard__viewport--pan" data-figma-shot="screens/home-full.jpg" data-figma-fallback="../../media/images/case-studies/msr-products.jpg" data-figma-frame data-src="/sites/wp/msrproducts/"></div>
+            </div>
+            <p class="figma-artboard__size" data-figma-size>1440 wide · full page</p>
+          </article>
         </div>
-        <p class="figma-artboard__size" data-figma-size>1440 wide · full page</p>
-      </article>
-
-      <div class="figma-row-pair">
-        <article class="figma-artboard" data-frame="shop">
-          <p class="figma-artboard__label">Shop</p>
-          <div class="figma-artboard__frame">
-            <div class="figma-artboard__meta">
-              <span>Shop — full page</span>
-              <a href="/sites/wp/msrproducts/shop/" target="_blank" rel="noopener noreferrer">Open</a>
+        <div class="figma-board-split__right">
+          <article class="figma-artboard" data-frame="shop">
+            <p class="figma-artboard__label">Shop</p>
+            <div class="figma-artboard__frame">
+              <div class="figma-artboard__meta">
+                <span>Shop — full page (scroll)</span>
+                <a href="/sites/wp/msrproducts/shop/" target="_blank" rel="noopener noreferrer">Open</a>
+              </div>
+              <div class="figma-artboard__viewport is-screenshot figma-artboard__viewport--pan" data-figma-shot="screens/shop-full.jpg" data-figma-frame data-src="/sites/wp/msrproducts/shop/"></div>
             </div>
-            <div class="figma-artboard__viewport is-screenshot" data-figma-shot="screens/shop-full.jpg" data-figma-frame data-src="/sites/wp/msrproducts/shop/"></div>
-          </div>
-          <p class="figma-artboard__size" data-figma-size>1440 wide · full page</p>
-        </article>
-        <article class="figma-artboard" data-frame="product">
-          <p class="figma-artboard__label">Product detail</p>
-          <div class="figma-artboard__frame">
-            <div class="figma-artboard__meta">
-              <span>PDP — full page</span>
-              <a href="/sites/wp/msrproducts/product/push-it-messenger-bag/" target="_blank" rel="noopener noreferrer">Open</a>
+            <p class="figma-artboard__size" data-figma-size>1440 wide · full page</p>
+          </article>
+          <article class="figma-artboard" data-frame="product">
+            <p class="figma-artboard__label">Product detail</p>
+            <div class="figma-artboard__frame">
+              <div class="figma-artboard__meta">
+                <span>PDP — full page (scroll)</span>
+                <a href="/sites/wp/msrproducts/product/push-it-messenger-bag/" target="_blank" rel="noopener noreferrer">Open</a>
+              </div>
+              <div class="figma-artboard__viewport is-screenshot figma-artboard__viewport--pan" data-figma-shot="screens/product-full.jpg" data-figma-frame data-src="/sites/wp/msrproducts/product/push-it-messenger-bag/"></div>
             </div>
-            <div class="figma-artboard__viewport is-screenshot" data-figma-shot="screens/product-full.jpg" data-figma-frame data-src="/sites/wp/msrproducts/product/push-it-messenger-bag/"></div>
-          </div>
-          <p class="figma-artboard__size" data-figma-size>1440 wide · full page</p>
-        </article>
+            <p class="figma-artboard__size" data-figma-size>1440 wide · full page</p>
+          </article>
+        </div>
       </div>
-
-      <article class="figma-artboard" data-frame="contact">
-        <p class="figma-artboard__label">Contact</p>
-        <div class="figma-artboard__frame">
-          <div class="figma-artboard__meta">
-            <span>Contact — full page</span>
-            <a href="/sites/wp/msrproducts/contact/" target="_blank" rel="noopener noreferrer">Open in new tab</a>
-          </div>
-          <div class="figma-artboard__viewport is-screenshot" data-figma-shot="screens/contact-full.jpg" data-figma-frame data-src="/sites/wp/msrproducts/contact/"></div>
-        </div>
-        <p class="figma-artboard__size" data-figma-size>1440 wide · full page</p>
-      </article>
 
       <p class="figma-canvas__foot">
         JPEG exports: <code>npm run msrproducts:design-screens:capture</code> ·
