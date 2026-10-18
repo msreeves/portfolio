@@ -25,3 +25,8 @@ export function formatProductPrice(price: string): string {
   const decoded = decodeHtmlEntities(price.trim())
   return decoded.replace(/\s+/g, ' ').trim()
 }
+
+/** Category / title lines from Woo JSON feed (legacy exports may contain entities). */
+export function formatDisplayText(value: string): string {
+  return decodeHtmlEntities(value.trim()).replace(/\s+/g, ' ').trim()
+}

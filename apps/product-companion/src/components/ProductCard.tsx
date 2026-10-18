@@ -1,4 +1,4 @@
-import { formatProductPrice } from '@/lib/format'
+import { formatDisplayText, formatProductPrice } from '@/lib/format'
 import type { ProductRow } from '@/lib/schema'
 
 type Props = {
@@ -31,12 +31,12 @@ export function ProductCard({ product }: Props) {
       <div className="flex flex-1 flex-col gap-2 p-4">
         {product.category ? (
           <p className="text-xs font-semibold uppercase tracking-wide text-ink-muted">
-            {product.category}
+            {formatDisplayText(product.category)}
           </p>
         ) : null}
         <h2 className="font-display text-lg font-bold leading-snug text-ink">
           <a href={product.product_url} className="hover:text-accent-light hover:underline">
-            {product.title}
+            {formatDisplayText(product.title)}
           </a>
         </h2>
         <p className="text-sm text-ink-muted">
