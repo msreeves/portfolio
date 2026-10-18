@@ -2,9 +2,9 @@
     "_comment": "Selected work grid — bands control order; cards are CMS data (admin: site.json ledes + this file). view_url @msrpublishing and @msrproducts resolve at render.",
     "version": 1,
     "bands": {
-        "lead": ["msr-products"],
-        "currentFocus": ["perception", "atlas-ops"],
-        "programme": ["msr-events-hub", "msr-awards", "msr-seminars", "atlas-briefing"]
+        "lead": ["perception"],
+        "currentFocus": ["atlas-ops"],
+        "programme": ["msr-products", "msr-events-hub", "msr-awards", "msr-seminars", "atlas-briefing"]
     },
     "cards": {
         "atlas-briefing": {
@@ -28,12 +28,14 @@
             "code_url": "https://github.com/msreeves/msrpublishing"
         },
         "perception": {
-            "featured": false,
+            "featured": true,
             "lane": "current",
             "badge": "In progress",
             "title": "Perception — graphic novel",
             "stack": "Studio case study · cover pipeline · digital edition next",
-            "home_summary": "Studio-first graphic novel — art pipeline, cover hub; Reader pack on portfolio; production studio stays local-only.",
+            "home_summary": "Lead studio case study — art direction, cover hub (A–G), decision log, and reader pack on this portfolio; production tooling stays local-only.",
+            "index_thumb": "inline-cover",
+            "lead_layout": "wide",
             "bullets": [
                 {"icon": "fas fa-palette", "text": "Studio-first — art direction, Modes pipeline, WIP Part One cover"},
                 {"icon": "fas fa-book-open", "text": "Case study — decision log, craft evidence, cover hub (A–G)"},
@@ -130,22 +132,21 @@
             "companion_label": "Companion demo"
         },
         "msr-products": {
-            "featured": true,
-            "lane": "current",
-            "badge": "Lead case study",
+            "featured": false,
+            "lane": "programme",
             "title": "MSR Products",
             "stack": "WooCommerce · Vite 5 · ACF · inquiry-led demo store",
-            "home_summary": "Lead WordPress commerce case study — catalogue UX, SKU-matched imagery, Figma design source, and Product Companion browse demo.",
+            "home_summary": "WooCommerce programme demo — catalogue UX, SKU-matched imagery, and Product Companion browse SPA.",
             "index_thumb": "none",
             "bullets": [
-                {"icon": "fab fa-figma", "text": "Figma design source synced from the local theme (not a throwaway mock)"},
+                {"icon": "fas fa-store", "text": "Inquiry-led WooCommerce showcase — catalogue, product detail, and shop flows"},
                 {"icon": "fas fa-barcode", "text": "Product images matched to catalogue SKUs (bag → bag, bottle → bottle)"},
                 {"icon": "fas fa-mobile-screen", "text": "Product Companion SPA — search, categories, inquiry CTAs (no checkout theatre)"}
             ],
             "thumb": "./media/images/case-studies/msr-products.jpg",
             "thumb_alt": "MSR Products WooCommerce demo homepage screenshot",
             "thumb_role": "landscape",
-            "lead_layout": "wide",
+            "card_density": "compact",
             "view_url": "@msrproducts",
             "code_url": "https://github.com/msreeves/msrproducts",
             "case_study_url": "./projects/msr-products/",

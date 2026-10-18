@@ -17,12 +17,17 @@
     "roleFocus": [
         {
             "title": "WordPress / CMS",
-            "body": "Selected work — MSR Products lead case study plus programme WordPress demos.",
+            "body": "Selected work — programme WordPress demos including MSR Products WooCommerce.",
             "href": "#recent-portfolio"
         },
         {
+            "title": "Creative / studio",
+            "body": "Lead case study — Perception graphic novel studio (cover hub and reader pack).",
+            "href": "#portfolio-lead-heading"
+        },
+        {
             "title": "Front-end / React",
-            "body": "Current focus band — Atlas Ops React SPA (screenshots and case study).",
+            "body": "Current focus — Atlas Ops React SPA (screenshots and case study).",
             "href": "#portfolio-spotlight-heading"
         },
         {

@@ -4,12 +4,12 @@
         {
             "id": "current",
             "title": "Current delivery (2025–26)",
-            "body": "Portfolio shell, Projects · Preview · Storage, and featured case studies I still extend — including MSR Products as the lead WooCommerce reference at this bar. Responsive layout, accessibility checks, and regression on key routes when UI changes."
+            "body": "Portfolio shell, Projects · Preview · Storage, and active builds I still extend — <strong>Perception</strong> as the lead studio case study and <strong>Atlas Ops</strong> in current focus. Responsive layout, accessibility checks, and regression on key routes when UI changes."
         },
         {
             "id": "programme",
             "title": "Programme demos",
-            "body": "WordPress programme sites (Events hub, Awards, Seminars, Atlas Briefing publishing) — Vite-built themes and ACF patterns kept as honest snapshots of multisite work. Smoke-tested routes; not re-skinned unless I deliberately unpark one. (MSR Products is the lead case study above.)"
+            "body": "WordPress programme sites — MSR Products (WooCommerce), Events hub, Awards, Seminars, and Atlas Briefing publishing. Vite-built themes and ACF patterns kept as honest snapshots. Smoke-tested routes; companion SPAs where noted."
         },
         {
             "id": "archive",

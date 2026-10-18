@@ -184,15 +184,11 @@
       border: 0;
       transform-origin: 0 0;
     }
-    .figma-artboard__viewport.is-static {
-      aspect-ratio: 1440 / 900;
-    }
-    .figma-artboard__viewport.is-static img {
+    .figma-artboard__viewport.is-screenshot img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: top;
+      height: auto;
       display: block;
+      vertical-align: top;
     }
     .figma-artboard__size {
       font-size: 0.65rem;
@@ -231,8 +227,8 @@
       </a>
     </div>
     <div class="figma-app__center">
-      <i class="fab fa-figma" aria-hidden="true"></i>
-      <span><strong>MSR Products</strong> / Design from the live site · Desktop 1440</span>
+      <i class="fas fa-layer-group" aria-hidden="true"></i>
+      <span><strong>MSR Products</strong> / Screens from the live site · Desktop 1440</span>
     </div>
     <div class="figma-app__right">
       <a class="figma-app__pill" href="../product-companion/">Companion</a>
@@ -243,7 +239,7 @@
   <main class="figma-canvas" id="figma-canvas" aria-label="Design frames">
     <div class="figma-canvas__inner">
       <section class="figma-canvas__intro" aria-labelledby="intro-title">
-        <p class="eyebrow">Lead case study · WooCommerce showcase</p>
+        <p class="eyebrow">Programme demo · WooCommerce showcase</p>
         <h1 id="intro-title">MSR Products</h1>
         <p>
           Fieldcrest Supply Co. — inquiry-first demonstration store on a Vite-built WooCommerce theme.
@@ -265,55 +261,53 @@
         </div>
       </section>
 
-      <article class="figma-artboard">
+      <article class="figma-artboard" data-frame="home">
         <p class="figma-artboard__label">Home</p>
         <div class="figma-artboard__frame">
           <div class="figma-artboard__meta">
-            <span>Home — Desktop</span>
-            <a href="https://www.msreeves.co.uk/msrproducts/" target="_blank" rel="noopener noreferrer">Open in new tab</a>
+            <span>Home — full page</span>
+            <a href="/sites/wp/msrproducts/" target="_blank" rel="noopener noreferrer">Open in new tab</a>
           </div>
-          <div class="figma-artboard__viewport is-static" data-figma-frame>
-            <img src="../../media/images/case-studies/msr-products.jpg" width="1440" height="900" alt="MSR Products home — desktop frame" loading="eager" decoding="async" />
-          </div>
+          <div class="figma-artboard__viewport is-screenshot" data-figma-shot="screens/home-full.jpg" data-figma-fallback="../../media/images/case-studies/msr-products.jpg" data-figma-frame data-src="/sites/wp/msrproducts/"></div>
         </div>
-        <p class="figma-artboard__size">1440 × 900</p>
+        <p class="figma-artboard__size" data-figma-size>1440 wide · full page</p>
       </article>
 
       <div class="figma-row-pair">
-        <article class="figma-artboard">
+        <article class="figma-artboard" data-frame="shop">
           <p class="figma-artboard__label">Shop</p>
           <div class="figma-artboard__frame">
             <div class="figma-artboard__meta">
-              <span>Shop — Desktop</span>
-              <a href="https://www.msreeves.co.uk/msrproducts/shop/" target="_blank" rel="noopener noreferrer">Open</a>
+              <span>Shop — full page</span>
+              <a href="/sites/wp/msrproducts/shop/" target="_blank" rel="noopener noreferrer">Open</a>
             </div>
-            <div class="figma-artboard__viewport" data-figma-frame data-src="https://www.msreeves.co.uk/msrproducts/shop/"></div>
+            <div class="figma-artboard__viewport is-screenshot" data-figma-shot="screens/shop-full.jpg" data-figma-frame data-src="/sites/wp/msrproducts/shop/"></div>
           </div>
-          <p class="figma-artboard__size">1440 × 900</p>
+          <p class="figma-artboard__size" data-figma-size>1440 wide · full page</p>
         </article>
-        <article class="figma-artboard">
+        <article class="figma-artboard" data-frame="product">
           <p class="figma-artboard__label">Product detail</p>
           <div class="figma-artboard__frame">
             <div class="figma-artboard__meta">
-              <span>PDP — Desktop</span>
-              <a href="https://www.msreeves.co.uk/msrproducts/product/push-it-messenger-bag/" target="_blank" rel="noopener noreferrer">Open</a>
+              <span>PDP — full page</span>
+              <a href="/sites/wp/msrproducts/product/push-it-messenger-bag/" target="_blank" rel="noopener noreferrer">Open</a>
             </div>
-            <div class="figma-artboard__viewport" data-figma-frame data-src="https://www.msreeves.co.uk/msrproducts/product/push-it-messenger-bag/"></div>
+            <div class="figma-artboard__viewport is-screenshot" data-figma-shot="screens/product-full.jpg" data-figma-frame data-src="/sites/wp/msrproducts/product/push-it-messenger-bag/"></div>
           </div>
-          <p class="figma-artboard__size">1440 × 900</p>
+          <p class="figma-artboard__size" data-figma-size>1440 wide · full page</p>
         </article>
       </div>
 
-      <article class="figma-artboard">
+      <article class="figma-artboard" data-frame="contact">
         <p class="figma-artboard__label">Contact</p>
         <div class="figma-artboard__frame">
           <div class="figma-artboard__meta">
-            <span>Contact — Desktop</span>
-            <a href="https://www.msreeves.co.uk/msrproducts/contact/" target="_blank" rel="noopener noreferrer">Open in new tab</a>
+            <span>Contact — full page</span>
+            <a href="/sites/wp/msrproducts/contact/" target="_blank" rel="noopener noreferrer">Open in new tab</a>
           </div>
-          <div class="figma-artboard__viewport" data-figma-frame data-src="https://www.msreeves.co.uk/msrproducts/contact/"></div>
+          <div class="figma-artboard__viewport is-screenshot" data-figma-shot="screens/contact-full.jpg" data-figma-frame data-src="/sites/wp/msrproducts/contact/"></div>
         </div>
-        <p class="figma-artboard__size">1440 × 900</p>
+        <p class="figma-artboard__size" data-figma-size>1440 wide · full page</p>
       </article>
 
       <p class="figma-canvas__foot">
@@ -327,13 +321,12 @@
     (function () {
       var W = 1440;
       var H = 900;
-      document.querySelectorAll('[data-figma-frame]').forEach(function (wrap) {
-        var src = wrap.getAttribute('data-src');
-        if (!src) return;
+      function mountIframe(wrap, src) {
         var iframe = document.createElement('iframe');
         iframe.title = 'Storefront frame preview';
         iframe.loading = 'lazy';
         iframe.setAttribute('src', src);
+        wrap.classList.remove('is-screenshot');
         wrap.appendChild(iframe);
         function resize() {
           var scale = wrap.clientWidth / W;
@@ -342,6 +335,44 @@
         }
         resize();
         window.addEventListener('resize', resize);
+      }
+      document.querySelectorAll('[data-figma-frame]').forEach(function (wrap) {
+        var shot = wrap.getAttribute('data-figma-shot');
+        var fallback = wrap.getAttribute('data-figma-fallback');
+        var liveSrc = wrap.getAttribute('data-src');
+        var sizeEl = wrap.closest('.figma-artboard')?.querySelector('[data-figma-size]');
+        if (shot) {
+          var img = document.createElement('img');
+          img.alt = 'Storefront screenshot';
+          img.loading = wrap.closest('[data-frame="home"]') ? 'eager' : 'lazy';
+          img.decoding = 'async';
+          img.addEventListener('load', function () {
+            if (sizeEl && img.naturalWidth) {
+              sizeEl.textContent = img.naturalWidth + ' × ' + img.naturalHeight + ' (capture)';
+            }
+          });
+          img.addEventListener('error', function () {
+            img.remove();
+            if (fallback) {
+              var fb = document.createElement('img');
+              fb.src = fallback;
+              fb.alt = img.alt;
+              fb.loading = img.loading;
+              fb.decoding = 'async';
+              fb.addEventListener('error', function () {
+                fb.remove();
+                if (liveSrc) mountIframe(wrap, liveSrc);
+              });
+              wrap.appendChild(fb);
+              return;
+            }
+            if (liveSrc) mountIframe(wrap, liveSrc);
+          });
+          img.src = shot;
+          wrap.appendChild(img);
+          return;
+        }
+        if (liveSrc) mountIframe(wrap, liveSrc);
       });
     })();
   </script>
