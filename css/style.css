@@ -679,6 +679,24 @@ body.msr-portfolio > a.visually-hidden-focusable:focus-visible {
   max-height: 16rem;
 }
 
+/* Current focus — solo portrait lead (comic front cover) */
+@media (min-width: 768px) {
+  #recent-portfolio .portfolio-case-study-grid--current.portfolio-content-grid--solo .msr-programme-card--lead:not(.msr-programme-card--lead-wide) {
+    grid-template-columns: minmax(12rem, 18rem) minmax(0, 1fr);
+    align-items: stretch;
+  }
+}
+
+#recent-portfolio .portfolio-case-study-grid--current.portfolio-content-grid--solo .msr-programme-card--lead .msr-programme-card-media--cover {
+  max-height: min(32rem, 72vh);
+  min-height: 16rem;
+  padding: 0.75rem;
+}
+
+#recent-portfolio .portfolio-case-study-grid--current.portfolio-content-grid--solo .msr-programme-card--lead .msr-programme-card-thumb {
+  max-height: 100%;
+}
+
 .msr-programme-grid--spotlight .msr-programme-card--thumb-cover .msr-programme-card-title {
   font-size: 1.15rem;
   line-height: 1.3;

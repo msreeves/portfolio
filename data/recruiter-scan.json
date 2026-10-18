@@ -22,13 +22,13 @@
         },
         {
             "title": "Creative / studio",
-            "body": "Lead case study — Perception graphic novel studio (cover hub and reader pack).",
-            "href": "#portfolio-lead-heading"
+            "body": "Current focus — Perception graphic novel studio (cover hub and reader pack).",
+            "href": "#portfolio-spotlight-heading"
         },
         {
             "title": "Front-end / React",
-            "body": "Current focus — Atlas Ops React SPA (screenshots and case study).",
-            "href": "#portfolio-spotlight-heading"
+            "body": "Programme demos — Atlas Ops React SPA (case study in the grid below).",
+            "href": "#portfolio-programme-demos-heading"
         },
         {
             "title": "Digital publishing",

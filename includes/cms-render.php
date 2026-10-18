@@ -783,10 +783,25 @@ function cms_render_msr_case_study_grid(array $content = []): void
 /**
  * @param array<string, mixed> $card
  */
+function cms_msr_case_study_home_lead_layout(array $card): string
+{
+    $layout = strtolower(trim((string) ($card['home_lead_layout'] ?? '')));
+    if (in_array($layout, ['portrait', 'wide'], true)) {
+        return $layout;
+    }
+    if (!empty($card['featured'])) {
+        $legacy = strtolower(trim((string) ($card['lead_layout'] ?? '')));
+
+        return $legacy === 'wide' ? 'wide' : 'portrait';
+    }
+
+    return '';
+}
+
 function cms_render_msr_case_study_card(array $card): void
 {
     $featured = !empty($card['featured']);
-    $leadLayout = strtolower(trim((string) ($card['lead_layout'] ?? '')));
+    $homeLeadLayout = cms_msr_case_study_home_lead_layout($card);
     $thumb = cms_msr_case_study_thumb_src((string) ($card['thumb'] ?? ''));
     $thumbAlt = trim((string) ($card['thumb_alt'] ?? $card['title'] ?? 'Case study screenshot'));
     $badge = trim((string) ($card['badge'] ?? ''));
@@ -805,9 +820,9 @@ function cms_render_msr_case_study_card(array $card): void
     $thumbRole = cms_msr_case_study_thumb_role($card);
 
     echo '<article class="msr-programme-card';
-    if ($featured) {
+    if ($featured || $homeLeadLayout !== '') {
         echo ' msr-programme-card--lead';
-        if ($leadLayout === 'wide') {
+        if ($homeLeadLayout === 'wide') {
             echo ' msr-programme-card--lead-wide';
         }
     }
@@ -1100,7 +1115,16 @@ function cms_portfolio_case_study_grid_modifiers(array $cards, int $maxCols = 3)
         return '';
     }
 
-    return cms_portfolio_grid_modifiers($count, $maxCols) . ' portfolio-content-grid--fluid-proof';
+    $mods = cms_portfolio_grid_modifiers($count, $maxCols) . ' portfolio-content-grid--fluid-proof';
+    foreach ($cards as $card) {
+        if (!empty($card['featured']) || cms_msr_case_study_home_lead_layout($card) !== '') {
+            $mods .= ' portfolio-content-grid--has-lead';
+
+            break;
+        }
+    }
+
+    return $mods;
 }
 
 /** Work-experience panel keys in display order (primary résumé roles). */

@@ -2,9 +2,9 @@
     "_comment": "Selected work grid — bands control order; cards are CMS data (admin: site.json ledes + this file). view_url @msrpublishing and @msrproducts resolve at render.",
     "version": 1,
     "bands": {
-        "lead": ["perception"],
-        "currentFocus": ["atlas-ops"],
-        "programme": ["msr-products", "msr-events-hub", "msr-awards", "msr-seminars", "atlas-briefing"]
+        "lead": [],
+        "currentFocus": ["perception"],
+        "programme": ["msr-products", "atlas-ops", "msr-events-hub", "msr-awards", "msr-seminars", "atlas-briefing"]
     },
     "cards": {
         "atlas-briefing": {
@@ -28,22 +28,23 @@
             "code_url": "https://github.com/msreeves/msrpublishing"
         },
         "perception": {
-            "featured": true,
+            "featured": false,
             "lane": "current",
             "badge": "In progress",
             "title": "Perception — graphic novel",
             "stack": "Studio case study · cover pipeline · digital edition next",
-            "home_summary": "Lead studio case study — art direction, cover hub (A–G), decision log, and reader pack on this portfolio; production tooling stays local-only.",
-            "index_thumb": "inline-cover",
-            "lead_layout": "wide",
+            "home_summary": "Active studio case study — art direction, cover hub (A–G), decision log, and reader pack on this portfolio; production tooling stays local-only.",
+            "home_lead_layout": "portrait",
+            "home_media": true,
             "bullets": [
                 {"icon": "fas fa-palette", "text": "Studio-first — art direction, Modes pipeline, WIP Part One cover"},
                 {"icon": "fas fa-book-open", "text": "Case study — decision log, craft evidence, cover hub (A–G)"},
                 {"icon": "fas fa-layer-group", "text": "Reader pack on portfolio; production studio stays local-only"}
             ],
-            "thumb": "./media/images/case-studies/perception-cover-hub.png",
-            "thumb_alt": "Perception graphic novel — studio cover hub and production overview",
-            "thumb_role": "landscape",
+            "thumb": "./media/images/case-studies/perception-front-cover.jpg",
+            "thumb_alt": "Perception graphic novel — Part One front cover",
+            "thumb_role": "cover",
+            "thumb_fit": "contain",
             "thumb_position": "center top",
             "view_url": "./projects/perception/",
             "code_url": "",
@@ -51,7 +52,7 @@
         },
         "atlas-ops": {
             "featured": false,
-            "lane": "current",
+            "lane": "programme",
             "title": "Atlas Ops",
             "stack": "React · TypeScript · Vite · TanStack Query · Zustand",
             "home_summary": "Project CRUD with list and drag-and-drop kanban — team roles, analytics, production polish.",
@@ -63,7 +64,8 @@
             "thumb": "./media/images/case-studies/atlas-ops.png",
             "thumb_alt": "Atlas Ops delivery workspace dashboard screenshot",
             "thumb_role": "landscape",
-            "card_density": "standard",
+            "card_density": "compact",
+            "index_thumb": "none",
             "view_url": "./projects/atlas-ops/",
             "code_url": "https://github.com/msreeves/atlas-ops",
             "case_study_url": "./projects/atlas-ops/case-study.html"
