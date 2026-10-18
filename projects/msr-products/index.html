@@ -175,6 +175,10 @@
       overflow: hidden;
       background: #fff;
     }
+    .figma-artboard__viewport--fullpage,
+    .figma-board-split__left .figma-artboard__frame {
+      overflow: visible;
+    }
     .figma-artboard__viewport iframe {
       position: absolute;
       top: 0;
@@ -222,8 +226,7 @@
       gap: 0.85rem;
       position: sticky;
       top: 0.75rem;
-      height: min(82vh, 1080px);
-      max-height: min(82vh, 1080px);
+      min-height: min(72vh, 900px);
     }
     .figma-board-split__right .figma-artboard {
       width: 100%;
@@ -383,7 +386,7 @@
                 <span>Home — full page</span>
                 <a href="/sites/wp/msrproducts/" target="_blank" rel="noopener noreferrer">Open in new tab</a>
               </div>
-              <div class="figma-artboard__viewport is-screenshot figma-artboard__viewport--fullpage" data-figma-shot="screens/home-full.jpg" data-figma-fallback="../../media/images/case-studies/msr-products.jpg" data-figma-frame data-src="/sites/wp/msrproducts/"></div>
+              <div class="figma-artboard__viewport is-screenshot figma-artboard__viewport--fullpage" data-figma-shot="screens/home-full.jpg" data-figma-frame data-src="/sites/wp/msrproducts/" data-figma-sync-height="1"></div>
             </div>
             <p class="figma-artboard__size" data-figma-size>1440 wide · full page — scroll the canvas</p>
           </article>
@@ -504,6 +507,26 @@
         resize();
         window.addEventListener('resize', resize);
       }
+      function syncSplitHeights() {
+        var split = document.querySelector('.figma-board-split');
+        if (!split || window.matchMedia('(max-width: 959px)').matches) {
+          return;
+        }
+        var left = split.querySelector('.figma-board-split__left .figma-artboard');
+        var right = split.querySelector('.figma-board-split__right');
+        if (!left || !right) {
+          return;
+        }
+        var h = Math.round(left.getBoundingClientRect().height);
+        if (h < 280) {
+          return;
+        }
+        right.style.height = h + 'px';
+        right.style.maxHeight = h + 'px';
+      }
+      window.addEventListener('resize', function () {
+        window.requestAnimationFrame(syncSplitHeights);
+      });
       document.querySelectorAll('[data-figma-frame]').forEach(function (wrap) {
         var shot = wrap.getAttribute('data-figma-shot');
         var fallback = wrap.getAttribute('data-figma-fallback');
@@ -516,12 +539,15 @@
           img.decoding = 'async';
           img.addEventListener('load', function () {
             if (sizeEl && img.naturalWidth) {
-              sizeEl.textContent = img.naturalWidth + ' × ' + img.naturalHeight + ' (capture)';
+              sizeEl.textContent = img.naturalWidth + ' × ' + img.naturalHeight + ' (full-page capture)';
+            }
+            if (wrap.getAttribute('data-figma-sync-height') === '1') {
+              syncSplitHeights();
             }
           });
           img.addEventListener('error', function () {
             img.remove();
-            if (fallback) {
+            if (fallback && !wrap.classList.contains('figma-artboard__viewport--fullpage')) {
               var fb = document.createElement('img');
               fb.src = fallback;
               fb.alt = img.alt;
