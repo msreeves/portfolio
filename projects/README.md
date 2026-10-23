@@ -9,6 +9,29 @@ Static/SPA **showcase** folders for the portfolio site (`sites/portfolio/`).
 
 Card JSON: `*.json` here. `hub: false` — demos are **not** nested on the Sites hub (open **Portfolio** on Sites instead).
 
+## Wired as an app (source → ship → card)
+
+| Step | Path |
+|------|------|
+| Develop | `sites/portfolio/apps/<slug>/` (`npm run dev`) |
+| Ship static demo | `npm run ship:portfolio` (or app’s ship script) → `sites/portfolio/projects/<slug>/` |
+| Portfolio metadata | `sites/portfolio/projects/<slug>.json` — title, stack, summary, `view_url`, `active` |
+
+Shipped demos are **apps with a real page** on Herd: `http://127.0.0.1/sites/portfolio/projects/<slug>/`.
+
+## Local Making catalog (`:4088`) — opt-in only
+
+`:4088` is for shortcuts to things you open while making — **not** a second portfolio grid.
+
+| Field on `<slug>.json` | Effect |
+|------------------------|--------|
+| `"makingCatalog": true` | Card on `http://127.0.0.1:4088/` → **View** opens this shipped demo (local Herd URL) |
+| omitted or `false` | Demo stays on portfolio / case study only (default) |
+
+Requirements: `active: true`, built `projects/<slug>/index.html`. After changing flags: `npm run projects:catalog` from repo root.
+
+**Do not** put `:4088` / `:4090` / `:4000` links in shipped demo HTML or card copy — gate `npm run estate:live-ship:check`.
+
 ## Stack C — assets on active case studies (L2)
 
 **Not Stack A** — do not link `localhost/workspace-*` or workspace nav here.

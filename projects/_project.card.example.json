@@ -1,5 +1,5 @@
 {
-  "_comment": "Copy to <slug>.json and fill fields. Files starting with _ are ignored by hub/archive loaders.",
+  "_comment": "Copy to <slug>.json and fill fields. Files starting with _ are ignored by hub/archive loaders. makingCatalog: true opts the shipped demo into local Projects :4088 (default false).",
   "slug": "my-demo",
   "title": "My Demo Title",
   "stack": "React, TypeScript, …",
