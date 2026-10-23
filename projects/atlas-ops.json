@@ -9,5 +9,6 @@
   "order": 5,
   "hub": false,
   "archive": false,
-  "active": true
+  "active": true,
+  "makingCatalog": true
 }

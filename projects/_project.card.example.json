@@ -10,5 +10,6 @@
   "order": 50,
   "hub": true,
   "archive": true,
-  "active": true
+  "active": true,
+  "makingCatalog": false
 }
