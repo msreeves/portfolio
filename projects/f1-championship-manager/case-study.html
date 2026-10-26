@@ -18,9 +18,9 @@
 
   <header class="perception-case-top">
     <div class="portfolio-shell container perception-case-top__inner">
-      <a class="portfolio-chip portfolio-chip--secondary perception-case-top__back" href="http://127.0.0.1:8787/">
+      <a class="portfolio-chip portfolio-chip--secondary perception-case-top__back" href="../../#recent-portfolio">
         <i class="fas fa-arrow-left" aria-hidden="true"></i>
-        <span>F1CM dashboard</span>
+        <span>Selected work</span>
       </a>
       <p class="perception-case-top__brand">Michael Reeves · Portfolio</p>
     </div>
@@ -36,7 +36,7 @@
             A personal tool that bridges PS2 <strong>TV spectator mode</strong> on PAL Formula One titles with a persistent, interactive championship — seasons, points, and standings the games never track on their own.
           </p>
           <p class="perception-case__role">
-            <strong>My role:</strong> product concept, Python/FastAPI dashboard, SQLite data model, and PCSX2-adjacent workflow (manual lock-in on race pages; no cloud accounts).
+            <strong>My role:</strong> product concept, Python/FastAPI dashboard, SQLite data model, and PCSX2-adjacent workflow (drag-and-drop lock-in on race pages; local-only, no cloud accounts).
           </p>
         </div>
       </header>
@@ -45,11 +45,11 @@
         <h2 id="idea-heading" class="perception-studio__chapter-title">The idea</h2>
         <p class="perception-studio__prose">
           Studio Liverpool’s PAL <em>Formula One</em> games on PS2 (2001–2006) are brilliant for <strong>spectator mode</strong>: you pick a race, watch the AI field, and get the drama of a Grand Prix on the couch.
-          What they do <em>not</em> give you is a serious season layer — cumulative points, your own championship narrative, careful verification before results stick, or a single place to move from “I watched Melbourne” to “here is the table after round three.”
+          What they do <em>not</em> give you is a serious season layer — cumulative points, your own championship narrative, or a single place to move from “I watched Melbourne” to “here is the table after round three.”
         </p>
         <p class="perception-studio__prose">
           F1 Championship Manager is that bridge: the emulator and game stay the spectacle; the dashboard is the championship brain.
-          You still play or spectate on the PS2; you stage classifications on the web UI, preview points, and approve only when you are happy — same discipline I use on labelled programme demos elsewhere on this portfolio.
+          You spectate on the PS2, then <strong>lock in</strong> finish order in the browser when you are ready — same careful, labelled programme-demo discipline as the rest of this portfolio.
         </p>
       </section>
 
@@ -57,9 +57,9 @@
         <h2 id="gap-heading" class="perception-studio__chapter-title">What it closes</h2>
         <ul class="perception-studio__constraints">
           <li><strong>Spectator-only gap</strong> — TV mode ends when the credits roll; the tool keeps season context, calendars, and standings across rounds.</li>
-          <li><strong>Trust gap</strong> — staged results and preview-before-approve so a mis-typed position does not corrupt the championship database.</li>
+          <li><strong>Trust gap</strong> — only locked-in results change points; backups run before destructive season resets.</li>
           <li><strong>History gap</strong> — official vs reversed grids, non-starters flagged, and 2001–2006 season pickers aligned to PAL discs (PCSX2).</li>
-          <li><strong>Ops gap</strong> — backups before approved writes, reliability page, and autostart so the dashboard is ready when you sit down to race.</li>
+          <li><strong>Ops gap</strong> — built-in FAQ, login autostart on macOS, and a read-only PCSX2 identity panel on the championship page.</li>
         </ul>
       </section>
 
@@ -67,7 +67,7 @@
         <h2 id="stack-heading" class="perception-studio__chapter-title">Implementation</h2>
         <ul class="perception-studio__constraints">
           <li>Python 3.12+, FastAPI, Jinja templates, SQLite (<code>approved</code> vs <code>staged</code> states).</li>
-          <li>Workspace entry: <code>npm run f1cm:launch</code> · open the dashboard demo from the programme card.</li>
+          <li>Local dashboard: <code>npm run f1cm:launch</code> → <code>http://127.0.0.1:8787/</code> (not hosted on this site — clone the repo to run it).</li>
           <li>Historical calendars/grids imported into staging; human verification before grids promote to official tables.</li>
           <li>Optional PINE/diagnostic hooks for PCSX2 identity — read-only phase; race capture stays manual and honest.</li>
         </ul>
@@ -77,12 +77,12 @@
         <h2 id="verification-heading" class="perception-studio__chapter-title">Verification</h2>
         <p class="perception-studio__prose">
           This is a personal hobby championship rig, not a commercial product. pytest guards the data layer; browser checks are optional.
-          Use <strong>Open demo</strong> on the programme card when the dashboard is running.
+          Open the dashboard on your Mac when you want the live UI; this case study is the public programme snapshot on the portfolio.
         </p>
       </section>
 
       <p class="perception-case__actions">
-        <a class="portfolio-chip portfolio-chip--primary" href="http://127.0.0.1:8787/"><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i><span>Open demo</span></a>
+        <a class="portfolio-chip portfolio-chip--primary" href="https://github.com/msreeves/f1-championship-manager"><i class="fab fa-github" aria-hidden="true"></i><span>Source on GitHub</span></a>
         <a class="portfolio-chip portfolio-chip--secondary" href="../../#recent-portfolio"><i class="fas fa-th-large" aria-hidden="true"></i><span>Back to selected work</span></a>
       </p>
     </div>
