@@ -19,6 +19,8 @@ Card JSON: `*.json` here. `hub: false` — demos are **not** nested on the Sites
 
 Shipped demos are **apps with a real page** on Herd: `http://127.0.0.1/sites/portfolio/projects/<slug>/`.
 
+**Extensionless static pages:** Herd nginx (`scripts/local/herd-workspace-roots.conf` → `location /sites/portfolio/projects/`) and `projects/.htaccess` strip `.html` from URLs. Link case studies as `./projects/<slug>/page` in `selected-work.json` — gate `portfolio-projects-routing-check` fails on `.html` suffixes.
+
 ## Local Making catalog (`:4088`) — opt-in only
 
 `:4088` is for shortcuts to things you open while making — **not** a second portfolio grid.
