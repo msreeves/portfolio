@@ -183,8 +183,10 @@
           <code>f1cm pcsx2 game-info --year 2001</code> ·
           <code>f1cm championship status --year 2001</code>
         </dd>
-        <dt>Supervisor</dt>
-        <dd><code>npm run f1cm:launch</code> / championship supervisor watches the season when emulator capture is enabled in config.</dd>
+        <dt>Automation (optional)</dt>
+        <dd>With emulator capture enabled, <code>f1cm championship supervise</code> can run in the background. Default workflow is manual <strong>Lock in race</strong> — no polling CLI required.</dd>
+        <dt>Portfolio deploy</dt>
+        <dd>Public demo is static HTML: <code>npm run f1cm:portfolio:live-pack</code> then <code>npm run ship -- portfolio</code> from the workspace root. Live app stays on your Mac (<code>npm run f1cm:launch</code>).</dd>
         <dt>2004–2006</dt>
         <dd>Calendars and serial hints are in-repo; verify menus, rosters, and grids on your PCSX2 setup before trusting automation.</dd>
         <dt>Live integration tests</dt>
