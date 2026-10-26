@@ -4,7 +4,7 @@
     "bands": {
         "lead": [],
         "currentFocus": ["perception"],
-        "programme": ["msr-products", "atlas-ops", "msr-events-hub", "msr-awards", "msr-seminars", "atlas-briefing", "f1-championship-manager"]
+        "programme": ["f1-championship-manager", "msr-products", "atlas-ops", "msr-events-hub", "msr-awards", "msr-seminars", "atlas-briefing"]
     },
     "cards": {
         "atlas-briefing": {
@@ -159,15 +159,15 @@
         "f1-championship-manager": {
             "featured": false,
             "lane": "programme",
-            "badge": "Local tool",
+            "badge": "Programme demo",
             "title": "F1 Championship Manager",
             "stack": "Python · FastAPI · SQLite · PS2 TV spectator bridge",
-            "home_summary": "Bridges PS2 TV spectator races with a persistent championship — stage results, preview points, approve to standings on :8787.",
+            "home_summary": "Bridges PS2 TV spectator races with a persistent championship — stage results, preview points, approve to standings.",
             "index_thumb": "none",
             "bullets": [
                 {"icon": "fas fa-tv", "text": "Built around PAL F1 spectator mode — the game supplies the show, the dashboard supplies the season"},
                 {"icon": "fas fa-database", "text": "Staged results, preview points, and approve-only writes with DB backups"},
-                {"icon": "fas fa-flag-checkered", "text": "2001–2006 calendars, grids, and championship tables (PCSX2 + local dashboard)"}
+                {"icon": "fas fa-flag-checkered", "text": "2001–2006 calendars, grids, and championship tables (PCSX2 + web dashboard)"}
             ],
             "thumb_role": "none",
             "card_density": "compact",
