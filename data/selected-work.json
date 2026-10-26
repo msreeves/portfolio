@@ -161,7 +161,7 @@
             "lane": "programme",
             "title": "F1 Championship Manager",
             "stack": "Python · FastAPI · SQLite · PS2 TV spectator bridge",
-            "home_summary": "Bridges PS2 TV spectator races with a persistent championship — lock in finish order on the web dashboard, standings update immediately.",
+            "home_summary": "Bridges PS2 TV spectator races with a persistent championship — interactive dashboard on your Mac (npm run f1cm:launch); portfolio hosts a read-only UI preview.",
             "index_thumb": "none",
             "bullets": [
                 {"icon": "fas fa-tv", "text": "Built around PAL F1 spectator mode — the game supplies the show, the dashboard supplies the season"},
@@ -170,7 +170,9 @@
             ],
             "thumb_role": "none",
             "card_density": "compact",
-            "view_url": "./projects/f1-championship-manager/dashboard/",
+            "view_url": "./projects/f1-championship-manager/case-study",
+            "companion_url": "./projects/f1-championship-manager/dashboard/",
+            "companion_label": "UI preview (read-only)",
             "case_study_url": "./projects/f1-championship-manager/case-study",
             "case_study_label": "Case study",
             "code_url": "https://github.com/msreeves/f1-championship-manager"
