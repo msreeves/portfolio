@@ -1,0 +1,16 @@
+# Extensionless .html for portfolio mini-demos (Apache / Hostinger).
+# Local Herd: scripts/local/herd-workspace-roots.conf (shared /sites/portfolio/projects/).
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  RewriteCond %{ENV:REDIRECT_STATUS} ^$
+  RewriteRule ^([^/]+)/index\.html$ $1/ [R=301,L]
+
+  RewriteCond %{ENV:REDIRECT_STATUS} ^$
+  RewriteRule ^(.+)\.html$ $1 [R=301,L]
+
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME}.html -f
+  RewriteRule ^(.+?)/?$ $1.html [L]
+</IfModule>

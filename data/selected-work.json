@@ -68,7 +68,7 @@
             "index_thumb": "none",
             "view_url": "./projects/atlas-ops/",
             "code_url": "https://github.com/msreeves/atlas-ops",
-            "case_study_url": "./projects/atlas-ops/case-study.html"
+            "case_study_url": "./projects/atlas-ops/case-study"
         },
         "msr-events-hub": {
             "featured": false,
@@ -159,7 +159,6 @@
         "f1-championship-manager": {
             "featured": false,
             "lane": "programme",
-            "badge": "Programme demo",
             "title": "F1 Championship Manager",
             "stack": "Python · FastAPI · SQLite · PS2 TV spectator bridge",
             "home_summary": "Bridges PS2 TV spectator races with a persistent championship — stage results, preview points, approve to standings.",
@@ -173,7 +172,8 @@
             "card_density": "compact",
             "view_url": "http://127.0.0.1:8787/",
             "case_study_url": "./projects/f1-championship-manager/case-study",
-            "case_study_label": "Case study"
+            "case_study_label": "Case study",
+            "code_url": "https://github.com/msreeves/f1-championship-manager"
         }
     }
 }

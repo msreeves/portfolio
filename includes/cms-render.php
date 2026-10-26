@@ -355,7 +355,10 @@ function cms_render_portfolio_lane_badges(?string $lane, string $extraBadge = ''
         }
     }
     if ($extraBadge !== '') {
-        echo '<span class="msr-programme-card-badge-pill">' . esc($extraBadge) . '</span>';
+        $laneLabel = $lane !== '' ? cms_portfolio_lane_badge_label($lane) : '';
+        if ($laneLabel === '' || $extraBadge !== $laneLabel) {
+            echo '<span class="msr-programme-card-badge-pill">' . esc($extraBadge) . '</span>';
+        }
     }
     echo '</p>';
 }
