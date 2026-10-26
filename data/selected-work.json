@@ -4,7 +4,7 @@
     "bands": {
         "lead": [],
         "currentFocus": ["perception"],
-        "programme": ["msr-products", "atlas-ops", "msr-events-hub", "msr-awards", "msr-seminars", "atlas-briefing"]
+        "programme": ["msr-products", "atlas-ops", "msr-events-hub", "msr-awards", "msr-seminars", "atlas-briefing", "f1-championship-manager"]
     },
     "cards": {
         "atlas-briefing": {
@@ -155,6 +155,23 @@
             "case_study_label": "Case study",
             "companion_url": "./projects/product-companion/",
             "companion_label": "Product Companion demo"
+        },
+        "f1-championship-manager": {
+            "featured": false,
+            "lane": "programme",
+            "badge": "Local tool",
+            "title": "F1 Championship Manager",
+            "stack": "Python · FastAPI · SQLite · PCSX2 spectator workflow",
+            "home_summary": "Local championship dashboard for PAL Formula One 2001–2006 — stage race results, preview points, approve to standings.",
+            "index_thumb": "none",
+            "bullets": [
+                {"icon": "fas fa-flag-checkered", "text": "Season and Grand Prix pickers with official vs reversed grids"},
+                {"icon": "fas fa-database", "text": "Staged results, preview points, and approve-only writes with DB backups"},
+                {"icon": "fas fa-desktop", "text": "Dashboard on port 8787 — npm run f1cm:launch or login autostart"}
+            ],
+            "thumb_role": "none",
+            "card_density": "compact",
+            "view_url": "http://127.0.0.1:8787/"
         }
     }
 }
