@@ -162,18 +162,16 @@
             "badge": "Local tool",
             "title": "F1 Championship Manager",
             "stack": "Python · FastAPI · SQLite · PCSX2 spectator workflow",
-            "home_summary": "Born from PCSX2 TV spectator mode — run a full PAL championship while you watch, then stage and approve results on a local dashboard.",
+            "home_summary": "Local championship dashboard for PAL Formula One 2001–2006 — stage race results, preview points, approve to standings.",
             "index_thumb": "none",
             "bullets": [
-                {"icon": "fas fa-tv", "text": "Idea from the game TV spectator mode — watch the Grand Prix, then lock in a real season standings"},
-                {"icon": "fas fa-flag-checkered", "text": "2001–2006 seasons with official vs reversed grids and Grand Prix pickers"},
-                {"icon": "fas fa-database", "text": "Staged results, preview points, approve-only writes, and DB backups"}
+                {"icon": "fas fa-flag-checkered", "text": "Season and Grand Prix pickers with official vs reversed grids"},
+                {"icon": "fas fa-database", "text": "Staged results, preview points, and approve-only writes with DB backups"},
+                {"icon": "fas fa-desktop", "text": "Dashboard on port 8787 — npm run f1cm:launch or login autostart"}
             ],
             "thumb_role": "none",
             "card_density": "compact",
-            "view_url": "http://127.0.0.1:8787/",
-            "case_study_url": "./projects/f1-championship-manager/",
-            "case_study_label": "Case study"
+            "view_url": "http://127.0.0.1:8787/"
         }
     }
 }
