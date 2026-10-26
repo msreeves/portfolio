@@ -172,7 +172,7 @@
             "thumb_role": "none",
             "card_density": "compact",
             "view_url": "http://127.0.0.1:8787/",
-            "case_study_url": "./projects/f1-championship-manager/case-study.html",
+            "case_study_url": "./projects/f1-championship-manager/case-study",
             "case_study_label": "Case study"
         }
     }
