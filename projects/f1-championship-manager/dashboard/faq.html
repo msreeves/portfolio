@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FAQ — Formula One Championship</title>
+  <link rel="stylesheet" href="static/app.css?v=1793016676">
+</head>
+<body class="theme-fom" data-portfolio-demo="1">
+  <div class="banner banner-warn" role="status" style="margin:0;border-radius:0;border-left:none;border-right:none;">
+  <strong>Portfolio snapshot</strong> — read-only demo. Forms and lock-in are disabled here.
+  Clone <a href="https://github.com/msreeves/f1-championship-manager">f1-championship-manager</a> and run
+  <code>npm run f1cm:launch</code> on your Mac for a live championship.
+</div>
+  
+  
+  
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="site-header">
+    <div class="site-header__inner">
+      
+      <a class="site-header__brand" href="index.html">
+        <span class="site-header__title">Formula One</span>
+        <span class="site-header__tag">Championship</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="index.html" class="site-nav__link ">Home</a>
+        <a href="championship/2001.html" class="site-nav__link ">Championship</a>
+        <a href="season/2001.html" class="site-nav__link ">Calendar</a>
+        <a href="standings/2001.html" class="site-nav__link ">Standings</a>
+        <a href="faq.html" class="site-nav__link is-active">FAQ</a>
+      </nav>
+      <nav class="site-years" aria-label="Season year">
+        
+        <a href="season/2001.html" class="site-years__link">2001</a>
+        
+        <a href="season/2002.html" class="site-years__link">2002</a>
+        
+        <a href="season/2003.html" class="site-years__link">2003</a>
+        
+        <a href="season/2004.html" class="site-years__link">2004</a>
+        
+        <a href="season/2005.html" class="site-years__link">2005</a>
+        
+        <a href="season/2006.html" class="site-years__link">2006</a>
+        
+      </nav>
+    </div>
+  </header>
+  <main id="main-content">
+    
+    
+<div class="faq-page">
+  <header class="faq-hero">
+    <h2 class="faq-hero__title">Help</h2>
+    <p class="faq-hero__lead">Dashboard guide for race day, plus technical notes for install, data, PCSX2, and CLI. PAL <strong>Formula One 2001–2006</strong> · local only · <strong></strong></p>
+  </header>
+
+  <nav class="faq-toc" aria-label="FAQ sections">
+    <span class="faq-toc__label">Dashboard</span>
+    <a href="#run-a-race">Run a race</a>
+    <a href="#pages">Pages</a>
+    <a href="#rules">Rules &amp; points</a>
+    <a href="#fix-mistakes">Fix mistakes</a>
+    <span class="faq-toc__label">Technical</span>
+    <a href="#install">Install &amp; run</a>
+    <a href="#data">Database &amp; states</a>
+    <a href="#pcsx2">PCSX2 &amp; PINE</a>
+    <a href="#automation">CLI &amp; JSON</a>
+    <a href="#dev">Dev &amp; troubleshooting</a>
+  </nav>
+
+  <div class="faq-main">
+    <p class="faq-part-heading" id="dashboard-help">Dashboard</p>
+
+    <section class="faq-group" id="run-a-race">
+      <h3 class="faq-group__title">Run a race</h3>
+      <ol class="faq-flow">
+        <li>Choose the season year in the header.</li>
+        <li><strong>Championship</strong> → <strong>Enter race result</strong>.</li>
+        <li>Play the round in PCSX2 (menus and spectator setup are manual).</li>
+        <li>Drag drivers into finish order → <strong>Lock in race</strong>.</li>
+        <li>Check <strong>Standings</strong> or continue on <strong>Championship</strong>.</li>
+      </ol>
+      <p class="faq-hint">Optional: on the race page, open <strong>Verify grid in PCSX2</strong> to compare your start order with the reference grid.</p>
+    </section>
+
+    <section class="faq-group" id="pages">
+      <h3 class="faq-group__title">Pages</h3>
+      <dl class="faq-qa">
+        <dt>Home</dt>
+        <dd>Season list and how many races you have finished.</dd>
+        <dt>Championship</dt>
+        <dd>Active round, grid mode, live top-eight standings, PCSX2 connection panel, and <strong>Season controls</strong>.</dd>
+        <dt>Calendar</dt>
+        <dd>Every Grand Prix, date, and whether a result is saved.</dd>
+        <dt>Standings</dt>
+        <dd>Driver and constructor points — switch tabs at the top.</dd>
+      </dl>
+    </section>
+
+    <section class="faq-group" id="rules">
+      <h3 class="faq-group__title">Rules &amp; points</h3>
+      <dl class="faq-qa">
+        <dt>Official vs reversed grid</dt>
+        <dd>Set on <strong>Championship</strong> before you lock in. <strong>Official</strong> matches real qualifying order; <strong>Reversed</strong> matches a reversed start. Pit-lane and non-starters are flagged on the race page.</dd>
+        <dt>Points</dt>
+        <dd><strong>2001–2002:</strong> top six — 10-6-4-3-2-1. <strong>2003–2006:</strong> top eight — 10-8-6-5-4-3-2-1.</dd>
+        <dt>When standings update</dt>
+        <dd>Only after <strong>Lock in race</strong>. Drag order, staged imports, or historical reference grids do not change points until then.</dd>
+        <dt>Driver labels</dt>
+        <dd>Full name plus three-letter code (e.g. MSC). Internal slugs appear in tooltips and automation JSON only.</dd>
+      </dl>
+    </section>
+
+    <section class="faq-group" id="fix-mistakes">
+      <h3 class="faq-group__title">Fix mistakes</h3>
+      <dl class="faq-qa">
+        <dt>Wrong result for one round</dt>
+        <dd><strong>Championship</strong> or the race page → <strong>Season controls</strong> → <strong>Reset race</strong>.</dd>
+        <dt>Start the year over</dt>
+        <dd><strong>Start new championship</strong> — clears all saved results for that year (confirmation required). A DB backup is created first.</dd>
+        <dt>Restore a backup</dt>
+        <dd>Stop the dashboard, copy <code>data/approved/backups/championship-*.db</code> over <code>data/approved/championship.db</code>, restart.</dd>
+      </dl>
+    </section>
+
+    <p class="faq-part-heading" id="technical-help">Technical</p>
+
+    <section class="faq-group" id="install">
+      <h3 class="faq-group__title">Install &amp; run</h3>
+      <dl class="faq-qa">
+        <dt>Workspace (recommended)</dt>
+        <dd>
+          <code>npm run f1cm:install</code> once · <code>npm run f1cm:launch</code> for dashboard + supervisor when capture is enabled ·
+          <code>npm run f1cm:autostart:install</code> for login start ·
+          <code>npm run f1cm:autostart:status</code> to check.
+        </dd>
+        <dt>Project venv</dt>
+        <dd>Python <strong>3.12+</strong>, <code>pip install -e ".[dev]"</code>, then <code>uvicorn f1cm.app.main:app --host  --port 8787</code>.</dd>
+        <dt>Restart after code changes</dt>
+        <dd><code>npm run f1cm -- dashboard restart</code> — reloads Python and templates.</dd>
+        <dt>Default autostart year</dt>
+        <dd><strong>2001</strong> unless you reinstall autostart with <code>F1CM_CHAMPIONSHIP_YEAR=2002</code> (etc.).</dd>
+        <dt>First-time calendar data</dt>
+        <dd>
+          <code>f1cm init-db</code> ·
+          <code>python scripts/build_historical_from_ergast.py</code> (network) ·
+          <code>f1cm import-historical</code>
+        </dd>
+      </dl>
+    </section>
+
+    <section class="faq-group" id="data">
+      <h3 class="faq-group__title">Database &amp; states</h3>
+      <dl class="faq-qa">
+        <dt>Production DB</dt>
+        <dd><code>data/approved/championship.db</code> — your locked-in championship. Backups: <code>data/approved/backups/</code> before approved writes.</dd>
+        <dt>Data states</dt>
+        <dd>
+          <strong>unverified</strong> — imported history (not official grid until approved) ·
+          <strong>staged</strong> — proposed results ·
+          <strong>approved</strong> — committed and counted in standings ·
+          <strong>test</strong> — pytest only.
+        </dd>
+        <dt>Test isolation</dt>
+        <dd>pytest sets <code>F1CM_ENV=test</code> and <code>F1CM_DB_PATH</code> to a temp file so tests cannot open production.</dd>
+        <dt>Ops page (advanced)</dt>
+        <dd><code>/reliability</code> — DB path, backup list, emulator status (not in main nav).</dd>
+        <dt>PAL roster (advanced)</dt>
+        <dd><code>/pal-roster/{year}</code> — verify in-game driver codes against imported IDs for automation.</dd>
+      </dl>
+    </section>
+
+    <section class="faq-group" id="pcsx2">
+      <h3 class="faq-group__title">PCSX2 &amp; PINE</h3>
+      <dl class="faq-qa">
+        <dt>What the UI does today</dt>
+        <dd>Read-only <strong>PINE</strong> identity on Championship — confirms PCSX2 is running and which ISO/disc looks loaded. It does not drive menus or read the classification screen yet.</dd>
+        <dt>CLI checks</dt>
+        <dd>
+          <code>f1cm pcsx2 diagnose --year 2001</code> ·
+          <code>f1cm pcsx2 game-info --year 2001</code> ·
+          <code>f1cm championship status --year 2001</code>
+        </dd>
+        <dt>Supervisor</dt>
+        <dd><code>npm run f1cm:launch</code> / championship supervisor watches the season when emulator capture is enabled in config.</dd>
+        <dt>2004–2006</dt>
+        <dd>Calendars and serial hints are in-repo; verify menus, rosters, and grids on your PCSX2 setup before trusting automation.</dd>
+        <dt>Live integration tests</dt>
+        <dd><code>F1CM_PCSX2_LIVE=1 pytest tests/test_pcsx2_live_integration.py</code> (real emulator required).</dd>
+      </dl>
+    </section>
+
+    <section class="faq-group" id="automation">
+      <h3 class="faq-group__title">CLI &amp; JSON</h3>
+      <dl class="faq-qa">
+        <dt>Everyday path</dt>
+        <dd>Browser <strong>Lock in race</strong> — no separate preview step in the web UI.</dd>
+        <dt>Race results JSON</dt>
+        <dd>
+          <code>{"results": [{"driver_id": "michael_schumacher", "position": 1, "status": "classified"}]}</code>
+          — <code>driver_id</code> slugs match the historical import (shown on the race page).
+        </dd>
+        <dt>Stage / approve</dt>
+        <dd>JSON paste and API staging still supported for automation; approved rows land in the same SQLite DB as the dashboard.</dd>
+        <dt>CLI entry</dt>
+        <dd><code>npm run f1cm -- …</code> or <code>bash scripts/local/f1cm.sh</code> from the MSR workspace root.</dd>
+      </dl>
+    </section>
+
+    <section class="faq-group" id="dev">
+      <h3 class="faq-group__title">Dev &amp; troubleshooting</h3>
+      <dl class="faq-qa">
+        <dt>Wrong Python (e.g. 3.9)</dt>
+        <dd><code>eval "$(bash scripts/local/agent-shell-path.sh)"</code> from workspace root, or use mise/nvm per <code>.nvmrc</code>.</dd>
+        <dt>Empty home season list</dt>
+        <dd>Run historical build + <code>f1cm import-historical</code>.</dd>
+        <dt>Ergast build 429</dt>
+        <dd>Re-run <code>python scripts/build_historical_from_ergast.py</code> (retries with backoff).</dd>
+        <dt>Race form submit fails</dt>
+        <dd>Install deps: <code>pip install -e ".[dev]"</code> (needs <code>python-multipart</code>).</dd>
+        <dt>Tests</dt>
+        <dd><code>pytest</code> in <code>projects/game/formula-one</code>. Optional: <code>F1CM_PLAYWRIGHT=1 pytest tests/test_browser.py</code> after <code>playwright install chromium</code>.</dd>
+      </dl>
+    </section>
+
+    <p class="faq-legal">Unofficial fan tool — not affiliated with Formula One Group, Sony, Studio Liverpool, or PCSX2. Use your own legally obtained game images.</p>
+  </div>
+</div>
+
+  </main>
+  <footer class="site-footer">
+    <p>Unofficial fan tool for classic Formula One seasons (2001–2006). Not affiliated with Formula One Group.</p>
+    <p class="site-footer__meta"><a href="faq.html">FAQ</a></p>
+  </footer>
+  <div id="app-confirm" class="confirm-modal" hidden aria-hidden="true">
+    <div class="confirm-modal__backdrop" data-confirm-cancel tabindex="-1"></div>
+    <div class="confirm-modal__panel" role="dialog" aria-modal="true" aria-labelledby="confirm-modal-title">
+      <h3 id="confirm-modal-title" class="confirm-modal__title"></h3>
+      <p id="confirm-modal-body" class="confirm-modal__body muted"></p>
+      <div class="confirm-modal__actions">
+        <button type="button" class="btn btn--ghost" data-confirm-cancel>Cancel</button>
+        <button type="button" class="btn btn--lock-in" id="confirm-modal-submit">Confirm</button>
+      </div>
+    </div>
+  </div>
+  <script src="static/confirm-modal.js?v=1793016676" defer></script>
+  
+</body>
+</html>

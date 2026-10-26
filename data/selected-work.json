@@ -170,7 +170,7 @@
             ],
             "thumb_role": "none",
             "card_density": "compact",
-            "view_url": "./projects/f1-championship-manager/case-study",
+            "view_url": "./projects/f1-championship-manager/dashboard/",
             "case_study_url": "./projects/f1-championship-manager/case-study",
             "case_study_label": "Case study",
             "code_url": "https://github.com/msreeves/f1-championship-manager"
