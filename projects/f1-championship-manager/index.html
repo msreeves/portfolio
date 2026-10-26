@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="F1 Championship Manager — local dashboard born from PCSX2 TV spectator mode: run a PAL Formula One championship and approve race results." />
+  <title>F1 Championship Manager — case study · Michael Reeves</title>
+  <link rel="stylesheet" href="../../vendor/fonts/kodchasan/kodchasan.css" />
+  <link rel="stylesheet" href="../../vendor/bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="../../vendor/fontawesome/css/all.min.css" />
+  <link rel="stylesheet" href="../../vendor/fontawesome/css/v4-shims.min.css" />
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../../css/responsive.css" />
+  <link rel="stylesheet" href="../perception/case-study.css" />
+</head>
+<body class="msr-portfolio perception-case-page">
+  <a class="visually-hidden-focusable" href="#f1cm-content">Skip to content</a>
+
+  <header class="perception-case-top">
+    <div class="portfolio-shell container perception-case-top__inner">
+      <a class="portfolio-chip portfolio-chip--secondary perception-case-top__back" href="../../#recent-portfolio">
+        <i class="fas fa-arrow-left" aria-hidden="true"></i>
+        <span>Selected work</span>
+      </a>
+      <p class="perception-case-top__brand">Michael Reeves · Portfolio</p>
+    </div>
+  </header>
+
+  <main id="f1cm-content" class="perception-case portfolio-flow">
+    <div class="portfolio-shell container perception-studio__spine">
+      <header class="perception-case__hero">
+        <div class="perception-case__hero-copy">
+          <p class="perception-case__badge-wrap"><span class="perception-case__badge">Programme demo</span></p>
+          <h1 class="perception-case__title">F1 Championship Manager</h1>
+          <p class="perception-case__outcome">
+            A local championship dashboard for Sony PAL <strong>Formula One 2001–2006</strong> in PCSX2 — stage results, preview points, and approve only when you are happy with the classification.
+          </p>
+          <p class="perception-case__role">
+            <strong>Try it:</strong> open the dashboard on your machine (port <strong>8787</strong>) when the tool is running — <code>npm run f1cm:launch</code> from the workspace, or login autostart after install.
+          </p>
+          <p class="perception-case__actions perception-case__actions--hero">
+            <a class="portfolio-chip portfolio-chip--primary" href="http://127.0.0.1:8787/"><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i><span>Open dashboard</span></a>
+            <a class="portfolio-chip portfolio-chip--secondary" href="../../#recent-portfolio"><i class="fas fa-th-large" aria-hidden="true"></i><span>Back to selected work</span></a>
+          </p>
+        </div>
+      </header>
+
+      <section class="perception-studio__chapter" aria-labelledby="origin-heading">
+        <h2 id="origin-heading" class="perception-studio__chapter-title">Where the idea came from</h2>
+        <p class="perception-studio__prose">
+          I play the classic Studio Liverpool PAL titles in PCSX2 and watch races in the game&apos;s <strong>TV spectator mode</strong> instead of driving every lap.
+          That mode is great for watching a Grand Prix unfold — but I still wanted a real <strong>championship</strong>: calendars, grids, points, and standings that carry from round to round.
+        </p>
+        <p class="perception-studio__prose">
+          The tool grew from that gap: spectator mode supplies the entertainment; the dashboard supplies the season — pick the year and event, note who finished where after you have watched the race, preview the points impact, then approve so only committed results change the table.
+        </p>
+      </section>
+
+      <section class="perception-studio__chapter" aria-labelledby="implementation-heading">
+        <h2 id="implementation-heading" class="perception-studio__chapter-title">What it does</h2>
+        <ul class="perception-studio__constraints">
+          <li>Python <strong>FastAPI</strong> UI on <code>http://127.0.0.1:8787/</code> with SQLite for approved championship data.</li>
+          <li>2001–2006 seasons — official vs reversed grids, staging workflow, and backups before approved writes.</li>
+          <li>Optional PCSX2 / PINE hooks for identity checks; race classification stays manual lock-in on purpose.</li>
+        </ul>
+      </section>
+
+      <section class="perception-studio__chapter" aria-labelledby="verification-heading">
+        <h2 id="verification-heading" class="perception-studio__chapter-title">Lane label</h2>
+        <p class="perception-studio__prose">
+          Listed under <span class="msr-lane-badge msr-lane-badge--programme">Programme demo</span> on the portfolio — a personal local tool, not a client site.
+          The dashboard must be running locally for the demo link to respond.
+        </p>
+      </section>
+
+      <p class="perception-case__actions">
+        <a class="portfolio-chip portfolio-chip--primary" href="http://127.0.0.1:8787/"><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i><span>Open dashboard</span></a>
+        <a class="portfolio-chip portfolio-chip--secondary" href="../../#recent-portfolio"><i class="fas fa-th-large" aria-hidden="true"></i><span>Back to selected work</span></a>
+      </p>
+    </div>
+  </main>
+</body>
+</html>
