@@ -30,7 +30,7 @@ Shipped demos are **apps with a real page** on Herd: `http://127.0.0.1/sites/por
 | `"makingCatalog": true` | Card on `http://127.0.0.1:4088/` → **View** opens this shipped demo (local Herd URL) |
 | omitted or `false` | Demo stays on portfolio / case study only (default) |
 
-Requirements: `active: true`, built `projects/<slug>/index.html`. After changing flags: `npm run projects:catalog` from repo root.
+Requirements: `active: true`, built `projects/<slug>/index.html`. After changing flags: `npm run making-catalog:catalog` from repo root.
 
 **Do not** put `:4088` / `:4090` / `:4000` links in shipped demo HTML or card copy — gate `npm run estate:live-ship:check`.
 
